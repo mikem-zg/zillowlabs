@@ -1,0 +1,51 @@
+[
+  {
+    "name": "psalm-configuration-analysis",
+    "description": "Test ability to analyze Psalm configuration and provide health assessment",
+    "query": "Analyze the backend static analysis health of this codebase using Psalm",
+    "expected_behavior": [
+      "Finds and analyzes psalm.xml configuration files",
+      "Identifies error level and PHP version settings",
+      "Analyzes baseline file if present",
+      "Reports on suppression patterns",
+      "Provides concrete recommendations for improvement",
+      "Generates health score or status assessment"
+    ]
+  },
+  {
+    "name": "error-pattern-identification",
+    "description": "Test ability to categorize and prioritize Psalm error types",
+    "query": "What are the most critical static analysis issues in this codebase that need immediate attention?",
+    "expected_behavior": [
+      "Categorizes errors by severity (Critical/Medium/Low)",
+      "Identifies specific error types (MissingReturnType, etc.)",
+      "Prioritizes based on impact and fix effort",
+      "Provides specific examples or locations",
+      "Suggests concrete remediation steps"
+    ]
+  },
+  {
+    "name": "ci-integration-check",
+    "description": "Test ability to verify CI/CD pipeline integration",
+    "query": "Check if Psalm is properly integrated into the CI/CD pipeline",
+    "expected_behavior": [
+      "Looks for CI configuration files",
+      "Identifies Psalm job configuration",
+      "Reports on blocking/non-blocking status",
+      "Checks branch coverage requirements",
+      "Recommends improvements to CI integration"
+    ]
+  },
+  {
+    "name": "baseline-analysis",
+    "description": "Test baseline file analysis and reduction recommendations",
+    "query": "Analyze the Psalm baseline and provide a strategy for reducing technical debt",
+    "expected_behavior": [
+      "Finds and analyzes psalm-baseline.xml",
+      "Counts total baseline entries",
+      "Categorizes error types in baseline",
+      "Identifies low-hanging fruit for quick fixes",
+      "Provides concrete reduction strategy with effort estimates"
+    ]
+  }
+]
