@@ -1,0 +1,11 @@
+{
+  "skills": ["diagramming"],
+  "query": "Create a flowchart showing a user authentication process with login, password validation, 2FA, and success/failure paths",
+  "expected_behavior": [
+    "Asks for clarification on diagram tool preference (Mermaid vs Graphviz) if not specified",
+    "Creates a clear flowchart with decision points and process flow",
+    "Uses proper syntax for the chosen diagramming tool",
+    "Includes all specified elements: login, validation, 2FA, success/failure paths",
+    "Provides both the diagram source code and rendering instructions"
+  ]
+}

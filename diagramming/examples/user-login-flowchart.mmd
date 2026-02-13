@@ -1,0 +1,49 @@
+flowchart TD
+    Start([User Accesses Login Page]) --> EmailInput[User Enters Email]
+    EmailInput --> EmailValidation{Valid Email Format?}
+
+    EmailValidation -->|No| EmailError[Display Email Format Error]
+    EmailError --> EmailInput
+
+    EmailValidation -->|Yes| PasswordInput[User Enters Password]
+    PasswordInput --> SubmitForm[User Clicks Login]
+
+    SubmitForm --> ServerValidation[Send Credentials to Server]
+    ServerValidation --> UserExists{User Account Exists?}
+
+    UserExists -->|No| UserNotFound[Display: User Not Found]
+    UserNotFound --> EmailInput
+
+    UserExists -->|Yes| PasswordCheck{Password Correct?}
+
+    PasswordCheck -->|No| InvalidPassword[Display: Invalid Password]
+    InvalidPassword --> AttemptCheck{Max Attempts Reached?}
+
+    AttemptCheck -->|Yes| AccountLocked[Lock Account & Display Warning]
+    AccountLocked --> End([Login Process End])
+
+    AttemptCheck -->|No| PasswordInput
+
+    PasswordCheck -->|Yes| EmailVerified{Email Verified?}
+
+    EmailVerified -->|No| SendVerification[Send Verification Email]
+    SendVerification --> VerificationPrompt[Display: Check Email for Verification]
+    VerificationPrompt --> End
+
+    EmailVerified -->|Yes| GenerateSession[Generate Session Token]
+    GenerateSession --> LoginSuccess[Login Successful]
+    LoginSuccess --> RedirectDashboard[Redirect to Dashboard]
+    RedirectDashboard --> End
+
+    %% Styling for different node types
+    classDef startEnd fill:#e1f5fe,stroke:#0277bd,stroke-width:2px,color:#000
+    classDef process fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#000
+    classDef decision fill:#fff3e0,stroke:#ef6c00,stroke-width:2px,color:#000
+    classDef error fill:#ffebee,stroke:#c62828,stroke-width:2px,color:#000
+    classDef success fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px,color:#000
+
+    class Start,End startEnd
+    class EmailInput,PasswordInput,SubmitForm,ServerValidation,SendVerification,GenerateSession,RedirectDashboard process
+    class EmailValidation,UserExists,PasswordCheck,AttemptCheck,EmailVerified decision
+    class EmailError,UserNotFound,InvalidPassword,AccountLocked,VerificationPrompt error
+    class LoginSuccess success

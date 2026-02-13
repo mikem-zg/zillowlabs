@@ -1,0 +1,131 @@
+erDiagram
+    USER {
+        int id PK
+        string username UK
+        string email UK
+        string password_hash
+        string first_name
+        string last_name
+        datetime created_at
+        datetime updated_at
+        boolean is_active
+        string role
+    }
+
+    PROFILE {
+        int id PK
+        int user_id FK
+        string bio
+        string avatar_url
+        string phone
+        string address
+        string city
+        string country
+        date birth_date
+    }
+
+    CATEGORY {
+        int id PK
+        string name UK
+        string slug UK
+        text description
+        string image_url
+        boolean is_active
+        datetime created_at
+    }
+
+    PRODUCT {
+        int id PK
+        int category_id FK
+        int created_by FK
+        string name
+        string slug UK
+        text description
+        decimal price
+        int inventory_count
+        string sku UK
+        text specifications
+        boolean is_active
+        datetime created_at
+        datetime updated_at
+    }
+
+    ORDER {
+        int id PK
+        int user_id FK
+        string order_number UK
+        decimal subtotal
+        decimal tax_amount
+        decimal shipping_cost
+        decimal total_amount
+        string status
+        text notes
+        datetime order_date
+        datetime shipped_date
+        datetime delivered_date
+    }
+
+    ORDER_ITEM {
+        int id PK
+        int order_id FK
+        int product_id FK
+        int quantity
+        decimal unit_price
+        decimal total_price
+    }
+
+    PAYMENT {
+        int id PK
+        int order_id FK
+        string payment_method
+        string transaction_id UK
+        decimal amount
+        string currency
+        string status
+        text gateway_response
+        datetime created_at
+    }
+
+    REVIEW {
+        int id PK
+        int product_id FK
+        int user_id FK
+        int rating
+        text comment
+        boolean is_verified
+        datetime created_at
+    }
+
+    CART {
+        int id PK
+        int user_id FK
+        int product_id FK
+        int quantity
+        datetime created_at
+        datetime updated_at
+    }
+
+    WISHLIST {
+        int id PK
+        int user_id FK
+        int product_id FK
+        datetime created_at
+    }
+
+    %% Relationships
+    USER ||--o{ PROFILE : has
+    USER ||--o{ PRODUCT : creates
+    USER ||--o{ ORDER : places
+    USER ||--o{ REVIEW : writes
+    USER ||--o{ CART : maintains
+    USER ||--o{ WISHLIST : has
+
+    CATEGORY ||--o{ PRODUCT : contains
+
+    PRODUCT ||--o{ ORDER_ITEM : "ordered in"
+    PRODUCT ||--o{ REVIEW : "reviewed in"
+    PRODUCT ||--o{ CART : "added to"
+    PRODUCT ||--o{ WISHLIST : "wished for"
+
+    ORDER ||--|{ ORDER_ITEM : contains
+    ORDER ||--o{ PAYMENT : "paid with"

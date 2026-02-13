@@ -1,0 +1,59 @@
+sequenceDiagram
+    participant Client
+    participant Gateway as API Gateway
+    participant Auth as Auth Service
+    participant UserDB as User Database
+    participant Cache as Redis Cache
+
+    Note over Client,Cache: User Authentication Flow
+
+    Client->>Gateway: POST /auth/login
+    activate Gateway
+
+    Gateway->>Auth: Validate credentials
+    activate Auth
+
+    Auth->>UserDB: Query user by email
+    activate UserDB
+    UserDB-->>Auth: User data
+    deactivate UserDB
+
+    Alt Valid credentials
+        Auth->>Auth: Generate JWT token
+        Auth->>Cache: Store session (TTL: 24h)
+        activate Cache
+        Cache-->>Auth: OK
+        deactivate Cache
+        Auth-->>Gateway: {token, user}
+        Gateway-->>Client: 200 OK {token, user}
+    else Invalid credentials
+        Auth-->>Gateway: 401 Unauthorized
+        Gateway-->>Client: 401 Unauthorized
+    end
+
+    deactivate Auth
+    deactivate Gateway
+
+    Note over Client,Cache: Authenticated API Request
+
+    Client->>Gateway: GET /api/profile (with JWT)
+    activate Gateway
+
+    Gateway->>Auth: Validate JWT token
+    activate Auth
+
+    Auth->>Cache: Check session exists
+    activate Cache
+    Cache-->>Auth: Session valid
+    deactivate Cache
+
+    Auth-->>Gateway: Token valid, user_id: 123
+    deactivate Auth
+
+    Gateway->>UserDB: GET user profile (id: 123)
+    activate UserDB
+    UserDB-->>Gateway: User profile data
+    deactivate UserDB
+
+    Gateway-->>Client: 200 OK {profile}
+    deactivate Gateway

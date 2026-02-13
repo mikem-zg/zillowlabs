@@ -1,0 +1,105 @@
+digraph microservices {
+    rankdir=LR;
+    compound=true;
+    bgcolor=white;
+
+    // Node styling
+    node [shape=box, style="rounded,filled", fillcolor=lightblue, fontname="Arial"];
+    edge [fontname="Arial", color=darkblue];
+
+    // External actors
+    users [label="Users", shape=ellipse, fillcolor=lightgreen];
+    admin [label="Admin\nPanel", shape=ellipse, fillcolor=lightgreen];
+
+    // Frontend layer
+    subgraph cluster_frontend {
+        label="Frontend Layer";
+        style=filled;
+        color=lightgrey;
+        fontname="Arial Bold";
+
+        webapp [label="Web App\n(React)"];
+        mobile [label="Mobile App\n(React Native)"];
+    }
+
+    // API Gateway
+    gateway [label="API Gateway\n(Kong/AWS)", fillcolor=orange];
+
+    // Microservices
+    subgraph cluster_services {
+        label="Microservices";
+        style=filled;
+        color=lightcyan;
+        fontname="Arial Bold";
+
+        auth [label="Auth Service\n(JWT)"];
+        user [label="User Service"];
+        order [label="Order Service"];
+        payment [label="Payment Service"];
+        inventory [label="Inventory Service"];
+        notification [label="Notification\nService"];
+    }
+
+    // Data layer
+    subgraph cluster_data {
+        label="Data Layer";
+        style=filled;
+        color=lightyellow;
+        fontname="Arial Bold";
+
+        userdb [label="User DB\n(PostgreSQL)", shape=cylinder];
+        orderdb [label="Order DB\n(PostgreSQL)", shape=cylinder];
+        inventorydb [label="Inventory DB\n(MongoDB)", shape=cylinder];
+        cache [label="Redis Cache", shape=cylinder];
+    }
+
+    // Message queue
+    queue [label="Message Queue\n(RabbitMQ)", shape=diamond, fillcolor=pink];
+
+    // External services
+    subgraph cluster_external {
+        label="External Services";
+        style=filled;
+        color=mistyrose;
+        fontname="Arial Bold";
+
+        stripe [label="Stripe API"];
+        email [label="SendGrid"];
+        analytics [label="Analytics\n(DataDog)"];
+    }
+
+    // Connections
+    users -> webapp;
+    users -> mobile;
+    admin -> webapp;
+
+    webapp -> gateway;
+    mobile -> gateway;
+
+    gateway -> auth;
+    gateway -> user;
+    gateway -> order;
+    gateway -> payment;
+    gateway -> inventory;
+
+    // Service to service communication
+    order -> user [style=dashed, label="validate"];
+    order -> inventory [style=dashed, label="check stock"];
+    order -> payment [style=dashed, label="process"];
+    payment -> stripe;
+
+    // Database connections
+    auth -> userdb;
+    user -> userdb;
+    user -> cache;
+    order -> orderdb;
+    inventory -> inventorydb;
+
+    // Async messaging
+    order -> queue [style=dotted, label="order created"];
+    queue -> notification [style=dotted];
+    notification -> email;
+
+    // Monitoring
+    {auth, user, order, payment, inventory, notification} -> analytics [style=dashed, color=red, label="metrics"];
+}

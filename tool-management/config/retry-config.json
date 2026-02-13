@@ -1,0 +1,78 @@
+{
+  "user_requirements": {
+    "description": "Intelligent retry protocol with user-specific behaviors",
+    "ssh_key_errors": {
+      "behavior": "immediate_prompt",
+      "max_attempts": 1,
+      "escalation": "manual_guidance",
+      "pattern": "permission denied \\(publickey\\)|ssh.*key.*not.*found|agent has no identities|public key.*denied",
+      "handler": "handle_ssh_key_immediate_prompt"
+    },
+    "network_timeouts": {
+      "behavior": "fixed_30s_wait",
+      "max_attempts": 2,
+      "user_notification": true,
+      "wait_time_seconds": 30,
+      "pattern": "connection timed out|network unreachable|timeout.*exceeded|read timeout|connection reset",
+      "handler": "handle_network_timeout_30s"
+    },
+    "general_failures": {
+      "max_attempts": 2,
+      "escalation_with_alternatives": true,
+      "no_silent_retries": true,
+      "transparent_communication": true
+    }
+  },
+  "integration_points": {
+    "session_complexity": {
+      "enabled": true,
+      "track_retry_attempts": true,
+      "complexity_penalty": 2,
+      "skill_integration": "/session-management --operation=track-operation"
+    },
+    "tool_validation": {
+      "enabled": true,
+      "retry_aware_validation": true,
+      "fallback_to_standard": true
+    },
+    "mcp_resilience": {
+      "enabled": true,
+      "smart_retry_dispatcher": true,
+      "compatibility_bridge": true
+    }
+  },
+  "error_escalation": {
+    "ssh_key_alternatives": [
+      "Check SSH agent status: ssh-add -l",
+      "Switch to HTTPS authentication: git remote set-url origin https://...",
+      "Use personal access token for authentication",
+      "Check SSH key permissions: ls -la ~/.ssh/",
+      "Test SSH connection: ssh -T git@github.com"
+    ],
+    "network_alternatives": [
+      "Check internet connectivity: ping google.com",
+      "Try different network connection or VPN",
+      "Use offline/cached resources if available",
+      "Check firewall and proxy settings",
+      "Try alternative endpoints or mirrors"
+    ],
+    "mcp_alternatives": [
+      "Use CLI equivalent tools (glab, acli, etc.)",
+      "Try browser-based operations",
+      "Check MCP server status in Claude settings",
+      "Restart MCP servers if possible"
+    ]
+  },
+  "monitoring": {
+    "retry_metrics_file": "~/.claude/retry-metrics.log",
+    "session_integration": true,
+    "performance_tracking": true,
+    "success_rate_analysis": true
+  },
+  "compatibility": {
+    "bash_version_support": "3.2+",
+    "associative_array_fallback": true,
+    "enhanced_error_recovery_integration": true,
+    "backward_compatibility": true
+  }
+}

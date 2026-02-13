@@ -1,0 +1,11 @@
+{
+  "skills": ["diagramming"],
+  "query": "Create a sequence diagram showing API interaction between client, authentication service, and user database for a login request",
+  "expected_behavior": [
+    "Uses Mermaid sequenceDiagram syntax (most appropriate for sequence diagrams)",
+    "Shows proper message flow between participants in chronological order",
+    "Includes activation boxes and return messages",
+    "Labels all interactions clearly with meaningful names",
+    "Handles success and error scenarios in the sequence"
+  ]
+}

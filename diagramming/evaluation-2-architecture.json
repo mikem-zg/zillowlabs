@@ -1,0 +1,11 @@
+{
+  "skills": ["diagramming"],
+  "query": "Draw a system architecture diagram for a microservices application with API gateway, user service, order service, database, and message queue",
+  "expected_behavior": [
+    "Creates a clear architecture diagram showing component relationships",
+    "Shows data flow and communication paths between services",
+    "Uses appropriate diagram tool (Mermaid or Graphviz) based on complexity",
+    "Labels components clearly with their roles",
+    "Provides rendering instructions and export options"
+  ]
+}

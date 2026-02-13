@@ -1,0 +1,41 @@
+{
+  "evaluations": [
+    {
+      "id": "markdown-lint-and-fix",
+      "skills": ["markdown-management"],
+      "query": "Check this README file for linting issues and fix them",
+      "files": ["test-files/broken-readme.md"],
+      "expected_behavior": [
+        "Identifies markdownlint violations (missing headers, inconsistent list formatting, etc.)",
+        "Provides specific line numbers and rule violations",
+        "Offers to fix issues automatically or provides clear guidance",
+        "Validates the corrected file passes linting"
+      ]
+    },
+    {
+      "id": "code-block-validation",
+      "skills": ["markdown-management"],
+      "query": "Validate the code samples in this documentation and fix any syntax errors",
+      "files": ["test-files/api-docs.md"],
+      "expected_behavior": [
+        "Parses fenced code blocks and identifies the specified language",
+        "Validates syntax using appropriate language parser (JavaScript, Python, etc.)",
+        "Reports syntax errors with line numbers within code blocks",
+        "Suggests corrections for invalid code samples"
+      ]
+    },
+    {
+      "id": "link-validation-and-table-format",
+      "skills": ["markdown-management"],
+      "query": "Check all links in this document and fix the table formatting",
+      "files": ["test-files/user-guide.md"],
+      "expected_behavior": [
+        "Validates all internal and external links are accessible",
+        "Reports broken links with specific URLs and error types",
+        "Identifies malformed tables and alignment issues",
+        "Fixes table formatting to be properly aligned and structured",
+        "Ensures CommonMark compliance while maintaining readability"
+      ]
+    }
+  ]
+}
