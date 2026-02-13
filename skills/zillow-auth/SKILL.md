@@ -131,6 +131,31 @@ useEffect(() => {
 }, []);
 ```
 
+## 8. Validation Checklists
+
+### Final Validation
+
+- [ ] SDK loads first (no `async`/`defer`)
+- [ ] Frontend uses only SDK methods (`isAuthenticated`, `getZUID`, `login`, `logout`)
+- [ ] Listeners for `zillowauth:session-changed` (+ optional `session-expiring`)
+- [ ] `credentials: 'include'` on all client API calls
+- [ ] Server validates via `GET /api/broker/session`
+- [ ] Centralized auth middleware populates `req.auth`
+- [ ] Responses include `isOwner` (and `zuid` only when owner)
+- [ ] No ZUID caching anywhere
+
+### Security Checklist (MUST COMPLY)
+
+- [ ] Zero client auth headers (never `x-zillow-zuid`, `x-dev-auth`, etc.)
+- [ ] Server validates all sessions via broker
+- [ ] Frontend never makes authorization decisions
+- [ ] ZUID never cached separately
+- [ ] Domain/Origin checks pass
+- [ ] CSRF protection for cookie-backed APIs
+- [ ] CORS with explicit origin + `credentials: true`
+
+---
+
 ## Detailed Reference
 
 - **Full integration guide**: See [references/integration-guide.md](references/integration-guide.md)
