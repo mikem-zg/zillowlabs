@@ -131,7 +131,7 @@ useEffect(() => {
 }, []);
 ```
 
-## 8. Validation Checklists
+## Validation Checklists
 
 ### Final Validation
 
