@@ -1,67 +1,383 @@
 {
-  "lastUpdated": "2026-02-13T00:00:00.000Z",
+  "lastUpdated": "2026-02-13T22:09:19.349Z",
   "skills": {
-    "accessibility": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "agent-research": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "backend-static-analysis": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "backend-test-development": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "claude-code-history": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "code-development": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "confluence-management": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "constellation-dark-mode": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "constellation-design-system": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "constellation-icons": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "constellation-illustrations": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "csv-management": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "database-operations": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "databricks-analytics": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "datadog-management": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "design-handoff": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "development-investigation": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "development-workflow": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "diagramming": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "documentation-retrieval": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "dotloop-development": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "e2e-test-development": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "email-parser-development": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "followupboss-development": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "frontend-test-development": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "fub-integrations": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "gitlab-collaboration": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "gitlab-mr-management": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "gitlab-mr-search": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "gitlab-pipeline-monitoring": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "google-calendar-management": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "google-maps": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "google-slides-generator": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "information-architecture": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "jira-management": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "json-management": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "llm-council": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "markdown-management": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "mcp-builder": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "mcp-server-management": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "mutagen-management": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "pdf-processing": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "planning-workflow": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "property-card-data": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "remote-connectivity-management": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "responsive-design": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "scientific-method-framework": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "serena-mcp": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "session-management": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "skill-creator": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "skill-development": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "slack-integration": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "support-investigation": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "text-manipulation": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "tool-management": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "transition-to-constellation": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "transition-to-constellation-from-scratch": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "xml-management": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "yaml-management": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "zillow-oauth-diagnosis": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "zillow-production-troubleshooting": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" },
-    "zillow-srp": { "version": 1, "updatedAt": "2026-02-13T00:00:00.000Z" }
+    "accessibility": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "dbd4e1d262a0",
+      "fileCount": 6
+    },
+    "agent-research": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "4ce65c42f1be",
+      "fileCount": 6
+    },
+    "backend-static-analysis": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "b951d89fa5a7",
+      "fileCount": 11
+    },
+    "backend-test-development": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "2a55cda2db6c",
+      "fileCount": 4
+    },
+    "claude-code-history": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "fce9379e77f1",
+      "fileCount": 6
+    },
+    "code-development": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "98ccba92309a",
+      "fileCount": 5
+    },
+    "confluence-management": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "e0193590baf8",
+      "fileCount": 7
+    },
+    "constellation-dark-mode": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "f60fb27d9b15",
+      "fileCount": 5
+    },
+    "constellation-design-system": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "1ba17712c7e5",
+      "fileCount": 110
+    },
+    "constellation-icons": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "ede0b9a2a133",
+      "fileCount": 4
+    },
+    "constellation-illustrations": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "c37dacfee33d",
+      "fileCount": 3
+    },
+    "csv-management": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "a1b396b6f520",
+      "fileCount": 4
+    },
+    "database-operations": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "5fb91c9a6248",
+      "fileCount": 8
+    },
+    "databricks-analytics": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "d90033b30218",
+      "fileCount": 5
+    },
+    "datadog-management": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "d589e9409c88",
+      "fileCount": 8
+    },
+    "design-handoff": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "31b8c108d30d",
+      "fileCount": 10
+    },
+    "development-investigation": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "053f1152fd6a",
+      "fileCount": 6
+    },
+    "development-workflow": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "1b64a543a1a8",
+      "fileCount": 5
+    },
+    "diagramming": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "4f8c58bd8859",
+      "fileCount": 14
+    },
+    "documentation-retrieval": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "ba4468bf1bc6",
+      "fileCount": 5
+    },
+    "dotloop-development": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "06e9d9d2086e",
+      "fileCount": 7
+    },
+    "e2e-test-development": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "cf4010afeb2e",
+      "fileCount": 5
+    },
+    "email-parser-development": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "0604c55d1a0f",
+      "fileCount": 5
+    },
+    "followupboss-development": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "de034b8fd805",
+      "fileCount": 8
+    },
+    "frontend-test-development": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "cca73cf41013",
+      "fileCount": 1
+    },
+    "fub-integrations": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "a923ff710b64",
+      "fileCount": 14
+    },
+    "gitlab-collaboration": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "35b7aa7d0157",
+      "fileCount": 1
+    },
+    "gitlab-mr-management": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "f86b6c6fdcec",
+      "fileCount": 1
+    },
+    "gitlab-mr-search": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "4a971deeacc5",
+      "fileCount": 5
+    },
+    "gitlab-pipeline-monitoring": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "5ea51882f148",
+      "fileCount": 6
+    },
+    "google-calendar-management": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "0ffff53920ae",
+      "fileCount": 5
+    },
+    "google-maps": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "0883ef459441",
+      "fileCount": 4
+    },
+    "google-slides-generator": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "c61b1d2a96c3",
+      "fileCount": 5
+    },
+    "information-architecture": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "24f4eeea76fd",
+      "fileCount": 7
+    },
+    "jira-management": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "e371e0252c06",
+      "fileCount": 5
+    },
+    "json-management": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "981046e47feb",
+      "fileCount": 9
+    },
+    "llm-council": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "9da0c98c9904",
+      "fileCount": 5
+    },
+    "markdown-management": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "b96a7d1c05bd",
+      "fileCount": 12
+    },
+    "mcp-builder": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "11d19959b75f",
+      "fileCount": 8
+    },
+    "mcp-server-management": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "c16a8d7631e3",
+      "fileCount": 11
+    },
+    "mutagen-management": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "cf9e28cd0078",
+      "fileCount": 6
+    },
+    "pdf-processing": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "e5f2a743cfb1",
+      "fileCount": 5
+    },
+    "planning-workflow": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "773b18604791",
+      "fileCount": 5
+    },
+    "property-card-data": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "a40bc834e487",
+      "fileCount": 4
+    },
+    "remote-connectivity-management": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "77dbba0c86d1",
+      "fileCount": 8
+    },
+    "responsive-design": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "30fa8e1d7b07",
+      "fileCount": 5
+    },
+    "scientific-method-framework": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "2f09de292e4d",
+      "fileCount": 18
+    },
+    "serena-mcp": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "6bf0923cadb7",
+      "fileCount": 5
+    },
+    "session-management": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "b27ab663f849",
+      "fileCount": 4
+    },
+    "skill-creator": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "48f65d7106d8",
+      "fileCount": 6
+    },
+    "skill-development": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "1949f926ab3d",
+      "fileCount": 10
+    },
+    "slack-integration": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "da6bb89f39bf",
+      "fileCount": 5
+    },
+    "support-investigation": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "cf596e478706",
+      "fileCount": 9
+    },
+    "text-manipulation": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "f970ad3f8ede",
+      "fileCount": 5
+    },
+    "tool-management": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "5ac41ac26665",
+      "fileCount": 15
+    },
+    "transition-to-constellation": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "dce373c6ebc9",
+      "fileCount": 28
+    },
+    "transition-to-constellation-from-scratch": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "7acc50265393",
+      "fileCount": 7
+    },
+    "xml-management": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "fc4baf4b3efd",
+      "fileCount": 9
+    },
+    "yaml-management": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "66592ce9c339",
+      "fileCount": 10
+    },
+    "zillow-integration-systems": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "41a1a6f3bd90",
+      "fileCount": 6
+    },
+    "zillow-oauth-diagnosis": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "ca58c49a51c1",
+      "fileCount": 5
+    },
+    "zillow-production-troubleshooting": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "37b0a116a7de",
+      "fileCount": 5
+    },
+    "zillow-srp": {
+      "version": 1,
+      "updatedAt": "2026-02-13T22:02:17.803Z",
+      "contentHash": "e33a27cad5f6",
+      "fileCount": 5
+    }
   }
 }
