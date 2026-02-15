@@ -247,20 +247,90 @@ When adding icons to tab labels, place the Icon and label text inside a Flex con
 </Tabs.Root>
 ```
 
-## Duotone Icons (Professional Apps)
+## Duotone Icons — `DuoColorIcon` (Professional Apps)
 
-Professional apps use `DuoColorIcon` for upsell banners and empty states. These are two-tone styled icons that feel lighter and more approachable than solid Filled icons.
+Also known as **duotone icons** or **duo color icons**. Professional apps use `DuoColorIcon` for upsell banners and empty states. These are two-tone styled icons with a colored foreground and a tinted background, making them feel lighter and more approachable than solid Filled icons.
+
+Available since Constellation v10.2.0.
+
+### Import
 
 ```tsx
-import { DuoColorIcon } from '@zillow/constellation';
+import { DuoColorIcon, Icon } from '@zillow/constellation';
 import { IconInboxFilled } from '@zillow/constellation-icons';
+```
 
-// Empty state with duotone icon
+### Basic usage
+
+The inner icon MUST be wrapped in `<Icon>`. `DuoColorIcon` does NOT have a `size` prop — sizing is controlled by the inner `<Icon>` component.
+
+```tsx
+<DuoColorIcon tone="trust" onBackground="default">
+  <Icon><IconKeyFilled /></Icon>
+</DuoColorIcon>
+```
+
+### Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `tone` | `'trust' \| 'insight' \| 'inspire' \| 'empower' \| 'info' \| 'success' \| 'critical' \| 'warning' \| 'notify'` | `'trust'` | Controls the color theme of the icon |
+| `onBackground` | `'default' \| 'hero' \| 'impact'` | `'default'` | Adjusts icon colors for the surface it sits on |
+| `css` | `SystemStyleObject` | — | Custom styles via PandaCSS |
+| `children` | `ReactNode` | — | Must contain an `<Icon>` wrapping a Filled icon |
+
+### Tone reference
+
+**Brand tones** (for feature areas and product sections):
+
+| Tone | Color | Use for |
+|---|---|---|
+| `trust` | Teal | Finance, loans, agent connections |
+| `insight` | Blue | Data, analytics, market info |
+| `inspire` | Purple | New features, AI, creativity |
+| `empower` | Orange | Urgency, opportunities, growth |
+
+**Status tones** (for feedback and system states):
+
+| Tone | Color | Use for |
+|---|---|---|
+| `info` | Blue | Informational messages |
+| `success` | Green | Completed actions, confirmations |
+| `critical` | Red | Errors, critical alerts |
+| `warning` | Yellow/Amber | Caution, attention needed |
+| `notify` | Blue | Notifications, updates |
+
+### Background surfaces
+
+| `onBackground` | When to use |
+|---|---|
+| `default` | Standard page backgrounds (white/gray) |
+| `hero` | Colored hero sections or banners |
+| `impact` | Dark or high-contrast backgrounds |
+
+### Common patterns
+
+```tsx
+// Empty state (Professional app)
 <Flex direction="column" align="center" gap="300">
-  <DuoColorIcon size="xl"><IconInboxFilled /></DuoColorIcon>
+  <DuoColorIcon tone="trust" onBackground="default">
+    <Icon><IconInboxFilled /></Icon>
+  </DuoColorIcon>
   <Text textStyle="body" css={{ color: 'text.subtle' }}>No messages yet</Text>
 </Flex>
+
+// Upsell banner (Professional app)
+<DuoColorIcon tone="inspire" onBackground="default">
+  <Icon><IconSparkFilled /></Icon>
+</DuoColorIcon>
+
+// On a hero section background
+<DuoColorIcon tone="trust" onBackground="hero">
+  <Icon><IconShieldFilled /></Icon>
+</DuoColorIcon>
 ```
+
+### When to use each icon style
 
 | Context | Use Filled | Use Outline | Use DuoColorIcon |
 |---|---|---|---|
@@ -270,6 +340,15 @@ import { IconInboxFilled } from '@zillow/constellation-icons';
 | Empty states (Consumer) | Yes (with `icon.muted`) | — | — |
 | Empty states (Professional) | — | — | Yes |
 | Upsell banners (Professional) | — | — | Yes |
+
+### Common mistakes
+
+| Mistake | Correct |
+|---|---|
+| `<DuoColorIcon size="xl">` | `DuoColorIcon` has no `size` prop. Use `<Icon>` inside to control size |
+| `<DuoColorIcon><IconKeyFilled /></DuoColorIcon>` | Always wrap the icon in `<Icon>`: `<DuoColorIcon><Icon><IconKeyFilled /></Icon></DuoColorIcon>` |
+| Using `DuoColorIcon` in Consumer apps | `DuoColorIcon` is for Professional apps only. Consumer apps use Filled icons with `icon.muted` color |
+| Missing `tone` prop | Always specify `tone` explicitly to match the content meaning |
 
 ## Common Mistakes (NEVER DO)
 
