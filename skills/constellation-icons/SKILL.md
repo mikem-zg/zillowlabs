@@ -371,8 +371,8 @@ The inner icon MUST be wrapped in `<Icon>`. `DuoColorIcon` does NOT have a `size
 | Active/selected state | Filled | `IconHeartFilled` |
 | Inactive/unselected | Outline | `IconHeartOutline` |
 | Empty states (Consumer) | Filled + muted color | `IconInboxFilled` with `icon.muted` |
-| Empty states (Pro) | DuoColorIcon | `<DuoColorIcon><IconInboxFilled /></DuoColorIcon>` |
-| Upsells (Pro) | DuoColorIcon | `<DuoColorIcon><IconSparkFilled /></DuoColorIcon>` |
+| Empty states (Pro) | DuoColorIcon | `<DuoColorIcon tone="trust"><Icon><IconInboxFilled /></Icon></DuoColorIcon>` |
+| Upsells (Pro) | DuoColorIcon | `<DuoColorIcon tone="inspire"><Icon><IconSparkFilled /></Icon></DuoColorIcon>` |
 | Navigation active | Filled | `IconHomeFilled` |
 | Navigation inactive | Filled (subtle color) | `IconHomeFilled` with `icon.subtle` |
 | Buttons with text | Filled (no wrapper) | `<Button icon={<IconSearchFilled />}>` |
