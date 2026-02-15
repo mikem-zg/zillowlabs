@@ -28,12 +28,28 @@ This project uses **PandaCSS** with the **Zillow Constellation** design system. 
 | Theme Name | CSS Import | Description |
 |---|---|---|
 | `zillow` | `@zillow/constellation-tokens/css/zillow` | Current light theme (active) |
-| `zillow-dark` | `@zillow/constellation-tokens/css/zillow-dark` | Dark theme variant |
+| `zillow-dark` | `@zillow/constellation-tokens/css/zillow-dark` | Dark theme raw tokens (DO NOT import directly — see warning below) |
 | `legacy-zillow` | `@zillow/constellation-tokens/css/legacy` | Legacy light theme |
 
 Token files located at: `node_modules/@zillow/constellation-tokens/dist/css/{theme}/constellation-tokens.css`
 
 PandaCSS theme JSON files: `client/src/styled-system/themes/theme-zillow.json`, `theme-legacy-zillow.json`
+
+## CRITICAL WARNING: Do NOT import zillow-dark CSS directly
+
+**NEVER** add `import "@zillow/constellation-tokens/css/zillow-dark"` to `main.tsx` or any file.
+
+**Why it breaks:** The raw `zillow-dark` CSS file defines `:root` variables (`--color-*`) with dark values unconditionally. This overrides the light theme for all Constellation components that internally reference `--color-*` variables. Meanwhile, PandaCSS uses a separate set of variables (`--colors-*`, note the "s") that are properly scoped behind `[data-panda-theme=zillow][data-panda-mode="dark"]` selectors via `injectTheme()`.
+
+**The result:** Text turns light (from the raw dark `:root` tokens) while PandaCSS backgrounds stay white (from the `--colors-*` variables that still reflect light mode). This creates a mismatch where content becomes unreadable.
+
+**The correct approach:** PandaCSS's `injectTheme()` already generates the proper conditional dark mode CSS. You only need to set `data-panda-mode="dark"` on the root element — no additional CSS import is needed.
+
+| NEVER | ALWAYS instead |
+|---|---|
+| `import "@zillow/constellation-tokens/css/zillow-dark"` in main.tsx | Rely on `injectTheme()` from `@/styled-system/themes` |
+| Raw `:root` dark token overrides | `data-panda-mode="dark"` attribute on `document.documentElement` |
+| Both `--color-*` and `--colors-*` active at once | Let PandaCSS manage all token switching via conditions |
 
 ## How Theme Injection Works
 
