@@ -76,6 +76,42 @@ Without these attributes, the widget still works but won't support per-app or pe
 
 ---
 
+## App Heartbeat (Usage Tracking)
+
+The bootstrap script can report back to the skills library so your team can see which apps are using it. Add a heartbeat call to your bootstrap or startup script:
+
+```bash
+curl -s -X POST https://zillowlabs-core.replit.app/api/heartbeat \
+  -H "Content-Type: application/json" \
+  -d "{\"appId\": \"$REPL_ID\", \"appName\": \"$REPL_SLUG\", \"replSlug\": \"$REPL_SLUG\", \"skillCount\": $(ls -d .agents/skills/*/ 2>/dev/null | wc -l)}"
+```
+
+Or from Node.js:
+
+```js
+fetch("https://zillowlabs-core.replit.app/api/heartbeat", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    appId: process.env.REPL_ID,
+    appName: process.env.REPL_SLUG,
+    replSlug: process.env.REPL_SLUG,
+    skillCount: require("fs").readdirSync(".agents/skills").filter(f =>
+      require("fs").statSync(`.agents/skills/${f}`).isDirectory()
+    ).length,
+  }),
+});
+```
+
+This sends:
+- `appId` — unique identifier for this app (uses `REPL_ID`)
+- `appName` — human-readable name (uses `REPL_SLUG`)
+- `skillCount` — number of skill directories installed
+
+The heartbeat is idempotent. Duplicate calls update the "last seen" timestamp without creating extra records. Results appear on the Reports page under "Active apps".
+
+---
+
 ## Dev-Only Behavior
 
 The bootstrap script **automatically skips sync when `NODE_ENV=production`**. This means:
