@@ -88,15 +88,18 @@ Use the `_osDark` / `_osLight` conditions which map to `@media (prefers-color-sc
 ### Full Dark Mode Setup Pattern
 
 ```tsx
-// main.tsx - Load dark tokens alongside light tokens
+// main.tsx - DO NOT import zillow-dark CSS here. injectTheme() handles it.
 import "@zillow/constellation-tokens/css/zillow";
-import "@zillow/constellation-tokens/css/zillow-dark"; // ADD THIS for dark mode
+// WRONG: import "@zillow/constellation-tokens/css/zillow-dark"; ← NEVER do this
 import "@zillow/constellation-fonts/zillow-fonts.css";
 import "@/styled-system/styles.css";
 import { getTheme, injectTheme } from "@/styled-system/themes";
 
 async function initApp() {
   const theme = await getTheme("zillow");
+  // injectTheme() creates a <style> with BOTH light and dark token mappings.
+  // Dark tokens are scoped behind [data-panda-theme=zillow][data-panda-mode="dark"].
+  // Setting data-panda-mode="dark" activates them automatically.
   injectTheme(document.documentElement, theme);
   createRoot(document.getElementById("root")!).render(<App />);
 }
