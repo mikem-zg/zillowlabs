@@ -78,18 +78,36 @@ Without these attributes, the widget still works but won't support per-app or pe
 
 ## App Heartbeat (Usage Tracking)
 
-The bootstrap script can report back to the skills library so your team can see which apps are using it. Add a heartbeat call to your bootstrap or startup script:
+The heartbeat lets this library track which apps are actively using skills. Each heartbeat sends a small JSON payload with the app's identity and skill count. Results appear on the Reports page under "Active apps".
+
+**What counts as a heartbeat:** Any HTTP POST to this library's `/api/heartbeat` endpoint with a JSON body containing at least an `appId`. The server records when it was first and last seen, plus the app name and skill count.
+
+### Required: Set the library URL
+
+Before using heartbeats, set the `SKILLS_LIBRARY_URL` environment variable to the published URL of this Skill & MCP Library app. In the app that should send heartbeats, add this secret:
+
+```
+SKILLS_LIBRARY_URL=https://<your-published-domain>
+```
+
+For example, if this library is published at `https://zillowlabs-core.replit.app`, set `SKILLS_LIBRARY_URL=https://zillowlabs-core.replit.app`. During development, use the dev domain (e.g., `https://18d34e23-xxxx.worf.replit.dev`).
+
+### Sending a heartbeat (bash)
+
+Add this to your app's bootstrap or startup script:
 
 ```bash
-curl -s -X POST https://zillowlabs-core.replit.app/api/heartbeat \
+LIBRARY_URL="${SKILLS_LIBRARY_URL:-https://zillowlabs-core.replit.app}"
+curl -s -X POST "${LIBRARY_URL}/api/heartbeat" \
   -H "Content-Type: application/json" \
   -d "{\"appId\": \"$REPL_ID\", \"appName\": \"$REPL_SLUG\", \"replSlug\": \"$REPL_SLUG\", \"skillCount\": $(ls -d .agents/skills/*/ 2>/dev/null | wc -l)}"
 ```
 
-Or from Node.js:
+### Sending a heartbeat (Node.js)
 
 ```js
-fetch("https://zillowlabs-core.replit.app/api/heartbeat", {
+const libraryUrl = process.env.SKILLS_LIBRARY_URL || "https://zillowlabs-core.replit.app";
+fetch(`${libraryUrl}/api/heartbeat`, {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({
@@ -103,12 +121,20 @@ fetch("https://zillowlabs-core.replit.app/api/heartbeat", {
 });
 ```
 
-This sends:
-- `appId` — unique identifier for this app (uses `REPL_ID`)
-- `appName` — human-readable name (uses `REPL_SLUG`)
-- `skillCount` — number of skill directories installed
+### Payload fields
 
-The heartbeat is idempotent. Duplicate calls update the "last seen" timestamp without creating extra records. Results appear on the Reports page under "Active apps".
+| Field | Required | Description |
+|-------|----------|-------------|
+| `appId` | Yes | Unique identifier (use `REPL_ID` env var) |
+| `appName` | No | Human-readable name (use `REPL_SLUG` env var) |
+| `replSlug` | No | Repl slug for linking |
+| `skillCount` | No | Number of skill directories installed |
+
+### Behavior
+
+- **Idempotent** — duplicate calls update the "last seen" timestamp without creating extra records
+- **Upsert** — first call creates the record, subsequent calls update `lastSeenAt` and any non-null fields
+- **No auth required** — the endpoint is open so any app can register itself
 
 ---
 
