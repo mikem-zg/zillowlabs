@@ -320,11 +320,20 @@ The preset includes theme definitions for `zillow` and `legacy-zillow` with cond
 
 ## Checklist: Adding Dark Mode to a Page
 
-1. Import dark token CSS in `main.tsx`: `import "@zillow/constellation-tokens/css/zillow-dark";`
-2. Create a theme toggle mechanism (hook + UI control)
-3. Set `data-panda-mode="dark"` on `document.documentElement`
-4. Use semantic tokens everywhere (they auto-remap)
-5. Add `_dark` overrides only for custom styles not covered by semantic tokens
-6. Swap illustrations to Darkmode variants
-7. Remove shadows in dark mode, use background differentiation
-8. Test all Constellation components — they respect `data-panda-mode` automatically
+1. Verify `injectTheme()` is called in `main.tsx` (it handles both light and dark tokens)
+2. Do NOT import `@zillow/constellation-tokens/css/zillow-dark` — remove it if present
+3. Create a theme toggle mechanism (hook + UI control)
+4. Set `data-panda-mode="dark"` on `document.documentElement` to activate dark mode
+5. Use semantic tokens everywhere (they auto-remap)
+6. Add `_dark` overrides only for custom styles not covered by semantic tokens
+7. Swap illustrations to Darkmode variants
+8. Remove shadows in dark mode, use background differentiation
+9. Test all Constellation components — they respect `data-panda-mode` automatically
+
+## Troubleshooting: Dark Mode Looks Broken
+
+**Symptom:** Text turns light/white but backgrounds stay white, making content unreadable.
+
+**Root cause:** The raw `@zillow/constellation-tokens/css/zillow-dark` CSS is imported in `main.tsx`. This sets `--color-*` variables (no "s") at `:root` unconditionally to dark values. Constellation components reference these `--color-*` variables, so text goes light. But PandaCSS uses `--colors-*` variables (with "s") that are still in light mode, so backgrounds stay white.
+
+**Fix:** Remove `import "@zillow/constellation-tokens/css/zillow-dark"` from `main.tsx`. The PandaCSS theme system (`injectTheme()`) already contains properly scoped dark mode mappings via `[data-panda-theme=zillow][data-panda-mode="dark"]` selectors.
