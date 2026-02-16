@@ -1,9 +1,9 @@
 ---
-name: ux-review
+name: design-review
 description: Perform a structured, multi-agent UX review of a feature or interface using simulated design legend personas. Use when reviewing a new feature before merge, after major UX refactors, before public launch, when usability friction is suspected, or during design critiques. Covers mental models, simplicity, usability heuristics, spatial harmony, taste, strategic leverage, and cognitive amplification.
 ---
 
-# UX Review
+# Design Review
 
 Perform a rigorous, structured UX review using seven simulated design legend personas, each with a distinct and non-overlapping lens. This is not a vibes-only critique — it is a structured design audit that produces actionable, scored feedback.
 
