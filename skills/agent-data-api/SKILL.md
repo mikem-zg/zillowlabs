@@ -1,6 +1,6 @@
 ---
 name: agent-data-api
-description: "Query the Zillow Agent Data API for agent profiles, team rosters, and performance metrics. Covers Profile endpoints (agent lookup by ZUID/email, team members, custom lists, all teams) and Performance endpoints (current KPIs, historical trends, team/custom-list aggregations). Includes auth via API key, error handling, caching strategy, and TypeScript/curl examples."
+description: "Query the Zillow Agent Data API for agent profiles, team rosters, and performance metrics. Covers Profile endpoints (agent lookup by ZUID/email, team members, custom lists, all teams) and Performance endpoints (current KPIs, historical trends, team/custom-list aggregations). Includes auth via API key, error handling, caching strategy, and TypeScript/curl examples!"
 ---
 
 # Agent Data API
