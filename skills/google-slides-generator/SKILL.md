@@ -9,20 +9,86 @@ Generate professional Google Slides presentations using Zillow's official slide 
 
 **Template:** [Zillow Slide Deck Template](https://docs.google.com/presentation/d/1vcfUwWSFD_gPQiOIJdPvDzBENT170CrJvKB0gnEmME4/edit)
 
-📋 **API Reference**: [reference/api-reference.md](reference/api-reference.md)
-📝 **Slide Templates**: [reference/slide-templates.md](reference/slide-templates.md)
-🎨 **Branding Guide**: [reference/branding-guide.md](reference/branding-guide.md)
-💡 **Examples**: [examples/common-workflows.md](examples/common-workflows.md)
+**API Reference**: [reference/api-reference.md](reference/api-reference.md)
+**Slide Templates**: [reference/slide-templates.md](reference/slide-templates.md)
+**Branding Guide**: [reference/branding-guide.md](reference/branding-guide.md)
+**Examples**: [examples/common-workflows.md](examples/common-workflows.md)
 
 ## Prerequisites
 
-Before using this skill, ensure the following are available:
+**IMPORTANT: Do NOT ask the user for Google API credentials, service account keys, or OAuth client secrets.** Authentication is handled automatically by the Replit Google Drive connector that is already configured in this project.
 
-1. **Google OAuth 2.0 credentials** with the following scopes:
-   - `https://www.googleapis.com/auth/presentations` (Google Slides API)
-   - `https://www.googleapis.com/auth/drive` (Google Drive API — for copying templates)
-2. **Google Slides API** and **Google Drive API** enabled in your Google Cloud project
-3. **Access to the Zillow template** — the user's Google account must have at least Viewer access to the template presentation
+Before using this skill, ensure:
+1. The **Google Drive integration** is connected in this Replit project (it already is)
+2. The connected Google account has at least **Viewer access** to the [Zillow template](https://docs.google.com/presentation/d/1vcfUwWSFD_gPQiOIJdPvDzBENT170CrJvKB0gnEmME4/edit)
+
+## Authentication (Automatic via Replit Connector)
+
+**Never ask the user for credentials.** Use the Replit Google Drive connector to obtain an OAuth access token automatically. This token works for both the Drive API and the Slides API.
+
+```typescript
+// Google Drive + Slides authentication via Replit connector
+// Integration: Google Drive (connection:conn_google-drive)
+import { google } from 'googleapis';
+
+let connectionSettings: any;
+
+async function getAccessToken() {
+  if (connectionSettings && connectionSettings.settings.expires_at && new Date(connectionSettings.settings.expires_at).getTime() > Date.now()) {
+    return connectionSettings.settings.access_token;
+  }
+  
+  const hostname = process.env.REPLIT_CONNECTORS_HOSTNAME;
+  const xReplitToken = process.env.REPL_IDENTITY 
+    ? 'repl ' + process.env.REPL_IDENTITY 
+    : process.env.WEB_REPL_RENEWAL 
+    ? 'depl ' + process.env.WEB_REPL_RENEWAL 
+    : null;
+
+  if (!xReplitToken) {
+    throw new Error('X_REPLIT_TOKEN not found for repl/depl');
+  }
+
+  connectionSettings = await fetch(
+    'https://' + hostname + '/api/v2/connection?include_secrets=true&connector_names=google-drive',
+    {
+      headers: {
+        'Accept': 'application/json',
+        'X_REPLIT_TOKEN': xReplitToken
+      }
+    }
+  ).then(res => res.json()).then(data => data.items?.[0]);
+
+  const accessToken = connectionSettings?.settings?.access_token || connectionSettings.settings?.oauth?.credentials?.access_token;
+
+  if (!connectionSettings || !accessToken) {
+    throw new Error('Google Drive not connected. Ask the user to reconnect the Google Drive integration in Replit.');
+  }
+  return accessToken;
+}
+
+// WARNING: Never cache these clients.
+// Access tokens expire, so new clients must be created each time.
+async function getGoogleClients() {
+  const accessToken = await getAccessToken();
+
+  const oauth2Client = new google.auth.OAuth2();
+  oauth2Client.setCredentials({ access_token: accessToken });
+
+  const drive = google.drive({ version: 'v3', auth: oauth2Client });
+  const slides = google.slides({ version: 'v1', auth: oauth2Client });
+  return { drive, slides };
+}
+```
+
+## Zillow Brand Template
+
+**Template ID:** `1vcfUwWSFD_gPQiOIJdPvDzBENT170CrJvKB0gnEmME4`
+
+**ALWAYS** start by copying this template. Never create a blank presentation. The template includes:
+- Zillow branding (logo, colors, fonts)
+- Pre-built master slide layouts
+- `{{placeholder}}` patterns for easy content replacement
 
 ## Core Workflow
 
@@ -32,246 +98,156 @@ Before using this skill, ensure the following are available:
 
 This is the primary entry point. It copies the Zillow-branded template to the user's Drive, giving them a new presentation pre-loaded with Zillow styling, layouts, and master slides.
 
-```bash
-google-slides-generator --action="create" --title="Q1 2025 Market Report"
-```
+```typescript
+const TEMPLATE_ID = "1vcfUwWSFD_gPQiOIJdPvDzBENT170CrJvKB0gnEmME4";
 
-**How it works under the hood:**
-1. Calls Google Drive API `files.copy()` to duplicate the template
-2. Renames the copy to the provided title
-3. Optionally moves it to a specific Drive folder
-4. Returns the new presentation ID and URL
+async function createPresentation(title: string, folderId?: string) {
+  const { drive } = await getGoogleClients();
 
-```python
-from googleapiclient.discovery import build
+  const body: any = { name: title };
+  if (folderId) body.parents = [folderId];
 
-TEMPLATE_ID = "1vcfUwWSFD_gPQiOIJdPvDzBENT170CrJvKB0gnEmME4"
+  const response = await drive.files.copy({
+    fileId: TEMPLATE_ID,
+    requestBody: body,
+    supportsAllDrives: true,
+  });
 
-def create_presentation(drive_service, title, folder_id=None):
-    """Copy the Zillow template and rename it."""
-    body = {"name": title}
-    if folder_id:
-        body["parents"] = [folder_id]
-
-    response = drive_service.files().copy(
-        fileId=TEMPLATE_ID,
-        body=body,
-        supportsAllDrives=True
-    ).execute()
-
-    presentation_id = response["id"]
-    url = f"https://docs.google.com/presentation/d/{presentation_id}/edit"
-    return {"id": presentation_id, "url": url}
+  const presentationId = response.data.id!;
+  const url = `https://docs.google.com/presentation/d/${presentationId}/edit`;
+  return { id: presentationId, url };
+}
 ```
 
 **2. Replace Placeholder Text Across All Slides**
 
 The Zillow template uses `{{placeholder}}` patterns. Replace them in bulk:
 
-```bash
-google-slides-generator --action="replace-text" \
-  --presentation_id="<PRES_ID>" \
-  --replacements='{"{{title}}": "Seattle Market Overview", "{{date}}": "February 2025", "{{author}}": "Jane Smith"}'
-```
+```typescript
+async function replaceAllText(presentationId: string, replacements: Record<string, string>) {
+  const { slides } = await getGoogleClients();
 
-```python
-def replace_all_text(slides_service, presentation_id, replacements):
-    """Replace all {{placeholder}} text across every slide."""
-    requests = []
-    for placeholder, value in replacements.items():
-        requests.append({
-            "replaceAllText": {
-                "containsText": {
-                    "text": placeholder,
-                    "matchCase": True
-                },
-                "replaceText": value
-            }
-        })
+  const requests = Object.entries(replacements).map(([placeholder, value]) => ({
+    replaceAllText: {
+      containsText: { text: placeholder, matchCase: true },
+      replaceText: value,
+    },
+  }));
 
-    slides_service.presentations().batchUpdate(
-        presentationId=presentation_id,
-        body={"requests": requests}
-    ).execute()
+  await slides.presentations.batchUpdate({
+    presentationId,
+    requestBody: { requests },
+  });
+}
 ```
 
 **3. Add a New Slide**
 
-```bash
-google-slides-generator --action="add-slide" \
-  --presentation_id="<PRES_ID>" \
-  --slide_layout="TITLE_AND_BODY"
-```
+```typescript
+async function addSlide(presentationId: string, layout = "TITLE_AND_BODY", insertionIndex?: number) {
+  const { slides } = await getGoogleClients();
 
-```python
-def add_slide(slides_service, presentation_id, layout="TITLE_AND_BODY", insertion_index=None):
-    """Add a new slide with the specified layout."""
-    request = {
-        "createSlide": {
-            "slideLayoutReference": {
-                "predefinedLayout": layout
-            }
-        }
-    }
-    if insertion_index is not None:
-        request["createSlide"]["insertionIndex"] = insertion_index
+  const request: any = {
+    createSlide: {
+      slideLayoutReference: { predefinedLayout: layout },
+    },
+  };
+  if (insertionIndex !== undefined) {
+    request.createSlide.insertionIndex = insertionIndex;
+  }
 
-    response = slides_service.presentations().batchUpdate(
-        presentationId=presentation_id,
-        body={"requests": [request]}
-    ).execute()
+  const response = await slides.presentations.batchUpdate({
+    presentationId,
+    requestBody: { requests: [request] },
+  });
 
-    return response["replies"][0]["createSlide"]["objectId"]
+  return response.data.replies![0].createSlide!.objectId!;
+}
 ```
 
 **4. Insert an Image**
 
-```bash
-google-slides-generator --action="insert-image" \
-  --presentation_id="<PRES_ID>" \
-  --slide_index=2 \
-  --image_url="https://example.com/chart.png"
-```
+```typescript
+async function insertImage(
+  presentationId: string,
+  slideObjectId: string,
+  imageUrl: string,
+  x = 100, y = 100, width = 500, height = 300
+) {
+  const { slides } = await getGoogleClients();
 
-```python
-def insert_image(slides_service, presentation_id, slide_object_id, image_url,
-                 x=100, y=100, width=500, height=300):
-    """Insert an image onto a specific slide."""
-    requests = [{
-        "createImage": {
-            "url": image_url,
-            "elementProperties": {
-                "pageObjectId": slide_object_id,
-                "size": {
-                    "height": {"magnitude": height, "unit": "PT"},
-                    "width": {"magnitude": width, "unit": "PT"}
-                },
-                "transform": {
-                    "scaleX": 1,
-                    "scaleY": 1,
-                    "translateX": x,
-                    "translateY": y,
-                    "unit": "PT"
-                }
-            }
-        }
-    }]
-
-    slides_service.presentations().batchUpdate(
-        presentationId=presentation_id,
-        body={"requests": requests}
-    ).execute()
+  await slides.presentations.batchUpdate({
+    presentationId,
+    requestBody: {
+      requests: [{
+        createImage: {
+          url: imageUrl,
+          elementProperties: {
+            pageObjectId: slideObjectId,
+            size: {
+              height: { magnitude: height, unit: "PT" },
+              width: { magnitude: width, unit: "PT" },
+            },
+            transform: {
+              scaleX: 1, scaleY: 1,
+              translateX: x, translateY: y,
+              unit: "PT",
+            },
+          },
+        },
+      }],
+    },
+  });
+}
 ```
 
 **5. Get Presentation Info**
 
-```bash
-google-slides-generator --action="get-info" --presentation_id="<PRES_ID>"
+```typescript
+async function getPresentationInfo(presentationId: string) {
+  const { slides } = await getGoogleClients();
+
+  const presentation = await slides.presentations.get({ presentationId });
+  const data = presentation.data;
+
+  return {
+    title: data.title,
+    slideCount: data.slides?.length || 0,
+    slides: data.slides?.map((slide, i) => ({
+      objectId: slide.objectId,
+      index: i,
+      layout: slide.slideProperties?.layoutObjectId,
+    })) || [],
+  };
+}
 ```
 
-```python
-def get_presentation_info(slides_service, presentation_id):
-    """Get presentation metadata and slide count."""
-    presentation = slides_service.presentations().get(
-        presentationId=presentation_id
-    ).execute()
+**6. Delete a Slide**
 
-    return {
-        "title": presentation.get("title"),
-        "slide_count": len(presentation.get("slides", [])),
-        "locale": presentation.get("locale"),
-        "slides": [
-            {
-                "objectId": slide["objectId"],
-                "index": i,
-                "layout": slide.get("slideProperties", {}).get("layoutObjectId")
-            }
-            for i, slide in enumerate(presentation.get("slides", []))
-        ]
-    }
+```typescript
+async function deleteSlide(presentationId: string, slideObjectId: string) {
+  const { slides } = await getGoogleClients();
+
+  await slides.presentations.batchUpdate({
+    presentationId,
+    requestBody: { requests: [{ deleteObject: { objectId: slideObjectId } }] },
+  });
+}
 ```
 
-**6. List All Slides**
+**7. Duplicate a Slide**
 
-```bash
-google-slides-generator --action="list-slides" --presentation_id="<PRES_ID>"
-```
+```typescript
+async function duplicateSlide(presentationId: string, slideObjectId: string) {
+  const { slides } = await getGoogleClients();
 
-**7. Delete a Slide**
+  const response = await slides.presentations.batchUpdate({
+    presentationId,
+    requestBody: { requests: [{ duplicateObject: { objectId: slideObjectId } }] },
+  });
 
-```bash
-google-slides-generator --action="delete-slide" \
-  --presentation_id="<PRES_ID>" \
-  --slide_index=3
-```
-
-```python
-def delete_slide(slides_service, presentation_id, slide_object_id):
-    """Delete a specific slide by its object ID."""
-    slides_service.presentations().batchUpdate(
-        presentationId=presentation_id,
-        body={"requests": [{"deleteObject": {"objectId": slide_object_id}}]}
-    ).execute()
-```
-
-**8. Duplicate a Slide**
-
-```bash
-google-slides-generator --action="duplicate-slide" \
-  --presentation_id="<PRES_ID>" \
-  --slide_index=1
-```
-
-```python
-def duplicate_slide(slides_service, presentation_id, slide_object_id):
-    """Duplicate an existing slide."""
-    response = slides_service.presentations().batchUpdate(
-        presentationId=presentation_id,
-        body={"requests": [{"duplicateObject": {"objectId": slide_object_id}}]}
-    ).execute()
-    return response["replies"][0]["duplicateObject"]["objectId"]
-```
-
-## Authentication Setup
-
-### Using OAuth 2.0 (Interactive / User-facing)
-
-```python
-from google.oauth2.credentials import Credentials
-from google_auth_oauthlib.flow import InstalledAppFlow
-from googleapiclient.discovery import build
-
-SCOPES = [
-    "https://www.googleapis.com/auth/presentations",
-    "https://www.googleapis.com/auth/drive"
-]
-
-def get_services():
-    flow = InstalledAppFlow.from_client_secrets_file("credentials.json", SCOPES)
-    creds = flow.run_local_server(port=0)
-
-    slides_service = build("slides", "v1", credentials=creds)
-    drive_service = build("drive", "v3", credentials=creds)
-    return slides_service, drive_service
-```
-
-### Using Service Account (Server-to-Server)
-
-```python
-from google.oauth2 import service_account
-from googleapiclient.discovery import build
-
-SCOPES = [
-    "https://www.googleapis.com/auth/presentations",
-    "https://www.googleapis.com/auth/drive"
-]
-
-creds = service_account.Credentials.from_service_account_file(
-    "service-account.json", scopes=SCOPES
-)
-
-slides_service = build("slides", "v1", credentials=creds)
-drive_service = build("drive", "v3", credentials=creds)
+  return response.data.replies![0].duplicateObject!.objectId!;
+}
 ```
 
 ## Available Slide Layouts
@@ -290,33 +266,35 @@ The Zillow template includes these predefined layouts:
 | One Column Text | `ONE_COLUMN_TEXT` | Text-heavy slides |
 | Main Point | `MAIN_POINT` | Key takeaways |
 
-→ **Full layout reference with dimensions**: [reference/slide-templates.md](reference/slide-templates.md)
+> **Full layout reference with dimensions**: [reference/slide-templates.md](reference/slide-templates.md)
 
 ## Error Handling
 
-```python
-from googleapiclient.errors import HttpError
-
-try:
-    result = create_presentation(drive_service, "My Report")
-except HttpError as error:
-    status = error.resp.status
-    if status == 403:
-        print("Permission denied. Check template sharing settings and API scopes.")
-    elif status == 404:
-        print("Template not found. Verify the template ID is correct.")
-    elif status == 429:
-        print("Rate limit exceeded. Implement exponential backoff.")
-    else:
-        print(f"API error {status}: {error}")
+```typescript
+try {
+  const result = await createPresentation("My Report");
+} catch (error: any) {
+  const status = error?.response?.status || error?.code;
+  if (status === 403) {
+    console.error("Permission denied. The connected Google account may not have access to the template. Ask the user to verify sharing settings.");
+  } else if (status === 404) {
+    console.error("Template not found. Verify the template ID is correct.");
+  } else if (status === 429) {
+    console.error("Rate limit exceeded. Implement exponential backoff.");
+  } else {
+    console.error(`API error ${status}:`, error.message);
+  }
+}
 ```
 
 ## Best Practices
 
-1. **Always use batch updates** — group multiple changes into a single `batchUpdate()` call to minimize API calls
-2. **Use the template** — never create from scratch; copying the Zillow template preserves branding, fonts, and master slide styles
-3. **Keep placeholder naming consistent** — use `{{double_curly_braces}}` for all placeholders
-4. **Move to folder after creation** — organize generated decks into a shared Drive folder
-5. **Check slide object IDs** — always call `get-info` first to retrieve slide object IDs before modifying specific slides
-6. **Handle rate limits** — implement exponential backoff for production workloads
-7. **Follow Zillow branding** — see [reference/branding-guide.md](reference/branding-guide.md) for color, font, and layout requirements
+1. **Never ask for credentials** — authentication is automatic via the Replit Google Drive connector
+2. **Always use the Zillow template** — never create from scratch; copying the template preserves branding, fonts, and master slide styles
+3. **Always use batch updates** — group multiple changes into a single `batchUpdate()` call to minimize API calls
+4. **Keep placeholder naming consistent** — use `{{double_curly_braces}}` for all placeholders
+5. **Move to folder after creation** — organize generated decks into a shared Drive folder
+6. **Check slide object IDs** — always call `getPresentationInfo()` first to retrieve slide object IDs before modifying specific slides
+7. **Handle rate limits** — implement exponential backoff for production workloads
+8. **Follow Zillow branding** — see [reference/branding-guide.md](reference/branding-guide.md) for color, font, and layout requirements
+9. **Never cache Google clients** — access tokens expire; always call `getGoogleClients()` fresh
