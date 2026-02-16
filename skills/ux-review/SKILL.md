@@ -14,10 +14,19 @@ Perform a rigorous, structured UX review using seven simulated design legend per
 - "Is this interface good enough to ship?"
 - "Run a design critique on this page"
 - "What would design experts think of this?"
+- "Does this feel right?"
+- "Can you critique this UI?"
+- "Is this ready for users?"
+- "What's wrong with this design?"
+- "Run the design legends on this"
+- "How would Jobs/Norman/Rams rate this?"
+- "This doesn't feel polished"
+- "Compare this to best-in-class"
 - Before merging a major UI change
 - After a UX refactor
 - Before public launch
 - When usability friction is suspected
+- When something feels off but the issue is hard to articulate
 
 ## Input Required
 
