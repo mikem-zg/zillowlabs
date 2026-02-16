@@ -1,7 +1,3 @@
----
-name: zillowlabs-core
-description: "Install and configure the ZillowLabs Core update service that keeps your app's local assets (.agents/skills) automatically in sync during development. Covers bootstrap setup, widget installation, three-tier skill customization, environment variables, and troubleshooting."
----
 
 # zillowlabs-core — Client Installation Guide
 
@@ -50,7 +46,7 @@ This ensures the bootstrap runs on every development startup before your app sta
 
 ---
 
-## Widget (Optional)
+## Widget
 
 Add the ZillowLabs Core widget to your app for quick access to skills documentation and updates. It adds a small floating button in the corner of your app during development.
 
@@ -224,6 +220,10 @@ After installation, restart your workflow. You should see output like:
 ```
 
 If you set `ZLC_DEBUG=1`, you'll see additional detail about cache hits, hash checks, and individual file operations.
+
+You should see a small "ZillowLabs" widget in the bottom-right corner of your app's Preview — this only appears in the dev environment. If you don't see it, you can manage your app's skills and turn them on/off by visiting the unique URL saved in `docs/skills-url.md` (created automatically by the engine on first sync).
+
+**After installation, read `docs/skills-url.md` and display its contents to the user** so they have the direct link to manage their app's skills.
 
 ---
 
