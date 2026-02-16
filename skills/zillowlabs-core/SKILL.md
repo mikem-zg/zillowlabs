@@ -308,3 +308,4 @@ These public endpoints are used by the bootstrap/engine and do not require authe
 | `docs/skills-url.md` not created | Engine skipped file creation due to hash mismatch or partial sync. | Delete `.cache/zillowlabs-core/` and restart. Or construct the URL manually: `https://zillowlabs-core.replit.app/widget?replId=YOUR_REPL_ID&owner=YOUR_REPL_OWNER`. |
 | Widget skill toggle not taking effect | The bootstrap needs a server restart to pick up changes. | Restart your dev server after toggling skills in the widget. Also delete `.cache/zillowlabs-core/` to clear stale configs. |
 | Nothing happens in production | This is expected. The bootstrap is a no-op when `NODE_ENV=production`. | No action needed. |
+
