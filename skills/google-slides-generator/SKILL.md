@@ -11,6 +11,7 @@ Generate professional Google Slides presentations using Zillow's official slide 
 
 **API Reference**: [reference/api-reference.md](reference/api-reference.md)
 **Slide Templates**: [reference/slide-templates.md](reference/slide-templates.md)
+**Template Catalog**: [reference/template-catalog.md](reference/template-catalog.md) — 167 slides across 15 sections with layout descriptions and best-use guidance
 **Branding Guide**: [reference/branding-guide.md](reference/branding-guide.md)
 **Examples**: [examples/common-workflows.md](examples/common-workflows.md)
 
