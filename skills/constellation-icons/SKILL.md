@@ -57,13 +57,29 @@ import { IconHeartFilled, IconSearchFilled } from '@zillow/constellation-icons';
 // Icon with semantic color
 <Icon size="md" css={{ color: 'icon.subtle' }}><IconHeartFilled /></Icon>
 
-// Button with icon (use Button's built-in props)
+// Button with icon — use sparingly, only when icon adds real clarity
 <Button icon={<IconSearchFilled />} iconPosition="start">Search</Button>
 
-// Icon-only button
-<IconButton title="Settings" tone="neutral" emphasis="bare" size="md" shape="circle">
+// Icon-only button — ALWAYS use IconButton, default to bare neutral
+<IconButton title="Settings" tone="neutral" emphasis="bare" size="md" shape="square">
   <Icon><IconSettingsFilled /></Icon>
 </IconButton>
+```
+
+## Button Icon Rules
+
+**Use icons in buttons sparingly.** Most buttons work fine with text alone. Only add an icon when it genuinely aids comprehension (e.g., search, filter, close). Do not add icons to buttons just for decoration.
+
+**Icon-only buttons:** Always use `<IconButton>`, never `<Button icon={...}>` without text. Default to `tone="neutral" emphasis="bare"` unless there is a specific reason for another style.
+
+```tsx
+// CORRECT — IconButton with bare neutral defaults
+<IconButton title="Close" tone="neutral" emphasis="bare" size="md" shape="square">
+  <Icon><IconCloseFilled /></Icon>
+</IconButton>
+
+// WRONG — Button with icon but no text
+<Button icon={<IconCloseFilled />} />
 ```
 
 ## Size Tokens
