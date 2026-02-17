@@ -102,24 +102,25 @@ https://zallwall.zillowgroup.com/search?q={Full+Name}
 
 ### Slack Profile Links
 
-Link directly to an employee's Slack profile when a Slack member ID (`UXXXXXXX`) is available from Glean results:
+Link directly to an employee's Slack DM channel using the `/archives/{CHANNEL_ID}` pattern:
+
+```
+https://zillowgroup.enterprise.slack.com/archives/{DM_CHANNEL_ID}
+```
+
+Where `{DM_CHANNEL_ID}` is the direct message channel ID (starts with `D`). For example:
+
+| Person | Slack DM URL |
+|--------|-------------|
+| Mike Payne | `https://zillowgroup.enterprise.slack.com/archives/DCXV0BUVD` |
+
+You can also link to a user's profile page if you have their member ID (`UXXXXXXX`):
 
 ```
 https://zillowgroup.enterprise.slack.com/team/{SLACK_MEMBER_ID}
 ```
 
-| Data Available | URL |
-|----------------|-----|
-| Slack member ID (`U0123ABC`) | `https://zillowgroup.enterprise.slack.com/team/U0123ABC` |
-| Name only (fallback) | `https://zillowgroup.enterprise.slack.com/search/people/{Full%20Name}` |
-
-To open directly in the Slack desktop app, use the protocol handler:
-
-```
-slack://user?team=TEAM_ID&id={SLACK_MEMBER_ID}
-```
-
-**Tip:** If Glean doesn't return a Slack ID, construct the search fallback using the employee's name. This opens Slack's people search with results pre-populated.
+**Tip:** If you don't have the channel or member ID, ask the user or look it up via Glean.
 
 ### Markdown Output
 
