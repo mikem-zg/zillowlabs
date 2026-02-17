@@ -226,7 +226,9 @@ import { Avatar, Text, Anchor } from '@zillow/constellation';
 import { Flex } from '@/styled-system/jsx';
 
 function EmployeeCard({ name, title, photoUrl, email }) {
-  const zallwallUrl = `https://zallwall.zillowgroup.com/profile/${email.split('@')[0]}`;
+  const emailPrefix = email.split('@')[0];
+  const zallwallUrl = `https://zallwall.zillowgroup.com/profile/${emailPrefix}`;
+  const slackUrl = `https://zillowgroup.enterprise.slack.com/search/people/${encodeURIComponent(name)}`;
 
   return (
     <Flex gap="300" alignItems="center">
@@ -241,6 +243,14 @@ function EmployeeCard({ name, title, photoUrl, email }) {
           <Text textStyle="body-bold">{name}</Text>
         </Anchor>
         <Text textStyle="body-sm" css={{ color: 'text.subtle' }}>{title}</Text>
+        <Flex gap="200">
+          <Anchor href={slackUrl} target="_blank">
+            <Text textStyle="body-sm">Slack</Text>
+          </Anchor>
+          <Anchor href={zallwallUrl} target="_blank">
+            <Text textStyle="body-sm">ZallWall</Text>
+          </Anchor>
+        </Flex>
       </Flex>
     </Flex>
   );
