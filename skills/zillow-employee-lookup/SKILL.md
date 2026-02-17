@@ -101,12 +101,35 @@ If the email is unavailable, link to the search page:
 https://zallwall.zillowgroup.com/search?q={Full+Name}
 ```
 
+### Slack Profile Links
+
+Link directly to an employee's Slack profile when a Slack member ID (`UXXXXXXX`) is available from Glean results:
+
+```
+https://zillowgroup.enterprise.slack.com/team/{SLACK_MEMBER_ID}
+```
+
+| Data Available | URL |
+|----------------|-----|
+| Slack member ID (`U0123ABC`) | `https://zillowgroup.enterprise.slack.com/team/U0123ABC` |
+| Name only (fallback) | `https://zillowgroup.enterprise.slack.com/search/people/{Full%20Name}` |
+
+To open directly in the Slack desktop app, use the protocol handler:
+
+```
+slack://user?team=TEAM_ID&id={SLACK_MEMBER_ID}
+```
+
+**Tip:** If Glean doesn't return a Slack ID, construct the search fallback using the employee's name. This opens Slack's people search with results pre-populated.
+
 ### Markdown Output
 
 When producing employee references in markdown (docs, PRDs, Confluence):
 
 ```markdown
 **Owner:** [@Jane Smith](https://zallwall.zillowgroup.com/profile/jane.smith) (Staff Engineer, Premier Agent Platform)
+· [Slack](https://zillowgroup.enterprise.slack.com/search/people/Jane%20Smith)
+· [ZallWall](https://zallwall.zillowgroup.com/profile/jane.smith)
 ```
 
 ## Constellation UI Components
