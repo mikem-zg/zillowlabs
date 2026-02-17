@@ -115,7 +115,7 @@ Use these patterns when building employee-facing UI in React with Constellation.
 
 ### Employee Search with Combobox
 
-Use `Combobox` for typeahead employee search. Set `freeForm` to allow arbitrary input, and provide `renderAdornment` with a search icon.
+Use `Combobox` for typeahead employee search. Provide `renderAdornment` with a search icon for discoverability.
 
 ```tsx
 import { Combobox, Icon, FormField, Label } from '@zillow/constellation';
