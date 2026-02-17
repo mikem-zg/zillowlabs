@@ -354,15 +354,31 @@ import { Box, Flex, Grid } from '@/styled-system/jsx';
 
 ### Button Icons
 
-Use Button's built-in `icon` and `iconPosition` props instead of wrapping icons in Flex containers:
+**Use icons in buttons sparingly.** Most buttons work fine with text alone. Only add an icon when it genuinely aids comprehension (e.g., search, filter, close). Do not add icons to buttons just for decoration.
 
+**Text button with icon** (use sparingly):
 ```tsx
-// CORRECT - use icon and iconPosition props
-<Button icon={<IconSortFilled />} iconPosition="start">
-  Sort
+// Only when the icon adds real clarity
+<Button icon={<IconSearchFilled />} iconPosition="start">
+  Search
 </Button>
+```
 
-// WRONG - don't wrap icons and text in Flex
+**Icon-only button** (always use IconButton):
+```tsx
+// CORRECT — IconButton with bare neutral defaults
+<IconButton title="Close" tone="neutral" emphasis="bare" size="md" shape="square">
+  <Icon><IconCloseFilled /></Icon>
+</IconButton>
+
+// WRONG — Button with icon but no text
+<Button icon={<IconCloseFilled />} />
+```
+
+**IconButton defaults:** Always start with `tone="neutral" emphasis="bare"` unless there is a specific reason for another style (e.g., a primary action that must be icon-only).
+
+**WRONG — don't wrap icons and text in Flex:**
+```tsx
 <Button>
   <Flex>
     <Icon><IconSortFilled /></Icon>
@@ -584,6 +600,8 @@ import NotFoundIllustration from '@/assets/illustrations/Lightmode/search-homes.
 | Wrapping icon+text in Flex inside `<Button>` | `<Button icon={<IconXFilled />} iconPosition="start">` |
 | `<Icon>` wrapper inside Button `icon` prop | Pass raw icon: `icon={<IconXFilled />}` |
 | `<IconButton>` without `title` prop | `<IconButton title="Search">` (required for accessibility) |
+| Icons on every button for decoration | Icons in buttons only when they genuinely aid comprehension |
+| `<Button icon={<IconX />}>` without text for icon-only actions | `<IconButton title="Label" tone="neutral" emphasis="bare">` |
 | Modal content as children | `body={<content />}` prop (REQUIRED for proper spacing) |
 | Action buttons inside Modal `body` | Use Modal `footer` with `ButtonGroup` |
 | Raw `Flex` or `Box` in Modal `footer` | `<ButtonGroup aria-label="modal actions">` with `Modal.Close` wrapper for cancel |
