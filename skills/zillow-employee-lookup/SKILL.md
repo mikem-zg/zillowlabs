@@ -225,10 +225,9 @@ Use `Avatar` to show employee photos or initials alongside their name and title.
 import { Avatar, Text, Anchor } from '@zillow/constellation';
 import { Flex } from '@/styled-system/jsx';
 
-function EmployeeCard({ name, title, photoUrl, email }) {
-  const emailPrefix = email.split('@')[0];
-  const zallwallUrl = `https://zallwall.zillowgroup.com/profile/${emailPrefix}`;
-  const slackUrl = `https://zillowgroup.enterprise.slack.com/search/people/${encodeURIComponent(name)}`;
+function EmployeeCard({ name, title, photoUrl, zallwallUsername, slackChannelId }) {
+  const zallwallUrl = `https://zallwall.zillowgroup.com/${zallwallUsername}`;
+  const slackUrl = `https://zillowgroup.enterprise.slack.com/archives/${slackChannelId}`;
 
   return (
     <Flex gap="300" alignItems="center">
