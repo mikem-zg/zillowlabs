@@ -82,20 +82,19 @@ Always format employee references as `@FirstName LastName` for use in Slack mess
 
 ### ZallWall Profile Links
 
-ZallWall is Zillow's internal employee profile system. Generate deep links using:
+ZallWall is Zillow's internal employee profile system. Profile URLs use a short username (not the email prefix). The format is:
 
 ```
-https://zallwall.zillowgroup.com/profile/{email_prefix}
+https://zallwall.zillowgroup.com/{username}
 ```
 
-Where `{email_prefix}` is the part before `@` in their Zillow email. For example:
+Where `{username}` is the person's ZallWall short handle (e.g., `mikep` for Mike Payne). This is **not** always the email prefix — you must look it up via Glean or ask the user.
 
-| Employee Email | ZallWall URL |
-|----------------|-------------|
-| jsmith@zillowgroup.com | `https://zallwall.zillowgroup.com/profile/jsmith` |
-| jane.smith@zillowgroup.com | `https://zallwall.zillowgroup.com/profile/jane.smith` |
+| Person | ZallWall URL |
+|--------|-------------|
+| Mike Payne | `https://zallwall.zillowgroup.com/mikep` |
 
-If the email is unavailable, link to the search page:
+If the username is unknown, link to the search page:
 
 ```
 https://zallwall.zillowgroup.com/search?q={Full+Name}
