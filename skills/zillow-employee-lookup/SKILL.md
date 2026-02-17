@@ -157,7 +157,7 @@ function EmployeeSearch({ employees, onSelect }) {
 
 ### Multi-Select Employee Picker
 
-Use `Combobox` with array `defaultValue` for selecting multiple employees. Chips appear automatically.
+Use `Combobox` with an array `value` for selecting multiple employees. Constellation's `Combobox` automatically supports multi-select when the value is an array — chips appear for each selection.
 
 ```tsx
 import { Combobox, Icon, FormField, Label } from '@zillow/constellation';
