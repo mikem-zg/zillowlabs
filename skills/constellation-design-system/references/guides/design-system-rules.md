@@ -101,7 +101,8 @@ AFTER EVERY UI BUILD:
 | Body text | `Text textStyle="body"` | `p` or `span` |
 | Layout stacking | `Flex direction="column"` | `Box` with margin |
 | Empty states (Professional) | `IconXxxDuotone` | `IconXxxFilled` |
-| Button with icon | `<Button icon={<IconX />} iconPosition="start">` | Flex wrapping icon + text inside Button |
+| Button with text + icon (sparingly) | `<Button icon={<IconX />} iconPosition="start">` | Flex wrapping icon + text inside Button |
+| Icon-only button | `<IconButton title="Label" tone="neutral" emphasis="bare" size="md" shape="square">` | `<Button icon={<IconX />}>` without text |
 
 ### Card Styling Options
 
