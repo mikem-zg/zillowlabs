@@ -127,9 +127,9 @@ https://zillowgroup.enterprise.slack.com/team/{SLACK_MEMBER_ID}
 When producing employee references in markdown (docs, PRDs, Confluence):
 
 ```markdown
-**Owner:** [@Jane Smith](https://zallwall.zillowgroup.com/profile/jane.smith) (Staff Engineer, Premier Agent Platform)
-· [Slack](https://zillowgroup.enterprise.slack.com/search/people/Jane%20Smith)
-· [ZallWall](https://zallwall.zillowgroup.com/profile/jane.smith)
+**Owner:** [@Jane Smith](https://zallwall.zillowgroup.com/{username}) (Staff Engineer, Premier Agent Platform)
+· [Slack](https://zillowgroup.enterprise.slack.com/archives/{DM_CHANNEL_ID})
+· [ZallWall](https://zallwall.zillowgroup.com/{username})
 ```
 
 ## Constellation UI Components
