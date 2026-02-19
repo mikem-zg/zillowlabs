@@ -184,11 +184,14 @@ iframe.addEventListener('load', () => {
 // Remote page (your-app.example.com/extension-embed)
 // Create a typed bridge to request Chrome APIs from the host extension page
 
+const EXTENSION_ORIGIN = `chrome-extension://${YOUR_EXTENSION_ID}`;
+
 let requestCounter = 0;
 const pendingRequests = new Map<number, (data: any) => void>();
 
 window.addEventListener('message', (event) => {
-  // Only accept messages from the extension
+  // IMPORTANT: Always validate the origin of incoming messages
+  if (event.origin !== EXTENSION_ORIGIN) return;
   if (!event.data?.requestId) return;
   const resolver = pendingRequests.get(event.data.requestId);
   if (resolver) {
@@ -201,7 +204,8 @@ function requestFromExtension<T>(type: string, payload?: any): Promise<T> {
   return new Promise((resolve) => {
     const requestId = ++requestCounter;
     pendingRequests.set(requestId, resolve as any);
-    window.parent.postMessage({ type, requestId, payload }, '*');
+    // Always target a specific origin — NEVER use '*'
+    window.parent.postMessage({ type, requestId, payload }, EXTENSION_ORIGIN);
   });
 }
 
