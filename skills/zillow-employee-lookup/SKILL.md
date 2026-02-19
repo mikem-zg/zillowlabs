@@ -5,7 +5,7 @@ description: Look up Zillow employees by name, title, team, or expertise using G
 
 # Zillow Employee Lookup
 
-Search for Zillow Group employees using the Glean MCP tools. Produces @ mention formatting for Slack/docs, ZallWall profile deep links, and Constellation-based UI patterns for employee typeahead, selection, and display.
+Search for Zillow Group employees using Glean MCP tools or the Slack Web API. Produces @ mention formatting for Slack/docs, ZallWall profile deep links, Slack profile photos via workspace directory cache, and Constellation-based UI patterns for employee typeahead, selection, and display.
 
 ## When to Use
 
