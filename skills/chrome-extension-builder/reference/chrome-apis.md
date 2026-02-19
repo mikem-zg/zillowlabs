@@ -257,8 +257,8 @@ await chrome.scripting.removeCSS({
 await chrome.scripting.registerContentScripts([{
   id: 'zillow-enhancer',
   matches: ['https://*.zillow.com/*'],
-  js: ['content/enhancer.js'],
-  css: ['content/styles.css'],
+  js: ['content-enhancer.js'],
+  css: ['content-styles.css'],
   runAt: 'document_idle',
 }]);
 
@@ -268,7 +268,7 @@ const scripts = await chrome.scripting.getRegisteredContentScripts();
 // Update
 await chrome.scripting.updateContentScripts([{
   id: 'zillow-enhancer',
-  js: ['content/enhancer-v2.js'],
+  js: ['content-enhancer-v2.js'],
 }]);
 
 // Remove
