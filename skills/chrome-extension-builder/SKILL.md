@@ -275,3 +275,26 @@ Download and bundle fonts locally to avoid CSP violations:
 ```
 
 See [Constellation Integration](reference/constellation-integration.md) for the complete guide.
+
+---
+
+## Remote Rendering & Auto-Updates
+
+Extensions can serve UI from remote servers or receive real-time data pushes without Chrome Web Store republishing:
+
+| Pattern | When to Use |
+|---------|-------------|
+| **Side Panel remote URL** | Your extension is a companion to a web app — load the web app directly in the side panel |
+| **Iframe embedding** | Embed auto-updating remote content inside a local popup/options page that retains Chrome API access |
+| **WebSocket/SSE push** | Real-time data updates to locally-rendered UI (dashboards, notifications, live feeds) |
+| **Polling with cache** | Periodic data refresh with offline fallback — simplest reliable pattern |
+| **Remote config** | Feature flags and settings from server without republishing |
+| **Hybrid** | Local Constellation shell + remote data/content blocks (recommended for production) |
+
+Key constraints:
+- Remote pages have NO Chrome API access — must relay via `postMessage` or `chrome.runtime.sendMessage()`
+- Extension popup/options CSP blocks remote `<script>` tags — only iframes or fetched data work
+- Service worker WebSocket connections close on idle — use `chrome.alarms` for keep-alive
+- Always cache server data in `chrome.storage` for offline resilience
+
+See [Remote Rendering & Auto-Updates](reference/remote-updates.md) for complete patterns and code examples.
