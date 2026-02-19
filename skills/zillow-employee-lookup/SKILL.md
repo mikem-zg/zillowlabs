@@ -23,14 +23,20 @@ Search for Zillow Group employees using Glean MCP tools or the Slack Web API. Pr
 - "Show team members with avatars"
 - When building UI that references or selects Zillow employees
 - When you need to tag or mention someone in generated output
+- "Get profile photos for a list of names"
+- "Show contributor avatars on a dashboard"
+- When you need to resolve names to Slack profile photos programmatically
 
 ## Prerequisites
 
 | Requirement | Details |
 |-------------|---------|
-| **Glean MCP** | `mcp__glean-tools__search` and `mcp__glean-tools__employee_search` must be available |
+| **Glean MCP** | `mcp__glean-tools__search` and `mcp__glean-tools__employee_search` for search-based lookups |
+| **Slack API** | `SLACK_BOT_TOKEN` secret with `users:read` scope for profile photo and user ID lookups |
 | **Constellation** | `@zillow/constellation` installed for UI component patterns |
 | **Network** | Access to `zallwall.zillowgroup.com` for profile links (requires Zillow VPN/SSO) |
+
+At minimum, one of Glean MCP or Slack API is needed. Both can be used together for the most complete results.
 
 ## Employee Lookup via Glean MCP
 
