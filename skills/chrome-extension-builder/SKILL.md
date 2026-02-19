@@ -96,7 +96,7 @@ my-extension/
     }
   },
   "background": {
-    "service_worker": "src/background/service-worker.ts",
+    "service_worker": "service-worker.js",
     "type": "module"
   },
   "permissions": ["storage", "activeTab"],
