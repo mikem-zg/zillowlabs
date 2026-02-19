@@ -1,6 +1,6 @@
 ---
 name: zillow-employee-lookup
-description: Look up Zillow employees by name, title, team, or expertise using Glean MCP. Supports @ mention formatting, ZallWall profile deep links, and Constellation UI components (Combobox, Avatar, Tag, AssistChip) for building employee search and selection interfaces.
+description: Look up Zillow employees by name, title, team, or expertise using Glean MCP or Slack API. Supports @ mention formatting, ZallWall profile deep links, Slack profile photo lookup via workspace directory cache, and Constellation UI components (Combobox, Avatar, Tag, AssistChip) for building employee search and selection interfaces.
 ---
 
 # Zillow Employee Lookup
