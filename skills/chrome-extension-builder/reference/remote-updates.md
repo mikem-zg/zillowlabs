@@ -16,14 +16,14 @@ Chrome extensions can serve UI from remote servers or receive real-time data upd
 
 ---
 
-## 1. Side Panel with Remote URL
+## 1. Side Panel with Embedded Remote Content
 
-The simplest approach — load a remote webpage directly in the side panel. Updates to your server are reflected immediately.
+> **MV3 Constraint:** `chrome.sidePanel.setOptions({ path })` only accepts local extension page paths (e.g., `sidepanel.html`). You cannot pass a remote URL directly. To show remote content, use a local side panel page that embeds the remote app via an iframe.
 
 ```typescript
 // service-worker.ts
 chrome.sidePanel.setOptions({
-  path: 'https://your-app.example.com/extension-panel',
+  path: 'sidepanel/index.html',  // must be a local extension page
   enabled: true,
 });
 
@@ -32,9 +32,30 @@ chrome.sidePanel.setPanelBehavior({
 });
 ```
 
-### Communication Between Remote Page and Extension
+```html
+<!-- sidepanel/index.html (local extension page) -->
+<!DOCTYPE html>
+<html>
+<head><style>
+  body { margin: 0; height: 100vh; }
+  iframe { width: 100%; height: 100%; border: none; }
+</style></head>
+<body>
+  <iframe
+    id="remote-app"
+    src="https://your-app.example.com/extension-panel"
+    sandbox="allow-scripts allow-same-origin allow-forms"
+  ></iframe>
+  <script src="sidepanel.js"></script>
+</body>
+</html>
+```
 
-The remote page has NO direct access to Chrome APIs. Use `chrome.runtime.sendMessage()` from the remote page (if the extension declares it as an externally connectable source) or relay through the service worker:
+The local `sidepanel.js` script has full Chrome API access and bridges requests from the iframe via `postMessage` (see Pattern 2 below for the full bridge implementation).
+
+### External Messaging (Alternative to iframe)
+
+If the remote page opens in a regular browser tab (not embedded), it can message the extension directly via `externally_connectable`:
 
 ```json
 // manifest.json
@@ -46,10 +67,9 @@ The remote page has NO direct access to Chrome APIs. Use `chrome.runtime.sendMes
 ```
 
 ```typescript
-// Remote webpage (your-app.example.com)
+// Remote webpage (your-app.example.com) — runs in a regular browser tab
 const extensionId = 'YOUR_EXTENSION_ID';
 
-// Send message to extension
 chrome.runtime.sendMessage(extensionId, {
   type: 'GET_TAB_DATA',
   payload: { url: window.location.href }
@@ -59,7 +79,7 @@ chrome.runtime.sendMessage(extensionId, {
 ```
 
 ```typescript
-// service-worker.ts — handle messages from remote page
+// service-worker.ts — handle messages from the external remote page
 chrome.runtime.onMessageExternal.addListener(
   (message, sender, sendResponse) => {
     if (sender.origin !== 'https://your-app.example.com') return;
@@ -80,9 +100,9 @@ chrome.runtime.onMessageExternal.addListener(
 ```
 
 ### Limitations
-- Remote page cannot call `chrome.tabs`, `chrome.storage`, etc. directly
-- Requires `externally_connectable` in manifest
-- No offline support — blank panel if server is down
+- Side panel path MUST be a local extension page — cannot load remote URLs directly
+- `externally_connectable` messaging only works from pages open in browser tabs, not from iframes in extension pages
+- No offline support for remote content — show a local fallback state when the iframe fails to load
 - Extension ID must be known by the remote page (hardcode or pass via URL param)
 
 ---
