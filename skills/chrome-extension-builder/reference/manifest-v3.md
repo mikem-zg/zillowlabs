@@ -25,15 +25,15 @@ Every Chrome extension requires a `manifest.json` at its root. Manifest V3 is ma
   },
 
   "background": {
-    "service_worker": "src/background/service-worker.js",
+    "service_worker": "service-worker.js",
     "type": "module"
   },
 
   "content_scripts": [
     {
       "matches": ["https://*.example.com/*"],
-      "js": ["src/content/index.js"],
-      "css": ["src/content/styles.css"],
+      "js": ["content.js"],
+      "css": ["content-styles.css"],
       "run_at": "document_idle",
       "all_frames": false,
       "match_about_blank": false
@@ -244,8 +244,8 @@ script-src 'self'; object-src 'self';
     {
       "matches": ["https://*.zillow.com/*", "https://*.trulia.com/*"],
       "exclude_matches": ["https://www.zillow.com/admin/*"],
-      "js": ["src/content/index.js"],
-      "css": ["src/content/styles.css"],
+      "js": ["content.js"],
+      "css": ["content-styles.css"],
       "run_at": "document_idle",
       "all_frames": false,
       "match_about_blank": false,
@@ -276,7 +276,7 @@ script-src 'self'; object-src 'self';
 await chrome.scripting.registerContentScripts([{
   id: 'my-script',
   matches: ['https://*.example.com/*'],
-  js: ['src/content/index.js'],
+  js: ['content.js'],
   runAt: 'document_idle'
 }]);
 
@@ -399,7 +399,7 @@ Create `_locales/{locale}/messages.json`:
   },
 
   "background": {
-    "service_worker": "background.js",
+    "service_worker": "service-worker.js",
     "type": "module"
   },
 
