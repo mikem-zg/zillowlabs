@@ -147,12 +147,13 @@ my-extension/
 5. **Use `chrome.alarms`** instead of `setTimeout`/`setInterval` for reliable scheduling
 
 ### Constellation in Extensions
-1. **Bundle fonts locally** — CDN URLs violate CSP on host pages
-2. **Use `chrome.runtime.getURL()`** for all extension resource paths
-3. **Shadow DOM required** for content scripts — isolates Constellation styles from host pages
-4. **Import tokens CSS as string** — inject into Shadow DOM via `<style>` or `adoptedStyleSheets`
-5. **PandaCSS works in popup/options/sidepanel** — these are full extension pages with no CSP conflicts
-6. **Content scripts need pre-built CSS** — PandaCSS output must be inlined, not dynamically generated
+1. **Bundle fonts locally** — CDN URLs violate CSP; download `.woff2` files and include in extension
+2. **Bundle design tokens locally** — copy `constellation-tokens.css` into extension's `styles/` directory; do NOT import from `node_modules` at runtime
+3. **Use `chrome.runtime.getURL()`** for all extension resource paths at runtime (in JS); use `chrome-extension://__MSG_@@extension_id__/` only in static CSS files
+4. **Shadow DOM required** for content scripts — isolates Constellation styles from host pages
+5. **Import tokens CSS as string** — inject into Shadow DOM via `<style>` or `adoptedStyleSheets`
+6. **PandaCSS works in popup/options/sidepanel** — these are full extension pages; PandaCSS output is bundled at build time
+7. **Content scripts need pre-built CSS** — PandaCSS output must be inlined, not dynamically generated
 
 ### Common Mistakes
 | Mistake | Fix |
