@@ -324,11 +324,138 @@ function TeamChips({ members, onMemberClick }) {
 }
 ```
 
-## Fallback (No Glean MCP)
+## Slack API Employee Lookup
 
-If the Glean MCP tools are unavailable:
+Use the Slack Web API as a programmatic source for employee profile photos and Slack user IDs. This is useful when Glean MCP is unavailable or when you need profile photos for contributor chips, avatars, or team displays.
 
-1. Inform the user that automated employee lookup requires the Glean MCP connection
+**Required secret:** `SLACK_BOT_TOKEN` (needs `users:read` scope)
+
+### Load and Cache Workspace Directory
+
+Fetch the full Slack workspace user list on startup and cache it for fast name-based lookups. This avoids repeated API calls and provides instant access to profile photos and user IDs.
+
+```typescript
+const slackUserCache = new Map<string, {
+  id: string;
+  photoUrl?: string;
+  slackUrl?: string;
+}>();
+let slackUsersLoaded = false;
+
+async function loadSlackUsers(): Promise<void> {
+  const token = process.env.SLACK_BOT_TOKEN;
+  if (!token) return;
+  let cursor = "";
+  do {
+    const url = `https://slack.com/api/users.list?limit=200${
+      cursor ? "&cursor=" + encodeURIComponent(cursor) : ""
+    }`;
+    const res = await fetch(url, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const data = (await res.json()) as any;
+    if (!data.ok) break;
+    for (const member of data.members || []) {
+      if (member.deleted || member.is_bot) continue;
+      const realName =
+        member.real_name || member.profile?.real_name || "";
+      if (realName && !slackUserCache.has(realName.toLowerCase())) {
+        slackUserCache.set(realName.toLowerCase(), {
+          id: member.id,
+          photoUrl:
+            member.profile?.image_192 || member.profile?.image_72,
+          slackUrl: `https://zillowgroup.enterprise.slack.com/team/${member.id}`,
+        });
+      }
+    }
+    cursor = data.response_metadata?.next_cursor || "";
+  } while (cursor);
+  slackUsersLoaded = true;
+}
+
+loadSlackUsers().catch(console.error);
+```
+
+### Look Up a Single User by Slack ID
+
+When you already have a Slack user ID (e.g., from a static mapping), fetch their profile photo directly:
+
+```typescript
+async function fetchSlackPhoto(userId: string): Promise<string | undefined> {
+  const token = process.env.SLACK_BOT_TOKEN;
+  if (!token) return undefined;
+  const res = await fetch(
+    `https://slack.com/api/users.info?user=${userId}`,
+    { headers: { Authorization: `Bearer ${token}` } }
+  );
+  const data = (await res.json()) as any;
+  if (data.ok) {
+    return data.user?.profile?.image_192 || data.user?.profile?.image_72;
+  }
+  return undefined;
+}
+```
+
+### Name-Based Profile Lookup
+
+Combine a static profiles map with the cached Slack directory for a layered lookup strategy. Static entries take priority; the Slack cache is the fallback.
+
+```typescript
+const KNOWN_PROFILES: Record<string, {
+  slackUserId?: string;
+  profileUrl?: string;
+  slackUrl?: string;
+  photoUrl?: string;
+}> = {
+  "Mike Payne": {
+    slackUserId: "UCY8JLYR4",
+    profileUrl: "https://zallwall.zillowgroup.com/mikep",
+    slackUrl: "https://zillowgroup.enterprise.slack.com/archives/DCXV0BUVD",
+  },
+};
+
+function getEmployeeProfile(name: string) {
+  const known = KNOWN_PROFILES[name];
+  if (known) return known;
+
+  const slackUser = slackUserCache.get(name.toLowerCase());
+  if (slackUser) {
+    return {
+      photoUrl: slackUser.photoUrl,
+      slackUrl: slackUser.slackUrl,
+    };
+  }
+  return {};
+}
+```
+
+### Slack Profile Image Sizes
+
+The Slack API returns multiple image sizes in the user profile object:
+
+| Field | Size | Best for |
+|-------|------|----------|
+| `image_24` | 24×24 | Inline mentions, tiny badges |
+| `image_72` | 72×72 | Small avatars, list items |
+| `image_192` | 192×192 | Profile cards, contributor chips |
+| `image_512` | 512×512 | Large profile modals |
+
+Use `image_192` as the default — it's high enough quality for most UI but small enough to load quickly.
+
+### Slack URL Formats
+
+| URL Pattern | When to Use |
+|-------------|-------------|
+| `https://zillowgroup.enterprise.slack.com/team/{MEMBER_ID}` | Link to user's Slack profile (member ID starts with `U`) |
+| `https://zillowgroup.enterprise.slack.com/archives/{DM_CHANNEL_ID}` | Open a DM channel (channel ID starts with `D`) |
+
+The `/team/{MEMBER_ID}` format is easier to construct since you get the member ID directly from `users.list` or `users.info`. The `/archives/{DM_CHANNEL_ID}` format requires opening a DM first via `conversations.open`.
+
+## Fallback (No Glean MCP or Slack API)
+
+If both Glean MCP tools and Slack API are unavailable:
+
+1. Inform the user that automated employee lookup requires the Glean MCP connection or a Slack bot token
 2. Provide the manual ZallWall search URL:
    ```
    https://zallwall.zillowgroup.com/search?q={search+terms}
