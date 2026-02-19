@@ -25,6 +25,10 @@ Build Chrome extensions using Manifest V3 with React, TypeScript, Vite, and Zill
 - [Constellation Integration](reference/constellation-integration.md): Integrating Zillow's Constellation design system into Chrome extensions — bundling Inter/Object Sans fonts locally, injecting CSS design tokens, using PandaCSS with Shadow DOM, and rendering Constellation React components in extension UIs.
 - [React + Vite Build](reference/react-vite-build.md): Build configuration for React + TypeScript + Vite extensions — multi-entry builds (popup, content, background, side panel), CRXJS plugin, path aliases, asset handling, and development workflow.
 
+### Advanced Patterns
+
+- [Remote Rendering & Auto-Updates](reference/remote-updates.md): Serving extension UI from remote servers, real-time data push via WebSocket/SSE, iframe embedding, polling with cache, remote config/feature flags, and hybrid local+remote patterns.
+
 ### Quality & Distribution
 
 - [Testing & Publishing](reference/testing-publishing.md): Unit testing with Jest/Vitest, E2E testing with Puppeteer, Chrome Web Store publishing requirements, privacy policy, and store listing optimization.

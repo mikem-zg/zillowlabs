@@ -8,8 +8,8 @@ Chrome extensions can serve UI from remote servers or receive real-time data upd
 
 | Pattern | Best For | Chrome API Access | Auto-Updates | Offline Support |
 |---------|----------|-------------------|--------------|-----------------|
-| **Side Panel remote URL** | Full remote webapp as companion UI | None (use messaging) | Yes — instant | No |
-| **Iframe in local page** | Embedding remote content in popup/options | None (use postMessage) | Yes — instant | No |
+| **Side Panel with iframe** | Companion webapp alongside browsing | Full (local shell) + None (iframe) | Yes — instant | Partial (local shell) |
+| **Iframe in local page** | Embedding remote content in popup/options | Full (local shell) + None (iframe) | Yes — instant | Partial (local shell) |
 | **WebSocket/SSE push** | Real-time data to locally-rendered UI | Full (local page) | Yes — instant | Partial (last state) |
 | **Polling fetch** | Periodic data refresh | Full (local page) | Yes — on interval | Partial (cached) |
 | **Remote config** | Feature flags, A/B tests, dynamic settings | Full (local page) | Yes — on check | Yes (cached fallback) |
