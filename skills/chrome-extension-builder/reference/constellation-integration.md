@@ -94,11 +94,13 @@ For popup, side panel, and options pages, import the CSS directly:
 ```tsx
 // popup/main.tsx
 import '../styles/fonts.css';
-import '@zillow/constellation-tokens/css/zillow';  // design tokens
+import '../styles/constellation-tokens.css';  // design tokens (locally bundled copy)
 import { injectTheme } from '../styled-system/themes';
 
 injectTheme(document.documentElement);
 ```
+
+> **Important:** Copy `node_modules/@zillow/constellation-tokens/dist/css/zillow/constellation-tokens.css` into your extension's `styles/` directory at build time. Do NOT import directly from `node_modules` at runtime — extension CSP requires all assets to be bundled locally.
 
 ### Step 5: Load in Content Scripts (Shadow DOM)
 
