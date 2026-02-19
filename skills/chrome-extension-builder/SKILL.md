@@ -136,6 +136,8 @@ my-extension/
 3. **No `eval()` or `new Function()`** — CSP prohibits dynamic code evaluation
 4. **Permissions are granular** — request only what you need; `host_permissions` are separate
 5. **`chrome.declarativeNetRequest`** replaces blocking `chrome.webRequest`
+6. **Manifest paths must reference built JS** — use `"service-worker.js"` not `"src/background/service-worker.ts"` (source paths are for your build tool, not the manifest)
+7. **Promise-based Chrome APIs** require Chrome 121+ — for Chrome 114-120 support, use callbacks or `webextension-polyfill`
 
 ### Service Worker Gotchas
 1. **No DOM access** — cannot use `document`, `window`, or DOM APIs
