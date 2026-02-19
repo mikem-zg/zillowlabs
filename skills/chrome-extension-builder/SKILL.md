@@ -124,7 +124,7 @@ my-extension/
 | **Styling** | PandaCSS with Constellation preset for popup/options/sidepanel; CSS variables for content scripts |
 | **Content script isolation** | Shadow DOM with locally bundled fonts and injected token CSS |
 | **State persistence** | `chrome.storage.local` (not global variables — service workers terminate) |
-| **Async pattern** | Always use async/await (MV3 APIs return Promises) |
+| **Async pattern** | Use async/await (Chrome 121+) or callbacks (Chrome 114-120) |
 
 ---
 
