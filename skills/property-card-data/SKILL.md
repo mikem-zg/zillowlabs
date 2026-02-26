@@ -88,20 +88,28 @@ Select bed/bath/sqft from [references/property-types.md](references/property-typ
 
 **This step is not optional. Every PropertyCard must have a generated image.**
 
+Images must be **hyper-realistic** — indistinguishable from real MLS listing photos. See the full [Hyper-Realism Techniques](references/image-prompts.md#hyper-realism-techniques-critical) section for details. The key principles:
+
+- **Include camera specs** — always specify camera body, lens, aperture, and ISO (e.g., "Shot on Canon EOS R5, 35mm lens, f/8, ISO 100")
+- **Add imperfections** — real homes have subtle wear: mortar variation, minor driveway cracks, natural lawn patterns, sun fading on south-facing walls. Pick 2-3 per prompt.
+- **Avoid AI trigger words** — never use "cinematic", "dramatic", "epic", "stunning", "perfect", or "flawless"
+- **Eye-level perspective** — shoot from the street at eye level with a slight three-quarter angle, not aerial or straight-on
+
 1. Select the appropriate regional prompt from [references/image-prompts.md](references/image-prompts.md)
 2. Call the image generation tool with:
-   - **Prompt:** Use the region-specific prompt, filling in property type and architectural style
+   - **Prompt:** Use the region-specific prompt (already includes camera specs, imperfections, and lighting details)
    - **Aspect ratio:** `4:3` for standard cards, `16:9` for large/horizontal cards
    - **Output path:** `client/src/assets/images/property-{n}.png` (or appropriate project path)
-   - **Negative prompt:** Always include: `text, watermark, logo, people, cars with license plates, interior shots, aerial view, blurry, low quality, cartoon, illustration, 3D render`
+   - **Negative prompt:** Always use the expanded negative prompt from image-prompts.md
 3. Import the generated image and pass it to `PropertyCard.Photo`
+4. Run through the [Realism Checklist](references/image-prompts.md#realism-checklist-verify-before-delivery) before delivering
 
 **Image generation call pattern:**
 ```
 generate_image_tool({
   images: [{
-    prompt: "Photorealistic real estate exterior photograph of a single-family home in Raleigh, North Carolina. Colonial revival architecture with brick veneer facade and black shutters, covered front porch with white columns. Green bermuda grass lawn, mature crepe myrtle trees, azalea bushes along the foundation, concrete driveway. Front view from the street, warm golden hour lighting, partly cloudy sky. Professional real estate photography, sharp focus, high detail.",
-    negative_prompt: "text, watermark, logo, people, cars with license plates, interior shots, aerial view, blurry, low quality, cartoon, illustration, 3D render",
+    prompt: "Professional real estate exterior photograph of a single-family home in Raleigh, North Carolina. Colonial revival architecture with brick veneer facade showing natural mortar line variation, black shutters with minor sun fading, covered front porch with white columns, two-car garage with slightly weathered door. Green bermuda grass lawn with natural mowing lines, mature crepe myrtle trees, azalea bushes along the foundation with some spent blooms, concrete driveway with hairline expansion joints. Neighboring roofline barely visible at frame edge. Shot from the street at eye level with slight three-quarter angle, warm late afternoon sun casting long natural shadows across the lawn. Shot on Canon EOS R5, 35mm lens, f/8, ISO 100. Photorealistic, natural textures, realistic material surfaces, 8K resolution.",
+    negative_prompt: "text, watermark, logo, people, cars with license plates, interior shots, aerial view, blurry, low quality, cartoon, illustration, 3D render, CGI, digital art, painting, sketch, oversharpened, plastic texture, glossy surfaces, oversaturated colors, harsh HDR, excessive bloom, unnatural symmetry, distorted perspective, warped walls, floating objects, impossible geometry, color banding, artificial lighting, flat lighting, overexposed highlights, perfect unblemished surfaces",
     output_path: "client/src/assets/images/property-1.png",
     aspect_ratio: "4:3",
     one_line_summary: "Raleigh NC colonial home"
