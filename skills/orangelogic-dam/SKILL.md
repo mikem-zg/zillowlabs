@@ -1,17 +1,39 @@
 ---
 name: orangelogic-dam
-description: "Search, retrieve, and upload digital assets through the OrangeLogic DAM API. Use when the user asks to find images, photos, logos, icons, illustrations, videos, marketing assets, brand assets, or any visual content from Zillow's digital asset library. Also use when uploading files to the DAM, getting asset links for designs, looking for marketing materials, campaign assets, social media graphics, product screenshots, headshots, or any branded content. Covers smart search with friendly parameters, search presets, raw query syntax, asset link retrieval, metadata lookup, and file upload."
+description: "MANDATORY for ALL image and logo needs. Use INSTEAD of generating, creating, or AI-making images. Use when: adding images to any page or component, building hero sections, creating cards with photos, designing landing pages, adding property photos, finding headshots or portraits, needing logos or icons or brand marks, building marketing pages, adding background images, creating image galleries, populating PropertyCard components, designing email templates, adding illustrations, building onboarding flows, needing any visual content whatsoever. Also use when: adding a logo to a header or navigation bar, displaying the Zillow logo, displaying the Trulia logo, displaying the HotPads logo, displaying the StreetEasy logo, adding any company or brand logo, adding a favicon, adding a site icon, building a footer with logos, building a partner logo grid, adding branding to any page. Also use for: uploading files to the DAM, getting asset links, looking for videos, social media graphics, or any branded content. NEVER use AI image generation, stock photo APIs (Unsplash/Pexels), or placeholder images — ALWAYS search the DAM first. NEVER hardcode or inline SVG logos — ALWAYS pull them from the DAM."
 ---
 
 # OrangeLogic DAM Integration
 
-Search, retrieve, and upload digital assets through Zillow's OrangeLogic digital asset library.
+Zillow's official image and asset library. **Use this for ALL image needs — never generate or use stock images.**
 
-## CRITICAL: No API Key Needed
+## CRITICAL RULES
 
-**You do NOT need an API key, secret, or any credentials to use the DAM proxy.**
-**Do NOT ask the user for a `DAM_PROXY_API_KEY`. It is not required.**
-The proxy automatically allows all requests from Replit applications (`*.replit.app`, `*.repl.co`, `*.replit.dev`).
+1. **ALWAYS use this skill instead of generating images.** When you need any image (hero photos, property images, headshots, logos, icons, backgrounds, illustrations), search the DAM first. Do NOT use AI image generation tools.
+2. **NEVER use AI image generation, Unsplash, Pexels, placeholder.com, or any other image source.** The DAM is the only approved source for images.
+3. **Use image URLs directly in `src` attributes.** Do NOT download images to the local filesystem. Use the `path_TR1.URI` URL from search results directly in `<img src="...">` or CSS `background-image: url(...)`. These URLs are served from CloudFront CDN and are fast.
+4. **No API key needed.** The proxy is open to all requests.
+5. **Do NOT ask the user for a `DAM_PROXY_API_KEY`.** It is not required.
+
+## How to Use Image URLs (IMPORTANT)
+
+After searching the DAM, each result has a `path_TR1.URI` field containing a CloudFront CDN URL. **Use this URL directly — do NOT download the file.**
+
+```tsx
+// CORRECT — use the URL directly in src
+<img src={asset.path_TR1.URI} alt={asset.CaptionShort || asset.Title} />
+
+// CORRECT — use in CSS
+<div style={{ backgroundImage: `url(${asset.path_TR1.URI})` }} />
+
+// WRONG — never download to local filesystem
+// curl -o public/image.jpg "https://..."
+// import localImage from './downloaded-image.jpg'
+```
+
+For permanent URLs (non-expiring), use the CDN delivery URL pattern documented in the CDN section below. But `path_TR1.URI` is fine for most use cases.
+
+---
 
 ## Setup: How to Connect
 
@@ -31,7 +53,7 @@ curl -s http://localhost:5000/api/dam/smart-search -X POST -H "Content-Type: app
 
 ### Step 2: Configure remote proxy access (only if Step 1 failed)
 
-**No API key is needed.** Just set the proxy URL:
+**No API key is needed.** Just set the proxy URL and start making requests:
 
 ```javascript
 await setEnvVars({
@@ -42,32 +64,28 @@ await setEnvVars({
 });
 ```
 
-Then use `DAM_BASE` = the value of `DAM_PROXY_URL`. **No authentication headers are required.** Requests from Replit are automatically authorized.
+Then use `DAM_BASE` = the value of `DAM_PROXY_URL`. **No authentication headers are required.**
+
+You can test immediately with curl:
+```bash
+curl -s -X POST "https://dam-explorer.replit.app/api/dam/smart-search" -H "Content-Type: application/json" -d '{"text":"zillow logo","type":"image","pageSize":1}'
+```
 
 **Do NOT:**
 - Ask the user for an API key (it is not needed)
 - Set or request `DAM_PROXY_API_KEY` (it is not needed)
 - Add `X-DAM-API-Key` headers (they are not needed)
 - Fall back to stock imagery, Unsplash, Pexels, or AI-generated images
+- Download images to the local filesystem
 
-### How authentication works
+### Security model
 
-The proxy uses **domain-based access control** — no API key required for Replit projects:
-
-| Request source | Access |
-|---------------|--------|
-| `localhost` / `127.0.0.1` | Allowed |
-| `*.replit.app`, `*.repl.co`, `*.replit.dev` | Allowed |
-| All other origins | Denied (403) |
-
-Rate limit: 120 requests per minute per source. Exceeding returns `429 Too Many Requests`.
-
-### Security notes
-
-- All inputs are validated and sanitized server-side (max lengths, character filtering)
-- Upload URLs are validated to prevent SSRF (internal/private IPs are rejected)
-- File uploads are restricted to allowed MIME types (images, videos, PDFs, archives)
-- Error responses return generic messages — check server logs for details
+The proxy is publicly accessible but protected by:
+- **Rate limiting:** 120 requests per minute per IP
+- **Input validation:** All inputs are sanitized server-side (max lengths, character filtering)
+- **SSRF protection:** Upload URLs are validated to reject internal/private IPs
+- **File type restrictions:** Uploads limited to allowed MIME types (images, videos, PDFs, archives)
+- **Credential isolation:** OrangeLogic API credentials are stored server-side and never exposed
 
 ---
 
@@ -88,11 +106,14 @@ The smart search endpoint accepts friendly, natural parameters and automatically
 | `keywords` | string | Filter by DAM keywords/tags | `"Getty Migration Flow"` |
 | `campaign` | string | Filter by campaign name | `"Super Bowl 2026"` |
 | `folder` | string | Filter by parent folder title | `"Logos"` |
-| `minWidth` | number | **Avoid** — causes server-side parsing errors. Filter dimensions client-side instead | `1200` |
-| `minHeight` | number | **Avoid** — causes server-side parsing errors. Filter dimensions client-side instead | `800` |
+| `minWidth` | number | Minimum image width in pixels (post-query filter) | `1200` |
+| `minHeight` | number | Minimum image height in pixels (post-query filter) | `800` |
+| `sortBySize` | boolean | Sort results by image dimensions, largest first | `true` |
+| `includeStock` | boolean | Include stock/Getty images (default: `false` — stock is excluded) | `true` |
+| `includeAds` | boolean | Include product shots and ad creatives (default: `false` — ads are excluded) | `true` |
 | `fileType` | string | File extension filter | `"png"`, `"jpg"`, `"svg"` |
 | `sort` | string | Sort order | `"newest"`, `"oldest"`, `"relevance"`, `"title"`, `"largest"` |
-| `pageSize` | number | Results per page (default: 40) | `20` |
+| `pageSize` | number | Results per page (default: 40, max: 100). Increase when using filters to ensure enough results survive | `80` |
 | `pageNumber` | number | Page number (default: 1) | `2` |
 | `preset` | string | Use a predefined search preset | `"zillow-logos"` |
 | `fields` | string | Override returned fields | `"SystemIdentifier,Title,path_TR1"` |
@@ -126,8 +147,10 @@ The smart search endpoint accepts friendly, natural parameters and automatically
 
 **Important rules:**
 - **Logos:** When searching for logos, ALWAYS set `assetType: "Logos"` to filter by the Logos category first. This prevents stock imagery and unrelated results from polluting results.
-- **Avoid stock imagery:** Prefer `assetType: "Photography"` or `assetType: "Design Assets"` over unfiltered searches. Assets with `zil.Keywords` containing `"Getty Migration Flow"` are migrated stock — avoid these when Zillow-produced assets are available.
+- **Stock and ads excluded by default:** The proxy automatically filters out Getty stock images and ad/product shot creatives. You do NOT need to filter these yourself. To include them, pass `includeStock: true` or `includeAds: true`.
 - **Sort by newest:** Default to `sort: "newest"` to prioritize recently edited/uploaded assets. Older assets may be outdated or superseded.
+- **Increase pageSize when filtering:** When using `minWidth`, `minHeight`, or other post-query filters, set `pageSize: 80` or higher to ensure enough results survive filtering.
+- **Use URLs directly:** Use `path_TR1.URI` from results directly in `<img src>` — do NOT download files.
 
 ### Sort Options
 
@@ -149,10 +172,15 @@ curl -X POST {DAM_BASE}/api/dam/smart-search \
   -H "Content-Type: application/json" \
   -d '{"text":"logo","type":"image","brand":"Zillow","sort":"relevance"}'
 
-# Find marketing banners (filter dimensions client-side from path_TR1.Width/Height)
+# Find large hero images (minimum 1200px wide, sorted largest first)
 curl -X POST {DAM_BASE}/api/dam/smart-search \
   -H "Content-Type: application/json" \
-  -d '{"text":"banner","type":"image","brand":"Zillow","sort":"relevance"}'
+  -d '{"text":"home exterior","type":"image","minWidth":1200,"sortBySize":true,"pageSize":80}'
+
+# Find marketing banners at least 800px tall
+curl -X POST {DAM_BASE}/api/dam/smart-search \
+  -H "Content-Type: application/json" \
+  -d '{"text":"banner","type":"image","brand":"Zillow","minHeight":800,"sort":"relevance"}'
 
 # Find headshots/portraits
 curl -X POST {DAM_BASE}/api/dam/smart-search \
@@ -173,6 +201,11 @@ curl -X POST {DAM_BASE}/api/dam/smart-search \
 curl -X POST {DAM_BASE}/api/dam/smart-search \
   -H "Content-Type: application/json" \
   -d '{"preset":"zillow-logos"}'
+
+# Include stock imagery (normally excluded)
+curl -X POST {DAM_BASE}/api/dam/smart-search \
+  -H "Content-Type: application/json" \
+  -d '{"text":"family home","type":"image","includeStock":true}'
 ```
 
 ### Response Structure
@@ -182,200 +215,169 @@ curl -X POST {DAM_BASE}/api/dam/smart-search \
   "APIResponse": {
     "GlobalInfo": {
       "TotalCount": 1714,
-      "QueryDurationMilliseconds": 257
+      "PageSize": 40,
+      "PageNumber": 1
     },
     "Items": [
       {
-        "SystemIdentifier": "ZI12QDL",
-        "Title": "Zillow_Primary Logo_1024x1024",
-        "CaptionShort": "Zillow primary logo",
+        "SystemIdentifier": "abc123",
+        "Title": "SZ_Rentals_Lease_Hero_465x436_Desktop",
+        "CaptionShort": "A modern apartment building",
+        "Caption": "Full description...",
         "MediaType": "Image",
+        "DocSubType": "Standard Image",
         "path_TR1": {
           "URI": "https://dkkgl8l6k3ozy.cloudfront.net/...",
-          "Width": 1024,
-          "Height": 1024
+          "Width": 1008,
+          "Height": 534
         },
-        "zil.Brand": [{"Value": "Zillow"}],
-        "zil.Keywords": [{"Value": "Logo"}]
+        "zil.Brand": { "Value": "Zillow" },
+        "zil.Keywords": [{ "KeywordText": "Rentals" }],
+        "zil.Asset-Type": { "Value": "Photography" }
       }
     ]
   },
-  "_query": "Text:logo AND MediaType:Image AND zil.Brand:Zillow",
-  "_sort": "Relevancy"
+  "_query": "the generated OrangeLogic query",
+  "_sort": "CreateDate desc"
 }
+```
+
+### Using Results in Code
+
+```tsx
+// After getting search results, use the image URL directly:
+const imageUrl = results.APIResponse.Items[0].path_TR1.URI;
+const caption = results.APIResponse.Items[0].CaptionShort;
+
+// In JSX — use the URL directly, never download
+<img src={imageUrl} alt={caption} />
+
+// In a PropertyCard
+<PropertyCard
+  photoBody={<PropertyCard.Photo src={imageUrl} alt={caption} />}
+  saveButton={<PropertyCard.SaveButton />}
+  // ...
+/>
+
+// As a background image
+<Box css={{ backgroundImage: `url(${imageUrl})`, backgroundSize: 'cover' }}>
+  <Heading>Hero Section</Heading>
+</Box>
 ```
 
 ### Default Fields Returned
 
-Smart search returns these fields automatically (override with `fields` parameter):
 `SystemIdentifier`, `Title`, `CaptionShort`, `Caption`, `MediaType`, `DocSubType`, `path_TR1`, `Width`, `Height`, `FileSize`, `CreateDate`, `Photographer`, `zil.Brand`, `zil.Keywords`, `zil.Asset-Type`, `CoreField.Visibility-class`
-
-**Visibility filtering:** Smart search automatically filters results to only include assets with `CoreField.Visibility-class` = `"Approved"`. Non-approved assets (e.g., "Collection") are excluded from results. This cannot be done via the query syntax (the hyphenated field name causes parsing errors), so it is applied as a post-query filter.
 
 ---
 
 ## Search Presets
 
-### Endpoint: `GET {DAM_BASE}/api/dam/presets`
-
-Returns all available search presets. Use these for common asset discovery tasks.
-
-### Available Presets
-
-| Preset ID | Description | Query Built |
-|-----------|-------------|-------------|
-| `zillow-logos` | Zillow brand logos | `Text:zillow logo AND MediaType:Image AND zil.Brand:Zillow` |
-| `trulia-logos` | Trulia brand logos | `Text:trulia logo AND MediaType:Image AND zil.Brand:Trulia` |
-| `hotpads-logos` | HotPads brand logos | `Text:hotpads logo AND MediaType:Image AND zil.Brand:HotPads` |
-| `streeteasy-logos` | StreetEasy brand logos | `Text:streeteasy logo AND MediaType:Image AND zil.Brand:StreetEasy` |
-| `headshots` | Portrait/headshot photos | `Text:headshot portrait AND MediaType:Image` |
-| `marketing-banners` | Marketing display banners | `Text:banner AND MediaType:Image AND zil.Brand:Zillow` |
-| `social-media` | Social media graphics | `Text:social media AND MediaType:Image AND zil.Brand:Zillow` |
-| `icons` | UI/brand icons | `Text:icon AND MediaType:Image AND zil.Brand:Zillow` |
-| `product-screenshots` | Product screenshots | `Text:screenshot product AND MediaType:Image` |
-| `videos` | Zillow videos | `MediaType:Video AND zil.Brand:Zillow` |
-
-Presets can be combined with additional filters:
-```bash
-# Use zillow-logos preset but only get PNGs
-curl -X POST {DAM_BASE}/api/dam/smart-search \
-  -H "Content-Type: application/json" \
-  -d '{"preset":"zillow-logos","fileType":"png"}'
-```
-
----
-
-## Key Searchable Fields
-
-These are the most useful fields for filtering and displaying DAM assets:
-
-### Content Fields
-| Field | Description | Searchable | Returnable |
-|-------|-------------|-----------|------------|
-| `SystemIdentifier` | Unique asset ID (e.g., "ZI12QDL") | Yes | Yes |
-| `Title` | Asset title | Yes | Yes |
-| `CaptionShort` | Short headline | Yes | Yes |
-| `Caption` | Full description | Yes | Yes |
-| `MediaType` | Asset type: Image, Video, Document, Audio, Multimedia | Yes | Yes |
-| `DocSubType` | Document subtype | Yes | Yes |
-
-### Zillow-Specific Fields
-| Field | Description | Searchable | Returnable |
-|-------|-------------|-----------|------------|
-| `zil.Brand` | Brand: Zillow, Trulia, HotPads, StreetEasy, etc. | Yes | Yes (array) |
-| `zil.Keywords` | Zillow-assigned tags/keywords | Yes | Yes (array) |
-| `zil.Asset-Type` | Asset category: Photography, Design Assets, Icon, Illustration, Logos, GIF, Testimonials, Brand Assets, Copy, Commercials, How To, Migrated | Yes | Yes |
-| `CoreField.Visibility-class` | Approval status: `Approved`, `Collection`. Smart search auto-filters to Approved only | No (filter post-query) | Yes |
-| `RelatedValue.Campaign-Name-(related)` | Associated campaign name | Yes | Yes |
-| `zil.Campaign-Target-Audience` | Campaign target audience | Yes | Yes |
-| `Workspace.Category` | DAM category | Yes | Yes |
-| `integration.Categories` | Integration categories | Yes | Yes |
-
-### File/Technical Fields
-| Field | Description | Searchable | Returnable |
-|-------|-------------|-----------|------------|
-| `path_TR1` | Thumbnail/preview URL with dimensions | No | Yes |
-| `Width` | Original image width | Yes (range) | Yes |
-| `Height` | Original image height | Yes (range) | Yes |
-| `FileSize` | File size | Yes (range) | Yes |
-| `FileExtension` | File format (png, jpg, svg, etc.) | Yes | Yes |
-| `CreateDate` | When uploaded to DAM | Yes (range) | Yes |
-| `MediaDate` | Original creation date | Yes (range) | Yes |
-
-### Attribution Fields
-| Field | Description | Searchable | Returnable |
-|-------|-------------|-----------|------------|
-| `Photographer` | Source/creator name | Yes | Yes |
-| `copyright` | Copyright info | Yes | Yes |
-| `CreatedBy` | Upload user | Yes | Yes |
-
-### Navigation Fields
-| Field | Description | Searchable | Returnable |
-|-------|-------------|-----------|------------|
-| `ParentFolderTitle` | Parent folder name | Yes | Yes |
-| `ParentFolderIdentifier` | Parent folder ID | Yes | Yes |
+| Preset | Params |
+|--------|--------|
+| `zillow-logos` | `text:"zillow logo", type:"image", assetType:"Logos", brand:"Zillow"` |
+| `trulia-logos` | `text:"trulia logo", type:"image", assetType:"Logos", brand:"Trulia"` |
+| `hotpads-logos` | `text:"hotpads logo", type:"image", assetType:"Logos", brand:"HotPads"` |
+| `streeteasy-logos` | `text:"streeteasy logo", type:"image", assetType:"Logos", brand:"StreetEasy"` |
+| `headshots` | `text:"headshot portrait", type:"image"` |
+| `marketing-banners` | `text:"banner", type:"image", brand:"Zillow"` |
+| `social-media` | `text:"social media", type:"image", brand:"Zillow"` |
+| `icons` | `text:"icon", type:"image", brand:"Zillow"` |
+| `product-screenshots` | `text:"screenshot product", type:"image"` |
+| `videos` | `type:"video", brand:"Zillow"` |
 
 ---
 
 ## Raw Search (advanced)
 
-### Endpoint: `POST {DAM_BASE}/api/dam/search`
+### Endpoint: `GET/POST {DAM_BASE}/api/dam/search`
 
-Use this when you need full control over the OrangeLogic query syntax.
+For power users who need direct OrangeLogic query syntax.
 
-```json
-{
-  "query": "Text:modern kitchen AND MediaType:Image AND zil.Brand:Zillow",
-  "fields": "SystemIdentifier,Title,path_TR1,zil.Brand",
-  "pageSize": 20,
-  "pageNumber": 1,
-  "sort": "CreateDate:Descending"
-}
-```
+| Parameter | Description |
+|-----------|-------------|
+| `query` | OrangeLogic query string |
+| `fields` | Comma-separated fields to return |
+| `pagesize` | Results per page |
+| `pagenumber` | Page number |
+| `sort` | Sort field (e.g., `CreateDate desc`) |
 
-### Query Syntax Reference
-
-| Pattern | Example | Description |
-|---------|---------|-------------|
-| Free text | `Text:modern kitchen` | Search across all text fields |
-| Field filter | `MediaType:Image` | Exact field match |
-| Brand filter | `zil.Brand:Zillow` | Filter by Zillow brand |
-| Boolean AND | `Text:logo AND MediaType:Image` | Both conditions required |
-| Boolean OR | `MediaType:Image OR MediaType:Video` | Either condition |
-| Boolean NOT | `Text:banner AND NOT Text:social` | Exclude matches |
-| Phrase | `Text:"red carpet"` | Exact phrase match |
-| Range | `Width>=1200` | Numeric comparison |
-| Grouped | `(Text:logo OR Text:icon) AND zil.Brand:Zillow` | Grouped boolean |
-
----
-
-## Get Asset Link
-
-### Single link: `GET {DAM_BASE}/api/dam/asset/:identifier/link`
-
-Query params: `format`, `maxWidth`, `maxHeight`, `fileExtension`, `createDownloadLink`
+### Example
 
 ```bash
-curl "{DAM_BASE}/api/dam/asset/ZI12QDL/link?format=Web&maxWidth=1200"
-```
-
-### Multiple formats: `POST {DAM_BASE}/api/dam/asset/:identifier/links`
-
-```json
-{
-  "formats": [
-    { "format": "Web", "maxWidth": 800, "maxHeight": 600 },
-    { "format": "Original", "createDownloadLink": true }
-  ]
-}
+curl -X POST {DAM_BASE}/api/dam/search \
+  -H "Content-Type: application/json" \
+  -d '{"query":"MediaType:Image AND zil.Brand:Zillow","fields":"SystemIdentifier,Title,path_TR1","pagesize":10}'
 ```
 
 ---
 
-## Upload Assets
+## Asset Details
 
-### File upload: `POST {DAM_BASE}/api/dam/upload`
+### Endpoint: `GET {DAM_BASE}/api/dam/asset/:identifier`
 
-Multipart form data: `files` (file), `folderRecordID` (string), `processAssetInBackground` (bool)
+Get full metadata for a specific asset.
 
-### URL upload: `POST {DAM_BASE}/api/dam/upload-url`
-
-```json
-{
-  "folderRecordID": "FOLDER_ID",
-  "fileURL": "https://example.com/image.jpg",
-  "fileName": "image.jpg",
-  "importMode": "Copy"
-}
+```bash
+curl {DAM_BASE}/api/dam/asset/abc123
 ```
 
 ---
 
-## List Available Fields
+## Asset Links / Download URLs
 
-### `GET {DAM_BASE}/api/dam/fields`
+### Endpoint: `GET {DAM_BASE}/api/dam/asset/:identifier/links`
 
-Returns all 894 metadata fields available in the DAM. Use to discover additional field names for search and retrieval.
+Get download/delivery URLs for a specific asset in various formats and sizes.
+
+| Query Parameter | Description | Example |
+|----------------|-------------|---------|
+| `format` | Output format | `jpg`, `png`, `webp` |
+| `maxWidth` | Maximum width in pixels | `1200` |
+| `maxHeight` | Maximum height in pixels | `800` |
+
+```bash
+curl "{DAM_BASE}/api/dam/asset/abc123/links?format=jpg&maxWidth=1200"
+```
+
+---
+
+## Batch Links
+
+### Endpoint: `POST {DAM_BASE}/api/dam/batch-links`
+
+Get download/delivery URLs for multiple assets at once.
+
+```bash
+curl -X POST {DAM_BASE}/api/dam/batch-links \
+  -H "Content-Type: application/json" \
+  -d '{"identifiers":["abc123","def456"],"format":"jpg","maxWidth":800}'
+```
+
+---
+
+## Field Reference
+
+| Field | What It Contains | Searchable? | In Results? |
+|-------|-----------------|-------------|-------------|
+| `SystemIdentifier` | Unique asset ID | Yes | Yes |
+| `Title` | Asset filename/title | Yes | Yes |
+| `CaptionShort` | Short description | Yes | Yes |
+| `Caption` | Full description | Yes | Yes |
+| `MediaType` | Image, Video, etc. | Yes | Yes |
+| `DocSubType` | Standard Image, Vector, etc. | Yes | Yes |
+| `path_TR1` | Thumbnail/preview URL with dimensions | No | Yes |
+| `Width` | Image width (top-level, often empty) | Yes | Yes |
+| `Height` | Image height (top-level, often empty) | Yes | Yes |
+| `FileSize` | File size | Yes | Yes |
+| `CreateDate` | Upload date | Yes (sort) | Yes |
+| `Photographer` | Photographer credit | Yes | Yes |
+| `zil.Brand` | Zillow, Trulia, etc. | Yes | Yes |
+| `zil.Keywords` | DAM keyword tags | Yes | Yes |
+| `zil.Asset-Type` | Photography, Logos, etc. | Yes | Yes |
+| `FileExtension` | File type (png, jpg, etc.) | Yes | No (by default) |
+| `ParentFolderTitle` | Folder name | Yes | No (by default) |
+| `zil.Campaign-Name` | Campaign association | Yes | No (by default) |
 
 ---
 
@@ -413,53 +415,37 @@ https://delivery.digitallibrary.zillowgroup.com/public/SZ_Rentals_Lease_Hero_465
 
 ---
 
-## Image URLs: Temporary vs Permanent
+## Image URLs: When to Use What
 
-### `path_TR1.URI` — Temporary (signed CloudFront URLs)
+| URL Type | Source | Expiry | Best For |
+|----------|--------|--------|----------|
+| `path_TR1.URI` | Search results | Hours | Prototyping, dev, previews — use directly in `<img src>` |
+| CDN URL | Constructed from Title | Never | Production apps needing permanent URLs |
 
-The `path_TR1.URI` field in search results returns signed CloudFront URLs that **expire within hours**. These are useful for previewing results but should NOT be used in production UI.
-
-### CDN delivery URLs — Permanent
-
-Use the CDN URL pattern above for permanent image references. Only works for `SZ_`-prefixed assets without spaces in titles.
-
-### Fallback: Download locally
-
-For assets that don't have CDN URLs (Getty stock with numeric titles, or titles containing spaces/special characters), download via `path_TR1.URI` and save locally:
-
-```bash
-curl -o public/assets/image-name.jpg "https://dkkgl8l6k3ozy.cloudfront.net/..."
-```
-
-### Distinguishing asset types
-
-| Indicator | Meaning |
-|-----------|---------|
-| `SZ_` title prefix | Zillow-produced marketing asset — has CDN URL |
-| Numeric title (e.g., `2224111854`) | Getty stock photo — no CDN URL, download locally |
-| Square aspect ratio | Often clip art or icons, not real photography |
-| Large dimensions (800+ px) | Adequate resolution for UI usage |
+**For most development work, `path_TR1.URI` is fine.** Use it directly in `src` attributes. Only construct CDN URLs when you need permanent links for production deployments.
 
 ---
 
 ## Typical Agent Workflows
 
-### Find the best asset for a design
+### Find an image for a hero section
 
-1. Start with smart search: `POST /api/dam/smart-search` with `text`, `type`, `brand`, and **always include `assetType`** to filter by content category (e.g., `"Photography"`, `"Design Assets"`, `"Illustration"`)
-2. **Sort by `"newest"`** to prioritize recently edited/uploaded assets
-3. Review results — skip assets with `zil.Keywords` containing `"Getty Migration Flow"` (migrated stock imagery). Prefer Zillow-produced assets (`SZ_` title prefix)
-4. Check `path_TR1.Width` and `path_TR1.Height` for adequate resolution (800+ px). Do NOT use `minWidth`/`minHeight` query parameters (they cause server-side parsing errors); filter dimensions client-side instead
-5. Prefer assets with `SZ_` titles (no spaces) — these have permanent CDN delivery URLs
-6. Pick the best match
-7. Construct the CDN URL: `https://delivery.digitallibrary.zillowgroup.com/public/{Title}_{ext}_{format}.auto`
-8. Test the CDN URL with `curl -o /dev/null -w "%{http_code}" "{url}"`. If 404, fall back to downloading via `path_TR1.URI` and saving locally
+1. Search: `POST /api/dam/smart-search` with `{"text":"home exterior","type":"image","minWidth":1200,"sortBySize":true,"pageSize":80}`
+2. Pick the best result
+3. Use `path_TR1.URI` directly: `<img src={result.path_TR1.URI} alt={result.CaptionShort} />`
+4. Do NOT download the image file
 
 ### Find a logo
 
 1. **ALWAYS** use the `assetType: "Logos"` filter — this is required when searching for logos
-2. Use a preset: `POST /api/dam/smart-search` with `{"preset":"zillow-logos"}` (presets now include `assetType: "Logos"` automatically)
+2. Use a preset: `POST /api/dam/smart-search` with `{"preset":"zillow-logos"}`
 3. Or be specific: `{"text":"primary logo","type":"image","assetType":"Logos","brand":"Zillow","fileType":"png","sort":"newest"}`
+4. Use `path_TR1.URI` directly in `<img src>`
+
+### Find a headshot or portrait
+
+1. Search: `{"text":"headshot","type":"image","sort":"newest"}`
+2. Use `path_TR1.URI` directly
 
 ### Browse by category
 
@@ -477,7 +463,6 @@ curl -o public/assets/image-name.jpg "https://dkkgl8l6k3ozy.cloudfront.net/..."
 
 | Status | Meaning | Action |
 |--------|---------|--------|
-| 401 | Missing or invalid API key (remote) | Check X-DAM-API-Key header |
 | 403 | URL too long (GET) | Switch to POST |
 | 404 | Asset not found | Verify identifier |
 | 429 | Rate limited | Wait and retry |
