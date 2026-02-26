@@ -29,7 +29,7 @@ jq 'select(.type == "context_overflow" or (.error_type == "context_limit"))' \
   ~/.claude/projects/*/history.jsonl
 ```
 
-### MCP Server Issues
+### MCP Server Issues:
 
 **MCP server connectivity problems:**
 ```bash
