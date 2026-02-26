@@ -7,10 +7,16 @@ description: "Search, retrieve, and upload digital assets through the OrangeLogi
 
 Search, retrieve, and upload digital assets through Zillow's OrangeLogic digital asset library.
 
+## CRITICAL: No API Key Needed
+
+**You do NOT need an API key, secret, or any credentials to use the DAM proxy.**
+**Do NOT ask the user for a `DAM_PROXY_API_KEY`. It is not required.**
+The proxy automatically allows all requests from Replit applications (`*.replit.app`, `*.repl.co`, `*.replit.dev`).
+
 ## Setup: How to Connect
 
-This skill uses a **central DAM proxy** — you do NOT need OrangeLogic credentials in this Replit.
-**NEVER search the codebase with `rg`, `grep`, or file reads for OrangeLogic credentials.**
+This skill uses a **central DAM proxy** — you do NOT need OrangeLogic credentials or API keys.
+**NEVER search the codebase for OrangeLogic credentials. NEVER ask the user for an API key.**
 
 ### Step 1: Determine which mode you're in
 
@@ -20,41 +26,44 @@ Check if this Replit has a **local** DAM proxy (i.e., `server/orangelogic.ts` ex
 curl -s http://localhost:5000/api/dam/smart-search -X POST -H "Content-Type: application/json" -d '{"text":"test","type":"image","pageSize":1}'
 ```
 
-- **If you get JSON search results** → you are on the **host proxy Replit**. Use `DAM_BASE=http://localhost:5000` with no API key needed.
-- **If you get an error or the endpoint doesn't exist** → you are on a **remote Replit**. Use the central proxy. Go to Step 2.
+- **If you get a JSON response with `APIResponse`** → you are on the **host proxy Replit**. Use `DAM_BASE=http://localhost:5000`.
+- **If you get HTML, an error, or the endpoint doesn't exist** → you are on a **remote Replit**. Go to Step 2.
 
 ### Step 2: Configure remote proxy access (only if Step 1 failed)
 
-Set these env vars so the agent can reach the central DAM proxy:
+**No API key is needed.** Just set the proxy URL:
 
 ```javascript
-// Ask the user / project owner for the DAM_PROXY_API_KEY value
 await setEnvVars({
   values: {
     DAM_PROXY_URL: "https://dam-explorer.replit.app"
   },
   environment: "shared"
 });
-// DAM_PROXY_API_KEY must be set separately as a secret — ask the project owner for the value
 ```
 
-Then use `DAM_BASE` = the value of `DAM_PROXY_URL` and include the API key header in all requests.
-The `DAM_PROXY_API_KEY` env var must be set as a secret — never hardcode it in source files.
+Then use `DAM_BASE` = the value of `DAM_PROXY_URL`. **No authentication headers are required.** Requests from Replit are automatically authorized.
 
-**Remote requests MUST include the `X-DAM-API-Key` header.**
+**Do NOT:**
+- Ask the user for an API key (it is not needed)
+- Set or request `DAM_PROXY_API_KEY` (it is not needed)
+- Add `X-DAM-API-Key` headers (they are not needed)
+- Fall back to stock imagery, Unsplash, Pexels, or AI-generated images
 
-### Authentication for remote access
+### How authentication works
 
-All external requests (from other Replits) must include:
-```
-X-DAM-API-Key: <value from DAM_PROXY_API_KEY env var>
-```
+The proxy uses **domain-based access control** — no API key required for Replit projects:
 
-Rate limit: 120 requests per minute per API key. Exceeding returns `429 Too Many Requests` with `Retry-After` header.
+| Request source | Access |
+|---------------|--------|
+| `localhost` / `127.0.0.1` | Allowed |
+| `*.replit.app`, `*.repl.co`, `*.replit.dev` | Allowed |
+| All other origins | Denied (403) |
+
+Rate limit: 120 requests per minute per source. Exceeding returns `429 Too Many Requests`.
 
 ### Security notes
 
-- The API key must be stored as a Replit secret, never hardcoded in source files
 - All inputs are validated and sanitized server-side (max lengths, character filtering)
 - Upload URLs are validated to prevent SSRF (internal/private IPs are rejected)
 - File uploads are restricted to allowed MIME types (images, videos, PDFs, archives)
