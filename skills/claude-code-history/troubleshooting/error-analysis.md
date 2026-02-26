@@ -2,7 +2,7 @@
 
 ### Error Pattern Detection
 
-**Common error types and frequencies:**
+**Common error types and frequencies: **
 ```bash
 jq -r 'select(.type == "error") | .error_type // .error_message[0:50]' \
   ~/.claude/projects/*/history.jsonl | sort | uniq -c | sort -nr
