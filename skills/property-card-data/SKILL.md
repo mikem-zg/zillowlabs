@@ -16,6 +16,29 @@ Generate realistic property data with **auto-generated photorealistic images** f
 5. **Match price to region** — use metro-specific median prices from [references/metro-data.md](references/metro-data.md)
 6. **Always include `saveButton`** — `PropertyCard` requires `saveButton={<PropertyCard.SaveButton />}`
 7. **Vary the data** — never repeat the same address, price, or bed/bath combo across cards on a page
+8. **Images MUST match the region** — every generated home photo must reflect the architecture, materials, landscaping, and climate of the specific metro area. A Raleigh card must show Raleigh-style homes (colonial brick, crepe myrtles, bermuda grass). A Phoenix card must show desert architecture (stucco, xeriscaping, saguaro). Never use a generic or mismatched regional style.
+
+## Regional Image Accuracy (CRITICAL)
+
+**The generated photo must look like it belongs in the region shown in the address.** This means:
+
+| Region | Architecture | Materials | Landscaping | Climate cues |
+|--------|-------------|-----------|-------------|-------------|
+| Raleigh-Durham, NC | Colonial, craftsman, transitional | Brick, fiber cement | Crepe myrtles, azaleas, bermuda grass | Humid subtropical, green |
+| Columbus, OH | Cape Cod, colonial, bungalow | Brick, vinyl siding | Maple trees, hostas, bluegrass | Midwest four-season |
+| San Antonio, TX | Hill country, ranch | Limestone, stucco | Live oaks, xeriscaping, St. Augustine | Hot, dry, expansive sky |
+| Indianapolis, IN | Colonial, craftsman | Red brick, vinyl | Oak trees, black-eyed Susans, bluegrass | Midwest four-season |
+| Nashville, TN | Southern colonial, modern farmhouse | White brick, board-and-batten | Magnolias, boxwood, fescue | Southern, green |
+| Charlotte, NC | Traditional Southern, contemporary | Brick and vinyl | Crepe myrtles, camellias, centipede grass | Humid subtropical |
+| Tampa, FL | Florida ranch, Mediterranean | Stucco, barrel tile | Palm trees, hibiscus, St. Augustine | Tropical, vivid sky |
+| Kansas City, MO | Bungalow, foursquare | Brick, vinyl | Elm trees, coneflowers, fescue | Midwest plains |
+| Minneapolis, MN | Tudor, craftsman | Stucco, timber | Birch trees, hostas, cool-season grass | Northern, cold-weather |
+| Phoenix, AZ | Southwestern, desert modern | Stucco, stone | Saguaro, palo verde, decomposed granite | Desert, arid |
+
+**When generating multiple cards for a single page:**
+- If the user specifies a region (e.g., "Raleigh area"), ALL cards must use that region's prompts from [references/image-prompts.md](references/image-prompts.md)
+- Vary the property type (colonial, craftsman, townhouse, condo) but keep the regional style consistent
+- Never mix regions unless explicitly requested (e.g., "show homes from different cities")
 
 ## Workflow: Generate a PropertyCard
 
