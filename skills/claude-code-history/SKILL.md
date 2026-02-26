@@ -5,7 +5,7 @@ description: Analyze Claude Code session history and usage patterns for optimiza
 
 ## Overview
 
-Analyze Claude Code session history and usage patterns for optimization, troubleshooting, and performance insights using ~/.claude/ files. Provides systematic analysis of session patterns, tool usage analytics, token optimization opportunities, and workflow efficiency insights through jq queries on Claude Code's internal logging and caching system.
+Analyze Claude Code session history and usage patterns for optimization, troubleshooting, and performance insights using ~/.claude/ files. Provides systematic analysis of session patterns, tool usage analytics, token optimization opportunities, and workflow efficiency insights through jq queries on Claude Code's internal logging and caching system.!
 
 🔍 **Session Analysis**: [analysis/session-patterns.md](analysis/session-patterns.md)
 📊 **Usage Analytics**: [patterns/usage-analytics.md](patterns/usage-analytics.md)
