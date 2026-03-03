@@ -83,7 +83,7 @@ These icon names look right but **do NOT exist**. Use the correct name instead:
 | `IconSettingFilled` | `IconSettingsFilled` | Plural — "Settings" not "Setting" |
 | `IconBellFilled` | `IconNotificationFilled` | Named "Notification" not "Bell" |
 | `IconCheckFilled` | `IconCheckmarkFilled` | Full name — "Checkmark" not "Check" |
-| `IconStarFilled` | `IconRatingStarFilled` | Prefixed — "RatingStar" not "Star" |
+| `IconStarFilled` | `IconStar100Percent` (Special) | Stars are Special rating icons — no Filled/Outline variants |
 | `IconPencilFilled` | `IconEditFilled` | Named "Edit" not "Pencil" |
 | `IconRefreshFilled` | `IconReloadFilled` | Named "Reload" not "Refresh" |
 | `IconShareFilled` | `IconShareWebFilled` | Full name — "ShareWeb" not "Share" |
