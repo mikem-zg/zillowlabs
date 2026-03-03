@@ -90,7 +90,7 @@ Default to `py: "400"` for consumer-facing apps. Use `py: "300"` only when a mor
 ```
 
 **Key rules:**
-- Always match the header content's `maxWidth` to the page content's `maxWidth`
+- Always match the header content's `maxWidth` to the page content's `maxWidth` using a breakpoint size token
 - The sticky `Box` wrapper remains full-bleed for the background color; only the inner layout container is constrained
 - Default to `py: "400"` for consumer apps, `py: "300"` for compact professional headers
 
