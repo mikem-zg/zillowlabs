@@ -13,6 +13,9 @@
 8. Backgrounds → ALWAYS use bg.screen.neutral (white), NEVER light blue
 9. Alignment → Left-align by default; center OK for short content (loading, empty states, heroes)
 10. Professional apps → ALWAYS use size="md" for buttons/inputs
+11. Heroes → ONLY on homepages, marketing landing pages, and welcome/onboarding screens. Most pages do NOT need a hero.
+12. Color coverage → Max 25% bold color per viewport. NEVER stack colored sections back-to-back. Use illustrations to bring color into the experience.
+13. Colored backgrounds → ONLY teal or purple for colored card/section backgrounds. NEVER navy, light blue, or light/pastel tinted backgrounds.
 ```
 
 ---
