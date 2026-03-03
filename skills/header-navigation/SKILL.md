@@ -51,12 +51,21 @@ Provides tested header patterns using Constellation components. Each pattern han
 ## Layout Pattern
 
 ```tsx
-<Flex align="center" justify="space-between" css={{ width: "100%", px: "400", py: "300" }}>
+<Flex align="center" justify="space-between" css={{ width: "100%", px: "400", py: "400" }}>
   {/* left: logo + nav links */}
   {/* right: actions + menu icon fallback */}
 </Flex>
 <Divider tone="muted-alt" />
 ```
+
+**Header vertical padding:**
+
+| Context | Token | Value | When to use |
+|---------|-------|-------|-------------|
+| Compact header | `py: "300"` | 12px | Dense professional dashboards, minimal headers |
+| Standard header | `py: "400"` | 16px | Consumer apps, default recommendation |
+
+Default to `py: "400"` for consumer-facing apps. Use `py: "300"` only when a more compact header is needed in professional or data-dense layouts.
 
 **Sticky wrapper:**
 ```tsx
@@ -71,7 +80,7 @@ Provides tested header patterns using Constellation components. Each pattern han
   <Flex
     align="center"
     justify="space-between"
-    css={{ maxWidth: "1200px", mx: "auto", width: "100%", px: "400", py: "300" }}
+    css={{ maxWidth: "1200px", mx: "auto", width: "100%", px: "400", py: "400" }}
   >
     {/* left: logo + nav links */}
     {/* right: actions + menu icon fallback */}
@@ -79,6 +88,11 @@ Provides tested header patterns using Constellation components. Each pattern han
   <Divider tone="muted-alt" />
 </Box>
 ```
+
+**Key rules:**
+- Always match the header content's `maxWidth` to the page content's `maxWidth`
+- The sticky `Box` wrapper remains full-bleed for the background color; only the inner layout container is constrained
+- Default to `py: "400"` for consumer apps, `py: "300"` for compact professional headers
 
 **Nav link container:** `gap="400"` (16px), hidden below `lg`, menu icon shown instead.
 
