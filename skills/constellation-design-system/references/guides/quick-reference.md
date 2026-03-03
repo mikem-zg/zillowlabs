@@ -88,6 +88,20 @@ NEVER combine `elevated` and `outlined` on the same card.
 | Backgrounds | White or Gray only |
 | NEVER | Light blue backgrounds |
 
+## Color in Product
+
+- Max **25% bold color** per viewport. Hero sections are the only exception.
+- NEVER stack colored sections back-to-back. Alternate with neutral (white/gray).
+- Only **teal or purple** for colored card/section backgrounds. NEVER navy, light blue, or pastel.
+- Heroes ONLY on homepages, marketing landing pages, and welcome/onboarding screens.
+- Use **illustrations** to bring color into the experience instead of colored backgrounds.
+
+## Header Containment
+
+- ALWAYS add `maxWidth: "1200px", mx: "auto"` on the header's inner Flex to match page content width
+- The sticky `Box` wrapper stays full-bleed for the background color
+- Adjust `1200px` to match your page content's `maxWidth`
+
 ## Logo Sizing
 
 | Context | Height |

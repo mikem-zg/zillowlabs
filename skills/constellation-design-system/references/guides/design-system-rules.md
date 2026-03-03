@@ -499,9 +499,62 @@ token('spacing.400')
 
 ---
 
+## Color in Product
+
+Color should be used with restraint and purpose. The default surface is always neutral (white or light gray). Color enters the experience through small, intentional accents — not large painted surfaces.
+
+### Color Importance Hierarchy
+
+| Level | Surface area | Usage | Example |
+|-------|-------------|-------|---------|
+| **High** | Large area | Hero sections ONLY (homepages, landing pages, onboarding) | Full-width hero with teal background |
+| **Medium** | Colored card | One colored card/section per page max | Teal upsell banner, purple feature callout |
+| **Low** | Subtle accent | Badges, icons, illustrations, tags | Orange "New" badge, teal trust icon |
+
+**When elements have equal importance, use illustrations to bring color into the experience** rather than colored backgrounds.
+
+### Color Family Roles
+
+| Color | Role | Use for | NEVER use for |
+|-------|------|---------|---------------|
+| **Blue** (`Blue600`) | Interactive/Action | Buttons, links, primary CTAs | Headlines, backgrounds, decorative accents |
+| **Teal** (`Teal600`) | Trust/Finance | Home loans, agent connections, trust signals | General decoration |
+| **Orange** (`Orange600`) | Urgency/Focus | "New" badges, "Open House" pins, alerts | Large backgrounds, section fills |
+| **Purple** (`Purple500`) | Inspiration/News | "New Features" highlights, inspiration content | General UI chrome |
+
+### DON'T Rules (from Brand Guidelines)
+
+| DON'T | WHY |
+|-------|-----|
+| Stack colored sections back-to-back | Looks "childish and amateur" (p.137) |
+| Use light/pastel colored backgrounds | Feels "dingy" and "juvenile" (leadership directive, p.138) |
+| Use navy or light blue for section backgrounds | Violates background restrictions (p.139) |
+| Fill more than 25% of viewport with bold color | Overwhelms the content |
+| Use color for decoration without purpose | Every color application must serve a function |
+
+---
+
 ## Hero Sections
 
-**Hero sections are the ONLY exception to the 25% bold color limit.**
+**Heroes are ONLY for homepages, marketing landing pages, and welcome/onboarding screens.** Most pages do NOT need a hero. Hero sections are the ONLY exception to the 25% bold color limit.
+
+### When to Use a Hero
+
+> **Default stance: Most pages do NOT need a hero.**
+
+| Page type | Hero? | Approach |
+|-----------|-------|----------|
+| Homepage / main entry | Yes | Hero with search/CTA |
+| Marketing landing page | Yes | Hero with headline + CTA + photography |
+| Welcome / onboarding | Yes | Hero with illustration |
+| Campaign / event page | Yes | Hero with brand family |
+| Educational guide | No | Neutral header + spot illustration |
+| Dashboard / tool / settings | No | Functional layout, neutral surfaces |
+| Search results / listings | No | Functional header |
+| Property detail | No | Photography-led |
+| Forms / multi-step flows | No | White background, focused layout |
+
+### ALWAYS vs NEVER
 
 | ALWAYS | NEVER |
 |--------|-------|
@@ -510,6 +563,7 @@ token('spacing.400')
 | Use SAME color family for elements below hero | Switch to different color family down page |
 | ONE accent color for text emphasis | Multiple highlight colors in headline |
 | Teal/Orange/Purple for text highlights | Blue for text highlights (Blue = interactive only) |
+| Ask "does this page type warrant a hero?" before building one | Add a hero to guides, dashboards, tools, forms, search results, or property detail pages |
 
 ---
 
