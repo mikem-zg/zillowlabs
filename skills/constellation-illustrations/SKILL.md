@@ -5,7 +5,7 @@ license: Proprietary
 compatibility: Requires a React project with illustration SVGs in client/src/assets/illustrations/
 metadata:
   author: Zillow Group
-  version: "10.11.0"
+  version: "10.13.0"
 ---
 
 # Constellation Illustrations Library
@@ -16,6 +16,12 @@ metadata:
 
 - **`reference/illustration-catalog.md`** — Full catalog of all 99 illustrations with descriptions, keywords, categories, suggested use cases, and audience suitability
 - **`reference/usage-guide.md`** — Implementation patterns, sizing rules, dark mode handling, design system rules, and anti-patterns
+
+## Related Constellation Skills
+
+- **[constellation-design-system](../../constellation-design-system/SKILL.md)**: Core design system rules, all 99 component docs, UX writing guidelines, and layout patterns. **Load this skill for component usage, spacing tokens, and design rules.**
+- **[constellation-icons](../../constellation-icons/SKILL.md)**: Full catalog of 621 icons with color tokens, sizing, and implementation guides. **Load this skill when working with icons.**
+- **[constellation-dark-mode](../../constellation-dark-mode/SKILL.md)**: Theme injection, dark mode toggle patterns, and design token tiers. **Load this skill when implementing theming or dark mode** — illustrations have both light and dark variants.
 
 ## Quick Start
 
