@@ -19,7 +19,7 @@ Zillow's April 2024 Brand Guidelines for the **consumer audience** (homebuyers, 
 | Audience | Promise | Vibe | This Skill? |
 |----------|---------|------|-------------|
 | **Consumer** | "Get home" | Joyful, Vibrant, Emotional | Yes |
-| **Professional** | "Unlock success" | Unflappable, Efficient, Organized | No — see professional guidelines |
+| **Professional** | "Unlock success" | Unflappable, Efficient, Organized | No — see `.agents/skills/professional-brand-guidelines/` |
 
 ## Brand Foundation
 
