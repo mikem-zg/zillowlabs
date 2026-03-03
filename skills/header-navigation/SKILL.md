@@ -135,7 +135,7 @@ Default is `textStyle="body" tone="neutral"`. Other options:
 | No divider | Clean seamless header | Consumer |
 | Contained | Explicit page-content alignment example with matching maxWidth | Both |
 
-> **Note:** All 11 patterns include `maxWidth: "1200px", mx: "auto"` on the inner Flex by default. Adjust the value to match your page content width. The sticky `Box` wrapper stays full-bleed; only the inner layout container is constrained.
+> **Note:** All 11 patterns include `maxWidth: "breakpoint-xxl", mx: "auto"` on the inner Flex by default. Adjust the breakpoint size token to match your page content width. NEVER hardcode pixel values — use Constellation breakpoint tokens (`breakpoint-sm`, `breakpoint-md`, `breakpoint-lg`, `breakpoint-xl`, `breakpoint-xxl`). The sticky `Box` wrapper stays full-bleed; only the inner layout container is constrained.
 
 ## Related Constellation Skills
 
