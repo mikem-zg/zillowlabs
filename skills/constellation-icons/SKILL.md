@@ -102,6 +102,16 @@ These icon names look right but **do NOT exist**. Use the correct name instead:
 
 **When in doubt, ALWAYS run the search command above** — never guess.
 
+## Validate All Icon Imports
+
+After building UI, run this script to catch all invalid icon imports across the codebase:
+
+```bash
+bash .agents/skills/constellation-icons/scripts/validate-icon-imports.sh client/src
+```
+
+This verifies every `Icon*Filled` / `Icon*Outline` import actually exists in the package and suggests alternatives for invalid ones.
+
 ## Icon Wrapper Exceptions
 
 The following component slots manage icon sizing internally. Do NOT add an `<Icon size="...">` wrapper when using these — sizing is handled by the parent component:
