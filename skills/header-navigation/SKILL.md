@@ -46,7 +46,7 @@ Provides tested header patterns using Constellation components. Each pattern han
 3. **Collapse gracefully** — hide nav links at breakpoints, show `IconMenuFilled` menu icon instead
 4. **Responsive logo** — swap `ZillowLogo` (desktop) for `ZillowHomeLogo` (mobile) at `md` breakpoint
 5. **Divider not border** — always use `<Divider tone="muted-alt" />`, never CSS border
-6. **Match maxWidth** — when page content uses a max-width container (e.g., `maxWidth: "1200px"`), the header's inner Flex MUST use the same `maxWidth` + `mx: "auto"` so content aligns. The sticky `Box` wrapper stays full-bleed for the background color.
+6. **Match maxWidth** — the header's inner Flex MUST use the same `maxWidth` + `mx: "auto"` as the page content. Use a Constellation breakpoint size token (e.g., `"breakpoint-xxl"` = 80em) — NEVER hardcode pixel values. The sticky `Box` wrapper stays full-bleed for the background color.
 
 ## Layout Pattern
 
