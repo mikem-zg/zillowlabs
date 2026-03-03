@@ -1,6 +1,6 @@
 ---
 name: constellation-design-system
-description: Build UI with Zillow's Constellation Design System v10.13.0. Use when developers mention Constellation, Zillow components, @zillow/constellation, PandaCSS with Zillow, or Zillow design system. Provides usage documentation for 99 components and 621 icons, plus design system rules and UX writing guidelines.
+description: Build UI with Zillow's Constellation Design System v10.13.0. Activates when building React UI, creating pages/screens/layouts, selecting components, styling with PandaCSS, or when developers mention Constellation, Zillow components, @zillow/constellation, design system, or Zillow UI. Provides 99 component docs, 621 icons, design rules, UX writing guidelines, a quick-reference cheat sheet, and a validation script.
 license: Proprietary
 compatibility: Requires a React 18+ project with @zillow/constellation and @pandacss/dev installed.
 metadata:
@@ -17,6 +17,15 @@ This skill covers **how to use** Constellation components, design rules, and UX 
 ## Documentation Structure
 
 The `references/` directory contains detailed documentation organized as follows:
+
+### Quick Start
+- [Quick Reference](references/guides/quick-reference.md): **One-page cheat sheet** — component selection table, spacing tokens, typography hierarchy, icon rules, card rules, modal rules, color tokens, and common imports. Load this for fast lookups without reading all 99 component docs.
+
+### Validation Script
+Run to check TSX/JSX files for common design system violations (wrong icon variants, missing Card tone, CSS borders instead of Divider, raw HTML elements, etc.):
+```bash
+bash .agents/skills/constellation-design-system/scripts/validate-constellation.sh ./client/src
+```
 
 ### Guides
 - [Installation and Setup](references/guides/installation-and-setup.md): Complete setup guide for installing Constellation packages, configuring PandaCSS, setting themes, configuring aliases for styled-system, and framework-specific configs (Next.js, Vite, Storybook, Jest).
