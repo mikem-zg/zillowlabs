@@ -1,6 +1,6 @@
 ---
 name: constellation-illustrations
-description: Implement and manage Constellation spot illustrations. Use when selecting illustrations for empty states, onboarding, upsell banners, success screens, or any visual storytelling in Zillow apps. Provides 99 illustrations with keywords, descriptions, categories, use-case guidance, and light/dark mode paths.
+description: Implement and manage Constellation spot illustrations. Activates when selecting illustrations, designing empty states, building onboarding flows, creating upsell banners, or adding visual storytelling to Zillow apps. Provides 99 illustrations with keywords, descriptions, categories, use-case guidance, and light/dark mode SVG paths.
 license: Proprietary
 compatibility: Requires a React project with illustration SVGs in client/src/assets/illustrations/
 metadata:
