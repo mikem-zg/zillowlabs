@@ -94,7 +94,7 @@ These icon names look right but **do NOT exist**. Use the correct name instead:
 | `IconPhoneFilled` | `IconPhoneCircleFilled` | Suffixed — "PhoneCircle" not "Phone" |
 | `IconPinFilled` | `IconLocationFilled` | Named "Location" not "Pin" |
 | `IconTimeFilled` / `IconClockFilled` | `IconClockFilled` | `IconClockFilled` exists ✓ |
-| `IconBookmarkFilled` | `IconSavedSearchFilled` | Named "SavedSearch" for bookmarks |
+| `IconBookmarkFilled` | `IconHeartFilled` or `IconFlagFilled` | No bookmark icon — use Heart (favorite) or Flag (mark) |
 | `IconChartFilled` | `IconTrendingFilled` | Named "Trending" not "Chart" |
 | `IconListFilled` | `IconListBulletedFilled` | Suffixed — "ListBulleted" not "List" |
 | `IconAddFilled` | `IconPlusCircleFilled` | Named "PlusCircle" not "Add" |
