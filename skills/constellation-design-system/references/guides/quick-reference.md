@@ -9,7 +9,8 @@ One-page cheat sheet for the most critical rules, component selection, and token
 | Property listing | `PropertyCard` + `saveButton` | `Card` |
 | Generic container (clickable) | `Card elevated interactive tone="neutral"` | `Box` |
 | Generic container (static) | `Card outlined elevated={false} tone="neutral"` | `Box` with border |
-| Page header | `Page.Header` inside `Page.Root` | `Box` / `Flex` |
+| Sticky header | `Flex` inside `Box` with `display: 'flow-root'` | `position: sticky` on `Page.Header` |
+| Non-sticky header | `Page.Header` inside `Page.Root` | `Box` / `Flex` |
 | Visual separator | `<Divider />` | CSS `border` |
 | Single select (price, beds) | `ToggleButtonGroup` + `ToggleButton` | `Button` |
 | Segmented choices | `SegmentedControl` | `Button` group |
@@ -51,6 +52,76 @@ One-page cheat sheet for the most critical rules, component selection, and token
 - ALWAYS wrap in `<Icon size="sm|md|lg|xl">`
 - ALWAYS use `css` prop for colors: `<Icon css={{ color: 'icon.neutral' }}>`
 - NEVER use `color` prop with token paths
+- NEVER guess icon names — verify with the lookup table or search command below
+
+## Icon Lookup by Concept
+
+Use this table to find the correct icon name for common UI concepts. Many intuitive names do NOT exist.
+
+| Concept | Correct Icon Name | Wrong Guesses (do NOT exist) |
+|---|---|---|
+| Home | `IconHomesFilled` | ~~IconHomeFilled~~ |
+| Search | `IconSearchFilled` | — |
+| Heart / Favorite / Save | `IconHeartFilled` | ~~IconFavoriteFilled~~, ~~IconSaveFilled~~ |
+| Close / Dismiss | `IconCloseFilled` | ~~IconXFilled~~, ~~IconCrossFilled~~ |
+| Check / Done | `IconCheckmarkFilled` | ~~IconCheckFilled~~, ~~IconDoneFilled~~ |
+| Check (in circle) | `IconCheckmarkCircleFilled` | — |
+| Plus / Add | `IconPlusFilled` | ~~IconAddFilled~~ |
+| Plus (in circle) | `IconPlusCircleFilled` | — |
+| Minus | `IconMinusFilled` | ~~IconRemoveFilled~~ |
+| Menu / Hamburger | `IconMenuFilled` | — |
+| Settings | `IconSettingsFilled` | ~~IconSettingFilled~~, ~~IconGearFilled~~ |
+| Edit / Pencil | `IconEditFilled` | ~~IconPencilFilled~~ |
+| Delete / Trash | `IconDeleteFilled` | ~~IconTrashFilled~~ |
+| Chat / Message | `IconMessageFilled` | ~~IconChatFilled~~ |
+| Email / Mail | `IconMailFilled` | ~~IconEmailFilled~~ |
+| Phone / Call | `IconPhoneFilled` | — |
+| Notification / Bell | `IconNotificationFilled` | ~~IconBellFilled~~, ~~IconAlertFilled~~ |
+| Star / Rating | `IconStar100Percent` (Special) | ~~IconStarFilled~~ |
+| Share | `IconShareWebFilled` | ~~IconShareFilled~~ |
+| Download | `IconDownloadFilled` | — |
+| Upload | `IconUploadFilled` | — |
+| Copy | `IconCopyFilled` | — |
+| Send | `IconSendFilled` | — |
+| Link | `IconLinkFilled` | — |
+| Refresh / Reload | `IconReloadFilled` | ~~IconRefreshFilled~~ |
+| Location / Pin | `IconLocationFilled` | ~~IconPinFilled~~ |
+| Map | `IconMapFilled` | — |
+| Calendar / Date | `IconCalendarFilled` | — |
+| Clock / Time | `IconClockFilled` | ~~IconTimeFilled~~ |
+| User / Profile | `IconUserFilled` or `IconProfileFilled` | ~~IconAccountFilled~~ |
+| User Group / Team | `IconUserGroupFilled` | — |
+| Filter | `IconFilterFilled` | — |
+| Sort | `IconSortFilled` | — |
+| List | `IconListBulletedFilled` | ~~IconListFilled~~ |
+| Grid | `IconGridFilled` | — |
+| Photo / Image | `IconPhotosFilled` | ~~IconImageFilled~~, ~~IconPhotoFilled~~ |
+| Video | `IconVideoCameraFilled` | ~~IconVideoFilled~~ |
+| Camera | `IconCameraFilled` | — |
+| Microphone | `IconMicrophoneFilled` | ~~IconMicFilled~~ |
+| Document / File | `IconFileFilled` | ~~IconDocumentFilled~~ |
+| Folder | `IconFolderFilled` | — |
+| Print | `IconPrintFilled` | — |
+| Lock (closed) | `IconLockClosedFilled` | ~~IconLockFilled~~ |
+| Lock (open) | `IconLockOpenFilled` | ~~IconUnlockFilled~~ |
+| Info | `IconInfoFilled` | — |
+| Warning | `IconWarningFilled` | — |
+| Error | `IconErrorFilled` | — |
+| Flag / Bookmark | `IconFlagFilled` | ~~IconBookmarkFilled~~ |
+| Tag / Label | `IconTagFilled` | ~~IconLabelFilled~~ |
+| Expand | `IconExpandFilled` | — |
+| Fullscreen | `IconFullScreenFilled` | ~~IconFullscreenFilled~~ (capital S) |
+| Trending / Chart | `IconTrendingFilled` | ~~IconChartFilled~~, ~~IconGraphFilled~~ |
+| AI / Magic / Sparkle | `IconAIMagicFilled` or `IconSparkleFilled` | — |
+| Visibility / Eye | `IconStreetViewFilled` | ~~IconEyeFilled~~, ~~IconViewFilled~~ |
+| Arrow (directional) | `IconArrowUpFilled`, `IconArrowDownFilled`, `IconArrowLeftFilled`, `IconArrowRightFilled` | — |
+| Chevron | `IconChevronDownFilled`, `IconChevronUpFilled`, `IconChevronLeftFilled`, `IconChevronRightFilled` | — |
+| Divider | `<Divider />` component (not an icon) | — |
+
+**Quick icon search command:**
+```bash
+node --input-type=module -e "import * as m from '@zillow/constellation-icons'; Object.keys(m).filter(k=>k.toLowerCase().includes('KEYWORD')).forEach(k=>console.log(k))"
+```
 
 ## Card Rules
 
