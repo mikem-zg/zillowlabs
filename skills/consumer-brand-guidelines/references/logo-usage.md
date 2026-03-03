@@ -17,44 +17,11 @@ Source: Zillow April 2024 Brand Guidelines, slides 42-78.
 | 02 | **All White** | Owned spaces: white logo on its own. Non-owned spaces: only with Zillow Blue present in design. |
 | 03 | **Tag Design** | Non-owned spaces where no Zillow Blue is present. Logo housed in a designed "tag" with Zillow Blue. |
 
-### Owned vs Non-Owned Space Decision
-
-| Context | Zillow Blue Present? | Colorway |
-|---------|---------------------|----------|
-| Owned space (app, email, social) | — | Primary or white (both OK) |
-| Non-owned space | Yes | White logo OK |
-| Non-owned space | No | Tag design required |
-
-## Sizing Constraints
-
-| Context | Height | Notes |
-|---------|--------|-------|
-| Desktop navigation | 24px | Standard for all desktop breakpoints |
-| Mobile navigation | 16px | For screens 325px-540px; accommodates longer LOB logos |
-| Email header | 24px | More surrounding space than mweb |
-| Logomark minimum | 58px | Never reduce below this for legibility |
-| Legal/required placement | 16px | Not obtrusive but legible |
-
-### Sizing DON'Ts
-
-| DON'T | Why |
-|-------|-----|
-| 24px on mobile | Too large; longer LOBs (e.g., ZHL) overcrowd mobile nav |
-| 16px on desktop | Too small; feels too floaty |
-| <12px anywhere | Illegible |
-
 ## Clearspace
 
 Use the house motif as a metric for determining space allowance around the logo.
 
-## Alignment
-
-| DO | DON'T |
-|----|-------|
-| Left-align logo whenever possible | Center-align when rest of content is left-aligned |
-| Center OK when appearing above house motif frame | Right-align logo |
-
-## Incorrect Usage (9 Rules)
+## Incorrect Usage (9 Rules — Both Marketing and Product)
 
 1. Do not scale the logo disproportionately
 2. Do not make the logo all Zillow Blue
@@ -66,31 +33,34 @@ Use the house motif as a metric for determining space allowance around the logo.
 8. Do not stack logomark above logotype
 9. Do not add gradients to the logo
 
-## Avoid Overcrowding
+---
 
-The logo does not need to be visible at all times. Customers in the Zillow ecosystem already know they are on Zillow. Avoid squeezing the logo into small spaces. Never use the logomark without the logotype.
+## Marketing Logo Rules
 
-## Brand Extensions (Lines of Business)
+Marketing contexts: ads, email campaigns, social posts, OOH, landing pages, print.
 
-| Extension | Has a Logo? |
-|-----------|------------|
-| Zillow Home Loans | Yes |
-| Zillow Rentals | Yes |
-| Zillow Premier Agent | Yes |
-| ShowingTime+ | Yes |
-| Individual products/services | No — products do not get logos |
+### Owned vs Non-Owned Space Decision
 
-### LOB Lockup Orientations
+| Context | Zillow Blue Present? | Colorway |
+|---------|---------------------|----------|
+| Owned space (app, email, social) | — | Primary or white (both OK) |
+| Non-owned space | Yes | White logo OK |
+| Non-owned space | No | Tag design required |
 
-| Orientation | When |
-|-------------|------|
-| **Horizontal** (preferred) | Whenever layout allows |
-| **Stacked** (secondary) | When horizontal doesn't fit |
+### Owned Spaces
+Customers already know they are within the Zillow ecosystem (app, email, social posts, owned events). Creative freedom to use secondary colors without Zillow Blue constantly present. White logo is acceptable without blue.
 
-## Co-Branding
+### Non-Owned Spaces
+Touchpoints outside the Zillow ecosystem (billboards, digital ads, etc.). Zillow Blue needs to be more prominent for brand equity. If the design does not include Zillow Blue, the tag design logo is required.
 
-### Product-Based Partnerships (Long-Term)
+### Marketing Email Logo
+- Logo: 24px height
+- Left-align in most instances
+- Center-align OK when logo appears above the frame motif
 
+### Co-Branding (Marketing)
+
+#### Product-Based Partnerships (Long-Term)
 - Logos separated by a vertical rule
 - Zillow leads on owned channels
 - Equal visual weight between logos
@@ -98,14 +68,13 @@ The logo does not need to be visible at all times. Customers in the Zillow ecosy
 - Partner logo scaled to visually align with top of "Z"
 - Vertical rule in Granite color
 
-### Marketing-Based Partnerships (One-Off)
-
+#### Marketing-Based Partnerships (One-Off)
 - HDP-related: "FIND IT ON" text between logos, or thin dividing rule
 - Non-HDP: "X" separator implies collaboration
 - Partner logo leads; Zillow logo follows
 - "X" in Object Sans Bold, Granite color
 
-### Co-Branding DON'Ts
+#### Co-Branding DON'Ts
 
 | DON'T | Why |
 |-------|-----|
@@ -117,7 +86,65 @@ The logo does not need to be visible at all times. Customers in the Zillow ecosy
 | Abbreviate logos | Brand integrity |
 | Remove copyright symbol | Legal requirement |
 
-## Favicon and Social Icons
+### Brand Extensions / Lines of Business
 
+| Extension | Has a Logo? |
+|-----------|------------|
+| Zillow Home Loans | Yes |
+| Zillow Rentals | Yes |
+| Zillow Premier Agent | Yes |
+| ShowingTime+ | Yes |
+| Individual products/services | No — products do not get logos |
+
+#### LOB Lockup Orientations
+
+| Orientation | When |
+|-------------|------|
+| **Horizontal** (preferred) | Whenever layout allows |
+| **Stacked** (secondary) | When horizontal doesn't fit |
+
+### Favicon and Social Icons
 - Favicon / app icon: house motif only (not a replacement for the full logo)
 - Social icons: specific designs for LinkedIn, Facebook, X
+
+---
+
+## Product Logo Rules
+
+Product contexts: app UI, website screens, in-product flows.
+
+### Key Difference from Marketing
+The logo is used **more sparingly** in product. Customers already know they are within the Zillow ecosystem, so it is not necessary for the logo to always be in view.
+
+### Sizing Constraints
+
+| Context | Height | Notes |
+|---------|--------|-------|
+| Desktop navigation | **24px** | Standard for all desktop breakpoints |
+| Mobile navigation | **16px** | For screens 325px-540px; accommodates longer LOB logos |
+| Email header | **24px** | More surrounding space than mweb |
+| Logomark minimum | **58px** | Never reduce below this for legibility |
+| Legal/required placement | **16px** | Not obtrusive but legible |
+
+### Sizing DON'Ts in Product
+
+| DON'T | Why |
+|-------|-----|
+| 24px on mobile | Too large; longer LOBs (e.g., ZHL) overcrowd mobile nav |
+| 16px on desktop | Too small; feels too floaty |
+| <12px anywhere | Illegible |
+
+### Alignment in Product
+- Left-align logo whenever possible
+- Left alignment provides a more accessible experience
+- This is the vision for global navigation going forward
+
+### Avoid Overcrowding in Product
+- The logo does not need to be visible at all times
+- Customers in the Zillow ecosystem already know they are on Zillow
+- Avoid squeezing the logo into small spaces
+- Never use the logomark without the logotype
+- If the logo doesn't fit in the navigation, that is OK for certain circumstances
+
+### LOB Consistency in Product
+When the logo changes from one LOB to another in navigation, the height must remain consistent between experiences. Use 16px mobile / 24px desktop for all LOBs.
