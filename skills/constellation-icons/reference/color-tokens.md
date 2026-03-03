@@ -1,6 +1,6 @@
 # Icon Color Tokens & Implementation Guide
 
-**Package:** `@zillow/constellation-icons` v10.11.0
+**Package:** `@zillow/constellation-icons` v10.13.0
 **Styling:** PandaCSS with Constellation semantic tokens
 
 ## Critical Rules

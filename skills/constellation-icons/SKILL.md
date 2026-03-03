@@ -11,11 +11,17 @@ description: Complete reference for Zillow's Constellation icon library (621 ico
 - **`reference/color-tokens.md`** — Color token reference, implementation patterns, sizing, dark mode, and anti-patterns
 - **`reference/quick-reference.md`** — Alphabetical lookup table and category-based quick finder
 
+## Related Constellation Skills
+
+- **[constellation-design-system](../../constellation-design-system/SKILL.md)**: Core design system rules, all 99 component docs, UX writing guidelines, and layout patterns. **Load this skill for component usage, spacing tokens, and design rules.**
+- **[constellation-dark-mode](../../constellation-dark-mode/SKILL.md)**: Theme injection, dark mode toggle patterns, `_dark`/`_light` CSS conditions, and design token tiers. **Load this skill when implementing theming or dark mode.**
+- **[constellation-illustrations](../../constellation-illustrations/SKILL.md)**: Full catalog of 99 spot illustrations with light/dark mode SVG paths. **Load this skill when selecting illustrations for empty states, onboarding, or storytelling.**
+
 ## Overview
 
 | Stat | Value |
 |---|---|
-| Package | `@zillow/constellation-icons` v10.11.0 |
+| Package | `@zillow/constellation-icons` v10.13.0 |
 | Total icons | 621 |
 | Filled variants | 302 |
 | Outline variants | 302 |
