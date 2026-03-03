@@ -83,8 +83,8 @@ Before applying any visual rule, determine which context you are working in:
 | ELEV_004 | Product | Elevation | Dark mode: no shadows; use lighter backgrounds for elevation | None |
 | ICON_001 | Product | Icons | Filled icons as default | Outline for pre-interaction states (e.g., unfavorited heart) |
 | ICON_002 | Product | Icons | Sizes: sm=16px, md=24px (default), lg=32px, xl=44px | None |
-| ICON_003 | Product | Icons | Interactive icons: Blue600 | Gray950 when interaction is implied by container |
-| ICON_004 | Product | Icons | Content support icons: Gray600 | Teal600 for storytelling emphasis |
+| ICON_003 | Product | Icons | Interactive icons: `icon.action.hero.default` (`Blue600`) | `icon.neutral` (`Gray950`) when implied by container |
+| ICON_004 | Product | Icons | Content support icons: `icon.subtle` (`Gray600`) | `Teal600` for storytelling emphasis |
 | ICON_005 | Product | Icons | Max 3 xl icons in proximity; max 5 lg icons in proximity | None |
 | CONT_001 | Product | Containers | Filled containers: saturated = highest importance; white = moderate | None |
 | CONT_002 | Product | Containers | Outlined containers: visual separation, grouping form fields | None |
@@ -175,5 +175,8 @@ Each reference file is split into **Marketing** and **Product** sections where t
 - **Constellation Design System** → `.agents/skills/constellation-design-system/` for component rules, spacing tokens, code patterns
 - **Constellation Icons** → `.agents/skills/constellation-icons/` for icon catalog, name verification, import patterns
 - **Constellation Illustrations** → `.agents/skills/constellation-illustrations/` for spot illustration catalog (93 illustrations with light/dark mode paths)
+- **Constellation Dark Mode** → `.agents/skills/constellation-dark-mode/` for theme injection, `_dark`/`_light` conditions, dark mode token inversions
+- **OrangeLogic DAM** → `.agents/skills/orangelogic-dam/` for sourcing photography, logos, and brand assets. NEVER use AI generation, stock APIs, or placeholder images — always search the DAM first.
+- **Property Card Data** → `.agents/skills/property-card-data/` for generating realistic listing data with AI-generated home photos (the one exception to the no-AI-images rule)
 - **UX Writing Guide** → `custom_instruction/ux-writing-guide.md` for product copy standards
 - **Instructions** → `custom_instruction/instructions.md` for implementation rules and validation workflow
