@@ -1,6 +1,6 @@
 # Header Patterns — Full Code Examples
 
-> **Width alignment rule:** When the page content uses a max-width container (e.g., `maxWidth: "1200px"`), the header's inner `Flex` MUST use the same `maxWidth` + `mx: "auto"` so content aligns visually. The sticky `Box` wrapper stays full-bleed for the background color; only the inner layout container is constrained. All patterns below include `maxWidth: "1200px", mx: "auto"` on the inner Flex — adjust the value to match your page content width.
+> **Width alignment rule:** The header's inner `Flex` MUST use the same `maxWidth` + `mx: "auto"` as the page content so they align visually. Use a Constellation breakpoint size token (e.g., `"breakpoint-xxl"` = 80em) — NEVER hardcode pixel values. The sticky `Box` wrapper stays full-bleed for the background color; only the inner layout container is constrained. All patterns below use `maxWidth: "breakpoint-xxl"` — adjust to match your page content width token.
 
 ## Table of Contents
 
