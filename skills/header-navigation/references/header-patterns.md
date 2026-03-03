@@ -32,7 +32,7 @@ import { IconMenuFilled } from "@zillow/constellation-icons";
 export default function BasicConsumerHeader() {
   return (
     <Page.Root css={{ background: "bg.screen.neutral" }}>
-      <Flex align="center" justify="space-between" css={{ maxWidth: "1200px", mx: "auto", width: "100%", px: "400", py: "400" }}>
+      <Flex align="center" justify="space-between" css={{ maxWidth: "breakpoint-xxl", mx: "auto", width: "100%", px: "400", py: "400" }}>
         <Flex align="center" gap="400">
           <Box css={{ display: { base: "none", md: "block" } }}>
             <ZillowLogo role="img" css={{ height: "24px", width: "auto" }} />
@@ -85,7 +85,7 @@ export default function StickyConsumerHeader() {
   return (
     <Page.Root css={{ background: "bg.screen.neutral" }}>
       <Box css={{ position: "sticky", display: "flow-root", top: 0, zIndex: 10, width: "100%", maxWidth: "100%", background: "bg.screen.neutral" }}>
-        <Flex align="center" justify="space-between" css={{ maxWidth: "1200px", mx: "auto", width: "100%", px: "400", py: "400" }}>
+        <Flex align="center" justify="space-between" css={{ maxWidth: "breakpoint-xxl", mx: "auto", width: "100%", px: "400", py: "400" }}>
           <Flex align="center" gap="400">
             <Box css={{ display: { base: "none", md: "block" } }}>
               <ZillowLogo role="img" css={{ height: "24px", width: "auto" }} />
@@ -139,7 +139,7 @@ export default function SearchHeader() {
   return (
     <Page.Root css={{ background: "bg.screen.neutral" }}>
       <Box css={{ position: "sticky", display: "flow-root", top: 0, zIndex: 10, width: "100%", maxWidth: "100%", background: "bg.screen.neutral" }}>
-        <Flex align="center" justify="space-between" gap="400" css={{ maxWidth: "1200px", mx: "auto", width: "100%", px: "400", py: "400" }}>
+        <Flex align="center" justify="space-between" gap="400" css={{ maxWidth: "breakpoint-xxl", mx: "auto", width: "100%", px: "400", py: "400" }}>
           <Box css={{ flexShrink: 0 }}>
             <Box css={{ display: { base: "none", md: "block" } }}>
               <ZillowLogo role="img" css={{ height: "24px", width: "auto" }} />
@@ -197,7 +197,7 @@ export default function MobileResponsiveHeader() {
   return (
     <Page.Root css={{ background: "bg.screen.neutral" }}>
       <Box css={{ position: "sticky", display: "flow-root", top: 0, zIndex: 10, width: "100%", maxWidth: "100%", background: "bg.screen.neutral" }}>
-        <Flex align="center" justify="space-between" css={{ maxWidth: "1200px", mx: "auto", width: "100%", px: "400", py: "400" }}>
+        <Flex align="center" justify="space-between" css={{ maxWidth: "breakpoint-xxl", mx: "auto", width: "100%", px: "400", py: "400" }}>
           <Flex align="center" gap="400">
             <Box css={{ display: { base: "none", md: "block" } }}>
               <ZillowLogo role="img" css={{ height: "24px", width: "auto" }} />
@@ -273,7 +273,7 @@ export default function ProfessionalHeader() {
   return (
     <Page.Root css={{ background: "bg.screen.neutral" }}>
       <Box css={{ position: "sticky", display: "flow-root", top: 0, zIndex: 10, width: "100%", maxWidth: "100%", background: "bg.screen.neutral" }}>
-        <Flex align="center" justify="space-between" css={{ maxWidth: "1200px", mx: "auto", width: "100%", px: "400", py: "300" }}>
+        <Flex align="center" justify="space-between" css={{ maxWidth: "breakpoint-xxl", mx: "auto", width: "100%", px: "400", py: "300" }}>
           <Flex align="center" gap="400">
             <Box css={{ display: { base: "none", md: "block" } }}>
               <ZillowLogo role="img" css={{ height: "24px", width: "auto" }} />
@@ -328,7 +328,7 @@ export default function HeaderWithTabs() {
   return (
     <Page.Root css={{ background: "bg.screen.neutral" }}>
       <Box css={{ position: "sticky", display: "flow-root", top: 0, zIndex: 10, width: "100%", maxWidth: "100%", background: "bg.screen.neutral" }}>
-        <Flex align="center" justify="space-between" css={{ maxWidth: "1200px", mx: "auto", width: "100%", px: "400", py: "400" }}>
+        <Flex align="center" justify="space-between" css={{ maxWidth: "breakpoint-xxl", mx: "auto", width: "100%", px: "400", py: "400" }}>
           <Flex align="center" gap="400">
             <Box css={{ display: { base: "none", md: "block" } }}>
               <ZillowLogo role="img" css={{ height: "24px", width: "auto" }} />
@@ -345,7 +345,7 @@ export default function HeaderWithTabs() {
           </Flex>
         </Flex>
         <Divider tone="muted-alt" />
-        <Box css={{ maxWidth: "1200px", mx: "auto", width: "100%", px: "400" }}>
+        <Box css={{ maxWidth: "breakpoint-xxl", mx: "auto", width: "100%", px: "400" }}>
           <Tabs.Root appearance="default" defaultSelected="overview">
             <Tabs.List>
               <Tabs.Tab value="overview">Overview</Tabs.Tab>
@@ -381,7 +381,7 @@ export default function HeaderWithSidebar() {
   return (
     <Box css={{ height: "100vh", display: "flex", flexDirection: "column" }}>
       <Box css={{ display: "flow-root", width: "100%", maxWidth: "100%", background: "bg.screen.neutral", flexShrink: 0 }}>
-        <Flex align="center" justify="space-between" css={{ maxWidth: "1200px", mx: "auto", width: "100%", px: "400", py: "300" }}>
+        <Flex align="center" justify="space-between" css={{ maxWidth: "breakpoint-xxl", mx: "auto", width: "100%", px: "400", py: "300" }}>
           <Flex align="center" gap="400">
             <Box css={{ display: { base: "none", md: "block" } }}>
               <ZillowLogo role="img" css={{ height: "24px", width: "auto" }} />
@@ -473,7 +473,7 @@ export default function HeaderWithBreadcrumb() {
   return (
     <Page.Root css={{ background: "bg.screen.neutral" }}>
       <Box css={{ position: "sticky", display: "flow-root", top: 0, zIndex: 10, width: "100%", maxWidth: "100%", background: "bg.screen.neutral" }}>
-        <Flex align="center" justify="space-between" css={{ maxWidth: "1200px", mx: "auto", width: "100%", px: "400", py: "400" }}>
+        <Flex align="center" justify="space-between" css={{ maxWidth: "breakpoint-xxl", mx: "auto", width: "100%", px: "400", py: "400" }}>
           <Flex align="center" gap="400">
             <Box css={{ display: { base: "none", md: "block" } }}>
               <ZillowLogo role="img" css={{ height: "24px", width: "auto" }} />
@@ -503,7 +503,7 @@ export default function HeaderWithBreadcrumb() {
           Back to search results
         </TextButton>
       </Page.Breadcrumb>
-      <Box css={{ maxWidth: "1200px", mx: "auto", width: "100%", px: "400", py: "400" }}>
+      <Box css={{ maxWidth: "breakpoint-xxl", mx: "auto", width: "100%", px: "400", py: "400" }}>
         <Flex
           direction={{ base: "column", md: "row" }}
           align={{ base: "flex-start", md: "center" }}
@@ -537,7 +537,7 @@ import { IconMenuFilled } from "@zillow/constellation-icons";
 export default function CenteredLogoHeader() {
   return (
     <Page.Root css={{ background: "bg.screen.neutral" }}>
-      <Flex align="center" justify="space-between" css={{ maxWidth: "1200px", mx: "auto", width: "100%", px: "400", py: "400" }}>
+      <Flex align="center" justify="space-between" css={{ maxWidth: "breakpoint-xxl", mx: "auto", width: "100%", px: "400", py: "400" }}>
         <Box css={{ display: { base: "none", lg: "flex" }, gap: "400", flex: 1 }}>
           <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Buy</TextButton>
           <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Rent</TextButton>
@@ -585,7 +585,7 @@ import { IconMenuFilled } from "@zillow/constellation-icons";
 export default function NoDividerHeader() {
   return (
     <Page.Root css={{ background: "bg.screen.neutral" }}>
-      <Flex align="center" justify="space-between" css={{ maxWidth: "1200px", mx: "auto", width: "100%", px: "400", py: "400" }}>
+      <Flex align="center" justify="space-between" css={{ maxWidth: "breakpoint-xxl", mx: "auto", width: "100%", px: "400", py: "400" }}>
         <Flex align="center" gap="400">
           <Box css={{ display: { base: "none", md: "block" } }}>
             <ZillowLogo role="img" css={{ height: "24px", width: "auto" }} />
@@ -644,7 +644,7 @@ export default function ContainedHeader() {
         <Flex
           align="center"
           justify="space-between"
-          css={{ maxWidth: "1200px", mx: "auto", width: "100%", px: "400", py: "400" }}
+          css={{ maxWidth: "breakpoint-xxl", mx: "auto", width: "100%", px: "400", py: "400" }}
         >
           <Flex align="center" gap="400">
             <Box css={{ display: { base: "none", md: "block" } }}>
@@ -676,7 +676,7 @@ export default function ContainedHeader() {
         </Flex>
         <Divider tone="muted-alt" />
       </Box>
-      <Box css={{ maxWidth: "1200px", mx: "auto", width: "100%", px: "400", py: "600" }}>
+      <Box css={{ maxWidth: "breakpoint-xxl", mx: "auto", width: "100%", px: "400", py: "600" }}>
         {/* Page content — same maxWidth as header inner content */}
       </Box>
     </Page.Root>
