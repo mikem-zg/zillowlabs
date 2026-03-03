@@ -59,14 +59,14 @@ cp .agents/skills/transition-to-constellation/packages/*.tgz ./
 ```json
 {
   "dependencies": {
-    "@zillow/constellation": "file:constellation-10.11.0.tgz",
-    "@zillow/constellation-fonts": "file:constellation-fonts-10.11.0.tgz",
-    "@zillow/constellation-icons": "file:constellation-icons-10.11.0.tgz",
-    "@zillow/constellation-tokens": "file:constellation-tokens-10.11.0.tgz",
+    "@zillow/constellation": "file:constellation-10.13.0.tgz",
+    "@zillow/constellation-fonts": "file:constellation-fonts-10.13.0.tgz",
+    "@zillow/constellation-icons": "file:constellation-icons-10.13.0.tgz",
+    "@zillow/constellation-tokens": "file:constellation-tokens-10.13.0.tgz",
     "@zillow/yield-callback": "file:yield-callback-1.4.0.tgz"
   },
   "devDependencies": {
-    "@zillow/constellation-config": "file:constellation-config-10.11.0.tgz"
+    "@zillow/constellation-config": "file:constellation-config-10.13.0.tgz"
   }
 }
 ```

@@ -1,18 +1,23 @@
 ---
 name: transition-to-constellation
-description: Migrate any React frontend to Zillow's Constellation Design System v10.11.0. Includes automated codebase analysis, component migration recipes, side-by-side coexistence strategy, validation scripts, and all v10.11.0 tarballs for offline installation.
+description: Migrate any React frontend to Zillow's Constellation Design System v10.13.0. Includes automated codebase analysis, component migration recipes, side-by-side coexistence strategy, validation scripts, and all v10.13.0 tarballs for offline installation.
 license: Proprietary
 compatibility: Requires a React 18+ project. Will install @zillow/constellation and @pandacss/dev.
 metadata:
   author: Zillow Group
-  version: "10.11.0"
+  version: "10.13.0"
 ---
 
-# Transition to Constellation (v10.11.0)
+# Transition to Constellation (v10.13.0)
 
 This skill handles **analyzing, migrating, and validating** a React frontend's transition to Zillow's Constellation Design System. It supports migration from Tailwind, shadcn/ui, Material UI, Chakra UI, Ant Design, vanilla CSS, or any combination.
 
-**After installation is complete**, use the **Constellation Design System** skill (`.agents/skills/constellation-design-system`) for component documentation, design rules, and UX writing guidelines.
+**After installation is complete**, use the related Constellation skills for building UI:
+
+- **[constellation-design-system](../constellation-design-system/SKILL.md)**: Core design system rules, all 99 component docs, UX writing guidelines, and layout patterns
+- **[constellation-icons](../constellation-icons/SKILL.md)**: Full catalog of 621 icons with color tokens, sizing, and implementation guides
+- **[constellation-illustrations](../constellation-illustrations/SKILL.md)**: 99 spot illustrations with light/dark mode SVG paths for empty states, onboarding, and storytelling
+- **[constellation-dark-mode](../constellation-dark-mode/SKILL.md)**: Theme injection, dark mode toggle patterns, and design token tiers
 
 ## Migration Program (How a Team Does This)
 
@@ -94,18 +99,18 @@ Each recipe shows before/after code for migrating from shadcn, MUI, Chakra, and 
 | `tw2panda` | Convert Tailwind classes → PandaCSS (see [Conversion Guide](references/guides/converting-to-constellation.md)) |
 | `jscodeshift` | AST-based icon/component transforms (see [Conversion Guide](references/guides/converting-to-constellation.md)) |
 
-## Bundled Packages (v10.11.0)
+## Bundled Packages (v10.13.0)
 
 All tarballs are in `packages/` for offline or Replit installation:
 
 | Package | File |
 |---------|------|
-| `@zillow/constellation` | `packages/constellation-10.11.0.tgz` |
-| `@zillow/constellation-icons` | `packages/constellation-icons-10.11.0.tgz` |
-| `@zillow/constellation-tokens` | `packages/constellation-tokens-10.11.0.tgz` |
-| `@zillow/constellation-fonts` | `packages/constellation-fonts-10.11.0.tgz` |
-| `@zillow/constellation-config` | `packages/constellation-config-10.11.0.tgz` |
-| `@zillow/constellation-mcp` | `packages/constellation-mcp-10.11.0.tgz` |
+| `@zillow/constellation` | `packages/constellation-10.13.0.tgz` |
+| `@zillow/constellation-icons` | `packages/constellation-icons-10.13.0.tgz` |
+| `@zillow/constellation-tokens` | `packages/constellation-tokens-10.13.0.tgz` |
+| `@zillow/constellation-fonts` | `packages/constellation-fonts-10.13.0.tgz` |
+| `@zillow/constellation-config` | `packages/constellation-config-10.13.0.tgz` |
+| `@zillow/constellation-mcp` | `packages/constellation-mcp-10.13.0.tgz` |
 | `@zillow/yield-callback` | `packages/yield-callback-1.4.0.tgz` |
 
 ## Key Decisions
