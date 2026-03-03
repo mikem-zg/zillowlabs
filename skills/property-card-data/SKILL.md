@@ -17,6 +17,7 @@ Generate realistic property data with **auto-generated photorealistic images** f
 6. **Always include `saveButton`** — `PropertyCard` requires `saveButton={<PropertyCard.SaveButton />}`
 7. **Vary the data** — never repeat the same address, price, or bed/bath combo across cards on a page
 8. **Images MUST match the region** — every generated home photo must reflect the architecture, materials, landscaping, and climate of the specific metro area. A Raleigh card must show Raleigh-style homes (colonial brick, crepe myrtles, bermuda grass). A Phoenix card must show desert architecture (stucco, xeriscaping, saguaro). Never use a generic or mismatched regional style.
+9. **NEVER use external image URLs** — do not use zillowstatic.com, unsplash, pexels, placeholder.com, or any external image service. Every PropertyCard image must be generated locally using the image generation tool.
 
 ## Regional Image Accuracy (CRITICAL)
 
