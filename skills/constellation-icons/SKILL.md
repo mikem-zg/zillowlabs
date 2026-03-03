@@ -91,7 +91,7 @@ These icon names look right but **do NOT exist**. Use the correct name instead:
 | `IconImageFilled` / `IconPhotoFilled` | `IconPhotosFilled` | Plural — "Photos" not "Photo" |
 | `IconVideoFilled` | `IconVideoCameraFilled` | Full name — "VideoCamera" not "Video" |
 | `IconMicFilled` | `IconMicrophoneFilled` | Full name — "Microphone" not "Mic" |
-| `IconPhoneFilled` | `IconPhoneCircleFilled` | Suffixed — "PhoneCircle" not "Phone" |
+| `IconEmailFilled` | `IconMailFilled` | Named "Mail" not "Email" |
 | `IconPinFilled` | `IconLocationFilled` | Named "Location" not "Pin" |
 | `IconTimeFilled` / `IconClockFilled` | `IconClockFilled` | `IconClockFilled` exists ✓ |
 | `IconBookmarkFilled` | `IconHeartFilled` or `IconFlagFilled` | No bookmark icon — use Heart (favorite) or Flag (mark) |
