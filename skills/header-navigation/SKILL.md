@@ -105,7 +105,7 @@ Default is `textStyle="body" tone="neutral"`. Other options:
 
 ## Available Patterns
 
-10 header variations with full code examples:
+11 header variations with full code examples:
 
 | Pattern | Key Features | Audience |
 |---------|-------------|----------|
@@ -119,6 +119,7 @@ Default is `textStyle="body" tone="neutral"`. Other options:
 | Breadcrumb | Header + Page.Breadcrumb + detail heading | Both |
 | Centered logo | Three-column layout, logo centered | Consumer |
 | No divider | Clean seamless header | Consumer |
+| Contained | Full-bleed sticky bg + maxWidth-constrained inner content | Both |
 
 ## Related Constellation Skills
 
