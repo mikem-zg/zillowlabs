@@ -85,6 +85,13 @@ Default is `textStyle="body" tone="neutral"`. Other options:
 | Centered logo | Three-column layout, logo centered | Consumer |
 | No divider | Clean seamless header | Consumer |
 
+## Related Constellation Skills
+
+- **[constellation-design-system](../constellation-design-system/SKILL.md)**: Core design system rules, all 99 component docs, UX writing guidelines, and layout patterns. **Load this skill for component usage, spacing tokens, and design rules.**
+- **[constellation-icons](../constellation-icons/SKILL.md)**: Full catalog of 621 icons with color tokens, sizing, and implementation guides. **Load this skill when choosing header icons** (menu, search, notifications, settings).
+- **[constellation-dark-mode](../constellation-dark-mode/SKILL.md)**: Theme injection, dark mode toggle patterns, and design token tiers. **Load this skill when implementing dark mode** — headers use `bg.screen.neutral` which adapts automatically.
+- **[responsive-design](../responsive-design/SKILL.md)**: Mobile-first responsive layouts, PandaCSS breakpoint tokens, and touch targets. **Load this skill for responsive header behavior** beyond the patterns included here.
+
 ## Resources
 
 - **Full code examples**: See [references/header-patterns.md](references/header-patterns.md) for all 10 patterns
