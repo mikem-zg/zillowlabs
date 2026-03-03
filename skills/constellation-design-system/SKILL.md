@@ -14,6 +14,33 @@ Constellation is Zillow's unified design system for building consumer and profes
 
 This skill covers **how to use** Constellation components, design rules, and UX writing guidelines in projects that already have Constellation installed.
 
+## Prerequisites
+
+- React 18+ project
+- `@zillow/constellation` and `@zillow/constellation-icons` packages installed
+- `@pandacss/dev` configured with `@zillow/constellation-config` preset
+- Theme injected via `injectTheme()` or `ConstellationProvider` in your app entry point
+- PandaCSS codegen completed (`panda codegen`) so `@/styled-system/*` imports resolve
+
+If Constellation is NOT yet installed, use the [transition-to-constellation](../transition-to-constellation/SKILL.md) skill first.
+
+## When to Use
+
+- Building any React UI with Constellation components
+- Selecting the right component for a use case (Card vs PropertyCard, Button vs ToggleButton, etc.)
+- Looking up component props, patterns, or anti-patterns
+- Checking spacing tokens, typography hierarchy, or color usage rules
+- Writing UI copy (UX writing guidelines)
+- Validating design system compliance
+
+## When NOT to Use
+
+- **Installing Constellation from scratch** — use `transition-to-constellation` or `transition-to-constellation-from-scratch` instead
+- **Looking up a specific icon name** — use `constellation-icons` which has the full 621-icon catalog with search
+- **Selecting an illustration** — use `constellation-illustrations` which has keyword search across 99 illustrations
+- **Implementing dark mode or theme switching** — use `constellation-dark-mode` for theme injection and toggle patterns
+- **Building header/navigation patterns** — use `header-navigation` for tested responsive header patterns
+
 ## Documentation Structure
 
 The `references/` directory contains detailed documentation organized as follows:
