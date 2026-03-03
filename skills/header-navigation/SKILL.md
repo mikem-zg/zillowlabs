@@ -80,7 +80,7 @@ Default to `py: "400"` for consumer-facing apps. Use `py: "300"` only when a mor
   <Flex
     align="center"
     justify="space-between"
-    css={{ maxWidth: "1200px", mx: "auto", width: "100%", px: "400", py: "400" }}
+    css={{ maxWidth: "breakpoint-xxl", mx: "auto", width: "100%", px: "400", py: "400" }}
   >
     {/* left: logo + nav links */}
     {/* right: actions + menu icon fallback */}
