@@ -92,7 +92,7 @@ Use the template below for each endpoint. Include real response samples where po
   {
     "id": 1,
     "name": "constellation-design-system",
-    "description": "Build UI with Zillow's Constellation Design System v10.11.0",
+    "description": "Build UI with Zillow's Constellation Design System v10.13.0",
     "category": "design",
     "tags": ["react", "panda-css", "zillow"],
     "fileCount": 12,

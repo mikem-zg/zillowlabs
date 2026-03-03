@@ -1,16 +1,23 @@
 ---
 name: transition-to-constellation-from-scratch
-description: Rebuild any React frontend from scratch using Zillow's Constellation Design System v10.11.0. Runs a comprehensive analysis, generates a principal product-level PRD, then rebuilds task-by-task using the Ralph Wiggum methodology (one micro-task at a time, verify before moving on). Complementary to the incremental migration skill.
+description: Rebuild any React frontend from scratch using Zillow's Constellation Design System v10.13.0. Runs a comprehensive analysis, generates a principal product-level PRD, then rebuilds task-by-task using the Ralph Wiggum methodology (one micro-task at a time, verify before moving on). Complementary to the incremental migration skill.
 license: Proprietary
 compatibility: Requires a React 18+ project. Will install @zillow/constellation and @pandacss/dev.
 metadata:
   author: Zillow Group
-  version: "10.11.0"
+  version: "10.13.0"
 ---
 
-# Transition to Constellation from Scratch (v10.11.0)
+# Transition to Constellation from Scratch (v10.13.0)
 
 This skill handles **analyzing, specifying, and rebuilding** a React frontend natively in Zillow's Constellation Design System. Unlike the incremental migration skill (which converts component-by-component), this skill takes a clean-slate approach: deeply analyze what the app does, write a product-level PRD capturing every feature, then rebuild from scratch — one task at a time — using only Constellation.
+
+**After the rebuild is complete**, use the related Constellation skills for ongoing development:
+
+- **[constellation-design-system](../constellation-design-system/SKILL.md)**: Core design system rules, all 99 component docs, UX writing guidelines, and layout patterns
+- **[constellation-icons](../constellation-icons/SKILL.md)**: Full catalog of 621 icons with color tokens, sizing, and implementation guides
+- **[constellation-illustrations](../constellation-illustrations/SKILL.md)**: 99 spot illustrations with light/dark mode SVG paths for empty states, onboarding, and storytelling
+- **[constellation-dark-mode](../constellation-dark-mode/SKILL.md)**: Theme injection, dark mode toggle patterns, and design token tiers
 
 **When to use this skill vs the incremental migration skill:**
 
