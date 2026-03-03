@@ -8,7 +8,6 @@
 #   1 = invalid icons found
 
 DIR="${1:-.}"
-ERRORS=0
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -19,28 +18,54 @@ echo -e "${BOLD}Constellation Icon Import Validator${NC}"
 echo "Scanning: $DIR"
 echo "---"
 
-for f in $(grep -rl --include="*.tsx" --include="*.jsx" "constellation-icons" "$DIR" 2>/dev/null | grep -v node_modules | grep -v .mockup | grep -v styled-system); do
-  ICONS=$(grep -oE 'Icon[A-Z][a-zA-Z]+(Filled|Outline|Percent)' "$f" 2>/dev/null | sort -u)
-  for icon in $ICONS; do
-    RESULT=$(node --input-type=module -e "import * as m from '@zillow/constellation-icons'; process.stdout.write(m['$icon'] ? 'OK' : 'BAD')" 2>/dev/null)
-    if [ "$RESULT" = "BAD" ]; then
-      echo -e "${RED}INVALID:${NC} ${BOLD}$icon${NC} in $f"
-      BASE=$(echo "$icon" | sed -E 's/(Filled|Outline)$//' | sed 's/^Icon//' | tr '[:upper:]' '[:lower:]')
-      SUGGESTIONS=$(node --input-type=module -e "import * as m from '@zillow/constellation-icons'; Object.keys(m).filter(k=>k.toLowerCase().includes('$BASE')&&k.endsWith('Filled')).slice(0,5).forEach(k=>process.stdout.write(k+' '))" 2>/dev/null)
-      if [ -n "$SUGGESTIONS" ]; then
-        echo "  Did you mean: $SUGGESTIONS"
-      fi
-      ERRORS=$((ERRORS + 1))
-    fi
-  done
-done
+ICON_LIST=$(grep -roh --include="*.tsx" --include="*.jsx" 'Icon[A-Z][a-zA-Z]*\(Filled\|Outline\|Percent\)' "$DIR" 2>/dev/null | grep -v node_modules | sort -u)
+
+if [ -z "$ICON_LIST" ]; then
+  echo "No icon imports found."
+  exit 0
+fi
+
+ICONS_JSON=$(echo "$ICON_LIST" | tr '\n' ',' | sed 's/,$//')
+
+RESULT=$(node --input-type=module -e "
+import * as m from '@zillow/constellation-icons';
+const icons = '${ICONS_JSON}'.split(',');
+const invalid = [];
+const valid = [];
+for (const icon of icons) {
+  if (m[icon]) { valid.push(icon); } else { invalid.push(icon); }
+}
+console.log(JSON.stringify({ valid: valid.length, invalid }));
+" 2>/dev/null)
+
+INVALID_COUNT=$(echo "$RESULT" | node -e "const d=require('fs').readFileSync('/dev/stdin','utf8');const j=JSON.parse(d);console.log(j.invalid.length)" 2>/dev/null)
+VALID_COUNT=$(echo "$RESULT" | node -e "const d=require('fs').readFileSync('/dev/stdin','utf8');const j=JSON.parse(d);console.log(j.valid)" 2>/dev/null)
+
+if [ "$INVALID_COUNT" = "0" ] || [ -z "$INVALID_COUNT" ]; then
+  echo -e "${GREEN}All $VALID_COUNT icon imports are valid.${NC}"
+  exit 0
+fi
+
+echo "$RESULT" | node -e "
+const d=require('fs').readFileSync('/dev/stdin','utf8');
+const j=JSON.parse(d);
+j.invalid.forEach(icon => {
+  console.log('INVALID: ' + icon);
+  const base = icon.replace(/^Icon/,'').replace(/(Filled|Outline)$/,'').toLowerCase();
+  const all = Object.keys(require('@zillow/constellation-icons')).filter(k=>k.toLowerCase().includes(base)&&k.endsWith('Filled')).slice(0,5);
+  if (all.length) console.log('  Did you mean: ' + all.join(', '));
+});
+" 2>/dev/null
 
 echo "---"
-if [ "$ERRORS" -eq 0 ]; then
-  echo -e "${GREEN}All icon imports are valid.${NC}"
-  exit 0
-else
-  echo -e "${RED}Found $ERRORS invalid icon import(s).${NC}"
-  echo "Search for valid icons: node --input-type=module -e \"import * as m from '@zillow/constellation-icons'; Object.keys(m).filter(k=>k.toLowerCase().includes('keyword')).forEach(k=>console.log(k))\""
-  exit 1
-fi
+echo -e "${RED}Found $INVALID_COUNT invalid icon(s) out of $((VALID_COUNT + INVALID_COUNT)) total.${NC}"
+
+for icon in $(echo "$RESULT" | node -e "const d=require('fs').readFileSync('/dev/stdin','utf8');JSON.parse(d).invalid.forEach(i=>console.log(i))" 2>/dev/null); do
+  FILES=$(grep -rl --include="*.tsx" --include="*.jsx" "$icon" "$DIR" 2>/dev/null | grep -v node_modules | head -5)
+  if [ -n "$FILES" ]; then
+    echo "  $icon found in:"
+    echo "$FILES" | sed 's/^/    /'
+  fi
+done
+
+exit 1
