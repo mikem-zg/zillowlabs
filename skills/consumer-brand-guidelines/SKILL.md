@@ -158,6 +158,22 @@ Is this an owned space (app, email, social)?
     └── No blue present → MUST use tag design logo
 ```
 
+## Consumer Warmth Checklist
+
+Run this checklist after building any consumer-facing page. The consumer vibe is "joyful, vibrant, emotional" — if a page passes all the brand rules but feels sterile or data-heavy, it is not meeting the consumer promise.
+
+| # | Check | What to look for | Fix if missing |
+|---|-------|-------------------|----------------|
+| 1 | **Illustration present** | At least one spot illustration on the page (empty states, value props, onboarding, section accents) | Add a spot illustration from `constellation-illustrations` — 160×160px with beige blob |
+| 2 | **Color family carried through** | A single color family (Teal, Orange, or Purple) appears in 2+ elements (badge, illustration accent, tag, icon tint) — not just one isolated splash | Pick the family that matches the content meaning (see Choosing a Color Family tree) and repeat it in a second element |
+| 3 | **Copy speaks to the person** | Headlines and descriptions use "you/your", active voice, and address the person's goal — not just raw data labels | Rewrite data-centric labels into benefit-oriented copy (e.g., "3 saved homes" → "You've saved 3 homes") |
+| 4 | **Generous spacing** | Page-level vertical padding uses `py="600"` (24px) or larger; section gaps use `gap="800"` (32px); content does not feel cramped | Increase `py` from `"400"` to `"600"` on `Page.Content`; increase section `gap` to `"800"` |
+| 5 | **Storytelling icons** | Key moments (value props, feature highlights, empty states) use xl (44px) Filled icons with a semantic color accent, not plain gray | Swap `icon.neutral` to a semantic accent token (`Teal600`, `Orange600`, or `Purple500`) that matches the page's color family |
+
+**When to skip a check:**
+- Dense data tables, search results grids, and settings pages may legitimately skip checks 1 and 5 — functionality takes priority
+- Check 4 (generous spacing) does not apply inside compact list items or tight card grids where `gap="400"` is correct
+
 ## Reference Files
 
 Each reference file is split into **Marketing** and **Product** sections where the rules differ.
