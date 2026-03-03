@@ -1,6 +1,6 @@
 ---
 name: constellation-dark-mode
-description: Implement and manage Constellation dark mode and theming. Use when adding dark mode support, switching themes, handling dark/light illustrations, or applying conditional dark mode styles in components using the Zillow Constellation design system.
+description: Implement and manage Constellation dark mode and theming. Activates when adding dark mode support, switching themes, handling dark/light illustrations, applying conditional dark mode styles, using _dark/_light CSS conditions, or implementing theme injection with getTheme/injectTheme in the Zillow Constellation design system.
 ---
 
 # Constellation Dark Mode & Theming
