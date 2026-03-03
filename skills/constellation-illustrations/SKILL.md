@@ -38,11 +38,14 @@ metadata:
 - **`reference/illustration-catalog.md`** — Full catalog of all 99 illustrations with descriptions, keywords, categories, suggested use cases, and audience suitability
 - **`reference/usage-guide.md`** — Implementation patterns, sizing rules, dark mode handling, design system rules, and anti-patterns
 
-## Related Constellation Skills
+## Related Skills
 
 - **[constellation-design-system](../../constellation-design-system/SKILL.md)**: Core design system rules, all 99 component docs, UX writing guidelines, and layout patterns. **Load this skill for component usage, spacing tokens, and design rules.**
-- **[constellation-icons](../../constellation-icons/SKILL.md)**: Full catalog of 621 icons with color tokens, sizing, and implementation guides. **Load this skill when working with icons.**
+- **[constellation-icons](../../constellation-icons/SKILL.md)**: Full catalog of 621 icons with color tokens, sizing, and implementation guides. **Load this skill when you need a small visual accent (under 120px) instead of an illustration.**
 - **[constellation-dark-mode](../../constellation-dark-mode/SKILL.md)**: Theme injection, dark mode toggle patterns, and design token tiers. **Load this skill when implementing theming or dark mode** — illustrations have both light and dark variants.
+- **[orangelogic-dam](../../orangelogic-dam/SKILL.md)**: Search Zillow's Digital Asset Manager for photography, logos, and brand imagery. **Load this skill when you need a large visual (over 160px) instead of an illustration** — hero images, property photos, feature showcases.
+- **[consumer-brand-guidelines](../../consumer-brand-guidelines/SKILL.md)**: Consumer audience brand rules — both scene and spot illustrations allowed. **Load for consumer illustration usage rules.**
+- **[professional-brand-guidelines](../../professional-brand-guidelines/SKILL.md)**: Professional audience brand rules — spot illustrations ONLY, no scene illustrations. **Load for professional illustration restrictions and duotone icon guidance.**
 
 ## Quick Start
 
