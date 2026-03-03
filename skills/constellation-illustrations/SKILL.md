@@ -65,8 +65,10 @@ import { Image } from '@zillow/constellation';
 4. **ALWAYS** count illustrations toward the 25% bold color limit
 5. **NEVER** use spot illustrations where an X-Large (44px) icon would suffice
 6. **NEVER** place illustrations next to large solid-colored cards
-7. **Professional apps**: Spot illustrations ONLY — no complex scene illustrations
-8. **Consumer apps**: Both spot and scene illustrations allowed
+7. **NEVER** scale illustrations smaller than 120px — use an `Icon` (size `xl` = 44px) instead for small visual accents
+8. **NEVER** scale illustrations larger than 160px — use photography or full-bleed images for hero-sized visuals
+9. **Professional apps**: Spot illustrations ONLY — no complex scene illustrations
+10. **Consumer apps**: Both spot and scene illustrations allowed
 
 ## When to Use Illustrations
 
