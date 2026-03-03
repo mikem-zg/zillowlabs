@@ -70,7 +70,7 @@ Before applying any visual rule, determine which context you are working in:
 | TYPO_004 | Both | Typography | Line length 50-75 characters for body copy | None |
 | TYPO_005 | Both | Typography | ONE highlight color per headline; same color family | None |
 | TYPO_006 | Both | Typography | Never make headlines blue (implies interactivity) | None |
-| TYPO_007 | Product | Typography | Three-color text system: primary (Granite), secondary (Gray), inverse (White) | Dark mode inverts |
+| TYPO_007 | Product | Typography | Three-color text system: `text.default`, `text.subtle`, `text.inverse` | Dark mode inverts |
 | SHAPE_001 | Product | Shape | Default corner radius: 12px | Large/hero containers: 20px |
 | SHAPE_002 | Product | Shape | Do not override Constellation component corner radii | None |
 | SHAPE_003 | Product | Shape | 12px corners: 8-16px padding minimum | None |
