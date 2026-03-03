@@ -54,8 +54,26 @@ check "CSS border used instead of <Divider />" "border(Bottom|Top|Left|Right)?:[
 # Rule 4: Outline icons used as default (should be Filled)
 check "Outline icon used (should use Filled variant)" 'Icon[A-Z][a-zA-Z]*Outline'
 
-# Rule 5: Icon without size token wrapper
-check "Icon without <Icon size=\"...\"> wrapper" 'import.*Icon[A-Z][a-zA-Z]*Filled'
+# Rule 5: Verify imported icons actually exist in package (batched for speed)
+ICON_LIST=$(grep -roh --include="*.tsx" --include="*.jsx" 'Icon[A-Z][a-zA-Z]*\(Filled\|Outline\|Percent\)' "$DIR" 2>/dev/null | grep -v node_modules | sort -u | tr '\n' ',' | sed 's/,$//')
+if [ -n "$ICON_LIST" ]; then
+  ICON_RESULT=$(node --input-type=module -e "
+    import * as m from '@zillow/constellation-icons';
+    const icons = '${ICON_LIST}'.split(',');
+    const invalid = icons.filter(i => !m[i]);
+    if (invalid.length) { invalid.forEach(i => console.log(i)); process.exit(1); }
+  " 2>/dev/null)
+  if [ $? -ne 0 ] && [ -n "$ICON_RESULT" ]; then
+    echo -e "${RED}VIOLATION:${NC} ${BOLD}Non-existent icon imports${NC}"
+    echo "$ICON_RESULT" | while read -r icon; do
+      FILES=$(grep -rl --include="*.tsx" --include="*.jsx" "$icon" "$DIR" 2>/dev/null | grep -v node_modules | head -3)
+      echo "  $icon"
+      echo "$FILES" | sed 's/^/    /'
+    done
+    echo ""
+    VIOLATIONS=$((VIOLATIONS + 1))
+  fi
+fi
 
 # Rule 6: Tabs without defaultSelected
 check "Tabs.Root without defaultSelected prop" '<Tabs\.Root[^>]*(?!defaultSelected)[^>]*>'

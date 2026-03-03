@@ -98,9 +98,10 @@ NEVER combine `elevated` and `outlined` on the same card.
 
 ## Header Containment
 
-- ALWAYS add `maxWidth: "1200px", mx: "auto"` on the header's inner Flex to match page content width
+- ALWAYS add `maxWidth: "breakpoint-xxl", mx: "auto"` on the header's inner Flex to match page content width
+- Use Constellation breakpoint size tokens (`breakpoint-sm` / `breakpoint-md` / `breakpoint-lg` / `breakpoint-xl` / `breakpoint-xxl`) — NEVER hardcode pixel values
 - The sticky `Box` wrapper stays full-bleed for the background color
-- Adjust `1200px` to match your page content's `maxWidth`
+- Adjust the breakpoint token to match your page content's `maxWidth`
 
 ## Logo Sizing
 

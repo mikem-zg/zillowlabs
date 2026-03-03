@@ -5,7 +5,7 @@
 ```
 1. PropertyCard → ALWAYS add saveButton={<PropertyCard.SaveButton />}
 2. Card → Choose ONE of: elevated, outlined, or neither (NEVER both); ALWAYS set tone="neutral"
-3. Headers → ALWAYS use Page.Header inside Page.Root (sticky headers: wrap Page.Header in a Box with display: flow-root)
+3. Headers → Use Flex inside sticky Box (see header-navigation skill). Avoid Page.Header in sticky contexts due to margin-block gaps.
 4. Dividers → NEVER use CSS borders, ALWAYS use <Divider />
 5. Icons → ALWAYS use Filled variants, ALWAYS use size tokens (sm/md/lg/xl)
 6. Tabs → ALWAYS include defaultSelected prop
@@ -89,7 +89,7 @@ AFTER EVERY UI BUILD:
 | Building This? | ALWAYS Use | NEVER Use |
 |----------------|------------|-----------|
 | Page structure | `Page.Root` > `Page.Header` > `Page.Content` | Custom `Box`/`Flex` page layouts |
-| Page header/nav | `Page.Header` inside `Page.Root` (sticky: wrap in `Box`) | `Box`/`Flex` as header; sticky directly on `Page.Header` |
+| Page header/nav | `Flex` inside sticky `Box` (see header-navigation skill); `Page.Header` OK for non-sticky simple pages | Sticky directly on `Page.Header` (margin-block gap) |
 | Breadcrumbs | `Page.Breadcrumb` inside `Page.Root` | Custom breadcrumb wrappers |
 | Property listing | `PropertyCard` with `saveButton` | `Card` |
 | Generic container | `Card tone="neutral"` (add `elevated` or `outlined` as needed) | custom `Box` without Card semantics |
@@ -443,7 +443,7 @@ header={<Heading level={1} textStyle="heading-lg">Edit listing</Heading>}
 | ALWAYS | NEVER |
 |--------|-------|
 | `Page.Root` as the top-level page wrapper | Custom `Box`/`Flex` page layouts |
-| `Page.Header` inside `Page.Root` (sticky: wrap in `Box` with `display: 'flow-root'`) | Sticky directly on `Page.Header`; custom headers with `Box` or `Flex` |
+| `Flex` inside sticky `Box` with `display: 'flow-root'` for headers (see header-navigation skill) | Sticky directly on `Page.Header` (creates margin-block gap); `Page.Header` OK for non-sticky simple pages |
 | `Page.Content` for page body sections | Unsemantic wrapper divs |
 | `Page.Breadcrumb` for breadcrumb navigation | Custom breadcrumb containers |
 | Solid backgrounds on sticky headers (`bg.screen.neutral`) | Transparent sticky header backgrounds |
@@ -565,6 +565,54 @@ Color should be used with restraint and purpose. The default surface is always n
 | Teal/Orange/Purple for text highlights | Blue for text highlights (Blue = interactive only) |
 | Ask "does this page type warrant a hero?" before building one | Add a hero to guides, dashboards, tools, forms, search results, or property detail pages |
 
+### Hero Background Tokens
+
+Each color family provides three intensity levels for hero backgrounds:
+
+| Color Family | Soft | Hero | Impact |
+|-------------|------|------|--------|
+| **Teal** | `bg.accent.teal.soft` | `bg.accent.teal.hero` | `bg.accent.teal.impact` |
+| **Orange** | `bg.accent.orange.soft` | `bg.accent.orange.hero` | `bg.accent.orange.impact` |
+| **Purple** | `bg.accent.purple.soft` | `bg.accent.purple.hero` | `bg.accent.purple.impact` |
+| **Blue** | `bg.accent.blue.soft` | `bg.accent.blue.hero` | `bg.accent.blue.impact` |
+| **Green** | `bg.accent.green.soft` | `bg.accent.green.hero` | `bg.accent.green.impact` |
+| **Red** | `bg.accent.red.soft` | `bg.accent.red.hero` | `bg.accent.red.impact` |
+| **Yellow** | `bg.accent.yellow.soft` | `bg.accent.yellow.hero` | `bg.accent.yellow.impact` |
+| **Aqua** | `bg.accent.aqua.soft` | `bg.accent.aqua.hero` | `bg.accent.aqua.impact` |
+| **Gray** | `bg.accent.gray.soft` | `bg.accent.gray.hero` | `bg.accent.gray.impact` |
+| **Brand** | `bg.accent.brand.soft` | `bg.accent.brand.hero` | `bg.accent.brand.impact` |
+
+| Level | When to use |
+|-------|-------------|
+| **Soft** | Subtle tinted backgrounds for cards, banners, upsells |
+| **Hero** | Primary hero section backgrounds |
+| **Impact** | High-contrast hero backgrounds for maximum visual impact |
+
+### Hero Text Tokens (On-Hero) — PandaCSS Gotcha
+
+**`text.on-hero.*` tokens are NOT recognized by PandaCSS's `css` prop.** You must use the `style` prop with CSS variables instead:
+
+```tsx
+// WRONG — PandaCSS does not resolve onHero tokens in the css prop
+<Text css={{ color: "text.onHero.neutral" }}>Hero text</Text>
+
+// CORRECT — use style prop with CSS variable
+<Text style={{ color: "var(--colors-text-on-hero-neutral)" }}>Hero text</Text>
+```
+
+| Token (PandaCSS path) | CSS Variable | Purpose |
+|-------|-------------|---------|
+| `text.onHero.neutral` | `var(--colors-text-on-hero-neutral)` | Body text on hero backgrounds |
+| `text.onHero.neutral-fixed` | `var(--colors-text-on-hero-neutral-fixed)` | Body text that stays fixed across themes |
+| `text.onHero.action.neutral.default` | `var(--colors-text-on-hero-action-neutral-default)` | Interactive text on hero (default state) |
+| `text.onHero.action.neutral.hover` | `var(--colors-text-on-hero-action-neutral-hover)` | Interactive text on hero (hover state) |
+| `text.onHero.link.default` | `var(--colors-text-on-hero-link-default)` | Link text on hero (default state) |
+| `text.onHero.link.hover` | `var(--colors-text-on-hero-link-hover)` | Link text on hero (hover state) |
+| `text.onHero.express.trust.hero` | `var(--colors-text-on-hero-express-trust-hero)` | Trust/finance accent text (Teal family) |
+| `text.onHero.express.inspire.hero` | `var(--colors-text-on-hero-express-inspire-hero)` | Inspiration accent text (Purple family) |
+| `text.onHero.express.empower.hero` | `var(--colors-text-on-hero-express-empower-hero)` | Empowerment accent text (Orange family) |
+| `text.onHero.express.insight.hero` | `var(--colors-text-on-hero-express-insight-hero)` | Insight accent text (Blue family) |
+
 ---
 
 ## Illustrations
@@ -637,7 +685,7 @@ import NotFoundIllustration from '@/assets/illustrations/Lightmode/search-homes.
 
 | NEVER | ALWAYS Instead |
 |-------|----------------|
-| `Box`/`Flex` for page structure or headers | `Page.Root` > `Page.Header` > `Page.Content` |
+| `Box`/`Flex` for page structure (without `Page.Root`) | `Page.Root` > `Page.Content` for structure; `Flex` in sticky `Box` for headers (see header-navigation skill) |
 | `Button` for selection/toggle UI | `ToggleButtonGroup`, `SegmentedControl`, or `CheckboxGroup` |
 | CSS `border` for dividers or container outlines | `<Divider />` for separators; `<Card outlined elevated={false}>` for bordered containers |
 | Custom save buttons on PropertyCard | `PropertyCard.SaveButton` |
