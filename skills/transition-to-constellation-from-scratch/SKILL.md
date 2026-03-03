@@ -12,6 +12,26 @@ metadata:
 
 This skill handles **analyzing, specifying, and rebuilding** a React frontend natively in Zillow's Constellation Design System. Unlike the incremental migration skill (which converts component-by-component), this skill takes a clean-slate approach: deeply analyze what the app does, write a product-level PRD capturing every feature, then rebuild from scratch — one task at a time — using only Constellation.
 
+## Prerequisites
+
+- React 18+ project with an existing frontend to rebuild
+- Node.js 18+ and npm/pnpm available
+- Willingness to delete existing frontend code (backend and shared code are preserved)
+
+## When to Use
+
+- App has heavy custom styling or significant design debt
+- App has fewer than 15 screens and a clean rebuild is faster than incremental migration
+- App uses a design system with no Constellation equivalent components
+- Team wants a fresh start with Constellation best practices from day one
+
+## When NOT to Use
+
+- **App has 30+ screens in production** — use `transition-to-constellation` for incremental migration instead
+- **Team needs to ship features during migration** — incremental migration allows coexistence
+- **App is already well-structured with clear component boundaries** — incremental migration is simpler
+- **Constellation is already installed and you're building new UI** — use `constellation-design-system`
+
 **After the rebuild is complete**, use the related Constellation skills for ongoing development:
 
 - **[constellation-design-system](../constellation-design-system/SKILL.md)**: Core design system rules, all 99 component docs, UX writing guidelines, and layout patterns
