@@ -4,70 +4,87 @@ Source: Zillow April 2024 Brand Guidelines, slides 80-139.
 
 ## Primary Palette
 
-Always-present colors throughout the Zillow brand experience (both marketing and product).
-
-| Name | Hex | RGB | PMS | Role |
-|------|-----|-----|-----|------|
-| **Zillow Blue** | `#0041D9` | 0, 65, 217 | 2728C | Interactive/action, brand lead, logo |
-| **Granite** | `#111116` | 17, 17, 22 | Black 6 C | Primary text color, bold confidence |
-| **Marble** | `#FFFFFF` | 255, 255, 255 | — | Leading background color |
+| Brand Name | Constellation Token | Hex | Role |
+|------------|-------------------|-----|------|
+| **Zillow Blue** | `Blue600` | `#0041D9` | Interactive/action, brand lead, logo |
+| **Granite** | `Gray950` | `#111116` | Primary text color |
+| **Marble** | — (white) | `#FFFFFF` | Leading background (`bg.screen.neutral`) |
 
 ## Secondary Palette
 
-Expressive layer built on the primary palette. Divided into three tiers.
-
 ### Secondary Colors (standalone, prominent use)
 
-| Name | Hex | RGB | PMS | Family |
-|------|-----|-----|-----|--------|
-| **Garden** | `#136F65` | 19, 111, 101 | 562C | Teal |
-| **Playroom** | `#933DFB` | 147, 61, 251 | 266C | Purple |
-| **Fireplace** | `#D03C0B` | 208, 60, 11 | 173C | Orange |
+| Brand Name | Constellation Token | Hex | Family |
+|------------|-------------------|-----|--------|
+| **Garden** | `Teal600` | `#136F65` | Teal |
+| **Playroom** | `Purple500` | `#933DFB` | Purple |
+| **Fireplace** | `Orange600` | `#D03C0B` | Orange |
 
 ### Shadow Colors (backgrounds, paired with family)
 
-| Name | Hex | RGB | PMS | Family |
-|------|-----|-----|-----|--------|
-| **Waterfront** | `#001962` | 0, 25, 98 | 280C | Blue |
-| **Acreage** | `#053630` | 5, 54, 48 | 3308C | Teal |
-| **Wine Cellar** | `#3B0470` | 59, 4, 112 | 2685C | Purple |
-| **Brick** | `#7D2103` | 125, 33, 3 | 1815C | Orange |
+| Brand Name | Constellation Token | Hex | Family |
+|------------|-------------------|-----|--------|
+| **Waterfront** | `Blue800` | `#001962` | Blue |
+| **Acreage** | `Teal800` | `#053630` | Teal |
+| **Wine Cellar** | `Purple800` | `#3B0470` | Purple |
+| **Brick** | `Orange700` | `#7D2103` | Orange |
 
 ### Highlight Colors (accents, sparingly)
 
-| Name | Hex | RGB | PMS | Family |
-|------|-----|-----|-----|--------|
-| **Pool** | `#73E4F9` | 115, 228, 249 | 310C | Blue |
-| **Houseplant** | `#9FF17B` | 159, 241, 123 | 7487C | Teal |
-| **Dollhouse** | `#E6A8FF` | 230, 168, 255 | 2562C | Purple |
-| **Terracotta** | `#FFA385` | 255, 163, 133 | 2022C | Orange |
+| Brand Name | Constellation Token | Hex | Family |
+|------------|-------------------|-----|--------|
+| **Pool** | `Aqua300` | `#73E4F9` | Blue |
+| **Houseplant** | `Green300` | `#9FF17B` | Teal |
+| **Dollhouse** | `Purple300` | `#E6A8FF` | Purple |
+| **Terracotta** | `Orange300` | `#FFA385` | Orange |
 
-## Design System Name Mapping
+## Semantic Color Tokens (Product)
 
-Brand "nail polish" names mapped to Constellation design system tokens.
+Use these semantic tokens in code instead of raw hex or scale tokens. These resolve through the theme.
 
-| Brand Name | DS Token Name |
-|------------|---------------|
-| Pool | Aqua300 |
-| Zillow Blue | Blue600 |
-| Waterfront | Blue800 |
-| Houseplant | Green300 |
-| Garden | Teal600 |
-| Terracotta | Orange300 |
-| Fireplace | Orange600 |
-| Brick | Orange700 |
-| Dollhouse | Purple300 |
-| Playroom | Purple500 |
-| Wine Cellar | Purple800 |
+### Backgrounds
+
+| Semantic Token | Usage | CSS Prop Example |
+|----------------|-------|-----------------|
+| `bg.screen.neutral` | Default page background (white) | `css={{ bg: "bg.screen.neutral" }}` |
+| `bg.default` | Default surface | `css={{ bg: "bg.default" }}` |
+| `bg.screen.muted` | Light gray section differentiation | `css={{ bg: "bg.screen.muted" }}` |
+
+### Text Colors
+
+| Semantic Token | Usage | CSS Prop Example |
+|----------------|-------|-----------------|
+| `text.default` | Primary text (Granite) | default, no override needed |
+| `text.subtle` | Secondary/supporting text | `css={{ color: "text.subtle" }}` |
+| `text.muted` | Tertiary text, less emphasis | `css={{ color: "text.muted" }}` |
+| `text.inverse` | Text on dark backgrounds | `css={{ color: "text.inverse" }}` |
+| `text.action.hero.default` | Link/CTA text (Blue600) | `css={{ color: "text.action.hero.default" }}` |
+
+### Icon Colors
+
+| Semantic Token | Usage | CSS Prop Example |
+|----------------|-------|-----------------|
+| `icon.neutral` | Default icon color | `css={{ color: "icon.neutral" }}` |
+| `icon.subtle` | Gray600, content support | `css={{ color: "icon.subtle" }}` |
+| `icon.muted` | Gray500, least emphasis | `css={{ color: "icon.muted" }}` |
+| `icon.action.hero.default` | Blue600, interactive icons | `css={{ color: "icon.action.hero.default" }}` |
+
+### Hero Text (PandaCSS Gotcha)
+
+`text.onHero.*` tokens are NOT resolved by PandaCSS `css` prop. Use `style` prop with CSS variables:
+
+```tsx
+<Text style={{ color: "var(--colors-text-on-hero-neutral)" }}>Hero text</Text>
+```
 
 ## Color Family Meanings (Both Marketing and Product)
 
-| Family | Meaning | Use For | Personality |
-|--------|---------|---------|-------------|
-| **Blue** | Trust / Action | CTAs, links, interactive elements, brand moments | Confidence, Possibility, Optimism |
-| **Teal** | Productive / Insight | Finance, home loans, agent connections, trust signals | Trust, Progress, Insight |
-| **Purple** | Inspired / News | New features, inspiration, creativity, engagement | Joy, Leader-like, Vibrance |
-| **Orange** | Empowered / Focus | "New" badges, "Open House", urgency, alerts | Authentic, Dependable, Unflappable |
+| Family | Meaning | Constellation Tokens | Use For |
+|--------|---------|---------------------|---------|
+| **Blue** | Trust / Action | `Blue600` (primary), `Blue800` (shadow), `Aqua300` (highlight) | CTAs, links, interactive elements |
+| **Teal** | Productive / Insight | `Teal600` (primary), `Teal800` (shadow), `Green300` (highlight) | Finance, home loans, trust signals |
+| **Purple** | Inspired / News | `Purple500` (primary), `Purple800` (shadow), `Purple300` (highlight) | New features, inspiration |
+| **Orange** | Empowered / Focus | `Orange600` (primary), `Orange700` (shadow), `Orange300` (highlight) | "New" badges, urgency, alerts |
 
 ---
 
@@ -76,33 +93,22 @@ Brand "nail polish" names mapped to Constellation design system tokens.
 Marketing contexts: ads, email campaigns, social posts, OOH, landing pages, print.
 
 ### How Blue Works in Marketing
-Zillow Blue is versatile in marketing — it can appear in CTAs, backgrounds, headlines, and illustrations. It anchors the logo and inspires brand recognition.
-
-| Use Case | Allowed Colors |
-|----------|---------------|
-| Hero backgrounds | Zillow Blue, Waterfront, secondary family colors |
-| Headlines | Granite text with ONE highlight color from a family |
-| CTAs | Zillow Blue (primary) |
-| House motif fills | Any secondary color; match text/motif combos to approved pairings |
+Zillow Blue (`Blue600`) is versatile in marketing — it can appear in CTAs, backgrounds, headlines, and illustrations. It anchors the logo and inspires brand recognition.
 
 ### Zillow Blue vs Waterfront in Marketing
 
-| Zillow Blue | Waterfront (Navy) |
-|-------------|-------------------|
-| Primary color; suggests interaction and expression | Supporting color; more grounded |
+| `Blue600` (Zillow Blue) | `Blue800` (Waterfront / Navy) |
+|--------------------------|-------------------------------|
+| Primary; suggests interaction and expression | Supporting; more grounded |
 | Use for energetic, activating copy | Use for direct, to-the-point copy |
-| OK as email/ad background when brand equity needed | Do NOT use without Zillow Blue present in non-owned spaces |
-| Do NOT use as background if it distracts from CTA | Do NOT use when messaging should excite and energize |
+| OK as email/ad background when brand equity needed | Do NOT use without `Blue600` present in non-owned spaces |
 
 ### Highlight Colors as Backgrounds (Marketing Only)
-Light "highlight" colors (Pool, Houseplant, Dollhouse, Terracotta) may be used as backgrounds ONLY for:
+Highlight tokens (`Aqua300`, `Green300`, `Purple300`, `Orange300`) may be used as backgrounds ONLY for:
 - Social media posts
 - Layouts with a solid-filled house motif on top
 
 They are NOT general-purpose background colors.
-
-### Color Combos Per Family (Marketing)
-Each color family has approved combinations for house motif, logo tag, and headline highlights. Do not mix families — e.g., teal house motif with purple highlight text.
 
 ### Contextual Color Spectrum (Marketing)
 
@@ -112,54 +118,46 @@ Each color family has approved combinations for house motif, logo tag, and headl
 | Email | Paid social |
 | Landing page | Out-of-home |
 
-More expressive contexts allow bolder color use. App/email should be more restrained.
-
 ---
 
 ## Product Color Rules
 
-Product contexts: app UI, website screens, in-product flows, dashboards, settings.
+Product contexts: app UI, website screens, in-product flows.
 
 ### Blue in Product = Interactive Only
-This is the critical difference from marketing. In product, blue is reserved EXCLUSIVELY for interactive elements. Blue suggests the element can be clicked or tapped.
+In product, `Blue600` is reserved EXCLUSIVELY for interactive elements. Blue suggests the element can be clicked or tapped.
 
-| Blue600 Usage in Product | NOT Allowed |
-|--------------------------|-------------|
-| Primary CTA buttons | Blue headlines (looks like a link) |
-| Links | Blue backgrounds (except hero images) |
-| Interactive icons | Blue decorative accents |
+| `Blue600` Usage in Product | NOT Allowed |
+|---------------------------|-------------|
+| Primary CTA buttons (`tone="brand"`) | Blue headlines (looks like a link) |
+| Links (`text.action.hero.default`) | Blue backgrounds (except hero images) |
+| Interactive icons (`icon.action.hero.default`) | Blue decorative accents |
 | Selected states | Blue section fills |
 
 ### Feedback Colors (Product Only)
 
-| Role | Color | UI Example |
-|------|-------|------------|
-| **Interactive** | Blue (Zillow Blue) | CTA buttons |
-| **Selected** | Light Blue | Selected date card, selected state |
-| **Notify** | Feedback Orange | Notification dot |
+| Role | Token / Color | UI Example |
+|------|--------------|------------|
+| **Interactive** | `Blue600` / `text.action.hero.default` | CTA buttons |
+| **Selected** | Light Blue | Selected date card |
 | **Success** | Green | Success checkmark |
 | **Warning** | Yellow | Warning badge |
-| **Critical** | Red | Error icon |
+| **Critical** | Red / `text.action.critical.hero.default` | Error icon |
 
 ### Accessibility (Product — Stricter Than Marketing)
 - WCAG AA mandatory for all text (AAA preferred but not required)
 - 3:1 contrast ratio required for non-text elements (cards, inputs)
-- Blue600 buttons pass AA on backgrounds up to gray400 level
-- Any color in the 700+ range on any color in the 200- range passes AA
-- Test contrast at: https://www.aremycolorsaccessible.com/
-
-### Extended Color System (Product)
-The design system uses OkLCH (lightness, chroma, hue) with 9 values per scale (050-950). Each step has predictable lightness: 100-family ≈ 95% lightness, 200-family ≈ 90%, etc.
+- `Blue600` buttons pass AA on backgrounds up to `Gray400` level
+- Any 700+ scale token on any 200- scale token passes AA
 
 ### Product Icon Colors
 
-| Context | Color | When |
-|---------|-------|------|
-| Most interactive icons | Blue600 | Default for clickable icons |
-| Functional icons in containers | Gray950 | Icons in inputs, tabs, nav (interaction implied by placement) |
-| Content support | Gray600 | Paired with content for visual separation |
-| Storytelling emphasis | Teal600 | Features, landing pages, upsell banners — use sparingly |
-| Vibrant non-interactive (upsells) | Orange500, Purple500, etc. | Sparingly, for prominent moments only |
+| Context | Semantic Token | Scale Token | When |
+|---------|---------------|-------------|------|
+| Interactive icons | `icon.action.hero.default` | `Blue600` | Clickable icons |
+| Functional icons | `icon.neutral` | `Gray950` | Icons in inputs, tabs, nav |
+| Content support | `icon.subtle` | `Gray600` | Paired with content |
+| Storytelling emphasis | — | `Teal600` | Features, upsell banners |
 
 ---
 
@@ -168,32 +166,35 @@ The design system uses OkLCH (lightness, chroma, hue) with 9 values per scale (0
 ### Coverage Limit
 - Max 25% bold color per viewport
 - Exception: hero images on homepages/landing pages may exceed 25%
-- If multiple color modules on one page, keep within the same color family
 
 ### Color Importance Hierarchy
 
 | Level | Surface Area | Example |
 |-------|-------------|---------|
 | **High** | Large area | Hero section (homepage/landing page only) |
-| **Medium** | One colored card | Teal upsell banner, purple feature callout (one per page max) |
-| **Low** | Subtle accent | Orange "New" badge, teal trust icon, illustration |
+| **Medium** | One colored card | `Teal600` upsell banner, `Purple500` feature callout (one per page max) |
+| **Low** | Subtle accent | `Orange600` "New" badge, `Teal600` trust icon, illustration |
 
 ### Color Family Consistency
-Once you pick a color family for a page, carry it through. If the hero is teal, all colored elements below (badges, accents, CTAs) must also be teal. Do not introduce orange or purple further down.
+Once you pick a color family, carry it through the entire page. If the hero uses Teal (`Teal600`), all colored elements below must also use Teal tokens.
 
 ### NEVER Rules (Both Contexts)
 
 | DON'T | Why |
 |-------|-----|
-| Stack colored sections back-to-back | Looks "childish and amateur" (brand guidelines p.137) |
-| Use light/pastel colored backgrounds | Feels "dingy" and "juvenile" (leadership directive, p.138) |
-| Use navy or light blue for section backgrounds | Violates background restrictions (p.139) |
+| Stack colored sections back-to-back | Looks "childish and amateur" |
+| Use light/pastel colored backgrounds | Feels "dingy" and "juvenile" — leadership directive |
+| Use `Blue800` (navy) or light blue for section backgrounds | Violates background restrictions |
 | Fill >25% of viewport with bold color | Overwhelms content |
 | Use color for decoration without purpose | Every color must serve a function |
 | Mix color families on one page | Breaks visual consistency |
-| Use Granite as a background color | Reserved for text |
-| Use Granite + Marble as the only colors | Needs a supporting secondary color |
+| Use `Gray950` as a background color | Reserved for text |
 
 ## Dark Mode
 
-Invert the color scale: switch from blue100 to blue900 (opposite position on the 050-950 scale). Exceptions exist for drop shadows — elements overlaying the page background in dark mode should use a lighter color to maintain visual hierarchy.
+Invert the color scale: switch from scale-100 to scale-900 (opposite position on the 050-950 scale). See **constellation-dark-mode** skill for implementation patterns (`_dark`/`_light` conditions, `getTheme`/`injectTheme`).
+
+## Cross-References
+
+- **Constellation tokens** → `.agents/skills/constellation-design-system/references/guides/quick-reference.md` for spacing, typography, and icon token tables
+- **Dark mode** → `.agents/skills/constellation-dark-mode/SKILL.md` for theme injection and conditional styles
