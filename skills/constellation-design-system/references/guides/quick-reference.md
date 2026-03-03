@@ -46,6 +46,14 @@ One-page cheat sheet for the most critical rules, component selection, and token
 | Description | `<Text textStyle="body">` | `text.subtle` |
 | Fine print | `<Text textStyle="body-sm">` | `text.subtle` |
 
+## Text Component Display Behavior
+
+Constellation's `Text` component renders as an inline `<span>` by default. When you place two `Text` elements as siblings, they will run together on the same line instead of stacking vertically.
+
+To stack `Text` elements vertically, either add `css={{ display: "block" }}` to each `Text`, or wrap them in a `Flex direction="column"` or `Box` container.
+
+`Heading` renders as a block-level element and does not have this issue.
+
 ## Icon Rules
 
 - ALWAYS use **Filled** variants: `IconHeartFilled` not `IconHeartOutline`

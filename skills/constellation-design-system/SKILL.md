@@ -40,6 +40,7 @@ If Constellation is NOT yet installed, use the [transition-to-constellation](../
 - **Selecting an illustration** — use `constellation-illustrations` which has keyword search across 99 illustrations
 - **Implementing dark mode or theme switching** — use `constellation-dark-mode` for theme injection and toggle patterns
 - **Building header/navigation patterns** — use `header-navigation` for tested responsive header patterns
+- **Applying Zillow brand guidelines** (color families, logo rules, typography, photography, verbal identity) — use `consumer-brand-guidelines` for the full April 2024 brand guidelines
 
 ## Documentation Structure
 
