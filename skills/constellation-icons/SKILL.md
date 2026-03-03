@@ -71,6 +71,37 @@ Search for valid icon names matching a keyword:
 node --input-type=module -e "import * as m from '@zillow/constellation-icons'; Object.keys(m).filter(k=>k.toLowerCase().includes('home')).forEach(k=>console.log(k))"
 ```
 
+## Common Name Gotchas (Frequently Wrong Guesses)
+
+These icon names look right but **do NOT exist**. Use the correct name instead:
+
+| Wrong Guess (does NOT exist) | Correct Name | Why |
+|---|---|---|
+| `IconHomeFilled` | `IconHomesFilled` | Plural — "Homes" not "Home" |
+| `IconChatFilled` | `IconMessageFilled` | Named "Message" not "Chat" |
+| `IconTrashFilled` | `IconDeleteFilled` | Named "Delete" not "Trash" |
+| `IconSettingFilled` | `IconSettingsFilled` | Plural — "Settings" not "Setting" |
+| `IconBellFilled` | `IconNotificationFilled` | Named "Notification" not "Bell" |
+| `IconCheckFilled` | `IconCheckmarkFilled` | Full name — "Checkmark" not "Check" |
+| `IconStarFilled` | `IconRatingStarFilled` | Prefixed — "RatingStar" not "Star" |
+| `IconPencilFilled` | `IconEditFilled` | Named "Edit" not "Pencil" |
+| `IconRefreshFilled` | `IconReloadFilled` | Named "Reload" not "Refresh" |
+| `IconShareFilled` | `IconShareWebFilled` | Full name — "ShareWeb" not "Share" |
+| `IconEyeFilled` | `IconStreetViewFilled` | Named "StreetView" for visibility |
+| `IconImageFilled` / `IconPhotoFilled` | `IconPhotosFilled` | Plural — "Photos" not "Photo" |
+| `IconVideoFilled` | `IconVideoCameraFilled` | Full name — "VideoCamera" not "Video" |
+| `IconMicFilled` | `IconMicrophoneFilled` | Full name — "Microphone" not "Mic" |
+| `IconPhoneFilled` | `IconPhoneCircleFilled` | Suffixed — "PhoneCircle" not "Phone" |
+| `IconPinFilled` | `IconLocationFilled` | Named "Location" not "Pin" |
+| `IconTimeFilled` / `IconClockFilled` | `IconClockFilled` | `IconClockFilled` exists ✓ |
+| `IconBookmarkFilled` | `IconSavedSearchFilled` | Named "SavedSearch" for bookmarks |
+| `IconChartFilled` | `IconTrendingFilled` | Named "Trending" not "Chart" |
+| `IconListFilled` | `IconListBulletedFilled` | Suffixed — "ListBulleted" not "List" |
+| `IconAddFilled` | `IconPlusCircleFilled` | Named "PlusCircle" not "Add" |
+| `IconCloseFilled` | `IconCloseFilled` | `IconCloseFilled` exists ✓ |
+
+**When in doubt, ALWAYS run the search command above** — never guess.
+
 ## Icon Wrapper Exceptions
 
 The following component slots manage icon sizing internally. Do NOT add an `<Icon size="...">` wrapper when using these — sizing is handled by the parent component:
