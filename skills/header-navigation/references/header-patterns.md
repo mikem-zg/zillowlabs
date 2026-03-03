@@ -503,7 +503,7 @@ export default function HeaderWithBreadcrumb() {
           Back to search results
         </TextButton>
       </Page.Breadcrumb>
-      <Box css={{ px: "400", py: "400" }}>
+      <Box css={{ maxWidth: "1200px", mx: "auto", width: "100%", px: "400", py: "400" }}>
         <Flex
           direction={{ base: "column", md: "row" }}
           align={{ base: "flex-start", md: "center" }}
