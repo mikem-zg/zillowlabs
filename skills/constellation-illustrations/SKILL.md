@@ -12,6 +12,26 @@ metadata:
 
 99 spot illustrations in both light and dark mode for Zillow consumer and professional applications.
 
+## Prerequisites
+
+- Illustration SVG files present in `client/src/assets/illustrations/Lightmode/` and `client/src/assets/illustrations/Darkmode/`
+- Vite (or equivalent bundler) configured to import `.svg` files as URL strings
+- For dark mode switching: theme detection via `constellation-dark-mode` skill patterns
+
+## When to Use
+
+- Selecting an illustration for empty states, onboarding, error pages, or upsell banners
+- Looking up illustrations by keyword (e.g., "what illustration shows a house with a checkmark?")
+- Checking sizing rules (160×160px standard, 120×120px compact)
+- Implementing light/dark mode illustration switching
+
+## When NOT to Use
+
+- **Adding icons to buttons or UI elements** — use `constellation-icons` (icons are not illustrations)
+- **Building UI components or layouts** — use `constellation-design-system`
+- **Implementing dark mode toggle logic** — use `constellation-dark-mode` (this skill only covers illustration variants)
+- **Simple visual highlights** — use an X-Large (44px) icon instead of an illustration when the concept is simple
+
 ## Reference Guides
 
 - **`reference/illustration-catalog.md`** — Full catalog of all 99 illustrations with descriptions, keywords, categories, suggested use cases, and audience suitability
