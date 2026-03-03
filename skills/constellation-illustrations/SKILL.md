@@ -27,10 +27,11 @@ metadata:
 
 ## When NOT to Use
 
-- **Adding icons to buttons or UI elements** — use `constellation-icons` (icons are not illustrations)
+- **Small visual accents (under 120px)** — use an `Icon` from **[constellation-icons](../../constellation-icons/SKILL.md)** instead. Icons go down to 16px (`sm`) and up to 44px (`xl`). Load that skill for the full 621-icon catalog and lookup table.
+- **Photography, hero images, or large visuals (over 160px)** — use the **[orangelogic-dam](../../orangelogic-dam/SKILL.md)** skill to search Zillow's Digital Asset Manager for photos, logos, and brand imagery. Load that skill for DAM search, asset URLs, and usage rights.
+- **Adding icons to buttons or UI elements** — use **[constellation-icons](../../constellation-icons/SKILL.md)** (icons are not illustrations)
 - **Building UI components or layouts** — use `constellation-design-system`
 - **Implementing dark mode toggle logic** — use `constellation-dark-mode` (this skill only covers illustration variants)
-- **Simple visual highlights** — use an X-Large (44px) icon instead of an illustration when the concept is simple
 
 ## Reference Guides
 
