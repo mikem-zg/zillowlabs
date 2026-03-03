@@ -49,10 +49,10 @@ Before applying any visual rule, determine which context you are working in:
 | CLR_003 | Both | Color | No navy or light blue backgrounds | None |
 | CLR_004 | Both | Color | No stacking colored sections back-to-back | None |
 | CLR_005 | Both | Color | Pick ONE color family per page; carry it through | None |
-| CLR_006 | Product | Color | Blue = interactive/action ONLY; never decorative | None |
-| CLR_007 | Both | Color | Teal or purple for colored card/section backgrounds | None |
+| CLR_006 | Product | Color | `Blue600` = interactive/action ONLY; never decorative | None |
+| CLR_007 | Both | Color | `Teal600` or `Purple500` for colored card/section backgrounds | None |
 | CLR_008 | Product | Color | Use illustrations to bring color instead of painted surfaces | None |
-| CLR_009 | Marketing | Color | Zillow Blue versatile — works in CTAs, backgrounds, headlines, illustrations | Non-owned spaces need blue present for brand recognition |
+| CLR_009 | Marketing | Color | `Blue600` versatile — works in CTAs, backgrounds, headlines, illustrations | Non-owned spaces need blue present for brand recognition |
 | CLR_010 | Product | Color | Feedback colors: green=success, yellow=warning, red=critical, light blue=selected | None |
 | CLR_011 | Product | Color | WCAG AA mandatory for all text; 3:1 for non-text elements | None |
 | LOGO_001 | Product | Logo | Desktop navigation: 24px height | None |
