@@ -624,7 +624,9 @@ export default function NoDividerHeader() {
 
 Full-bleed sticky background with maxWidth-constrained inner content. Use when the page content has a max-width container so the header content aligns with it visually.
 
-**Key rule:** Always match the header's inner `maxWidth` to the page content's `maxWidth`. The sticky `Box` wrapper remains full-bleed for the background color, but the inner `Flex` is constrained and centered with `mx: "auto"`.
+**Key rules:**
+- Always match the header's inner `maxWidth` to the page content's `maxWidth`. The sticky `Box` wrapper remains full-bleed for the background color, but the inner `Flex` is constrained and centered with `mx: "auto"`.
+- Default to `py: "400"` (16px) for consumer apps. Use `py: "300"` (12px) only for compact professional headers.
 
 ```tsx
 import {
@@ -640,7 +642,7 @@ export default function ContainedHeader() {
         <Flex
           align="center"
           justify="space-between"
-          css={{ maxWidth: "1200px", mx: "auto", width: "100%", px: "400", py: "300" }}
+          css={{ maxWidth: "1200px", mx: "auto", width: "100%", px: "400", py: "400" }}
         >
           <Flex align="center" gap="400">
             <Box css={{ display: { base: "none", md: "block" } }}>
