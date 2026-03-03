@@ -51,7 +51,7 @@ Provides tested header patterns using Constellation components. Each pattern han
 ## Layout Pattern
 
 ```tsx
-<Flex align="center" justify="space-between" css={{ maxWidth: "1200px", mx: "auto", width: "100%", px: "400", py: "400" }}>
+<Flex align="center" justify="space-between" css={{ maxWidth: "breakpoint-xxl", mx: "auto", width: "100%", px: "400", py: "400" }}>
   {/* left: logo + nav links */}
   {/* right: actions + menu icon fallback */}
 </Flex>
