@@ -5,6 +5,26 @@ description: Complete reference for Zillow's Constellation icon library (621 ico
 
 # Constellation Icons Library
 
+## Prerequisites
+
+- `@zillow/constellation` installed (provides the `Icon` and `IconButton` wrapper components)
+- `@zillow/constellation-icons` installed (provides the icon SVG components)
+- Theme injected via `injectTheme()` or `ConstellationProvider` (required for semantic color tokens like `icon.subtle` to resolve)
+
+## When to Use
+
+- Adding icons to any UI component, button, or layout
+- Looking up an icon name for a concept (e.g., "what's the icon for notifications?")
+- Checking which icon variants exist (Filled, Outline, Special)
+- Implementing icon color, sizing, or accessibility patterns
+
+## When NOT to Use
+
+- **Choosing between components** (Card vs PropertyCard, Button vs ToggleButton) — use `constellation-design-system`
+- **Selecting illustrations for empty states or onboarding** — use `constellation-illustrations` (illustrations are not icons)
+- **Building favicons or app icons** — those are static assets, not Constellation icons
+- **Logo usage** — use `ZillowLogo` or `ZillowHomeLogo` from `@zillow/constellation`, not an icon
+
 ## Reference Guides
 
 - **`reference/icon-catalog.md`** — Full catalog of all 302 icons with descriptions, alternative names, and categories
