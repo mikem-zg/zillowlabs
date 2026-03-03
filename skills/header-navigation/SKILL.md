@@ -65,6 +65,21 @@ Provides tested header patterns using Constellation components. Each pattern han
 </Box>
 ```
 
+**Contained sticky wrapper** (when page content has a max-width):
+```tsx
+<Box css={{ position: "sticky", display: "flow-root", top: 0, zIndex: 10, background: "bg.screen.neutral" }}>
+  <Flex
+    align="center"
+    justify="space-between"
+    css={{ maxWidth: "1200px", mx: "auto", width: "100%", px: "400", py: "300" }}
+  >
+    {/* left: logo + nav links */}
+    {/* right: actions + menu icon fallback */}
+  </Flex>
+  <Divider tone="muted-alt" />
+</Box>
+```
+
 **Nav link container:** `gap="400"` (16px), hidden below `lg`, menu icon shown instead.
 
 **Menu icon fallback:**
