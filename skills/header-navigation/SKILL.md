@@ -7,6 +7,25 @@ description: Build Constellation header and navigation patterns for Zillow apps.
 
 Provides tested header patterns using Constellation components. Each pattern handles responsive behavior, accessibility, and graceful collapse of navigation links behind a menu icon.
 
+## Prerequisites
+
+- `@zillow/constellation` installed (provides `ZillowLogo`, `ZillowHomeLogo`, `Button`, `TextButton`, `IconButton`, `Divider`, `Avatar`)
+- `@zillow/constellation-icons` installed (provides `IconMenuFilled`, `IconSearchFilled`, `IconNotificationFilled`, etc.)
+- PandaCSS configured with Constellation preset (for `Flex`, `Box`, responsive breakpoints)
+
+## When to Use
+
+- Building a top-level header or navigation bar for a Zillow app
+- Implementing sticky headers, responsive logo swaps, or menu collapse behavior
+- Adding search bars, tab navigation, or sidebar toggles to a header
+- Choosing between header variations (basic, professional, centered logo, breadcrumb, etc.)
+
+## When NOT to Use
+
+- **Building non-header UI** (cards, forms, modals, property listings) — use `constellation-design-system`
+- **Looking up a specific icon for the header** — use `constellation-icons` to find the right icon name first
+- **Implementing sidebar or vertical navigation** — this skill covers header-level navigation only; see `constellation-design-system` for `VerticalNav` patterns
+
 ## Component Defaults (Headers)
 
 | Component | Default Props |
