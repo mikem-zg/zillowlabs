@@ -11,18 +11,11 @@ Geometric, minimalist, contemporary. Approachable, conversational, confident.
 | **Heavy** | H1 headers, hero text |
 | **Bold** | H2 subheaders |
 | **Medium** | H3 secondary headings |
-| **Regular** | Body copy, legal/captions |
+| **Regular** | Body copy (marketing only), legal/captions |
 
 ## Fallback Typeface: Poppins
 
-When Object Sans is unavailable (e.g., Google Slides).
-
-| Object Sans Weight | Poppins Equivalent |
-|-------------------|--------------------|
-| Heavy | Bold |
-| Bold | Semibold |
-| Medium | Medium |
-| Regular | Normal |
+When Object Sans is unavailable (e.g., Google Slides): Heavy→Bold, Bold→Semibold, Medium→Medium, Regular→Normal.
 
 ---
 
@@ -32,13 +25,13 @@ Marketing contexts: ads, email campaigns, social posts, OOH, landing pages, prin
 
 ### Hierarchy in Marketing
 
-Object Sans is used across ALL weights in marketing. Body copy also uses Object Sans.
+Object Sans is used across ALL weights in marketing, including body copy.
 
 | Level | Weight | Leading Multiplier |
 |-------|--------|-------------------|
 | H1 Header | Heavy | ×1.1 |
 | H2 Subheader | Bold | ×1.2 |
-| H3 Secondary Heading | Medium | ×1.3 |
+| H3 Secondary | Medium | ×1.3 |
 | Body | Regular | ×1.3 |
 | Legal / Captions | Regular | ×1.3 |
 
@@ -49,8 +42,6 @@ Object Sans is used across ALL weights in marketing. Body copy also uses Object 
 | Headlines | Object Sans Heavy | Arial Black |
 | Body | Helvetica | Arial |
 
-Web typefaces in email need web-safe fallbacks for email clients that don't support them.
-
 ---
 
 ## Product Typography Rules
@@ -58,7 +49,7 @@ Web typefaces in email need web-safe fallbacks for email clients that don't supp
 Product contexts: app UI, website screens, in-product flows.
 
 ### Key Difference from Marketing
-In product, Object Sans is used for **headings ONLY**. Body copy uses platform-native typefaces for efficiency, performance, and economic reasons.
+In product, Object Sans is used for **headings ONLY**. Body copy uses platform-native typefaces for performance and consistency.
 
 ### Platform Typeface Pairings
 
@@ -69,67 +60,44 @@ In product, Object Sans is used for **headings ONLY**. Body copy uses platform-n
 | Android | Object Sans Heavy | Roboto |
 | Email | Object Sans Heavy | Helvetica |
 
-The three body typefaces (Inter, SF Pro, Roboto) are visually similar, ensuring customers experience few inconsistencies between platforms.
+### Constellation `textStyle` Tokens (Product)
+
+Use these tokens in code. They map to the correct font family, weight, size, and line height automatically.
+
+| Content Type | Constellation Component + Token | Semantic Color |
+|--------------|-------------------------------|----------------|
+| Page headline (1-2 max) | `<Heading textStyle="heading-lg">` | default (`text.default`) |
+| Section title | `<Text textStyle="body-lg-bold">` | default |
+| Card title | `<Text textStyle="body-bold">` | default |
+| Body / description | `<Text textStyle="body">` | `text.subtle` |
+| Fine print / hints | `<Text textStyle="body-sm">` | `text.subtle` |
+
+**Important:** `<Heading>` should be used for only 1-2 true page headlines per screen. All other titles should use `<Text>` with the appropriate `textStyle`. Overusing `<Heading>` dilutes impact.
+
+**Display behavior:** `Text` renders as an inline `<span>`. Stack `Text` elements in `<Flex direction="column">` to ensure vertical layout.
 
 ### Web Type Scale (Product)
 
-| Level | Typeface | Size/Leading |
-|-------|----------|-------------|
-| Display | Object Sans Heavy | 60/72 |
-| H1 | Object Sans Heavy | 44/48 |
-| H2 | Object Sans Heavy | 36/40 |
-| H3 | Object Sans Heavy | 24/32 |
-| H4 | Object Sans Heavy | 20/24 |
-| Subtitle | Inter Bold | 18/24 |
-| Body | Inter Regular | 16/24 |
-| Caption | Inter Regular | 14/24 |
-
-### iOS Type Scale (Product)
-
-| Level | Typeface | Size/Leading |
-|-------|----------|-------------|
-| Display | Object Sans Heavy | 48/56 |
-| H1 | Object Sans Heavy | 34/41 |
-| H2 | Object Sans Heavy | 28/34 |
-| H3 | Object Sans Heavy | 22/28 |
-| H4 | Object Sans Heavy | 20/25 |
-| Body | SF Pro Regular | 17/22 |
-| Subtitle | SF Pro Bold | 17/22 |
-| Caption | SF Pro Regular | 15/20 |
-
-### Android Type Scale (Product)
-
-| Level | Typeface | Size/Leading |
-|-------|----------|-------------|
-| Display | Object Sans Heavy | 45/52 |
-| H1 | Object Sans Heavy | 36/44 |
-| H2 | Object Sans Heavy | 28/36 |
-| H3 | Object Sans Heavy | 22/28 |
-| H4 | Object Sans Heavy | 20/25 |
-| Body | Roboto Regular | 16/24 |
-| Subtitle | Roboto Bold | 16/24 |
-| Caption | Roboto Regular | 14/20 |
+| Level | Typeface | Size/Leading | Constellation Token |
+|-------|----------|-------------|-------------------|
+| Display | Object Sans Heavy | 60/72 | — |
+| H1 | Object Sans Heavy | 44/48 | `heading-lg` or larger |
+| H2 | Object Sans Heavy | 36/40 | `heading-lg` |
+| H3 | Object Sans Heavy | 24/32 | — |
+| H4 | Object Sans Heavy | 20/24 | — |
+| Subtitle | Inter Bold | 18/24 | `body-lg-bold` |
+| Body | Inter Regular | 16/24 | `body` |
+| Caption | Inter Regular | 14/24 | `body-sm` |
 
 ### Type Colors in Product
 
-Three-color text system for light and dark modes:
+Three-color text system mapped to semantic tokens:
 
-| Role | Light Mode | Dark Mode | Use |
-|------|-----------|-----------|-----|
-| Primary | Granite (#111116) | White (#FFFFFF) | Main text |
-| Secondary | Gray | Light gray | Supporting text |
-| Inverse | White | Granite | Text on dark/light backgrounds |
-
-### Hierarchy in Product
-
-Clear hierarchy maintained by sufficient difference between title, sub-heading, and body text sizes. Object Sans Heavy for headings creates personality; platform-native typefaces for body deliver functional information.
-
-### Spacing in Product
-
-Given the heavy-weight Object Sans headings, encourage larger padding and spacing:
-- Body text: line height of 1.5× font size
-- Headlines: line height of 1.2× font size
-- 12px spacing as the standard baseline for components (buttons, inputs, property cards)
+| Role | Light Mode | Dark Mode | Semantic Token |
+|------|-----------|-----------|----------------|
+| Primary | `Gray950` (Granite) | White | `text.default` |
+| Secondary | Gray | Light gray | `text.subtle` |
+| Inverse | White | Granite | `text.inverse` |
 
 ---
 
@@ -139,34 +107,34 @@ Given the heavy-weight Object Sans headings, encourage larger padding and spacin
 
 | DO | DON'T |
 |----|-------|
-| Highlight specific words for "before & after" structure in copy | Highlight random individual words |
+| Highlight specific words for "before & after" structure | Highlight random individual words |
 | Use ONE color for highlighting | Mix color families in one headline |
-| Omit emphasis when a singular idea is being communicated | Make headlines blue (looks like a link) |
-| Keep the base text in Granite | Use more than one highlight color |
+| Keep the base text in Granite (`text.default`) | Use more than one highlight color |
 
 ### Text Alignment
 
 | Alignment | When |
 |-----------|------|
-| **Left-align** (default) | Multiple lines of text, body copy, paragraphs |
+| **Left-align** (default) | Multiple lines, body copy, paragraphs |
 | **Center-align** | Short headlines (1-2 lines), loading states, empty states |
-| **Never center** | Multiple lines of body text, paragraphs |
+| **Never center** | Multiple lines of body text |
 | **Never justify** | Any text |
 
 ### Line Length
-- Body copy: 50-75 characters per line
-- Shorter = too narrow, fatiguing
-- Longer = too wide, unsustainable for extended reading
+Body copy: 50-75 characters per line.
 
 ### NEVER Rules (Both Contexts)
 
 | DON'T | Why |
 |-------|-----|
 | Use other typefaces (e.g., GT Walsheim) | Off-brand |
-| Use Object Sans Heavy for body copy | Too heavy for extended reading |
-| Use weights outside the selected range (e.g., Thin) | Not in the brand family |
+| Use Object Sans Heavy for body copy in product | Too heavy for extended reading; use `textStyle="body"` |
 | Use outlined type | Not part of the visual system |
 | Apply effects or drop shadows to text | Reduces legibility |
 | Justify text | Violates alignment rules |
-| Blue headlines | Implies interactivity |
-| Highlight with more than one color | Breaks color family consistency |
+| Blue headlines | Implies interactivity (`text.action.hero.default` = links only) |
+
+## Cross-References
+
+- **Constellation textStyle tokens** → `custom_instruction/instructions.md` lines 343-350 for the complete hierarchy table
+- **Constellation quick reference** → `.agents/skills/constellation-design-system/references/guides/quick-reference.md` for component + textStyle mapping
