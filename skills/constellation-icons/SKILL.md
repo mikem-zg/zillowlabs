@@ -36,6 +36,8 @@ description: Complete reference for Zillow's Constellation icon library (621 ico
 - **[constellation-design-system](../../constellation-design-system/SKILL.md)**: Core design system rules, all 99 component docs, UX writing guidelines, and layout patterns. **Load this skill for component usage, spacing tokens, and design rules.**
 - **[constellation-dark-mode](../../constellation-dark-mode/SKILL.md)**: Theme injection, dark mode toggle patterns, `_dark`/`_light` CSS conditions, and design token tiers. **Load this skill when implementing theming or dark mode.**
 - **[constellation-illustrations](../../constellation-illustrations/SKILL.md)**: Full catalog of 99 spot illustrations with light/dark mode SVG paths. **Load this skill when selecting illustrations for empty states, onboarding, or storytelling.**
+- **[consumer-brand-guidelines](../../consumer-brand-guidelines/SKILL.md)**: Consumer audience brand rules — full expressive color palette, Filled icons as default. **Load for consumer-facing icon color and usage decisions.**
+- **[professional-brand-guidelines](../../professional-brand-guidelines/SKILL.md)**: Professional audience brand rules — restricted palette, Duotone icons for upsells/empty states, "Express - trust" variant. **Load for professional-facing icon style and color decisions.**
 
 ## Overview
 
