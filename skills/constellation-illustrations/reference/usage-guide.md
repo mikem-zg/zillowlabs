@@ -66,6 +66,8 @@ function Illustration({ name, alt, size = 160 }: { name: string; alt: string; si
 
 All SVGs are natively 160×160px. Scale down with CSS for compact usage.
 
+**Hard rule:** Only 160×160px and 120×120px are valid illustration sizes. If you need a larger visual (e.g., hero imagery, feature showcases), use photography or a full-bleed image — not an upsized illustration. If you need a smaller visual (e.g., inline with text in a card), use an `Icon` component instead — not a downsized illustration. Illustrations at 48px, 64px, 80px, 280px, or any non-standard size are always wrong.
+
 ## Design System Rules
 
 ### ALWAYS
