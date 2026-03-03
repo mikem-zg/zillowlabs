@@ -70,7 +70,7 @@ import { Flex, Grid, Box } from '@/styled-system/jsx';
   lg: { display: 'flex', gap: '400' },
   lgDown: { flexDirection: 'column' },
   mdToLg: { padding: '300' },
-  xlOnly: { maxWidth: '1200px' },
+  xlOnly: { maxWidth: 'breakpoint-xxl' },
 })}>
 ```
 

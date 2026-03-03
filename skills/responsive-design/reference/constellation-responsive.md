@@ -116,7 +116,7 @@ PandaCSS supports array syntax where values map to breakpoints in order (`[base,
   lg: { flexDirection: 'row', gap: '600' },
   lgDown: { padding: '300' },
   mdToLg: { fontSize: 'md' },
-  xlOnly: { maxWidth: '1200px', margin: '0 auto' },
+  xlOnly: { maxWidth: 'breakpoint-xxl', margin: '0 auto' },
 })}>
   Content
 </Box>
@@ -378,7 +378,7 @@ Consumer hero CTAs may use `size="lg"`:
 ```tsx
 const containerStyles = css({
   padding: { base: '400', lg: '600' },
-  maxWidth: { base: '100%', xl: '1200px' },
+  maxWidth: { base: '100%', xl: 'breakpoint-xxl' },
   margin: '0 auto',
   display: { base: 'block', lg: 'grid' },
   gridTemplateColumns: { lg: '1fr 1fr' },
