@@ -345,7 +345,7 @@ export default function HeaderWithTabs() {
           </Flex>
         </Flex>
         <Divider tone="muted-alt" />
-        <Box css={{ px: "400" }}>
+        <Box css={{ maxWidth: "1200px", mx: "auto", width: "100%", px: "400" }}>
           <Tabs.Root appearance="default" defaultSelected="overview">
             <Tabs.List>
               <Tabs.Tab value="overview">Overview</Tabs.Tab>
@@ -473,7 +473,7 @@ export default function HeaderWithBreadcrumb() {
   return (
     <Page.Root css={{ background: "bg.screen.neutral" }}>
       <Box css={{ position: "sticky", display: "flow-root", top: 0, zIndex: 10, width: "100%", maxWidth: "100%", background: "bg.screen.neutral" }}>
-        <Flex align="center" justify="space-between" css={{ width: "100%", px: "400", py: "300" }}>
+        <Flex align="center" justify="space-between" css={{ maxWidth: "1200px", mx: "auto", width: "100%", px: "400", py: "400" }}>
           <Flex align="center" gap="400">
             <Box css={{ display: { base: "none", md: "block" } }}>
               <ZillowLogo role="img" css={{ height: "24px", width: "auto" }} />
@@ -537,7 +537,7 @@ import { IconMenuFilled } from "@zillow/constellation-icons";
 export default function CenteredLogoHeader() {
   return (
     <Page.Root css={{ background: "bg.screen.neutral" }}>
-      <Flex align="center" justify="space-between" css={{ width: "100%", px: "400", py: "300" }}>
+      <Flex align="center" justify="space-between" css={{ maxWidth: "1200px", mx: "auto", width: "100%", px: "400", py: "400" }}>
         <Box css={{ display: { base: "none", lg: "flex" }, gap: "400", flex: 1 }}>
           <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Buy</TextButton>
           <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Rent</TextButton>
@@ -585,7 +585,7 @@ import { IconMenuFilled } from "@zillow/constellation-icons";
 export default function NoDividerHeader() {
   return (
     <Page.Root css={{ background: "bg.screen.neutral" }}>
-      <Flex align="center" justify="space-between" css={{ width: "100%", px: "400", py: "300" }}>
+      <Flex align="center" justify="space-between" css={{ maxWidth: "1200px", mx: "auto", width: "100%", px: "400", py: "400" }}>
         <Flex align="center" gap="400">
           <Box css={{ display: { base: "none", md: "block" } }}>
             <ZillowLogo role="img" css={{ height: "24px", width: "auto" }} />
