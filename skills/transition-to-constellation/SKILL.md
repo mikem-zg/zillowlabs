@@ -12,6 +12,25 @@ metadata:
 
 This skill handles **analyzing, migrating, and validating** a React frontend's transition to Zillow's Constellation Design System. It supports migration from Tailwind, shadcn/ui, Material UI, Chakra UI, Ant Design, vanilla CSS, or any combination.
 
+## Prerequisites
+
+- React 18+ project with an existing frontend to migrate
+- Node.js 18+ and npm/pnpm available
+- `bash` shell for running analysis and validation scripts
+
+## When to Use
+
+- Migrating an existing React app to Constellation incrementally (page-by-page)
+- Running the codebase analysis script to inventory current components and styling
+- Looking up component migration recipes (e.g., MUI Button → Constellation Button)
+- Validating migration progress with the validation script
+
+## When NOT to Use
+
+- **App has heavy design debt or fewer than 15 screens** — use `transition-to-constellation-from-scratch` for a clean-slate rebuild instead
+- **Constellation is already installed and you're building new UI** — use `constellation-design-system`
+- **Looking up icon names, illustrations, or dark mode** — use the specialized Constellation skills
+
 **After installation is complete**, use the related Constellation skills for building UI:
 
 - **[constellation-design-system](../constellation-design-system/SKILL.md)**: Core design system rules, all 99 component docs, UX writing guidelines, and layout patterns
