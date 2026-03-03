@@ -45,7 +45,7 @@ function AppHeader() {
       <Flex
         align="center"
         justify="space-between"
-        css={{ px: "400", py: "300", maxWidth: "1200px", mx: "auto", width: "100%" }}
+        css={{ px: "400", py: "300", maxWidth: "breakpoint-xxl", mx: "auto", width: "100%" }}
       >
         <ZillowLogo css={{ height: "24px", width: "auto" }} />
         {/* Global search goes here */}
