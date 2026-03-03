@@ -130,5 +130,5 @@ Default is `textStyle="body" tone="neutral"`. Other options:
 
 ## Resources
 
-- **Full code examples**: See [references/header-patterns.md](references/header-patterns.md) for all 10 patterns
+- **Full code examples**: See [references/header-patterns.md](references/header-patterns.md) for all 11 patterns
 - **Component defaults detail**: See [references/component-defaults.md](references/component-defaults.md) for prop tables and avatar/logo patterns

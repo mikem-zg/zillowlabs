@@ -1,5 +1,21 @@
 # Header Patterns — Full Code Examples
 
+## Table of Contents
+
+1. [Basic Consumer Header](#1-basic-consumer-header)
+2. [Sticky Consumer Header](#2-sticky-consumer-header)
+3. [Search Bar Header](#3-search-bar-header)
+4. [Mobile-Responsive Header](#4-mobile-responsive-header)
+5. [Professional Header](#5-professional-header)
+6. [Tabs Navigation Header](#6-tabs-navigation-header)
+7. [Sidebar Header](#7-sidebar-header)
+8. [Breadcrumb Header](#8-breadcrumb-header)
+9. [Centered Logo Header](#9-centered-logo-header)
+10. [No Divider Header](#10-no-divider-header)
+11. [Contained Header](#11-contained-header)
+
+---
+
 ## 1. Basic Consumer Header
 
 Standard header with logo, nav links, secondary links, sign-in button, and menu icon fallback.
