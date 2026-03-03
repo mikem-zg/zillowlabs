@@ -617,3 +617,65 @@ export default function NoDividerHeader() {
   );
 }
 ```
+
+---
+
+## 11. Contained Header
+
+Full-bleed sticky background with maxWidth-constrained inner content. Use when the page content has a max-width container so the header content aligns with it visually.
+
+**Key rule:** Always match the header's inner `maxWidth` to the page content's `maxWidth`. The sticky `Box` wrapper remains full-bleed for the background color, but the inner `Flex` is constrained and centered with `mx: "auto"`.
+
+```tsx
+import {
+  Page, Text, TextButton, Button, ZillowLogo, ZillowHomeLogo, Divider, Icon, IconButton,
+} from "@zillow/constellation";
+import { Box, Flex } from "@/styled-system/jsx";
+import { IconMenuFilled } from "@zillow/constellation-icons";
+
+export default function ContainedHeader() {
+  return (
+    <Page.Root css={{ background: "bg.screen.neutral" }}>
+      <Box css={{ position: "sticky", display: "flow-root", top: 0, zIndex: 10, background: "bg.screen.neutral" }}>
+        <Flex
+          align="center"
+          justify="space-between"
+          css={{ maxWidth: "1200px", mx: "auto", width: "100%", px: "400", py: "300" }}
+        >
+          <Flex align="center" gap="400">
+            <Box css={{ display: { base: "none", md: "block" } }}>
+              <ZillowLogo role="img" css={{ height: "24px", width: "auto" }} />
+            </Box>
+            <Box css={{ display: { base: "block", md: "none" } }}>
+              <ZillowHomeLogo role="img" css={{ height: "24px", width: "auto" }} />
+            </Box>
+            <Box css={{ display: { base: "none", lg: "flex" }, gap: "400" }}>
+              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Buy</TextButton>
+              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Rent</TextButton>
+              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Sell</TextButton>
+              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Home loans</TextButton>
+              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Agent finder</TextButton>
+            </Box>
+          </Flex>
+          <Flex align="center" gap="300">
+            <Box css={{ display: { base: "none", md: "flex" }, gap: "400" }}>
+              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Manage rentals</TextButton>
+              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Advertise</TextButton>
+            </Box>
+            <Button size="sm" emphasis="outlined" tone="neutral" css={{ whiteSpace: "nowrap" }}>Sign in</Button>
+            <Box css={{ display: { base: "block", lg: "none" } }}>
+              <IconButton title="Menu" tone="neutral" emphasis="bare" size="sm" shape="circle">
+                <Icon size="md"><IconMenuFilled /></Icon>
+              </IconButton>
+            </Box>
+          </Flex>
+        </Flex>
+        <Divider tone="muted-alt" />
+      </Box>
+      <Box css={{ maxWidth: "1200px", mx: "auto", width: "100%", px: "400", py: "600" }}>
+        {/* Page content — same maxWidth as header inner content */}
+      </Box>
+    </Page.Root>
+  );
+}
+```
