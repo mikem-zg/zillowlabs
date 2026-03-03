@@ -1,5 +1,7 @@
 # Header Patterns — Full Code Examples
 
+> **Width alignment rule:** When the page content uses a max-width container (e.g., `maxWidth: "1200px"`), the header's inner `Flex` MUST use the same `maxWidth` + `mx: "auto"` so content aligns visually. The sticky `Box` wrapper stays full-bleed for the background color; only the inner layout container is constrained. All patterns below include `maxWidth: "1200px", mx: "auto"` on the inner Flex — adjust the value to match your page content width.
+
 ## Table of Contents
 
 1. [Basic Consumer Header](#1-basic-consumer-header)
