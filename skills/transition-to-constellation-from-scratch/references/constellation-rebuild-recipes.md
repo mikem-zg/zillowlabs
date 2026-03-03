@@ -206,7 +206,7 @@ function DetailPage({ item }: { item: ItemDetail }) {
 - Only 1-2 `Heading` components per screen — use `Text textStyle="body-lg-bold"` for section titles
 - Tabs ALWAYS need `defaultSelected` prop — never omit it
 - Use `TextButton` for back navigation — not a styled anchor
-- Max width 1000px for detail pages, 1200px for grids
+- Use Constellation breakpoint size tokens for max widths (e.g., `breakpoint-xl` for detail pages, `breakpoint-xxl` for grids) — never hardcode pixel values
 
 ---
 
