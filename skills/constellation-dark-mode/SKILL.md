@@ -14,6 +14,12 @@ For deeper documentation, see the reference files in this skill:
 - **`reference/custom-themes.md`** — Creating custom themes, preset structure, merging with Constellation tokens
 - **`reference/design-tokens.md`** — Token tier system, naming taxonomy, color semantics, PandaCSS token usage
 
+## Related Constellation Skills
+
+- **[constellation-design-system](../../constellation-design-system/SKILL.md)**: Core design system rules, all 99 component docs, UX writing guidelines, and layout patterns. **Load this skill for component usage, spacing tokens, and design rules.**
+- **[constellation-icons](../../constellation-icons/SKILL.md)**: Full catalog of 621 icons with color tokens, sizing, and implementation guides. **Load this skill when working with icons** — icon color tokens change in dark mode.
+- **[constellation-illustrations](../../constellation-illustrations/SKILL.md)**: Full catalog of 99 spot illustrations with light/dark mode SVG paths. **Load this skill when selecting illustrations** — each illustration has a dark mode variant.
+
 ## Architecture Overview
 
 This project uses **PandaCSS** with the **Zillow Constellation** design system. Theming is powered by:
