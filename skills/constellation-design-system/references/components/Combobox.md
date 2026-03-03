@@ -4,7 +4,7 @@
 import { Combobox } from '@zillow/constellation';
 ```
 
-**Version:** 10.11.0
+**Version:** 10.13.0
 
 ## Usage
 

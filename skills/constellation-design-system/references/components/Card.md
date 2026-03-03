@@ -4,7 +4,7 @@
 import { Card } from '@zillow/constellation';
 ```
 
-**Version:** 10.11.0 | **Since:** 4.1.0
+**Version:** 10.13.0 | **Since:** 4.1.0
 
 ## Usage
 

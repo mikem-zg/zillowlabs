@@ -4,7 +4,7 @@
 import { Layout } from '@zillow/constellation';
 ```
 
-**Version:** 10.11.0 | **Since:** 10.0.0
+**Version:** 10.13.0 | **Since:** 10.0.0
 
 ## Usage
 

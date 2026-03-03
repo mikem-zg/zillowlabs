@@ -4,7 +4,7 @@
 import { TriggerButton } from '@zillow/constellation';
 ```
 
-**Version:** 10.11.0 | **Since:** 7.0.0
+**Version:** 10.13.0 | **Since:** 7.0.0
 
 ## Usage
 
