@@ -5,6 +5,28 @@ description: Implement and manage Constellation dark mode and theming. Activates
 
 # Constellation Dark Mode & Theming
 
+## Prerequisites
+
+- Constellation packages installed (`@zillow/constellation`, `@zillow/constellation-tokens`)
+- PandaCSS configured with `@zillow/constellation-config` preset
+- Base theme injected via `injectTheme()` in your app entry point
+- PandaCSS codegen completed so `@/styled-system/themes` exports `getTheme` and `injectTheme`
+
+## When to Use
+
+- Adding dark mode support to a Constellation app
+- Implementing a light/dark toggle with localStorage persistence
+- Using `_dark` / `_light` CSS conditions for conditional styling
+- Debugging theme token resolution issues
+- Creating custom themes or overriding token values
+
+## When NOT to Use
+
+- **Building UI components** — use `constellation-design-system` for component selection and rules
+- **Looking up icon names or colors** — use `constellation-icons`
+- **Selecting illustrations** — use `constellation-illustrations` (though it documents light/dark SVG variants)
+- **Installing Constellation** — use `transition-to-constellation` for initial setup
+
 ## Reference Guides
 
 For deeper documentation, see the reference files in this skill:
