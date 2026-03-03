@@ -381,7 +381,7 @@ export default function HeaderWithSidebar() {
   return (
     <Box css={{ height: "100vh", display: "flex", flexDirection: "column" }}>
       <Box css={{ display: "flow-root", width: "100%", maxWidth: "100%", background: "bg.screen.neutral", flexShrink: 0 }}>
-        <Flex align="center" justify="space-between" css={{ width: "100%", px: "400", py: "300" }}>
+        <Flex align="center" justify="space-between" css={{ maxWidth: "1200px", mx: "auto", width: "100%", px: "400", py: "300" }}>
           <Flex align="center" gap="400">
             <Box css={{ display: { base: "none", md: "block" } }}>
               <ZillowLogo role="img" css={{ height: "24px", width: "auto" }} />
