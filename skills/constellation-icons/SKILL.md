@@ -42,13 +42,13 @@ description: Complete reference for Zillow's Constellation icon library (621 ico
 Before importing any icon, run this to confirm it exists in the package:
 
 ```bash
-node -e "try { require('@zillow/constellation-icons')[process.argv[1]] ? console.log('EXISTS') : console.log('NOT FOUND') } catch { console.log('NOT FOUND') }" IconHomeFilled
+node --input-type=module -e "import * as m from '@zillow/constellation-icons'; console.log(m['IconHomeFilled'] ? 'EXISTS' : 'NOT FOUND')"
 ```
 
 Search for valid icon names matching a keyword:
 
 ```bash
-node -e "const m=require('@zillow/constellation-icons');Object.keys(m).filter(k=>k.toLowerCase().includes(process.argv[1].toLowerCase())).forEach(k=>console.log(k))" home
+node --input-type=module -e "import * as m from '@zillow/constellation-icons'; Object.keys(m).filter(k=>k.toLowerCase().includes('home')).forEach(k=>console.log(k))"
 ```
 
 ## Icon Wrapper Exceptions
