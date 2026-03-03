@@ -133,7 +133,9 @@ Default is `textStyle="body" tone="neutral"`. Other options:
 | Breadcrumb | Header + Page.Breadcrumb + detail heading | Both |
 | Centered logo | Three-column layout, logo centered | Consumer |
 | No divider | Clean seamless header | Consumer |
-| Contained | Full-bleed sticky bg + maxWidth-constrained inner content | Both |
+| Contained | Explicit page-content alignment example with matching maxWidth | Both |
+
+> **Note:** All 11 patterns include `maxWidth: "1200px", mx: "auto"` on the inner Flex by default. Adjust the value to match your page content width. The sticky `Box` wrapper stays full-bleed; only the inner layout container is constrained.
 
 ## Related Constellation Skills
 
