@@ -4,7 +4,7 @@ Source: Zillow April 2024 Brand Guidelines, slides 80-139.
 
 ## Primary Palette
 
-Always-present colors throughout the Zillow brand experience.
+Always-present colors throughout the Zillow brand experience (both marketing and product).
 
 | Name | Hex | RGB | PMS | Role |
 |------|-----|-----|-----|------|
@@ -60,7 +60,7 @@ Brand "nail polish" names mapped to Constellation design system tokens.
 | Playroom | Purple500 |
 | Wine Cellar | Purple800 |
 
-## Color Family Meanings
+## Color Family Meanings (Both Marketing and Product)
 
 | Family | Meaning | Use For | Personality |
 |--------|---------|---------|-------------|
@@ -69,27 +69,104 @@ Brand "nail polish" names mapped to Constellation design system tokens.
 | **Purple** | Inspired / News | New features, inspiration, creativity, engagement | Joy, Leader-like, Vibrance |
 | **Orange** | Empowered / Focus | "New" badges, "Open House", urgency, alerts | Authentic, Dependable, Unflappable |
 
-## Feedback Colors (Product UI)
+---
 
-| Role | Color | Use |
-|------|-------|-----|
-| Interactive | Blue (Blue600) | Actionable UI elements, primary CTA |
-| Selected | Light Blue | Selected element on page |
-| Notify | Feedback Orange | Notification dots, urgency |
-| Success | Green | Completion, success states |
-| Warning | Yellow | Cautionary messages |
-| Critical | Red | Errors, incomplete actions |
+## Marketing Color Rules
 
-## Extended Color System (OkLCH)
+Marketing contexts: ads, email campaigns, social posts, OOH, landing pages, print.
 
-The design system uses OkLCH (lightness, chroma, hue) with 9 values per scale (050-950).
+### How Blue Works in Marketing
+Zillow Blue is versatile in marketing — it can appear in CTAs, backgrounds, headlines, and illustrations. It anchors the logo and inspires brand recognition.
 
-**Accessibility shortcut:** Any color in the 700+ range on any color in the 200- range always passes AA contrast. This applies across all color families at the same level.
+| Use Case | Allowed Colors |
+|----------|---------------|
+| Hero backgrounds | Zillow Blue, Waterfront, secondary family colors |
+| Headlines | Granite text with ONE highlight color from a family |
+| CTAs | Zillow Blue (primary) |
+| House motif fills | Any secondary color; match text/motif combos to approved pairings |
 
-## Color Usage Rules
+### Zillow Blue vs Waterfront in Marketing
+
+| Zillow Blue | Waterfront (Navy) |
+|-------------|-------------------|
+| Primary color; suggests interaction and expression | Supporting color; more grounded |
+| Use for energetic, activating copy | Use for direct, to-the-point copy |
+| OK as email/ad background when brand equity needed | Do NOT use without Zillow Blue present in non-owned spaces |
+| Do NOT use as background if it distracts from CTA | Do NOT use when messaging should excite and energize |
+
+### Highlight Colors as Backgrounds (Marketing Only)
+Light "highlight" colors (Pool, Houseplant, Dollhouse, Terracotta) may be used as backgrounds ONLY for:
+- Social media posts
+- Layouts with a solid-filled house motif on top
+
+They are NOT general-purpose background colors.
+
+### Color Combos Per Family (Marketing)
+Each color family has approved combinations for house motif, logo tag, and headline highlights. Do not mix families — e.g., teal house motif with purple highlight text.
+
+### Contextual Color Spectrum (Marketing)
+
+| More Functional ← | → More Expressive |
+|---|---|
+| App experience | Brand social |
+| Email | Paid social |
+| Landing page | Out-of-home |
+
+More expressive contexts allow bolder color use. App/email should be more restrained.
+
+---
+
+## Product Color Rules
+
+Product contexts: app UI, website screens, in-product flows, dashboards, settings.
+
+### Blue in Product = Interactive Only
+This is the critical difference from marketing. In product, blue is reserved EXCLUSIVELY for interactive elements. Blue suggests the element can be clicked or tapped.
+
+| Blue600 Usage in Product | NOT Allowed |
+|--------------------------|-------------|
+| Primary CTA buttons | Blue headlines (looks like a link) |
+| Links | Blue backgrounds (except hero images) |
+| Interactive icons | Blue decorative accents |
+| Selected states | Blue section fills |
+
+### Feedback Colors (Product Only)
+
+| Role | Color | UI Example |
+|------|-------|------------|
+| **Interactive** | Blue (Zillow Blue) | CTA buttons |
+| **Selected** | Light Blue | Selected date card, selected state |
+| **Notify** | Feedback Orange | Notification dot |
+| **Success** | Green | Success checkmark |
+| **Warning** | Yellow | Warning badge |
+| **Critical** | Red | Error icon |
+
+### Accessibility (Product — Stricter Than Marketing)
+- WCAG AA mandatory for all text (AAA preferred but not required)
+- 3:1 contrast ratio required for non-text elements (cards, inputs)
+- Blue600 buttons pass AA on backgrounds up to gray400 level
+- Any color in the 700+ range on any color in the 200- range passes AA
+- Test contrast at: https://www.aremycolorsaccessible.com/
+
+### Extended Color System (Product)
+The design system uses OkLCH (lightness, chroma, hue) with 9 values per scale (050-950). Each step has predictable lightness: 100-family ≈ 95% lightness, 200-family ≈ 90%, etc.
+
+### Product Icon Colors
+
+| Context | Color | When |
+|---------|-------|------|
+| Most interactive icons | Blue600 | Default for clickable icons |
+| Functional icons in containers | Gray950 | Icons in inputs, tabs, nav (interaction implied by placement) |
+| Content support | Gray600 | Paired with content for visual separation |
+| Storytelling emphasis | Teal600 | Features, landing pages, upsell banners — use sparingly |
+| Vibrant non-interactive (upsells) | Orange500, Purple500, etc. | Sparingly, for prominent moments only |
+
+---
+
+## Shared Color Usage Rules (Both Marketing and Product)
 
 ### Coverage Limit
-- Max 25% bold color per viewport (what customer can see at one time)
+- Max 25% bold color per viewport
 - Exception: hero images on homepages/landing pages may exceed 25%
 - If multiple color modules on one page, keep within the same color family
 
@@ -104,27 +181,19 @@ The design system uses OkLCH (lightness, chroma, hue) with 9 values per scale (0
 ### Color Family Consistency
 Once you pick a color family for a page, carry it through. If the hero is teal, all colored elements below (badges, accents, CTAs) must also be teal. Do not introduce orange or purple further down.
 
-### NEVER Rules
+### NEVER Rules (Both Contexts)
 
 | DON'T | Why |
 |-------|-----|
 | Stack colored sections back-to-back | Looks "childish and amateur" (brand guidelines p.137) |
 | Use light/pastel colored backgrounds | Feels "dingy" and "juvenile" (leadership directive, p.138) |
-| Use navy or light blue for backgrounds | Violates background restrictions (p.139) |
+| Use navy or light blue for section backgrounds | Violates background restrictions (p.139) |
 | Fill >25% of viewport with bold color | Overwhelms content |
 | Use color for decoration without purpose | Every color must serve a function |
 | Mix color families on one page | Breaks visual consistency |
-| Use blue for headlines | Blue = interactive only; blue headline looks like a link |
 | Use Granite as a background color | Reserved for text |
 | Use Granite + Marble as the only colors | Needs a supporting secondary color |
 
 ## Dark Mode
 
 Invert the color scale: switch from blue100 to blue900 (opposite position on the 050-950 scale). Exceptions exist for drop shadows — elements overlaying the page background in dark mode should use a lighter color to maintain visual hierarchy.
-
-## Accessibility
-
-- All text colors must pass WCAG AA (AAA preferred but not required)
-- Non-text elements (cards, inputs) need 3:1 contrast ratio
-- Blue600 buttons pass AA on backgrounds up to gray400 level
-- Test contrast at: https://www.aremycolorsaccessible.com/

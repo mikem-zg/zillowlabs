@@ -2,6 +2,8 @@
 
 Zillow's April 2024 Brand Guidelines for the **consumer audience** (homebuyers, renters, sellers). Covers visual identity, verbal identity, color, typography, logo, shape, illustration, iconography, and photography.
 
+**Important:** The brand guidelines define separate rules for **Marketing** (ads, email, social, OOH, landing pages) and **Product** (app, website UI, in-product experiences). Many categories have different constraints depending on context. Each reference file is split into Marketing and Product sections.
+
 ## When to Activate
 
 - Building consumer-facing UI (homebuyer, renter, seller experiences)
@@ -29,49 +31,71 @@ Zillow's April 2024 Brand Guidelines for the **consumer audience** (homebuyers, 
 | **Archetype** | The Advocate |
 | **Pillars** | Possibility → Understanding → Progress |
 
+## First Decision: Marketing or Product?
+
+Before applying any visual rule, determine which context you are working in:
+
+| Context | Examples | Key Differences |
+|---------|----------|-----------------|
+| **Marketing** | Ads, billboards, social posts, email campaigns, landing pages, OOH, print | More expressive freedom; house motifs; tag design logos; bold color backgrounds OK; Object Sans across all weights |
+| **Product** | App screens, website UI, in-product flows, dashboards, settings | Stricter accessibility (WCAG AA mandatory); blue = interactive only; platform-native body typefaces; container/elevation rules; feedback colors |
+
 ## Core Brand Rules
 
-| Rule ID | Category | Constraint | Exception |
-|---------|----------|------------|-----------|
-| CLR_001 | Color | Max 25% bold color per viewport | Hero sections on homepages/landing pages |
-| CLR_002 | Color | No light/pastel colored backgrounds | None — leadership directive |
-| CLR_003 | Color | No navy or light blue backgrounds | None |
-| CLR_004 | Color | No stacking colored sections back-to-back | None |
-| CLR_005 | Color | Pick ONE color family per page; carry it through | None |
-| CLR_006 | Color | Blue = interactive/action ONLY; never decorative | Hero backgrounds in non-owned spaces |
-| CLR_007 | Color | Teal or purple for colored card/section backgrounds | None |
-| CLR_008 | Color | Use illustrations to bring color instead of painted surfaces | None |
-| LOGO_001 | Logo | Desktop: 24px height | None |
-| LOGO_002 | Logo | Mobile: 16px height | None |
-| LOGO_003 | Logo | Email: 24px height | None |
-| LOGO_004 | Logo | Minimum logomark size: 58px | None |
-| LOGO_005 | Logo | Left-align logo whenever possible | Center OK with house motif frame |
-| LOGO_006 | Logo | Owned space: secondary white logo OK without blue | None |
-| LOGO_007 | Logo | Non-owned space without blue: must use tag design | None |
-| TYPO_001 | Typography | Object Sans for headings; Inter (web), SF Pro (iOS), Roboto (Android) for body | Email: Helvetica body, Arial Black/Arial fallback |
-| TYPO_002 | Typography | Left-align body text; center OK for 1-2 line headlines only | None |
-| TYPO_003 | Typography | Line length 50-75 characters for body copy | None |
-| TYPO_004 | Typography | ONE highlight color per headline; same color family | None |
-| TYPO_005 | Typography | Never make headlines blue (implies interactivity) | None |
-| SHAPE_001 | Shape | Default corner radius: 12px | Large/hero containers: 20px |
-| SHAPE_002 | Shape | Do not override Constellation component corner radii | None |
-| SHAPE_003 | Shape | 12px corners: 8-16px padding minimum | None |
-| SHAPE_004 | Shape | 20px corners: 16-32px padding minimum | None |
-| SHAPE_005 | Shape | Nested corners: outer ≥ inner rounding | None |
-| ELEV_001 | Elevation | Shadows on interactive elements only | None |
-| ELEV_002 | Elevation | Large shadows for property cards, toggle cards | None |
-| ELEV_003 | Elevation | No nested shadows (shadow inside shadow) | None |
-| ELEV_004 | Elevation | Dark mode: no shadows; use lighter backgrounds for elevation | None |
-| ICON_001 | Icons | Filled icons as default | Outline for pre-interaction states (e.g., unfavorited heart) |
-| ICON_002 | Icons | Sizes: sm=16px, md=24px (default), lg=32px, xl=44px | None |
-| ICON_003 | Icons | Interactive icons: Blue600 | Gray950 when interaction is implied by container |
-| ICON_004 | Icons | Content support icons: Gray600 | Teal600 for storytelling emphasis |
-| PHOTO_001 | Photography | No wholly AI-generated images for consumer-facing assets | AI OK for geographic diversity, aspect ratio adjustment |
-| PHOTO_002 | Photography | Never manipulate faces or hands with AI | None |
-| ILLUS_001 | Illustration | Keep beige background element on spot illustrations | None |
-| ILLUS_002 | Illustration | Zillow Blue present in every illustration (10-50%) | None |
-| ILLUS_003 | Illustration | Spot: 160×160px; Scene: 300×500px aspect ratio | None |
-| ILLUS_004 | Illustration | Do not edit, embellish, or remove elements from illustrations | None |
+| Rule ID | Applies To | Category | Constraint | Exception |
+|---------|-----------|----------|------------|-----------|
+| CLR_001 | Both | Color | Max 25% bold color per viewport | Hero sections on homepages/landing pages |
+| CLR_002 | Both | Color | No light/pastel colored backgrounds | None — leadership directive |
+| CLR_003 | Both | Color | No navy or light blue backgrounds | None |
+| CLR_004 | Both | Color | No stacking colored sections back-to-back | None |
+| CLR_005 | Both | Color | Pick ONE color family per page; carry it through | None |
+| CLR_006 | Product | Color | Blue = interactive/action ONLY; never decorative | None |
+| CLR_007 | Both | Color | Teal or purple for colored card/section backgrounds | None |
+| CLR_008 | Product | Color | Use illustrations to bring color instead of painted surfaces | None |
+| CLR_009 | Marketing | Color | Zillow Blue versatile — works in CTAs, backgrounds, headlines, illustrations | Non-owned spaces need blue present for brand recognition |
+| CLR_010 | Product | Color | Feedback colors: green=success, yellow=warning, red=critical, light blue=selected | None |
+| CLR_011 | Product | Color | WCAG AA mandatory for all text; 3:1 for non-text elements | None |
+| LOGO_001 | Product | Logo | Desktop navigation: 24px height | None |
+| LOGO_002 | Product | Logo | Mobile navigation: 16px height | None |
+| LOGO_003 | Both | Logo | Email: 24px height | None |
+| LOGO_004 | Both | Logo | Minimum logomark size: 58px | None |
+| LOGO_005 | Both | Logo | Left-align logo whenever possible | Center OK with house motif frame |
+| LOGO_006 | Marketing | Logo | Owned space: secondary white logo OK without blue | None |
+| LOGO_007 | Marketing | Logo | Non-owned space without blue: must use tag design | None |
+| LOGO_008 | Product | Logo | Logo used sparingly; customers already know they're on Zillow | None |
+| LOGO_009 | Product | Logo | Never use logomark without logotype | None |
+| TYPO_001 | Product | Typography | Object Sans for headings ONLY; Inter (web), SF Pro (iOS), Roboto (Android) for body | Email: Helvetica body |
+| TYPO_002 | Marketing | Typography | Object Sans across all weights (Heavy, Bold, Medium, Regular) | None |
+| TYPO_003 | Both | Typography | Left-align body text; center OK for 1-2 line headlines only | None |
+| TYPO_004 | Both | Typography | Line length 50-75 characters for body copy | None |
+| TYPO_005 | Both | Typography | ONE highlight color per headline; same color family | None |
+| TYPO_006 | Both | Typography | Never make headlines blue (implies interactivity) | None |
+| TYPO_007 | Product | Typography | Three-color text system: primary (Granite), secondary (Gray), inverse (White) | Dark mode inverts |
+| SHAPE_001 | Product | Shape | Default corner radius: 12px | Large/hero containers: 20px |
+| SHAPE_002 | Product | Shape | Do not override Constellation component corner radii | None |
+| SHAPE_003 | Product | Shape | 12px corners: 8-16px padding minimum | None |
+| SHAPE_004 | Product | Shape | 20px corners: 16-32px padding minimum | None |
+| SHAPE_005 | Product | Shape | Nested corners: outer ≥ inner rounding | None |
+| SHAPE_006 | Marketing | Shape | House motifs: Frame (leading), Window, Solid House | Skip when aspect ratio is challenging |
+| ELEV_001 | Product | Elevation | Shadows on interactive elements only | None |
+| ELEV_002 | Product | Elevation | Large shadows for property cards, toggle cards | None |
+| ELEV_003 | Product | Elevation | No nested shadows (shadow inside shadow) | None |
+| ELEV_004 | Product | Elevation | Dark mode: no shadows; use lighter backgrounds for elevation | None |
+| ICON_001 | Product | Icons | Filled icons as default | Outline for pre-interaction states (e.g., unfavorited heart) |
+| ICON_002 | Product | Icons | Sizes: sm=16px, md=24px (default), lg=32px, xl=44px | None |
+| ICON_003 | Product | Icons | Interactive icons: Blue600 | Gray950 when interaction is implied by container |
+| ICON_004 | Product | Icons | Content support icons: Gray600 | Teal600 for storytelling emphasis |
+| ICON_005 | Product | Icons | Max 3 xl icons in proximity; max 5 lg icons in proximity | None |
+| CONT_001 | Product | Containers | Filled containers: saturated = highest importance; white = moderate | None |
+| CONT_002 | Product | Containers | Outlined containers: visual separation, grouping form fields | None |
+| CONT_003 | Product | Containers | Elevated containers: indicate interactivity or draw attention | None |
+| CONT_004 | Product | Containers | Interactive cards must have secondary visual indicator (text, border, or shadow) | None |
+| PHOTO_001 | Both | Photography | No wholly AI-generated images for consumer-facing assets | AI OK for geographic diversity, aspect ratio adjustment |
+| PHOTO_002 | Both | Photography | Never manipulate faces or hands with AI | None |
+| ILLUS_001 | Both | Illustration | Keep beige background element on spot illustrations | None |
+| ILLUS_002 | Both | Illustration | Zillow Blue present in every illustration (10-50%) | None |
+| ILLUS_003 | Both | Illustration | Spot: 160×160px; Scene: 300×500px aspect ratio | None |
+| ILLUS_004 | Both | Illustration | Do not edit, embellish, or remove elements from illustrations | None |
 
 ## Decision Trees
 
@@ -84,6 +108,22 @@ Is this a hero section on a homepage/landing page?
     └── No → Use white (#FFFFFF) or light gray (#F7F7F7)
 
 NEVER: light blue, navy, pastel tints, stacked colored sections
+```
+
+### Marketing vs Product Color Decision
+```
+Am I building PRODUCT UI or MARKETING content?
+├── PRODUCT:
+│   ├── Blue600 = interactive elements ONLY (buttons, links, CTAs)
+│   ├── Feedback colors for states (green/yellow/red)
+│   ├── Light blue = selected state only
+│   ├── WCAG AA mandatory for all text contrast
+│   └── Prefer illustrations over colored backgrounds
+└── MARKETING:
+    ├── Zillow Blue can be used in backgrounds, headlines, illustrations
+    ├── Bold secondary colors allowed for expressive moments
+    ├── House motif colorways available
+    └── Highlight colors OK as social/house-motif backgrounds
 ```
 
 ### Choosing a Color Family
@@ -120,13 +160,15 @@ Is this an owned space (app, email, social)?
 
 ## Reference Files
 
+Each reference file is split into **Marketing** and **Product** sections where the rules differ.
+
 | File | Contents |
 |------|----------|
-| `references/color-system.md` | Full palette with hex/RGB, color families, usage rules, accessibility |
-| `references/typography.md` | Object Sans hierarchy, pairings, emphasis, alignment rules |
-| `references/logo-usage.md` | Sizing, clearspace, colorways, co-branding, incorrect usage |
+| `references/color-system.md` | Full palette with hex/RGB, marketing vs product color rules, feedback colors, accessibility |
+| `references/typography.md` | Marketing type hierarchy vs product type scales, platform pairings, emphasis rules |
+| `references/logo-usage.md` | Marketing logo treatments (tag design, co-branding) vs product logo rules (sizing, sparingness) |
 | `references/verbal-identity.md` | Personality, archetype, writing principles, tone modulation |
-| `references/photography-illustration.md` | Photo art direction, illustration types, house motifs |
+| `references/photography-illustration.md` | Photo art direction, illustration types, house motifs (marketing), product containers/shapes |
 
 ## Cross-References
 
