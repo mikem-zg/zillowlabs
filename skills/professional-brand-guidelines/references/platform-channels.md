@@ -118,7 +118,7 @@ Apply negative space to create separation and establish visual hierarchy.
 
 | Pattern | Approach |
 |---------|----------|
-| Component sizing | Default `size="sm"` for buttons, inputs, selects, tables (`size="md"` for hero CTAs only) |
+| Component sizing | Default `size="sm"` for buttons, inputs, selects. Tables: `appearance="horizontal"` and `size="sm"` on `Table.Root`; all internals inherit sm (`size="md"` for hero CTAs only) |
 | Headers | Sticky `Box` with `Flex` inside; `Divider` below |
 | Navigation | Left-aligned logo, functional navigation |
 | Cards | `Card elevated interactive tone="neutral"` for clickable; `Card outlined elevated={false} tone="neutral"` for static |
