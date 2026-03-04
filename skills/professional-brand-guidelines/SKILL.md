@@ -85,6 +85,7 @@ Zillow's March 2025 Brand Guidelines for the **professional audience** (Real Est
 | ICON_P06 | Product | Icons | Content support icons: `icon.subtle` (`Gray600`) | None |
 | ICON_P07 | Product | Icons | Max 4 xl duotone icons in proximity; max 5 lg icons | None |
 | ICON_P08 | Product | Icons | Text labels alongside icons; few icons are universally recognized | None |
+| COMP_P04 | Product | Components | Buttons with text: do NOT add icons by default. Text-only buttons are the standard for professional UI. Only add an icon when it genuinely aids comprehension (e.g., search, filter, download). | None |
 | ILLUS_P01 | Both | Illustration | Spot illustrations ONLY — no scene illustrations for professionals | None |
 | ILLUS_P02 | Both | Illustration | Keep beige background element on spot illustrations | None |
 | ILLUS_P03 | Both | Illustration | `Blue600` present in every illustration (10-50%) | None |
