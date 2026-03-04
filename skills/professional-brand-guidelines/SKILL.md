@@ -35,7 +35,7 @@ Zillow's March 2025 Brand Guidelines for the **professional audience** (Real Est
 | Context | Examples | Key Differences |
 |---------|----------|-----------------|
 | **Marketing** | Frontline presentations, one-pagers, lifecycle emails, landing pages, events | Object Sans across all weights; restricted palette (no full secondary); no house motif |
-| **Product** | App screens, dashboards, tools, in-product flows | `Blue600` interactive only; platform-native body typefaces; container/elevation rules; `size="md"` for all components |
+| **Product** | App screens, dashboards, tools, in-product flows | `Blue600` interactive only; platform-native body typefaces; container/elevation rules; `size="sm"` for buttons/inputs/tables; max `heading-md` |
 
 ## Core Brand Rules
 
