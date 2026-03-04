@@ -15,7 +15,7 @@ One-page cheat sheet for the most critical rules, component selection, and token
 | Single select (price, beds) | `ToggleButtonGroup` + `ToggleButton` | `Button` |
 | Segmented choices | `SegmentedControl` | `Button` group |
 | Multi-select | `ComboBox` or `CheckboxGroup` | `Button` |
-| Page headline (1-2 max) | `<Heading textStyle="heading-lg">` | Multiple `Heading` |
+| Page headline (1-2 max) | `<Heading textStyle="heading-lg">` (consumer) or `<Heading textStyle="heading-md">` (professional) | Multiple `Heading` |
 | Section title | `<Text textStyle="body-lg-bold">` | `Heading` |
 | Card title | `<Text textStyle="body-bold">` | `Heading` |
 | Body text | `<Text textStyle="body">` | `<p>` / `<span>` |
@@ -25,6 +25,8 @@ One-page cheat sheet for the most critical rules, component selection, and token
 | Dialog | `<Modal header={} body={} footer={} dividers />` | custom overlay |
 
 ## Spacing Tokens
+
+### Consumer
 
 | Context | Token | Value |
 |---|---|---|
@@ -36,7 +38,32 @@ One-page cheat sheet for the most critical rules, component selection, and token
 | Tight list spacing | `200` | 8px |
 | Comfortable list spacing | `300` | 12px |
 
+### Professional (standard)
+
+| Context | Token | Value | Consumer comparison |
+|---|---|---|---|
+| Page padding (sides) | `400` | 16px | same |
+| Page padding (top/bottom) | `600` | 24px | same |
+| Section gaps | `800` | 32px | same |
+| Card internal padding | `300` | 12px | consumer uses `400` (16px) |
+| Internal card element gaps | `200` | 8px | consumer uses `300` (12px) |
+| Grid gaps between cards | `300` | 12px | consumer uses `400` (16px) |
+| Tight list spacing | `200` | 8px | same |
+
+### Professional (dense)
+
+Use in data-heavy dashboards, tables, and compact card grids:
+
+| Context | Token | Value |
+|---|---|---|
+| Section gaps | `400` | 16px |
+| Card internal padding | `300` | 12px |
+| Grid gaps | `200` | 8px |
+| Tab panel padding | `300` | 12px |
+
 ## Typography Hierarchy
+
+### Consumer
 
 | Content | Component | Color |
 |---|---|---|
@@ -45,6 +72,34 @@ One-page cheat sheet for the most critical rules, component selection, and token
 | Card title | `<Text textStyle="body-bold">` | default |
 | Description | `<Text textStyle="body">` | `text.subtle` |
 | Fine print | `<Text textStyle="body-sm">` | `text.subtle` |
+
+### Professional
+
+| Content | Component | Color |
+|---|---|---|
+| Page headline | `<Heading textStyle="heading-md">` | default |
+| Stat/metric value | `<Text textStyle="heading-xs">` | default |
+| Section title | `<Text textStyle="body-lg-bold">` | default |
+| Card title | `<Text textStyle="body-bold">` | default |
+| Description | `<Text textStyle="body">` | `text.subtle` |
+| Fine print | `<Text textStyle="body-sm">` | `text.subtle` |
+
+### Professional Compact Contexts
+
+For tables, dense cards, and sidebar content. **Tables default to `appearance="horizontal"` and `size="sm"`. All elements inside tables inherit `sm` sizing — do NOT override individual elements back to `md`.**
+
+| Content | Component | Notes |
+|---|---|---|
+| Table root | `<Table.Root appearance="horizontal" size="sm">` | Horizontal lines, compact rows |
+| Table cell label | `<Text textStyle="body-sm" css={{ fontWeight: 600 }}>` | Bold small text for headers/labels |
+| Table cell value | `<Text textStyle="body-sm">` | Regular weight |
+| Table cell icon | `<Icon size="sm">` | 16px icons inside table rows |
+| Table cell badge | `<Tag size="sm">` | Small tags for status/category |
+| Table cell button | `<Button size="sm">` | Small buttons for row actions |
+| Table cell icon button | `<IconButton size="sm">` | Small icon-only actions |
+| Dense card label | `<Text textStyle="body-sm" css={{ fontWeight: 600 }}>` | Bold small text |
+
+Table `appearance` options: `horizontal` (default for professional), `grid` (bordered cells), `bare` (no lines), `zebra` (alternating rows).
 
 ## Text Component Display Behavior
 
@@ -154,7 +209,7 @@ NEVER combine `elevated` and `outlined` on the same card.
 |---|---|
 | Primary actions | Blue (#0041D9) |
 | Text | Granite (#111116) |
-| Section backgrounds | Light Gray (#F7F7F7) |
+| Section backgrounds | Light Gray (#F7F7F7 / `bg.screen.softest`, NOT `bg.screen.muted`) |
 | Accent (sparingly) | Waterfront (Navy), Pool (Light Blue) |
 | NEVER | Purple, Orange, vibrant Teal |
 
