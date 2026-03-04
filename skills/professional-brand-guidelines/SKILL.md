@@ -79,7 +79,7 @@ Zillow's March 2025 Brand Guidelines for the **professional audience** (Real Est
 | SURF_P06 | Product | Surfaces | Negative space for separation; use `<Divider />` sparingly | None |
 | ICON_P01 | Product | Icons | Filled icons as default | Outline for pre-interaction states |
 | ICON_P02 | Product | Icons | Sizes: sm=16px, md=24px (default), lg=32px, xl=44px | None |
-| ICON_P03 | Product | Icons | Duotone icons for upsells, empty states, awareness moments | Not for functional UI |
+| ICON_P03 | Product | Icons | Duotone icons: MAX 1-2 per viewport. ONLY for summary/overview callout cards, empty states, upsell banners, one-off awareness moments. NEVER in metric cards, data cards, status cards, agent cards, list items, or repeating card patterns. | Not for functional UI |
 | ICON_P04 | Product | Icons | Duotone: use "Express - trust" color variant | None |
 | ICON_P05 | Product | Icons | Interactive icons: `icon.action.hero.default` (`Blue600`) | `icon.neutral` (`Gray950`) when implied by container |
 | ICON_P06 | Product | Icons | Content support icons: `icon.subtle` (`Gray600`) | None |
