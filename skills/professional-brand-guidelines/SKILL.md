@@ -93,7 +93,7 @@ Zillow's March 2025 Brand Guidelines for the **professional audience** (Real Est
 | PHOTO_P01 | Both | Photography | Source all photography from OrangeLogic DAM | None |
 | PHOTO_P02 | Both | Photography | No wholly AI-generated images | AI OK for geographic diversity, aspect ratio adjustment |
 | PHOTO_P03 | Both | Photography | Agent-focused: candid professional moments, device/product shots | None |
-| COMP_P01 | Product | Components | Default `size="sm"` for buttons, inputs, selects, and tables | `size="md"` for hero CTAs or primary page actions |
+| COMP_P01 | Product | Components | Default `size="sm"` for buttons, inputs, selects, tables. Avatar: `sm` in sidebars/cards, `md` in profile sections. Tag/IconButton: `sm` in compact contexts. Heading: `heading-md` for page titles, `heading-xs` for stat/metric values. | `size="md"` for hero CTAs or primary page actions |
 | COMP_P03 | Product | Components | Max heading size: `heading-md`; never use `heading-lg` | None |
 | COMP_P02 | Product | Components | Use `PropertyCard` with `saveButton` and `elevated` for listings | None |
 | PLAT_P01 | Both | Platform | Lifecycle emails = more expressive; operational emails = minimalist | None |
