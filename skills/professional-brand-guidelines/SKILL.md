@@ -96,6 +96,7 @@ Zillow's March 2025 Brand Guidelines for the **professional audience** (Real Est
 | PHOTO_P03 | Both | Photography | Agent-focused: candid professional moments, device/product shots | None |
 | COMP_P01 | Product | Components | Default `size="sm"` for buttons, inputs, selects, tables. Tables: use `appearance="horizontal"` and `size="sm"` on `Table.Root`. Table internals inherit sm: `body-sm` text, `Icon size="sm"`, `Tag size="sm"`, `Button size="sm"` — do NOT override back to md. Avatar: `sm` in sidebars/cards, `md` in profile sections. Tag/IconButton: `sm` in compact contexts. Heading: `heading-md` for page titles, `heading-xs` for stat/metric values. | `size="md"` for hero CTAs or primary page actions |
 | COMP_P03 | Product | Components | Max heading size: `heading-md`; never use `heading-lg` | None |
+| COMP_P05 | Product | Components | Cards use tighter spacing: `p="300"` (12px) internal padding, `gap="200"` (8px) between card elements. Grid gaps between cards: `gap="300"` (12px). | Consumer cards use `p="400"` (16px) |
 | COMP_P02 | Product | Components | Use `PropertyCard` with `saveButton` and `elevated` for listings | None |
 | PLAT_P01 | Both | Platform | Lifecycle emails = more expressive; operational emails = minimalist | None |
 | PLAT_P02 | Product | Platform | Empty states: spot illustration + clear path forward, consistent across web and native | None |
