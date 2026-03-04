@@ -12,11 +12,11 @@ Every component and surface has an implied depth. Surfaces closer to the user ap
 |-----------|--------------|-----|
 | White | `bg.screen.neutral` | Default page background |
 | Light gray | `bg.screen.softest` / `#F7F7F7` | Section differentiation |
-
-> ⚠️ `bg.screen.muted` does NOT exist in PandaCSS. Always use `bg.screen.softest` for light gray backgrounds.
 | Colored | `Blue600` or `Blue800` tones | Sparingly — one accent section max |
 | Dark gray | — | Dark mode only |
 | Black | — | Dark mode only |
+
+> ⚠️ `bg.screen.muted` does NOT exist in PandaCSS. Always use `bg.screen.softest` for light gray backgrounds.
 
 **Note:** Gray background in light mode pushes surface below base level. In dark mode, gray makes surface appear slightly raised.
 
