@@ -106,8 +106,10 @@ Zillow's March 2025 Brand Guidelines for the **professional audience** (Real Est
 Is this a hero section on a landing page or welcome screen?
 ├── Yes → White background with Blue600 CTA and vibrant photography
 └── No → Is this a section needing visual differentiation?
-    ├── Yes → Light Gray (#F7F7F7 / bg.screen.muted)
+    ├── Yes → Light Gray (#F7F7F7 / bg.screen.softest)
     └── No → White (#FFFFFF / bg.screen.neutral)
+
+⚠️ bg.screen.muted does NOT exist in PandaCSS. Use bg.screen.softest for light gray.
 
 NEVER: colored backgrounds (no purple, orange, teal), pastel tints, light blue fills
 Only color exception: ONE colored upsell card per page (Blue600/Blue800 tones)
