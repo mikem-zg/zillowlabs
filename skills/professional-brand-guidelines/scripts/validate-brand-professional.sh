@@ -62,15 +62,28 @@ else
 fi
 echo ""
 
-echo "=== COMP_P01: Buttons/inputs should use size='md' ==="
+echo "=== COMP_P01: Buttons/inputs/tables should default to size='sm' ==="
 SIZING=$(grep -rn --include="*.tsx" --include="*.ts" \
-  -E '<(Button|Input|Select|IconButton)[^>]* size="(sm|lg|xl)"' \
+  -E '<(Button|Input|Select|IconButton)[^>]* size="(md|lg|xl)"' \
   "$DIR" | grep -v "node_modules" | grep -v "styled-system" || true)
 if [ -n "$SIZING" ]; then
-  echo "CHECK: Non-md sizing found on buttons/inputs — verify these are intentional:"
+  echo "CHECK: Non-sm sizing found on buttons/inputs — verify these are intentional (only hero CTAs should be md):"
   echo "$SIZING"
 else
-  echo "PASS: No non-md sizing on buttons/inputs"
+  echo "PASS: All buttons/inputs use size='sm' or default"
+fi
+echo ""
+
+echo "=== COMP_P03: Max heading size is heading-md ==="
+HEADING_LG=$(grep -rn --include="*.tsx" --include="*.ts" \
+  -E 'heading-lg|heading-xl' \
+  "$DIR" | grep -v "node_modules" | grep -v "styled-system" || true)
+if [ -n "$HEADING_LG" ]; then
+  echo "VIOLATION: heading-lg or heading-xl found — professional apps max at heading-md:"
+  echo "$HEADING_LG"
+  VIOLATIONS=$((VIOLATIONS + 1))
+else
+  echo "PASS: No heading-lg or heading-xl usage"
 fi
 echo ""
 
