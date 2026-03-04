@@ -60,7 +60,7 @@ Object Sans is used for **headings ONLY** in product. Body copy uses platform-na
 
 | Content Type | Component + Token | Semantic Color |
 |--------------|------------------|----------------|
-| Page headline (1-2 max) | `<Heading textStyle="heading-lg">` | `text.default` |
+| Page headline (1-2 max) | `<Heading textStyle="heading-md">` | `text.default` |
 | Section title | `<Text textStyle="body-lg-bold">` | `text.default` |
 | Card title | `<Text textStyle="body-bold">` | `text.default` |
 | Body / description | `<Text textStyle="body">` | `text.subtle` |
@@ -71,8 +71,8 @@ Object Sans is used for **headings ONLY** in product. Body copy uses platform-na
 | Level | Typeface | Size/Leading | Token |
 |-------|----------|-------------|-------|
 | Display | Object Sans Heavy | 60/72 | — |
-| H1 | Object Sans Heavy | 44/48 | `heading-lg` |
-| H2 | Object Sans Heavy | 36/40 | `heading-lg` |
+| H1 | Object Sans Heavy | 44/48 | `heading-md` (max allowed) |
+| H2 | Object Sans Heavy | 36/40 | `heading-md` |
 | H3 | Object Sans Heavy | 24/32 | — |
 | H4 | Object Sans Heavy | 20/24 | — |
 | Subtitle | Inter Bold | 18/24 | `body-lg-bold` |
