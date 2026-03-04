@@ -93,7 +93,7 @@ Login screens are the first point of contact — they set the tone for the brand
 <Box css={{ position: 'sticky', display: 'flow-root', top: 0, zIndex: 10, width: '100%', background: 'bg.screen.neutral' }}>
   <Flex align="center" justify="space-between" css={{ maxWidth: 'breakpoint-xxl', mx: 'auto', width: '100%', px: '400', py: '400' }}>
     <ZillowLogo style={{ height: '24px', width: 'auto' }} />
-    <Button tone="brand" emphasis="filled" size="md">Get started</Button>
+    <Button tone="brand" emphasis="filled" size="sm">Get started</Button>
   </Flex>
   <Divider tone="muted-alt" />
 </Box>
