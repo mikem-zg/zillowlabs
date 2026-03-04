@@ -13,7 +13,9 @@ The professional palette is deliberately minimalist to convey sophistication and
 | **Granite** | `Gray950` | `#111116` | Primary text color (`text.default`) |
 | **Pool** | `Aqua300` | `#73E4F9` | Highlight color, sparingly |
 | **Waterfront** | `Blue800` | `#001962` | Dark blue, supporting backgrounds |
-| **Light Gray** | — | `#F7F7F7` | Section differentiation (`bg.screen.muted`) |
+| **Light Gray** | — | `#F7F7F7` | Section differentiation (`bg.screen.softest`) |
+
+> ⚠️ `bg.screen.muted` does NOT exist in PandaCSS. Always use `bg.screen.softest` for light gray backgrounds.
 
 ### PROHIBITED Colors for Professional UI
 
