@@ -48,7 +48,9 @@ Use these semantic tokens in code instead of raw hex or scale tokens. These reso
 |----------------|-------|-----------------|
 | `bg.screen.neutral` | Default page background (white) | `css={{ bg: "bg.screen.neutral" }}` |
 | `bg.default` | Default surface | `css={{ bg: "bg.default" }}` |
-| `bg.screen.muted` | Light gray section differentiation | `css={{ bg: "bg.screen.muted" }}` |
+| `bg.screen.softest` | Light gray section differentiation | `css={{ bg: "bg.screen.softest" }}` |
+
+> ⚠️ `bg.screen.muted` does NOT exist in PandaCSS. Always use `bg.screen.softest` for light gray backgrounds.
 
 ### Text Colors
 
