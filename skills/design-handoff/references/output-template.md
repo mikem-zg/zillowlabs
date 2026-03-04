@@ -10,7 +10,7 @@ Use this template to produce the final handoff document. Fill in each section fo
 |-------|-------|
 | **Project name** | [Name] |
 | **Audience** | Consumer / Professional |
-| **Design system** | Constellation v10.11.0 |
+| **Design system** | Constellation v10.14.0 |
 | **Styling** | PandaCSS with Constellation preset |
 | **Routing** | [Wouter / React Router / etc.] |
 | **Routes** | [List all routes] |
