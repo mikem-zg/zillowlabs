@@ -1,14 +1,14 @@
 ---
 name: transition-to-constellation-from-scratch
-description: Rebuild any React frontend from scratch using Zillow's Constellation Design System v10.13.0. Runs a comprehensive analysis, generates a principal product-level PRD, then rebuilds task-by-task using the Ralph Wiggum methodology (one micro-task at a time, verify before moving on). Complementary to the incremental migration skill.
+description: Rebuild any React frontend from scratch using Zillow's Constellation Design System v10.14.0. Runs a comprehensive analysis, generates a principal product-level PRD, then rebuilds task-by-task using the Ralph Wiggum methodology (one micro-task at a time, verify before moving on). Complementary to the incremental migration skill.
 license: Proprietary
 compatibility: Requires a React 18+ project. Will install @zillow/constellation and @pandacss/dev.
 metadata:
   author: Zillow Group
-  version: "10.13.0"
+  version: "10.14.0"
 ---
 
-# Transition to Constellation from Scratch (v10.13.0)
+# Transition to Constellation from Scratch (v10.14.0)
 
 This skill handles **analyzing, specifying, and rebuilding** a React frontend natively in Zillow's Constellation Design System. Unlike the incremental migration skill (which converts component-by-component), this skill takes a clean-slate approach: deeply analyze what the app does, write a product-level PRD capturing every feature, then rebuild from scratch — one task at a time — using only Constellation.
 
