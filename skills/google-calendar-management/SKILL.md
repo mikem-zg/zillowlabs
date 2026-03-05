@@ -12,6 +12,8 @@ Create, manage, update, and delete Google Calendar events with full support for 
 🔧 **Advanced Features**: [reference/advanced-features.md](reference/advanced-features.md)
 💡 **Examples**: [examples/common-workflows.md](examples/common-workflows.md)
 
+> **CLI alternative:** For command-line or MCP-based Calendar access, see the `google-workspace-cli` skill which provides `gws calendar` commands and an MCP server mode.
+
 ## Prerequisites
 
 1. **Google OAuth 2.0 credentials** with the appropriate scope:
