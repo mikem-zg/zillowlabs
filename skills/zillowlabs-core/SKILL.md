@@ -1,3 +1,7 @@
+---
+name: zillowlabs-core
+description: Centralized update service that keeps your app's local assets (.agents/skills) automatically in sync during development. Covers installation, bootstrap configuration, sync commands, and troubleshooting for the zillowlabs-core client.
+---
 
 # zillowlabs-core — Client Installation Guide
 
