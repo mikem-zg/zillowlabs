@@ -1,3 +1,8 @@
+---
+name: consumer-brand-guidelines
+description: Zillow's April 2024 Brand Guidelines for the consumer audience (homebuyers, renters, sellers). Covers visual identity, verbal identity, color, typography, logo, shape, illustration, iconography, and photography. Use when building consumer-facing UI, marketing assets, or reviewing brand compliance for buyer/renter/seller experiences.
+---
+
 # Consumer Brand Guidelines
 
 Zillow's April 2024 Brand Guidelines for the **consumer audience** (homebuyers, renters, sellers). Covers visual identity, verbal identity, color, typography, logo, shape, illustration, iconography, and photography.
@@ -96,6 +101,7 @@ Before applying any visual rule, determine which context you are working in:
 | ILLUS_002 | Both | Illustration | Zillow Blue present in every illustration (10-50%) | None |
 | ILLUS_003 | Both | Illustration | Spot: 160×160px; Scene: 300×500px aspect ratio | None |
 | ILLUS_004 | Both | Illustration | Do not edit, embellish, or remove elements from illustrations | None |
+| TYPO_008 | Both | Typography | No emojis in UI text, labels, headings, or descriptions | Only if the user explicitly requests emojis |
 
 ## Decision Trees
 
