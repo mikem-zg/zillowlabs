@@ -15,6 +15,8 @@ Generate professional Google Slides presentations using Zillow's official slide 
 **Branding Guide**: [reference/branding-guide.md](reference/branding-guide.md)
 **Examples**: [examples/common-workflows.md](examples/common-workflows.md)
 
+> **CLI alternative:** For generic Slides API access via command line or MCP server, see the `google-workspace-cli` skill. This skill remains the right choice for Zillow-branded presentations using the official template.
+
 ## Prerequisites
 
 **IMPORTANT: Do NOT ask the user for Google API credentials, service account keys, or OAuth client secrets.** Authentication is handled automatically by the Replit Google Drive connector that is already configured in this project.
