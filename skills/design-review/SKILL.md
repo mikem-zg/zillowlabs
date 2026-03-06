@@ -219,7 +219,7 @@ One concrete change that would improve clarity or power by approximately 20%. Th
 Flag any violations of the Constellation design system rules (reference `custom_instruction/instructions.md`):
 - Missing `saveButton` on PropertyCard
 - Card with both `elevated` and `outlined`
-- CSS borders instead of `<Divider />`
+- CSS borders instead of `<Divider />` for content separators (exception: header edge lines use `borderBottom` on the header `Box`)
 - Outline icons used as default
 - More than 2 `Heading` per screen
 - Blue used for non-interactive elements
