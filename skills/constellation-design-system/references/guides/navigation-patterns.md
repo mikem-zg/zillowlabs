@@ -61,7 +61,7 @@ Q1: What level of the app are you navigating?
 - `Page.Header` — header content container (wrap in sticky `Box` for fixed positioning)
 - `ZillowLogo` — brand logo (24px desktop, 16px mobile)
 - `TextButton` or `Anchor` — navigation links in the header
-- `Divider` — below the header (never CSS border)
+- `borderBottom: "default"` + `borderColor: "border.muted"` on the header `Box` — for the header edge line (not `<Divider />`)
 - `Menu` — for overflow actions or user account dropdown
 
 **Code pattern (sticky header):**
@@ -692,7 +692,7 @@ Each navigation pattern has different responsive behavior:
 | NEVER | ALWAYS Instead |
 |-------|----------------|
 | Use `Box`/`Flex` for page headers | `Page.Header` inside `Page.Root` |
-| CSS borders below headers | `<Divider />` component |
+| `<Divider />` below headers | `borderBottom: "default"` + `borderColor: "border.muted"` on the header `Box` |
 | Regular `Button` for toggle/selection | `ToggleButtonGroup` or `SegmentedControl` |
 | Tabs for entire app navigation (replacing header) | `Page.Header` or `VerticalNav` |
 | Tabs for view mode switching (list/grid) | `SegmentedControl` |

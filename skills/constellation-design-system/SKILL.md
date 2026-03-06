@@ -1,14 +1,14 @@
 ---
 name: constellation-design-system
-description: Build UI with Zillow's Constellation Design System v10.13.0. Activates when building React UI, creating pages/screens/layouts, selecting components, styling with PandaCSS, or when developers mention Constellation, Zillow components, @zillow/constellation, design system, or Zillow UI. Provides 99 component docs, 621 icons, design rules, UX writing guidelines, a quick-reference cheat sheet, and a validation script.
+description: Build UI with Zillow's Constellation Design System v10.14.0. Activates when building React UI, creating pages/screens/layouts, selecting components, styling with PandaCSS, or when developers mention Constellation, Zillow components, @zillow/constellation, design system, or Zillow UI. Provides 99 component docs, 621 icons, design rules, UX writing guidelines, a quick-reference cheat sheet, and a validation script.
 license: Proprietary
 compatibility: Requires a React 18+ project with @zillow/constellation and @pandacss/dev installed.
 metadata:
   author: Zillow Group
-  version: "10.13.0"
+  version: "10.14.0"
 ---
 
-# Zillow Constellation Design System (v10.13.0)
+# Zillow Constellation Design System (v10.14.0)
 
 Constellation is Zillow's unified design system for building consumer and professional real estate applications. It provides accessible, themed React components with PandaCSS styling.
 

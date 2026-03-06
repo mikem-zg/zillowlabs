@@ -4,7 +4,7 @@
 import { InlineFeedback } from '@zillow/constellation';
 ```
 
-**Version:** 10.13.0 | **Since:** 7.17.0
+**Version:** 10.14.0 | **Since:** 7.17.0
 
 ## Usage
 

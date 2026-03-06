@@ -4,7 +4,7 @@
 import { Button } from '@zillow/constellation';
 ```
 
-**Version:** 10.13.0 | **Since:** 1.0.5
+**Version:** 10.14.0 | **Since:** 1.0.5
 
 ## Usage
 

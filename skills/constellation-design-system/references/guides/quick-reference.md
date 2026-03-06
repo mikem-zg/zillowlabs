@@ -11,7 +11,8 @@ One-page cheat sheet for the most critical rules, component selection, and token
 | Generic container (static) | `Card outlined elevated={false} tone="neutral"` | `Box` with border |
 | Sticky header | `Flex` inside `Box` with `display: 'flow-root'` | `position: sticky` on `Page.Header` |
 | Non-sticky header | `Page.Header` inside `Page.Root` | `Box` / `Flex` |
-| Visual separator | `<Divider />` | CSS `border` |
+| Content separator | `<Divider />` | CSS `border` |
+| Header edge line | `borderBottom: "default"` + `borderColor: "border.muted"` on the header `Box` | `<Divider />` as child |
 | Single select (price, beds) | `ToggleButtonGroup` + `ToggleButton` | `Button` |
 | Segmented choices | `SegmentedControl` | `Button` group |
 | Multi-select | `ComboBox` or `CheckboxGroup` | `Button` |

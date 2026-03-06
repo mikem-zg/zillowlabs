@@ -48,8 +48,9 @@ check "PropertyCard missing saveButton prop" '<PropertyCard[^>]*(?!saveButton)[^
 # Rule 2: Card without tone="neutral"
 check "Card missing tone=\"neutral\"" '<Card[[:space:]][^>]*(?!tone=)[^>]*>'
 
-# Rule 3: CSS border instead of Divider
-check "CSS border used instead of <Divider />" "border(Bottom|Top|Left|Right)?:[[:space:]]*['\"].*['\"]"
+# Rule 3: CSS border instead of Divider (for content separators)
+# NOTE: borderBottom is correct on header containers (sticky Box) — only flag non-header usage
+check "CSS border used instead of <Divider /> (OK in header containers)" "border(Bottom|Top|Left|Right)?:[[:space:]]*['\"].*['\"]"
 
 # Rule 4: Outline icons used as default (should be Filled)
 check "Outline icon used (should use Filled variant)" 'Icon[A-Z][a-zA-Z]*Outline'

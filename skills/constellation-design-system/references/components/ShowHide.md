@@ -4,7 +4,7 @@
 import { ShowHide } from '@zillow/constellation';
 ```
 
-**Version:** 10.13.0 | **Since:** 8.36.0
+**Version:** 10.14.0 | **Since:** 8.36.0
 
 ## Usage
 

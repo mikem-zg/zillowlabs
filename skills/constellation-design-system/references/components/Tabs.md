@@ -4,7 +4,7 @@
 import { Tabs } from '@zillow/constellation';
 ```
 
-**Version:** 10.13.0
+**Version:** 10.14.0
 
 ## CRITICAL: Always set `defaultSelected`
 

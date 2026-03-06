@@ -4,7 +4,7 @@
 import { IconButton } from '@zillow/constellation';
 ```
 
-**Version:** 10.13.0 | **Since:** 8.42.0
+**Version:** 10.14.0 | **Since:** 8.42.0
 
 ## Usage
 
