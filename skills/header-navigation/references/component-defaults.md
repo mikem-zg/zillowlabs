@@ -2,7 +2,22 @@
 
 ## TextButton
 
-Default: `textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}`
+Default: `textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }} asChild` with `<a href="#">` child.
+
+Nav links must always use `asChild` with an anchor tag for proper semantics. Wrap groups in `Box asChild` + `<nav>` for accessible navigation landmarks.
+
+```tsx
+<Box css={{ display: { base: "none", lg: "flex" }, gap: "default" }} asChild>
+  <nav>
+    <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }} asChild>
+      <a href="#">Buy</a>
+    </TextButton>
+    <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }} asChild>
+      <a href="#">Rent</a>
+    </TextButton>
+  </nav>
+</Box>
+```
 
 ### TextStyle Variations
 
@@ -29,14 +44,6 @@ Default: `textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}`
 </TextButton>
 ```
 
-### Mobile Menu TextButtons (Left-Aligned)
-
-```tsx
-<TextButton textStyle="body" tone="neutral" css={{ justifyContent: "flex-start" }}>
-  Buy
-</TextButton>
-```
-
 ## Button
 
 Default in headers: `size="sm" emphasis="outlined" tone="neutral" css={{ whiteSpace: "nowrap" }}`
@@ -59,7 +66,6 @@ Always wrap icon inside:
 
 Common header icons:
 - `IconMenuFilled` — hamburger menu
-- `IconCloseFilled` — close menu
 - `IconSearchFilled` — search action
 - `IconNotificationFilled` — notifications
 - `IconSettingsFilled` — settings
@@ -78,35 +84,87 @@ Composed API with photo:
 </Avatar.Root>
 ```
 
-## Divider
+## Header Borders
 
-Default: `tone="muted-alt"`
+Use `borderBottom` and `borderColor` CSS props on the header container Box — never `<Divider />` for header borders.
 
-| Context | Props |
-|---------|-------|
-| Below header | `tone="muted-alt"` |
-| Sidebar separator | `tone="muted-alt" orientation="vertical" css={{ height: "100%" }}` |
-| Inside mobile menu | `tone="muted-alt"` |
-| No-divider variant | Omit entirely |
+| Context | CSS Props |
+|---------|-----------|
+| Below header | `borderBottom: "default"`, `borderColor: "border.muted"` |
+| Sidebar separator | `borderRight: "default"`, `borderColor: "border.muted"` |
+| No-border variant | Omit `borderBottom` entirely |
 
-## Logo
-
-Responsive swap pattern:
 ```tsx
-<Box css={{ display: { base: "none", md: "block" } }}>
-  <ZillowLogo role="img" css={{ height: "24px", width: "auto" }} />
-</Box>
-<Box css={{ display: { base: "block", md: "none" } }}>
-  <ZillowHomeLogo role="img" css={{ height: "24px", width: "auto" }} />
+<Box
+  css={{
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: "100%",
+    paddingX: "default",
+    paddingY: "tight",
+    borderBottom: "default",
+    borderColor: "border.muted",
+  }}
+>
+  {/* header content */}
 </Box>
 ```
 
-## Input
+## Logo
 
-Default in headers: `size="sm"`
-
+Both logos in one wrapper Box, toggled via responsive `display` on each:
 ```tsx
-<Input size="sm" placeholder="Search by address, neighborhood, or ZIP" aria-label="Search properties" />
+<Box>
+  <ZillowLogo role="img"
+    css={{ display: { base: "none", md: "block" }, height: "24px", width: "auto" }} />
+  <ZillowHomeLogo role="img"
+    css={{ display: { base: "block", md: "none" }, height: "24px", width: "auto" }} />
+</Box>
+```
+
+## AdornedInput (Search)
+
+Use `AdornedInput` with `IconButton` end adornment for search bars — never plain `Input`:
+```tsx
+<AdornedInput
+  input={
+    <AdornedInput.Input
+      aria-label="Search properties"
+      placeholder="Search by address, neighborhood, or ZIP"
+    />
+  }
+  endAdornment={
+    <AdornedInput.Adornment asChild>
+      <IconButton emphasis="bare" shape="circle" size="md" title="Search" tone="neutral">
+        <Icon><IconSearchFilled /></Icon>
+      </IconButton>
+    </AdornedInput.Adornment>
+  }
+/>
+```
+
+## Menu (Mobile Nav)
+
+Use the `Menu` component with `Menu.Group` for mobile navigation — never custom dropdown panels with `useState`:
+```tsx
+<Menu
+  content={
+    <>
+      <Menu.Group aria-label="Core navigation">
+        <Menu.Item asChild><a href="#"><Menu.ItemLabel>Buy</Menu.ItemLabel></a></Menu.Item>
+        <Menu.Item asChild><a href="#"><Menu.ItemLabel>Rent</Menu.ItemLabel></a></Menu.Item>
+      </Menu.Group>
+      <Menu.Group aria-label="User actions">
+        <Menu.Item asChild><a href="#"><Menu.ItemLabel>Manage rentals</Menu.ItemLabel></a></Menu.Item>
+      </Menu.Group>
+    </>
+  }
+>
+  <IconButton title="Menu" tone="neutral" emphasis="bare" size="sm" shape="circle">
+    <Icon size="md"><IconMenuFilled /></Icon>
+  </IconButton>
+</Menu>
 ```
 
 ## Tabs
@@ -135,4 +193,13 @@ Always include `defaultSelected`:
 </VerticalNav.Root>
 ```
 
-Sidebar collapses to icon-only (60px) below `lg`, expands to full labels (240px) at `lg+`.
+Sidebar collapses to icon-only (60px) below `lg`, expands to full labels (240px) at `lg+`. Uses `borderRight: "default"` + `borderColor: "border.muted"` instead of `<Divider />`.
+
+## Spacing Tokens (Headers)
+
+| Token | Use for |
+|-------|---------|
+| `"default"` | Standard gaps between nav links, `paddingX` on header |
+| `"tight"` | `paddingY` on header, gaps between action buttons |
+| `"tighter"` | Gaps between icon buttons (notifications, settings, avatar) |
+| `"loose"` | Main content area padding |

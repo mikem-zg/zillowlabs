@@ -1,6 +1,6 @@
 # Header Patterns — Full Code Examples
 
-> **Width alignment rule:** The header's inner `Flex` MUST use the same `maxWidth` + `mx: "auto"` as the page content so they align visually. Use a Constellation breakpoint size token (e.g., `"breakpoint-xxl"` = 80em) — NEVER hardcode pixel values. The sticky `Box` wrapper stays full-bleed for the background color; only the inner layout container is constrained. All patterns below use `maxWidth: "breakpoint-xxl"` — adjust to match your page content width token.
+> **Layout rule:** All headers use `Box` from `@zillow/constellation` for layout — never `Flex` or `Grid` from `@/styled-system/jsx`. Use `borderBottom: "default"` + `borderColor: "border.muted"` on the header container instead of `<Divider />`. Use semantic spacing tokens (`"default"`, `"tight"`, `"tighter"`) instead of numeric tokens. All nav links use `TextButton asChild` with `<a>` tags inside a `<nav>` landmark via `Box asChild`. Mobile menus use the `Menu` component with `Menu.Group`. Search uses `AdornedInput` with `IconButton` adornment.
 
 ## Table of Contents
 
@@ -14,7 +14,6 @@
 8. [Breadcrumb Header](#8-breadcrumb-header)
 9. [Centered Logo Header](#9-centered-logo-header)
 10. [No Divider Header](#10-no-divider-header)
-11. [Contained Header](#11-contained-header)
 
 ---
 
@@ -24,34 +23,60 @@ Standard header with logo, nav links, secondary links, sign-in button, and menu 
 
 ```tsx
 import {
-  Page, Text, TextButton, Button, ZillowLogo, ZillowHomeLogo, Divider, Icon, IconButton,
+  Page, Text, TextButton, Button, ZillowLogo, ZillowHomeLogo, Icon, IconButton, Box,
 } from "@zillow/constellation";
-import { Box, Flex } from "@/styled-system/jsx";
 import { IconMenuFilled } from "@zillow/constellation-icons";
 
 export default function BasicConsumerHeader() {
   return (
     <Page.Root css={{ background: "bg.screen.neutral" }}>
-      <Flex align="center" justify="space-between" css={{ maxWidth: "breakpoint-xxl", mx: "auto", width: "100%", px: "400", py: "400" }}>
-        <Flex align="center" gap="400">
-          <Box css={{ display: { base: "none", md: "block" } }}>
-            <ZillowLogo role="img" css={{ height: "24px", width: "auto" }} />
+      <Box
+        css={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          width: "100%",
+          paddingX: "default",
+          paddingY: "tight",
+          borderBottom: "default",
+          borderColor: "border.muted",
+        }}
+      >
+        <Box css={{ display: "flex", alignItems: "center", gap: "default" }}>
+          <Box>
+            <ZillowLogo role="img"
+              css={{ display: { base: "none", md: "block" }, height: "24px", width: "auto" }} />
+            <ZillowHomeLogo role="img"
+              css={{ display: { base: "block", md: "none" }, height: "24px", width: "auto" }} />
           </Box>
-          <Box css={{ display: { base: "block", md: "none" } }}>
-            <ZillowHomeLogo role="img" css={{ height: "24px", width: "auto" }} />
+          <Box css={{ display: { base: "none", lg: "flex" }, gap: "default" }} asChild>
+            <nav>
+              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }} asChild>
+                <a href="#">Buy</a>
+              </TextButton>
+              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }} asChild>
+                <a href="#">Rent</a>
+              </TextButton>
+              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }} asChild>
+                <a href="#">Sell</a>
+              </TextButton>
+              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }} asChild>
+                <a href="#">Home loans</a>
+              </TextButton>
+              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }} asChild>
+                <a href="#">Agent finder</a>
+              </TextButton>
+            </nav>
           </Box>
-          <Box css={{ display: { base: "none", lg: "flex" }, gap: "400" }}>
-            <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Buy</TextButton>
-            <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Rent</TextButton>
-            <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Sell</TextButton>
-            <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Home loans</TextButton>
-            <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Agent finder</TextButton>
-          </Box>
-        </Flex>
-        <Flex align="center" gap="300">
-          <Box css={{ display: { base: "none", md: "flex" }, gap: "400" }}>
-            <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Manage rentals</TextButton>
-            <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Advertise</TextButton>
+        </Box>
+        <Box css={{ display: "flex", alignItems: "center", gap: "tight" }}>
+          <Box css={{ display: { base: "none", md: "flex" }, gap: "default" }}>
+            <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }} asChild>
+              <a href="#">Manage rentals</a>
+            </TextButton>
+            <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }} asChild>
+              <a href="#">Advertise</a>
+            </TextButton>
           </Box>
           <Button size="sm" emphasis="outlined" tone="neutral" css={{ whiteSpace: "nowrap" }}>
             Sign in
@@ -61,9 +86,8 @@ export default function BasicConsumerHeader() {
               <Icon size="md"><IconMenuFilled /></Icon>
             </IconButton>
           </Box>
-        </Flex>
-      </Flex>
-      <Divider tone="muted-alt" />
+        </Box>
+      </Box>
       <Page.Content>{/* content */}</Page.Content>
     </Page.Root>
   );
@@ -76,35 +100,71 @@ Same as basic but wrapped in a sticky Box. Nav links collapse behind menu icon b
 
 ```tsx
 import {
-  Page, Text, TextButton, Button, ZillowLogo, ZillowHomeLogo, Divider, Icon, IconButton,
+  Page, Text, TextButton, Button, ZillowLogo, ZillowHomeLogo, Icon, IconButton, Box,
 } from "@zillow/constellation";
-import { Box, Flex } from "@/styled-system/jsx";
 import { IconMenuFilled } from "@zillow/constellation-icons";
 
 export default function StickyConsumerHeader() {
   return (
     <Page.Root css={{ background: "bg.screen.neutral" }}>
-      <Box css={{ position: "sticky", display: "flow-root", top: 0, zIndex: 10, width: "100%", maxWidth: "100%", background: "bg.screen.neutral" }}>
-        <Flex align="center" justify="space-between" css={{ maxWidth: "breakpoint-xxl", mx: "auto", width: "100%", px: "400", py: "400" }}>
-          <Flex align="center" gap="400">
-            <Box css={{ display: { base: "none", md: "block" } }}>
-              <ZillowLogo role="img" css={{ height: "24px", width: "auto" }} />
+      <Box
+        css={{
+          position: "sticky",
+          display: "flow-root",
+          top: 0,
+          zIndex: 10,
+          width: "100%",
+          maxWidth: "100%",
+          background: "bg.screen.neutral",
+        }}
+      >
+        <Box
+          css={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            width: "100%",
+            paddingX: "default",
+            paddingY: "tight",
+            borderBottom: "default",
+            borderColor: "border.muted",
+          }}
+        >
+          <Box css={{ display: "flex", alignItems: "center", gap: "default" }}>
+            <Box>
+              <ZillowLogo role="img"
+                css={{ display: { base: "none", md: "block" }, height: "24px", width: "auto" }} />
+              <ZillowHomeLogo role="img"
+                css={{ display: { base: "block", md: "none" }, height: "24px", width: "auto" }} />
             </Box>
-            <Box css={{ display: { base: "block", md: "none" } }}>
-              <ZillowHomeLogo role="img" css={{ height: "24px", width: "auto" }} />
+            <Box css={{ display: { base: "none", lg: "flex" }, gap: "default" }} asChild>
+              <nav>
+                <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }} asChild>
+                  <a href="#">Buy</a>
+                </TextButton>
+                <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }} asChild>
+                  <a href="#">Rent</a>
+                </TextButton>
+                <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }} asChild>
+                  <a href="#">Sell</a>
+                </TextButton>
+                <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }} asChild>
+                  <a href="#">Home loans</a>
+                </TextButton>
+                <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }} asChild>
+                  <a href="#">Agent finder</a>
+                </TextButton>
+              </nav>
             </Box>
-            <Box css={{ display: { base: "none", lg: "flex" }, gap: "400" }}>
-              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Buy</TextButton>
-              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Rent</TextButton>
-              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Sell</TextButton>
-              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Home loans</TextButton>
-              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Agent finder</TextButton>
-            </Box>
-          </Flex>
-          <Flex align="center" gap="300">
-            <Box css={{ display: { base: "none", md: "flex" }, gap: "400" }}>
-              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Manage rentals</TextButton>
-              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Advertise</TextButton>
+          </Box>
+          <Box css={{ display: "flex", alignItems: "center", gap: "tight" }}>
+            <Box css={{ display: { base: "none", md: "flex" }, gap: "default" }}>
+              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }} asChild>
+                <a href="#">Manage rentals</a>
+              </TextButton>
+              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }} asChild>
+                <a href="#">Advertise</a>
+              </TextButton>
             </Box>
             <Button size="sm" emphasis="outlined" tone="neutral" css={{ whiteSpace: "nowrap" }}>
               Sign in
@@ -114,9 +174,8 @@ export default function StickyConsumerHeader() {
                 <Icon size="md"><IconMenuFilled /></Icon>
               </IconButton>
             </Box>
-          </Flex>
-        </Flex>
-        <Divider tone="muted-alt" />
+          </Box>
+        </Box>
       </Box>
       <Page.Content>{/* scrollable content */}</Page.Content>
     </Page.Root>
@@ -126,52 +185,94 @@ export default function StickyConsumerHeader() {
 
 ## 3. Search Bar Header
 
-Sticky header with integrated search input. Nav links and search field share horizontal space.
+Sticky header with `AdornedInput` search bar and `IconButton` adornment.
 
 ```tsx
 import {
-  Page, Text, TextButton, Button, ZillowLogo, ZillowHomeLogo, Divider, Input, Icon, IconButton,
+  Page, Text, TextButton, Button, ZillowLogo, ZillowHomeLogo,
+  AdornedInput, Icon, IconButton, Box,
 } from "@zillow/constellation";
-import { Box, Flex } from "@/styled-system/jsx";
 import { IconSearchFilled, IconMenuFilled } from "@zillow/constellation-icons";
 
 export default function SearchHeader() {
   return (
     <Page.Root css={{ background: "bg.screen.neutral" }}>
-      <Box css={{ position: "sticky", display: "flow-root", top: 0, zIndex: 10, width: "100%", maxWidth: "100%", background: "bg.screen.neutral" }}>
-        <Flex align="center" justify="space-between" gap="400" css={{ maxWidth: "breakpoint-xxl", mx: "auto", width: "100%", px: "400", py: "400" }}>
+      <Box
+        css={{
+          position: "sticky",
+          display: "flow-root",
+          top: 0,
+          zIndex: 10,
+          width: "100%",
+          maxWidth: "100%",
+          background: "bg.screen.neutral",
+        }}
+      >
+        <Box
+          css={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: "default",
+            width: "100%",
+            paddingX: "default",
+            paddingY: "tight",
+            borderBottom: "default",
+            borderColor: "border.muted",
+          }}
+        >
           <Box css={{ flexShrink: 0 }}>
-            <Box css={{ display: { base: "none", md: "block" } }}>
-              <ZillowLogo role="img" css={{ height: "24px", width: "auto" }} />
-            </Box>
-            <Box css={{ display: { base: "block", md: "none" } }}>
-              <ZillowHomeLogo role="img" css={{ height: "24px", width: "auto" }} />
-            </Box>
+            <ZillowLogo role="img"
+              css={{ display: { base: "none", md: "block" }, height: "24px", width: "auto" }} />
+            <ZillowHomeLogo role="img"
+              css={{ display: { base: "block", md: "none" }, height: "24px", width: "auto" }} />
           </Box>
-          <Box css={{ display: { base: "none", lg: "flex" }, gap: "400", flexShrink: 0 }}>
-            <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Buy</TextButton>
-            <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Rent</TextButton>
-            <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Sell</TextButton>
-            <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Home loans</TextButton>
+          <Box css={{ display: { base: "none", lg: "flex" }, gap: "default", flexShrink: 0 }} asChild>
+            <nav>
+              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }} asChild>
+                <a href="#">Buy</a>
+              </TextButton>
+              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }} asChild>
+                <a href="#">Rent</a>
+              </TextButton>
+              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }} asChild>
+                <a href="#">Sell</a>
+              </TextButton>
+              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }} asChild>
+                <a href="#">Home loans</a>
+              </TextButton>
+            </nav>
           </Box>
           <Box css={{ flex: 1, maxWidth: "480px" }}>
-            <Input size="sm" placeholder="Search by address, neighborhood, or ZIP" aria-label="Search properties" />
+            <AdornedInput
+              input={
+                <AdornedInput.Input
+                  aria-label="Search properties"
+                  placeholder="Search by address, neighborhood, or ZIP"
+                />
+              }
+              endAdornment={
+                <AdornedInput.Adornment asChild>
+                  <IconButton emphasis="bare" shape="circle" size="md" title="Search" tone="neutral">
+                    <Icon><IconSearchFilled /></Icon>
+                  </IconButton>
+                </AdornedInput.Adornment>
+              }
+            />
           </Box>
-          <Flex align="center" gap="300" css={{ flexShrink: 0 }}>
-            <IconButton title="Search" tone="neutral" emphasis="bare" size="sm" shape="circle">
-              <Icon size="md"><IconSearchFilled /></Icon>
-            </IconButton>
+          <Box css={{ display: "flex", alignItems: "center", gap: "tight", flexShrink: 0 }}>
             <Box css={{ display: { base: "none", md: "block" } }}>
-              <Button size="sm" emphasis="outlined" tone="neutral" css={{ whiteSpace: "nowrap" }}>Sign in</Button>
+              <Button size="sm" emphasis="outlined" tone="neutral" css={{ whiteSpace: "nowrap" }}>
+                Sign in
+              </Button>
             </Box>
             <Box css={{ display: { base: "block", lg: "none" } }}>
               <IconButton title="Menu" tone="neutral" emphasis="bare" size="sm" shape="circle">
                 <Icon size="md"><IconMenuFilled /></Icon>
               </IconButton>
             </Box>
-          </Flex>
-        </Flex>
-        <Divider tone="muted-alt" />
+          </Box>
+        </Box>
       </Box>
       <Page.Content>{/* content */}</Page.Content>
     </Page.Root>
@@ -181,44 +282,76 @@ export default function SearchHeader() {
 
 ## 4. Mobile-Responsive Header
 
-Full responsive header with hamburger toggle and slide-down menu panel. Uses `useState` for menu open/close.
+Full responsive header with `Menu` component for mobile navigation using `Menu.Group`.
 
 ```tsx
-import { useState } from "react";
 import {
-  Page, Text, TextButton, Button, ZillowLogo, ZillowHomeLogo, Divider, Icon, IconButton,
+  Page, Text, TextButton, Button, ZillowLogo, ZillowHomeLogo,
+  Icon, IconButton, Menu, Box,
 } from "@zillow/constellation";
-import { Box, Flex } from "@/styled-system/jsx";
-import { IconMenuFilled, IconCloseFilled, IconSearchFilled, IconUserFilled } from "@zillow/constellation-icons";
+import { IconMenuFilled, IconSearchFilled, IconUserFilled } from "@zillow/constellation-icons";
 
 export default function MobileResponsiveHeader() {
-  const [menuOpen, setMenuOpen] = useState(false);
-
   return (
     <Page.Root css={{ background: "bg.screen.neutral" }}>
-      <Box css={{ position: "sticky", display: "flow-root", top: 0, zIndex: 10, width: "100%", maxWidth: "100%", background: "bg.screen.neutral" }}>
-        <Flex align="center" justify="space-between" css={{ maxWidth: "breakpoint-xxl", mx: "auto", width: "100%", px: "400", py: "400" }}>
-          <Flex align="center" gap="400">
-            <Box css={{ display: { base: "none", md: "block" } }}>
-              <ZillowLogo role="img" css={{ height: "24px", width: "auto" }} />
+      <Box
+        css={{
+          position: "sticky",
+          display: "flow-root",
+          top: 0,
+          zIndex: 10,
+          width: "100%",
+          maxWidth: "100%",
+          background: "bg.screen.neutral",
+        }}
+      >
+        <Box
+          css={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            width: "100%",
+            paddingX: "default",
+            paddingY: "tight",
+            borderBottom: "default",
+            borderColor: "border.muted",
+          }}
+        >
+          <Box css={{ display: "flex", alignItems: "center", gap: "default" }}>
+            <Box>
+              <ZillowLogo role="img"
+                css={{ display: { base: "none", md: "block" }, height: "24px", width: "auto" }} />
+              <ZillowHomeLogo role="img"
+                css={{ display: { base: "block", md: "none" }, height: "24px", width: "auto" }} />
             </Box>
-            <Box css={{ display: { base: "block", md: "none" } }}>
-              <ZillowHomeLogo role="img" css={{ height: "24px", width: "auto" }} />
+            <Box css={{ display: { base: "none", lg: "flex" }, gap: "default" }} asChild>
+              <nav>
+                <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }} asChild>
+                  <a href="#">Buy</a>
+                </TextButton>
+                <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }} asChild>
+                  <a href="#">Rent</a>
+                </TextButton>
+                <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }} asChild>
+                  <a href="#">Sell</a>
+                </TextButton>
+                <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }} asChild>
+                  <a href="#">Home loans</a>
+                </TextButton>
+                <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }} asChild>
+                  <a href="#">Agent finder</a>
+                </TextButton>
+              </nav>
             </Box>
-            <Box css={{ display: { base: "none", lg: "flex" }, gap: "400" }}>
-              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Buy</TextButton>
-              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Rent</TextButton>
-              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Sell</TextButton>
-              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Home loans</TextButton>
-              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Agent finder</TextButton>
-            </Box>
-          </Flex>
-          <Flex align="center" gap="200">
+          </Box>
+          <Box css={{ display: "flex", alignItems: "center", gap: "tighter" }}>
             <IconButton title="Search" tone="neutral" emphasis="bare" size="sm" shape="circle">
               <Icon size="md"><IconSearchFilled /></Icon>
             </IconButton>
             <Box css={{ display: { base: "none", md: "block" } }}>
-              <Button size="sm" emphasis="outlined" tone="neutral" css={{ whiteSpace: "nowrap" }}>Sign in</Button>
+              <Button size="sm" emphasis="outlined" tone="neutral" css={{ whiteSpace: "nowrap" }}>
+                Sign in
+              </Button>
             </Box>
             <Box css={{ display: { base: "block", md: "none" } }}>
               <IconButton title="Account" tone="neutral" emphasis="bare" size="sm" shape="circle">
@@ -226,31 +359,30 @@ export default function MobileResponsiveHeader() {
               </IconButton>
             </Box>
             <Box css={{ display: { base: "block", lg: "none" } }}>
-              <IconButton
-                title={menuOpen ? "Close menu" : "Open menu"}
-                tone="neutral" emphasis="bare" size="sm" shape="circle"
-                onClick={() => setMenuOpen(!menuOpen)}
+              <Menu
+                content={
+                  <>
+                    <Menu.Group aria-label="Core navigation">
+                      <Menu.Item asChild><a href="#"><Menu.ItemLabel>Buy</Menu.ItemLabel></a></Menu.Item>
+                      <Menu.Item asChild><a href="#"><Menu.ItemLabel>Rent</Menu.ItemLabel></a></Menu.Item>
+                      <Menu.Item asChild><a href="#"><Menu.ItemLabel>Sell</Menu.ItemLabel></a></Menu.Item>
+                      <Menu.Item asChild><a href="#"><Menu.ItemLabel>Home loans</Menu.ItemLabel></a></Menu.Item>
+                      <Menu.Item asChild><a href="#"><Menu.ItemLabel>Agent finder</Menu.ItemLabel></a></Menu.Item>
+                    </Menu.Group>
+                    <Menu.Group aria-label="Current user actions">
+                      <Menu.Item asChild><a href="#"><Menu.ItemLabel>Manage rentals</Menu.ItemLabel></a></Menu.Item>
+                      <Menu.Item asChild><a href="#"><Menu.ItemLabel>Advertise</Menu.ItemLabel></a></Menu.Item>
+                    </Menu.Group>
+                  </>
+                }
               >
-                <Icon size="md">{menuOpen ? <IconCloseFilled /> : <IconMenuFilled />}</Icon>
-              </IconButton>
+                <IconButton title="Menu" tone="neutral" emphasis="bare" size="sm" shape="circle">
+                  <Icon size="md"><IconMenuFilled /></Icon>
+                </IconButton>
+              </Menu>
             </Box>
-          </Flex>
-        </Flex>
-        <Divider tone="muted-alt" />
-        {menuOpen && (
-          <Box css={{ display: { base: "block", lg: "none" }, background: "bg.screen.neutral", py: "300", px: "400" }}>
-            <Flex direction="column" gap="200">
-              <TextButton textStyle="body" tone="neutral" css={{ justifyContent: "flex-start" }}>Buy</TextButton>
-              <TextButton textStyle="body" tone="neutral" css={{ justifyContent: "flex-start" }}>Rent</TextButton>
-              <TextButton textStyle="body" tone="neutral" css={{ justifyContent: "flex-start" }}>Sell</TextButton>
-              <TextButton textStyle="body" tone="neutral" css={{ justifyContent: "flex-start" }}>Home loans</TextButton>
-              <TextButton textStyle="body" tone="neutral" css={{ justifyContent: "flex-start" }}>Agent finder</TextButton>
-              <Divider tone="muted-alt" />
-              <TextButton textStyle="body" tone="neutral" css={{ justifyContent: "flex-start" }}>Manage rentals</TextButton>
-              <TextButton textStyle="body" tone="neutral" css={{ justifyContent: "flex-start" }}>Advertise</TextButton>
-            </Flex>
           </Box>
-        )}
+        </Box>
       </Box>
       <Page.Content>{/* content */}</Page.Content>
     </Page.Root>
@@ -260,35 +392,66 @@ export default function MobileResponsiveHeader() {
 
 ## 5. Professional Header
 
-For agent/business apps. Uses notification/settings IconButtons and Avatar instead of text nav actions.
+For agent/business apps. Uses notification/settings IconButtons, Avatar, and nav links with `asChild`.
 
 ```tsx
 import {
-  Page, Text, TextButton, ZillowLogo, ZillowHomeLogo, Divider, Icon, IconButton, Avatar,
+  Page, Text, TextButton, ZillowLogo, ZillowHomeLogo,
+  Icon, IconButton, Avatar, Box,
 } from "@zillow/constellation";
-import { Box, Flex } from "@/styled-system/jsx";
 import { IconNotificationFilled, IconSettingsFilled, IconMenuFilled } from "@zillow/constellation-icons";
 
 export default function ProfessionalHeader() {
   return (
     <Page.Root css={{ background: "bg.screen.neutral" }}>
-      <Box css={{ position: "sticky", display: "flow-root", top: 0, zIndex: 10, width: "100%", maxWidth: "100%", background: "bg.screen.neutral" }}>
-        <Flex align="center" justify="space-between" css={{ maxWidth: "breakpoint-xxl", mx: "auto", width: "100%", px: "400", py: "300" }}>
-          <Flex align="center" gap="400">
-            <Box css={{ display: { base: "none", md: "block" } }}>
-              <ZillowLogo role="img" css={{ height: "24px", width: "auto" }} />
+      <Box
+        css={{
+          position: "sticky",
+          display: "flow-root",
+          top: 0,
+          zIndex: 10,
+          width: "100%",
+          maxWidth: "100%",
+          background: "bg.screen.neutral",
+        }}
+      >
+        <Box
+          css={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            width: "100%",
+            paddingX: "default",
+            paddingY: "tight",
+            borderBottom: "default",
+            borderColor: "border.muted",
+          }}
+        >
+          <Box css={{ display: "flex", alignItems: "center", gap: "default" }}>
+            <Box>
+              <ZillowLogo role="img"
+                css={{ display: { base: "none", md: "block" }, height: "24px", width: "auto" }} />
+              <ZillowHomeLogo role="img"
+                css={{ display: { base: "block", md: "none" }, height: "24px", width: "auto" }} />
             </Box>
-            <Box css={{ display: { base: "block", md: "none" } }}>
-              <ZillowHomeLogo role="img" css={{ height: "24px", width: "auto" }} />
-            </Box>
-          </Flex>
-          <Box css={{ display: { base: "none", lg: "flex" }, gap: "400" }}>
-            <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Dashboard</TextButton>
-            <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Listings</TextButton>
-            <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Leads</TextButton>
-            <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Performance</TextButton>
           </Box>
-          <Flex align="center" gap="200">
+          <Box css={{ display: { base: "none", lg: "flex" }, gap: "default" }} asChild>
+            <nav>
+              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }} asChild>
+                <a href="#">Dashboard</a>
+              </TextButton>
+              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }} asChild>
+                <a href="#">Listings</a>
+              </TextButton>
+              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }} asChild>
+                <a href="#">Leads</a>
+              </TextButton>
+              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }} asChild>
+                <a href="#">Performance</a>
+              </TextButton>
+            </nav>
+          </Box>
+          <Box css={{ display: "flex", alignItems: "center", gap: "tighter" }}>
             <IconButton title="Notifications" tone="neutral" emphasis="bare" size="sm" shape="circle">
               <Icon size="md"><IconNotificationFilled /></Icon>
             </IconButton>
@@ -303,9 +466,8 @@ export default function ProfessionalHeader() {
                 <Icon size="md"><IconMenuFilled /></Icon>
               </IconButton>
             </Box>
-          </Flex>
-        </Flex>
-        <Divider tone="muted-alt" />
+          </Box>
+        </Box>
       </Box>
       <Page.Content>{/* content */}</Page.Content>
     </Page.Root>
@@ -319,33 +481,54 @@ Minimal header with Tabs below for section switching. Tabs use `defaultSelected`
 
 ```tsx
 import {
-  Page, Text, Button, ZillowLogo, ZillowHomeLogo, Divider, Tabs, Icon, IconButton,
+  Page, Text, Button, ZillowLogo, ZillowHomeLogo, Tabs, Icon, IconButton, Box,
 } from "@zillow/constellation";
-import { Box, Flex } from "@/styled-system/jsx";
 import { IconSearchFilled } from "@zillow/constellation-icons";
 
 export default function HeaderWithTabs() {
   return (
     <Page.Root css={{ background: "bg.screen.neutral" }}>
-      <Box css={{ position: "sticky", display: "flow-root", top: 0, zIndex: 10, width: "100%", maxWidth: "100%", background: "bg.screen.neutral" }}>
-        <Flex align="center" justify="space-between" css={{ maxWidth: "breakpoint-xxl", mx: "auto", width: "100%", px: "400", py: "400" }}>
-          <Flex align="center" gap="400">
-            <Box css={{ display: { base: "none", md: "block" } }}>
-              <ZillowLogo role="img" css={{ height: "24px", width: "auto" }} />
+      <Box
+        css={{
+          position: "sticky",
+          display: "flow-root",
+          top: 0,
+          zIndex: 10,
+          width: "100%",
+          maxWidth: "100%",
+          background: "bg.screen.neutral",
+        }}
+      >
+        <Box
+          css={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            width: "100%",
+            paddingX: "default",
+            paddingY: "tight",
+            borderBottom: "default",
+            borderColor: "border.muted",
+          }}
+        >
+          <Box css={{ display: "flex", alignItems: "center", gap: "default" }}>
+            <Box>
+              <ZillowLogo role="img"
+                css={{ display: { base: "none", md: "block" }, height: "24px", width: "auto" }} />
+              <ZillowHomeLogo role="img"
+                css={{ display: { base: "block", md: "none" }, height: "24px", width: "auto" }} />
             </Box>
-            <Box css={{ display: { base: "block", md: "none" } }}>
-              <ZillowHomeLogo role="img" css={{ height: "24px", width: "auto" }} />
-            </Box>
-          </Flex>
-          <Flex align="center" gap="300">
+          </Box>
+          <Box css={{ display: "flex", alignItems: "center", gap: "tight" }}>
             <IconButton title="Search" tone="neutral" emphasis="bare" size="sm" shape="circle">
               <Icon size="md"><IconSearchFilled /></Icon>
             </IconButton>
-            <Button size="sm" emphasis="outlined" tone="neutral" css={{ whiteSpace: "nowrap" }}>Sign in</Button>
-          </Flex>
-        </Flex>
-        <Divider tone="muted-alt" />
-        <Box css={{ maxWidth: "breakpoint-xxl", mx: "auto", width: "100%", px: "400" }}>
+            <Button size="sm" emphasis="outlined" tone="neutral" css={{ whiteSpace: "nowrap" }}>
+              Sign in
+            </Button>
+          </Box>
+        </Box>
+        <Box css={{ paddingX: "default" }}>
           <Tabs.Root appearance="default" defaultSelected="overview">
             <Tabs.List>
               <Tabs.Tab value="overview">Overview</Tabs.Tab>
@@ -365,13 +548,12 @@ export default function HeaderWithTabs() {
 
 ## 7. Sidebar Navigation Header
 
-Minimal top header with VerticalNav sidebar. Sidebar collapses to icon-only below `lg`.
+Minimal top header with VerticalNav sidebar. Sidebar uses `borderRight` instead of Divider. Collapses to icon-only below `lg`.
 
 ```tsx
 import {
-  Text, ZillowLogo, ZillowHomeLogo, Divider, Icon, IconButton, Avatar, Anchor, VerticalNav,
+  Text, ZillowLogo, ZillowHomeLogo, Icon, IconButton, Avatar, Anchor, VerticalNav, Box,
 } from "@zillow/constellation";
-import { Box, Flex } from "@/styled-system/jsx";
 import {
   IconGridFilled, IconUserGroupFilled, IconFileTextFilled,
   IconTrendingFilled, IconSettingsFilled, IconNotificationFilled, IconQuestionMarkCircleFilled,
@@ -380,29 +562,57 @@ import {
 export default function HeaderWithSidebar() {
   return (
     <Box css={{ height: "100vh", display: "flex", flexDirection: "column" }}>
-      <Box css={{ display: "flow-root", width: "100%", maxWidth: "100%", background: "bg.screen.neutral", flexShrink: 0 }}>
-        <Flex align="center" justify="space-between" css={{ maxWidth: "breakpoint-xxl", mx: "auto", width: "100%", px: "400", py: "300" }}>
-          <Flex align="center" gap="400">
-            <Box css={{ display: { base: "none", md: "block" } }}>
-              <ZillowLogo role="img" css={{ height: "24px", width: "auto" }} />
+      <Box
+        css={{
+          display: "flow-root",
+          width: "100%",
+          maxWidth: "100%",
+          background: "bg.screen.neutral",
+          flexShrink: 0,
+        }}
+      >
+        <Box
+          css={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            width: "100%",
+            paddingX: "default",
+            paddingY: "tight",
+            borderBottom: "default",
+            borderColor: "border.muted",
+          }}
+        >
+          <Box css={{ display: "flex", alignItems: "center", gap: "default" }}>
+            <Box>
+              <ZillowLogo role="img"
+                css={{ display: { base: "none", md: "block" }, height: "24px", width: "auto" }} />
+              <ZillowHomeLogo role="img"
+                css={{ display: { base: "block", md: "none" }, height: "24px", width: "auto" }} />
             </Box>
-            <Box css={{ display: { base: "block", md: "none" } }}>
-              <ZillowHomeLogo role="img" css={{ height: "24px", width: "auto" }} />
-            </Box>
-          </Flex>
-          <Flex align="center" gap="200">
+          </Box>
+          <Box css={{ display: "flex", alignItems: "center", gap: "tighter" }}>
             <IconButton title="Notifications" tone="neutral" emphasis="bare" size="sm" shape="circle">
               <Icon size="md"><IconNotificationFilled /></Icon>
             </IconButton>
             <Avatar.Root size="sm">
               <Avatar.Image src="https://example.com/photo.jpg" alt="Jane Smith" />
             </Avatar.Root>
-          </Flex>
-        </Flex>
-        <Divider tone="muted-alt" />
+          </Box>
+        </Box>
       </Box>
-      <Flex css={{ flex: 1, overflow: "hidden" }}>
-        <Box css={{ width: { base: "60px", lg: "240px" }, flexShrink: 0, background: "bg.screen.neutral", overflowY: "auto", py: "300" }}>
+      <Box css={{ display: "flex", flex: 1, overflow: "hidden" }}>
+        <Box
+          css={{
+            width: { base: "60px", lg: "240px" },
+            flexShrink: 0,
+            background: "bg.screen.neutral",
+            overflowY: "auto",
+            paddingY: "tight",
+            borderRight: "default",
+            borderColor: "border.muted",
+          }}
+        >
           <VerticalNav.Root background outlined={false} elevated={false} tone="neutral">
             <VerticalNav.List>
               <VerticalNav.Item current>
@@ -447,11 +657,10 @@ export default function HeaderWithSidebar() {
             </VerticalNav.List>
           </VerticalNav.Root>
         </Box>
-        <Divider tone="muted-alt" orientation="vertical" css={{ height: "100%" }} />
-        <Box css={{ flex: 1, overflowY: "auto", p: "600" }}>
+        <Box css={{ flex: 1, overflowY: "auto", padding: "loose" }}>
           {/* main content */}
         </Box>
-      </Flex>
+      </Box>
     </Box>
   );
 }
@@ -464,58 +673,96 @@ Header with breadcrumb row and detail page heading + action buttons.
 ```tsx
 import {
   Page, Text, Heading, TextButton, Button, ZillowLogo, ZillowHomeLogo,
-  Divider, ButtonGroup, Icon, IconButton,
+  ButtonGroup, Icon, IconButton, Box,
 } from "@zillow/constellation";
-import { Box, Flex } from "@/styled-system/jsx";
 import { IconChevronLeftFilled, IconMenuFilled } from "@zillow/constellation-icons";
 
 export default function HeaderWithBreadcrumb() {
   return (
     <Page.Root css={{ background: "bg.screen.neutral" }}>
-      <Box css={{ position: "sticky", display: "flow-root", top: 0, zIndex: 10, width: "100%", maxWidth: "100%", background: "bg.screen.neutral" }}>
-        <Flex align="center" justify="space-between" css={{ maxWidth: "breakpoint-xxl", mx: "auto", width: "100%", px: "400", py: "400" }}>
-          <Flex align="center" gap="400">
-            <Box css={{ display: { base: "none", md: "block" } }}>
-              <ZillowLogo role="img" css={{ height: "24px", width: "auto" }} />
+      <Box
+        css={{
+          position: "sticky",
+          display: "flow-root",
+          top: 0,
+          zIndex: 10,
+          width: "100%",
+          maxWidth: "100%",
+          background: "bg.screen.neutral",
+        }}
+      >
+        <Box
+          css={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            width: "100%",
+            paddingX: "default",
+            paddingY: "tight",
+            borderBottom: "default",
+            borderColor: "border.muted",
+          }}
+        >
+          <Box css={{ display: "flex", alignItems: "center", gap: "default" }}>
+            <Box>
+              <ZillowLogo role="img"
+                css={{ display: { base: "none", md: "block" }, height: "24px", width: "auto" }} />
+              <ZillowHomeLogo role="img"
+                css={{ display: { base: "block", md: "none" }, height: "24px", width: "auto" }} />
             </Box>
-            <Box css={{ display: { base: "block", md: "none" } }}>
-              <ZillowHomeLogo role="img" css={{ height: "24px", width: "auto" }} />
+          </Box>
+          <Box css={{ display: "flex", alignItems: "center", gap: "tight" }}>
+            <Box css={{ display: { base: "none", md: "flex" }, gap: "default" }} asChild>
+              <nav>
+                <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }} asChild>
+                  <a href="#">Buy</a>
+                </TextButton>
+                <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }} asChild>
+                  <a href="#">Rent</a>
+                </TextButton>
+                <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }} asChild>
+                  <a href="#">Sell</a>
+                </TextButton>
+              </nav>
             </Box>
-          </Flex>
-          <Flex align="center" gap="300">
-            <Box css={{ display: { base: "none", md: "flex" }, gap: "400" }}>
-              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Buy</TextButton>
-              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Rent</TextButton>
-              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Sell</TextButton>
-            </Box>
-            <Button size="sm" emphasis="outlined" tone="neutral" css={{ whiteSpace: "nowrap" }}>Sign in</Button>
+            <Button size="sm" emphasis="outlined" tone="neutral" css={{ whiteSpace: "nowrap" }}>
+              Sign in
+            </Button>
             <Box css={{ display: { base: "block", md: "none" } }}>
               <IconButton title="Menu" tone="neutral" emphasis="bare" size="sm" shape="circle">
                 <Icon size="md"><IconMenuFilled /></Icon>
               </IconButton>
             </Box>
-          </Flex>
-        </Flex>
-        <Divider tone="muted-alt" />
+          </Box>
+        </Box>
       </Box>
       <Page.Breadcrumb>
         <TextButton icon={<IconChevronLeftFilled />} textStyle="body" tone="neutral">
           Back to search results
         </TextButton>
       </Page.Breadcrumb>
-      <Box css={{ maxWidth: "breakpoint-xxl", mx: "auto", width: "100%", px: "400", py: "400" }}>
-        <Flex
-          direction={{ base: "column", md: "row" }}
-          align={{ base: "flex-start", md: "center" }}
-          justify="space-between"
-          gap="400"
+      <Box css={{ paddingX: "default", paddingY: "default" }}>
+        <Box
+          css={{
+            display: "flex",
+            flexDirection: { base: "column", md: "row" },
+            alignItems: { base: "flex-start", md: "center" },
+            justifyContent: "space-between",
+            gap: "default",
+          }}
         >
-          <Heading level={1} textStyle="heading-md">123 Main Street, Seattle, WA 98101</Heading>
+          <Heading level={1} textStyle="heading-md">
+            123 Main Street, Seattle, WA 98101
+          </Heading>
           <ButtonGroup aria-label="Property actions" css={{ flexShrink: 0, whiteSpace: "nowrap" }}>
-            <Button size="sm" emphasis="filled" tone="brand" css={{ whiteSpace: "nowrap" }}>Contact agent</Button>
-            <Button size="sm" emphasis="outlined" tone="neutral" css={{ whiteSpace: "nowrap" }}>Save</Button>
+            <Button size="sm" emphasis="filled" tone="brand" css={{ whiteSpace: "nowrap" }}>
+              Contact agent
+            </Button>
+            <Button size="sm" emphasis="outlined" tone="neutral" css={{ whiteSpace: "nowrap" }}>
+              Save
+            </Button>
           </ButtonGroup>
-        </Flex>
+        </Box>
       </Box>
       <Page.Content>{/* content */}</Page.Content>
     </Page.Root>
@@ -529,156 +776,157 @@ Three-column layout with nav links left, logo centered, and actions right.
 
 ```tsx
 import {
-  Page, Text, TextButton, Button, ZillowLogo, ZillowHomeLogo, Divider, Icon, IconButton,
+  Page, Text, TextButton, Button, ZillowLogo, ZillowHomeLogo, Icon, IconButton, Box,
 } from "@zillow/constellation";
-import { Box, Flex } from "@/styled-system/jsx";
 import { IconMenuFilled } from "@zillow/constellation-icons";
 
 export default function CenteredLogoHeader() {
   return (
     <Page.Root css={{ background: "bg.screen.neutral" }}>
-      <Flex align="center" justify="space-between" css={{ maxWidth: "breakpoint-xxl", mx: "auto", width: "100%", px: "400", py: "400" }}>
-        <Box css={{ display: { base: "none", lg: "flex" }, gap: "400", flex: 1 }}>
-          <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Buy</TextButton>
-          <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Rent</TextButton>
-          <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Sell</TextButton>
+      <Box
+        css={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          width: "100%",
+          paddingX: "default",
+          paddingY: "tight",
+          borderBottom: "default",
+          borderColor: "border.muted",
+        }}
+      >
+        <Box
+          css={{ display: { base: "none", lg: "flex" }, gap: "default", flex: 1 }}
+          asChild
+        >
+          <nav>
+            <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }} asChild>
+              <a href="#">Buy</a>
+            </TextButton>
+            <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }} asChild>
+              <a href="#">Rent</a>
+            </TextButton>
+            <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }} asChild>
+              <a href="#">Sell</a>
+            </TextButton>
+          </nav>
         </Box>
         <Box css={{ display: { base: "block", lg: "none" } }}>
           <IconButton title="Menu" tone="neutral" emphasis="bare" size="sm" shape="circle">
             <Icon size="md"><IconMenuFilled /></Icon>
           </IconButton>
         </Box>
-        <Flex align="center" justify={{ base: "flex-start", lg: "center" }} css={{ flex: 1 }}>
-          <Box css={{ display: { base: "none", md: "block" } }}>
-            <ZillowLogo role="img" css={{ height: "24px", width: "auto" }} />
+        <Box
+          css={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: { base: "flex-start", lg: "center" },
+            flex: 1,
+          }}
+        >
+          <ZillowLogo role="img"
+            css={{ display: { base: "none", md: "block" }, height: "24px", width: "auto" }} />
+          <ZillowHomeLogo role="img"
+            css={{ display: { base: "block", md: "none" }, height: "24px", width: "auto" }} />
+        </Box>
+        <Box
+          css={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "flex-end",
+            gap: "default",
+            flex: 1,
+          }}
+        >
+          <Box css={{ display: { base: "none", lg: "flex" }, gap: "default" }}>
+            <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }} asChild>
+              <a href="#">Home loans</a>
+            </TextButton>
+            <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }} asChild>
+              <a href="#">Agent finder</a>
+            </TextButton>
           </Box>
-          <Box css={{ display: { base: "block", md: "none" } }}>
-            <ZillowHomeLogo role="img" css={{ height: "24px", width: "auto" }} />
-          </Box>
-        </Flex>
-        <Flex align="center" justify="flex-end" gap="400" css={{ flex: 1 }}>
-          <Box css={{ display: { base: "none", lg: "flex" }, gap: "400" }}>
-            <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Home loans</TextButton>
-            <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Agent finder</TextButton>
-          </Box>
-          <Button size="sm" emphasis="outlined" tone="neutral" css={{ whiteSpace: "nowrap" }}>Sign in</Button>
-        </Flex>
-      </Flex>
-      <Divider tone="muted-alt" />
+          <Button size="sm" emphasis="outlined" tone="neutral" css={{ whiteSpace: "nowrap" }}>
+            Sign in
+          </Button>
+        </Box>
+      </Box>
       <Page.Content>{/* content */}</Page.Content>
     </Page.Root>
   );
 }
 ```
 
-## 10. No-Divider Header
+## 10. No Divider Header
 
-Same structure as basic consumer but without the bottom Divider for a seamless look.
+Same structure as basic consumer but without `borderBottom` for a seamless look.
 
 ```tsx
 import {
-  Page, Text, TextButton, Button, ZillowLogo, ZillowHomeLogo, Icon, IconButton,
+  Page, Text, TextButton, Button, ZillowLogo, ZillowHomeLogo, Icon, IconButton, Box,
 } from "@zillow/constellation";
-import { Box, Flex } from "@/styled-system/jsx";
 import { IconMenuFilled } from "@zillow/constellation-icons";
 
 export default function NoDividerHeader() {
   return (
     <Page.Root css={{ background: "bg.screen.neutral" }}>
-      <Flex align="center" justify="space-between" css={{ maxWidth: "breakpoint-xxl", mx: "auto", width: "100%", px: "400", py: "400" }}>
-        <Flex align="center" gap="400">
-          <Box css={{ display: { base: "none", md: "block" } }}>
-            <ZillowLogo role="img" css={{ height: "24px", width: "auto" }} />
+      <Box
+        css={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          width: "100%",
+          paddingX: "default",
+          paddingY: "tight",
+        }}
+      >
+        <Box css={{ display: "flex", alignItems: "center", gap: "default" }}>
+          <Box>
+            <ZillowLogo role="img"
+              css={{ display: { base: "none", md: "block" }, height: "24px", width: "auto" }} />
+            <ZillowHomeLogo role="img"
+              css={{ display: { base: "block", md: "none" }, height: "24px", width: "auto" }} />
           </Box>
-          <Box css={{ display: { base: "block", md: "none" } }}>
-            <ZillowHomeLogo role="img" css={{ height: "24px", width: "auto" }} />
+          <Box css={{ display: { base: "none", lg: "flex" }, gap: "default" }} asChild>
+            <nav>
+              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }} asChild>
+                <a href="#">Buy</a>
+              </TextButton>
+              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }} asChild>
+                <a href="#">Rent</a>
+              </TextButton>
+              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }} asChild>
+                <a href="#">Sell</a>
+              </TextButton>
+              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }} asChild>
+                <a href="#">Home loans</a>
+              </TextButton>
+              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }} asChild>
+                <a href="#">Agent finder</a>
+              </TextButton>
+            </nav>
           </Box>
-          <Box css={{ display: { base: "none", lg: "flex" }, gap: "400" }}>
-            <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Buy</TextButton>
-            <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Rent</TextButton>
-            <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Sell</TextButton>
-            <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Home loans</TextButton>
-            <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Agent finder</TextButton>
+        </Box>
+        <Box css={{ display: "flex", alignItems: "center", gap: "tight" }}>
+          <Box css={{ display: { base: "none", md: "flex" }, gap: "default" }}>
+            <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }} asChild>
+              <a href="#">Manage rentals</a>
+            </TextButton>
+            <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }} asChild>
+              <a href="#">Advertise</a>
+            </TextButton>
           </Box>
-        </Flex>
-        <Flex align="center" gap="300">
-          <Box css={{ display: { base: "none", md: "flex" }, gap: "400" }}>
-            <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Manage rentals</TextButton>
-            <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Advertise</TextButton>
-          </Box>
-          <Button size="sm" emphasis="outlined" tone="neutral" css={{ whiteSpace: "nowrap" }}>Sign in</Button>
+          <Button size="sm" emphasis="outlined" tone="neutral" css={{ whiteSpace: "nowrap" }}>
+            Sign in
+          </Button>
           <Box css={{ display: { base: "block", lg: "none" } }}>
             <IconButton title="Menu" tone="neutral" emphasis="bare" size="sm" shape="circle">
               <Icon size="md"><IconMenuFilled /></Icon>
             </IconButton>
           </Box>
-        </Flex>
-      </Flex>
+        </Box>
+      </Box>
       <Page.Content>{/* content */}</Page.Content>
-    </Page.Root>
-  );
-}
-```
-
----
-
-## 11. Contained Header
-
-Full-bleed sticky background with maxWidth-constrained inner content. Use when the page content has a max-width container so the header content aligns with it visually.
-
-**Key rules:**
-- Always match the header's inner `maxWidth` to the page content's `maxWidth`. The sticky `Box` wrapper remains full-bleed for the background color, but the inner `Flex` is constrained and centered with `mx: "auto"`.
-- Default to `py: "400"` (16px) for consumer apps. Use `py: "300"` (12px) only for compact professional headers.
-
-```tsx
-import {
-  Page, Text, TextButton, Button, ZillowLogo, ZillowHomeLogo, Divider, Icon, IconButton,
-} from "@zillow/constellation";
-import { Box, Flex } from "@/styled-system/jsx";
-import { IconMenuFilled } from "@zillow/constellation-icons";
-
-export default function ContainedHeader() {
-  return (
-    <Page.Root css={{ background: "bg.screen.neutral" }}>
-      <Box css={{ position: "sticky", display: "flow-root", top: 0, zIndex: 10, background: "bg.screen.neutral" }}>
-        <Flex
-          align="center"
-          justify="space-between"
-          css={{ maxWidth: "breakpoint-xxl", mx: "auto", width: "100%", px: "400", py: "400" }}
-        >
-          <Flex align="center" gap="400">
-            <Box css={{ display: { base: "none", md: "block" } }}>
-              <ZillowLogo role="img" css={{ height: "24px", width: "auto" }} />
-            </Box>
-            <Box css={{ display: { base: "block", md: "none" } }}>
-              <ZillowHomeLogo role="img" css={{ height: "24px", width: "auto" }} />
-            </Box>
-            <Box css={{ display: { base: "none", lg: "flex" }, gap: "400" }}>
-              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Buy</TextButton>
-              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Rent</TextButton>
-              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Sell</TextButton>
-              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Home loans</TextButton>
-              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Agent finder</TextButton>
-            </Box>
-          </Flex>
-          <Flex align="center" gap="300">
-            <Box css={{ display: { base: "none", md: "flex" }, gap: "400" }}>
-              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Manage rentals</TextButton>
-              <TextButton textStyle="body" tone="neutral" css={{ whiteSpace: "nowrap" }}>Advertise</TextButton>
-            </Box>
-            <Button size="sm" emphasis="outlined" tone="neutral" css={{ whiteSpace: "nowrap" }}>Sign in</Button>
-            <Box css={{ display: { base: "block", lg: "none" } }}>
-              <IconButton title="Menu" tone="neutral" emphasis="bare" size="sm" shape="circle">
-                <Icon size="md"><IconMenuFilled /></Icon>
-              </IconButton>
-            </Box>
-          </Flex>
-        </Flex>
-        <Divider tone="muted-alt" />
-      </Box>
-      <Box css={{ maxWidth: "breakpoint-xxl", mx: "auto", width: "100%", px: "400", py: "600" }}>
-        {/* Page content — same maxWidth as header inner content */}
-      </Box>
     </Page.Root>
   );
 }
