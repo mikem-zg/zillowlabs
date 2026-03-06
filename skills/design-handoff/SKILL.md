@@ -52,7 +52,7 @@ Check every annotation against design system rules. Flag violations. Load the fu
 - PropertyCard missing `saveButton`
 - Card with both `elevated` and `outlined`
 - Headers built with `Box`/`Flex` instead of `Page.Header`
-- CSS `border` instead of `<Divider />`
+- CSS `border` instead of `<Divider />` for content separators (exception: header edge lines use `borderBottom` on the header `Box`)
 - Outline icons used as default
 - Tabs without `defaultSelected`
 - More than 2 `Heading` per screen
