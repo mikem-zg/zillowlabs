@@ -114,7 +114,7 @@ Component tree:
 | ✅ Pass | Card tone | All cards use `tone="neutral"` |
 | ✅ Pass | Filled icons | All icons use Filled variants |
 | ✅ Pass | Page.Header | Header uses `Page.Header`, not Box/Flex |
-| ✅ Pass | Dividers | Uses `<Divider />`, not CSS borders |
+| ✅ Pass | Dividers | Uses `<Divider />` for content separators, not CSS borders (header edge lines use `borderBottom` on the header `Box`) |
 | ⚠️ Warning | Heading count | 1 Heading on page (within limit) |
 | ❌ Violation | [Rule name] | [Description and fix] |
 

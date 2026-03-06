@@ -15,7 +15,7 @@ Map detected UI patterns to the correct Constellation component. Use this when a
 | Clickable card | `Card` | `elevated interactive tone="neutral"` | `Card` with only `elevated` (no `interactive`) |
 | Static display card | `Card` | `outlined elevated={false} tone="neutral"` | Both `elevated` and `outlined` |
 | Page header / navigation bar | `Page.Header` inside `Page.Root` (wrap in sticky `Box` if fixed) | Sticky: `Box` wrapper with `display: 'flow-root'` | `Box`/`Flex` as header; `position: sticky` directly on `Page.Header` |
-| Horizontal rule / separator | `Divider` | — | CSS `border` or `borderBottom` |
+| Horizontal rule / content separator | `Divider` | — | CSS `border` or `borderBottom` (exception: header edge lines use `borderBottom` on the header `Box`) |
 | Modal / dialog | `Modal` | `body={...}` `header={...}` `footer={...}` `dividers` `size="md"` | Content as children (not in `body` prop) |
 | Stack of elements | `Flex direction="column"` | `gap` token | `Box` with margins |
 | Grid of cards | `Grid` | responsive `columns` | Manual `Flex` with `flexWrap` |
@@ -132,7 +132,7 @@ When mapping components, always verify these critical rules:
 | 3 | Card elevation + interactivity | `elevated` cards also have `interactive` |
 | 4 | Card tone | Every `Card` has `tone="neutral"` |
 | 5 | Header component | Page header uses `Page.Header`, not `Box`/`Flex` |
-| 6 | Divider component | Visual separators use `<Divider />`, not CSS borders |
+| 6 | Divider component | Content separators use `<Divider />`, not CSS borders (header edge lines use `borderBottom` on the `Box`) |
 | 7 | Icon variant | Icons use Filled variant by default |
 | 8 | Icon size tokens | Icons use `sm`/`md`/`lg`/`xl` size tokens |
 | 9 | Tabs default selection | `Tabs.Root` has `defaultSelected` prop |
