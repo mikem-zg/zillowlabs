@@ -1,5 +1,7 @@
 # Zillow UX Writing Guide
 
+> **Moved:** The canonical content skill is now [constellation-content](../../../constellation-content/SKILL.md). This file is kept for backward compatibility. The constellation-content skill has expanded audience-specific rules, copy pattern templates, and a validation checklist.
+
 **For AI agents writing UI copy in Zillow products.**
 
 ---
@@ -12,7 +14,7 @@
 3. Active voice → ALWAYS front-load the task or outcome
 4. User = "you" → Zillow = "we/us/our"
 5. Numbers → Numerals always: $1,500, 5%, 2 of 6
-6. No dashes → NEVER use em dashes (—) or en dashes (–)
+6. Dashes → Em dashes (—) sparingly with spaces; en dashes (–) for ranges without spaces
 7. Plurals → NEVER write (s) or (es), use natural pluralization
 8. Emoji → Sparingly, NEVER as punctuation
 ```
@@ -156,5 +158,5 @@ Before finalizing any copy:
 - [ ] Active voice, goal front-loaded
 - [ ] Terminology consistent across flow
 - [ ] Errors/success include next steps
-- [ ] No em dashes or en dashes
+- [ ] Dashes used correctly (em dash with spaces, sparingly; en dash for ranges, no spaces)
 - [ ] Inclusive pronouns (they/them OK)

@@ -1,6 +1,6 @@
 ---
 name: constellation-design-system
-description: Build UI with Zillow's Constellation Design System v10.14.0. Activates when building React UI, creating pages/screens/layouts, selecting components, styling with PandaCSS, or when developers mention Constellation, Zillow components, @zillow/constellation, design system, or Zillow UI. Provides 99 component docs, 621 icons, design rules, UX writing guidelines, a quick-reference cheat sheet, and a validation script.
+description: Build UI with Zillow's Constellation Design System v10.14.0. Activates when building React UI, creating pages/screens/layouts, selecting components, styling with PandaCSS, or when developers mention Constellation, Zillow components, @zillow/constellation, design system, or Zillow UI. Provides 99 component docs, 621 icons, design rules, a quick-reference cheat sheet, and a validation script. For UX writing and content guidelines, see the constellation-content skill.
 license: Proprietary
 compatibility: Requires a React 18+ project with @zillow/constellation and @pandacss/dev installed.
 metadata:
@@ -12,7 +12,7 @@ metadata:
 
 Constellation is Zillow's unified design system for building consumer and professional real estate applications. It provides accessible, themed React components with PandaCSS styling.
 
-This skill covers **how to use** Constellation components, design rules, and UX writing guidelines in projects that already have Constellation installed.
+This skill covers **how to use** Constellation components and design rules in projects that already have Constellation installed. For UX writing and content guidelines, see [constellation-content](../constellation-content/SKILL.md).
 
 ## Prerequisites
 
@@ -30,7 +30,6 @@ If Constellation is NOT yet installed, use the [transition-to-constellation](../
 - Selecting the right component for a use case (Card vs PropertyCard, Button vs ToggleButton, etc.)
 - Looking up component props, patterns, or anti-patterns
 - Checking spacing tokens, typography hierarchy, or color usage rules
-- Writing UI copy (UX writing guidelines)
 - Validating design system compliance
 
 ## When NOT to Use
@@ -40,6 +39,7 @@ If Constellation is NOT yet installed, use the [transition-to-constellation](../
 - **Selecting an illustration** — use `constellation-illustrations` which has keyword search across 99 illustrations
 - **Implementing dark mode or theme switching** — use `constellation-dark-mode` for theme injection and toggle patterns
 - **Building header/navigation patterns** — use `header-navigation` for tested responsive header patterns
+- **Writing or reviewing UI copy** — use `constellation-content` for voice & tone, sentence case, microcopy patterns, and audience-specific content rules
 - **Applying Zillow brand guidelines** (color families, logo rules, typography, photography, verbal identity) — use `consumer-brand-guidelines` for consumer audience (April 2024) or `professional-brand-guidelines` for professional audience (March 2025)
 
 ## Documentation Structure
@@ -59,7 +59,7 @@ bash .agents/skills/constellation-design-system/scripts/validate-constellation.s
 - [Installation and Setup](references/guides/installation-and-setup.md): Complete setup guide for installing Constellation packages, configuring PandaCSS, setting themes, configuring aliases for styled-system, and framework-specific configs (Next.js, Vite, Storybook, Jest).
 - [Design System Rules](references/guides/design-system-rules.md): Critical rules for component selection, colors, icons, typography, layouts, and audience-specific guidelines (Consumer vs Professional apps).
 - [Navigation Patterns](references/guides/navigation-patterns.md): Decision framework for choosing the right navigation component (Page.Header, Tabs, VerticalNav, Breadcrumb, Menu, Pagination, Accordion, SegmentedControl). Covers when to use each, hybrid patterns, mobile/responsive behavior, and Consumer vs Professional guidance.
-- [UX Writing Guide](references/guides/ux-writing.md): Voice, tone, sentence case, microcopy patterns, error/success messages, and copy review checklist.
+- [UX Writing Guide](references/guides/ux-writing.md): Voice, tone, sentence case, microcopy patterns, error/success messages, and copy review checklist. **Note:** For the full standalone content skill with audience-specific rules, validation checklist, and expanded copy patterns, see [constellation-content](../constellation-content/SKILL.md).
 - [Development Tech Stack](references/guides/development-tech-stack.md): Monorepo toolchain (Turbo, pnpm), build tools (Rslib, Rsbuild), testing (Vitest, Cypress), code quality (oxlint, Prettier), and daily development workflows.
 - [Production Tech Stack](references/guides/production-tech-stack.md): Runtime dependencies, Panda CSS styling architecture, build output format, performance optimizations, and browser support.
 - [Page Templates](references/guides/page-templates.md): Ready-to-use page templates (404 page, empty states) built with Constellation components and design system best practices.
