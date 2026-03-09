@@ -359,6 +359,7 @@ Before finalizing any copy:
 - [Accessibility & Inclusion](references/accessibility-inclusion.md): Inclusive language rules, ableist terms to avoid, plain language guidelines, and multimedia accessibility standards.
 - [AI Behavioral Guidance](references/ai-behavioral-guidance.md): Full character model, interaction philosophy, decision posture framework, and emotional/cognitive intent map for AI-native experiences.
 - [Validation Checklist](references/validation-checklist.md): Machine-readable rule IDs, categories, and severity levels for automated content review.
+- [Writer AI API](references/writer-ai-api.md): Writer AI Studio API reference — endpoints, models, SDKs, Zillow-specific system prompts, and integration patterns for programmatic content generation and validation. Env var: `WRITER_API_KEY`.
 
 ## Related Skills
 
