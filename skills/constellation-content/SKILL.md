@@ -18,6 +18,7 @@ Content guidelines for AI agents writing UI copy in Zillow products. This skill 
 - Reviewing existing copy for Zillow voice & tone compliance
 - Choosing between consumer and professional tone
 - Writing AI/agent-generated responses (see AI Behavioral Guidance)
+- Using the Writer AI API for programmatic content generation or validation (see [Writer AI API](references/writer-ai-api.md))
 
 ## TL;DR — Critical Rules
 
