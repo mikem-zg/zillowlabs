@@ -104,15 +104,16 @@ echo "=== SURF_P03: Shadows only on interactive elements ==="
 echo "CHECK: Review shadow usage — shadows should indicate interactivity"
 echo ""
 
-echo "=== CLR_P11: CSS borders instead of Divider ==="
+echo "=== CLR_P11: CSS borders instead of Divider (content separators) ==="
+echo "NOTE: borderBottom is correct on header containers (sticky Box) — review matches for context"
 BORDERS=$(grep -rn --include="*.tsx" --include="*.ts" \
   -E "(borderBottom|borderTop|border-bottom|border-top)" \
   "$DIR" | grep -v "node_modules" | grep -v "styled-system" | grep -v "borderBottomWidth" || true)
 if [ -n "$BORDERS" ]; then
-  echo "CHECK: CSS borders found — should these use <Divider /> instead?"
+  echo "CHECK: CSS borders found — verify these are header edge lines (OK) or content separators (should use <Divider />):"
   echo "$BORDERS"
 else
-  echo "PASS: No CSS border dividers found"
+  echo "PASS: No CSS border usage found"
 fi
 echo ""
 

@@ -1,3 +1,8 @@
+---
+name: professional-brand-guidelines
+description: Zillow's March 2025 Brand Guidelines for the professional audience (Real Estate Agents, Rental Partners, New Construction Partners). Covers visual identity, color system, typography, logo, surfaces, depth, illustration, and component sizing rules. Use when building agent-facing UI, professional dashboards, or reviewing brand compliance for professional experiences.
+---
+
 # Professional Brand Guidelines
 
 Zillow's March 2025 Brand Guidelines for the **professional audience** (Real Estate Agents, Rental Partners, New Construction Partners). Builds on the core consumer guidelines while tailoring the visual and verbal identity to professional needs.
@@ -64,6 +69,7 @@ Zillow's March 2025 Brand Guidelines for the **professional audience** (Real Est
 | TYPO_P01 | Product | Typography | Object Sans Heavy for headings ONLY; Inter (web), SF Pro (iOS), Roboto (Android) for body | Email: Helvetica body |
 | TYPO_P02 | Marketing | Typography | Object Sans across all weights (Heavy, Bold, Medium, Regular) | None |
 | TYPO_P03 | Both | Typography | Left-align body text; center OK for 1-2 line headlines | None |
+| TYPO_P08 | Both | Typography | No emojis in UI text, labels, headings, or descriptions | Only if the user explicitly requests emojis |
 | TYPO_P04 | Both | Typography | Line length 50-75 characters for body copy | None |
 | TYPO_P05 | Both | Typography | ONE highlight color per headline; brighter than base text | None |
 | TYPO_P06 | Both | Typography | Never make headlines blue (implies interactivity) | None |
@@ -170,5 +176,5 @@ Each reference file is split into **Marketing** and **Product** sections where r
 - **Constellation Illustrations** → `.agents/skills/constellation-illustrations/` for spot illustration catalog (93 illustrations with light/dark mode paths)
 - **Constellation Dark Mode** → `.agents/skills/constellation-dark-mode/` for theme injection, `_dark`/`_light` conditions
 - **OrangeLogic DAM** → `.agents/skills/orangelogic-dam/` for sourcing photography and logo assets. NEVER use AI generation or stock APIs.
-- **UX Writing Guide** → `custom_instruction/ux-writing-guide.md` for product copy standards
+- **Constellation Content** → `.agents/skills/constellation-content/` for UX writing guidelines, voice & tone, microcopy patterns, audience-specific content rules, and copy validation checklist
 - **Instructions** → `custom_instruction/instructions.md` for implementation rules and validation workflow
