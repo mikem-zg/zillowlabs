@@ -27,10 +27,10 @@ Before building a Slack integration, you need:
 
 ```bash
 SLACK_BOT_TOKEN=xoxb-your-bot-token
-SLACK_SIGNING_SECRET=your-signing-secret
-
-# Only for Socket Mode:
 SLACK_APP_TOKEN=xapp-your-app-level-token
+
+# Only for HTTP Mode:
+SLACK_SIGNING_SECRET=your-signing-secret
 
 # Only for Incoming Webhooks:
 SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T.../B.../xxx
