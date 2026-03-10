@@ -66,22 +66,23 @@ Add these scopes based on your needs:
 | `channels:manage` | Create/archive channels |
 | `groups:write` | Manage private channels |
 
-## Quick Start — Replit with HTTP Mode (Recommended)
+## Quick Start — Socket Mode (Recommended)
 
-This is the recommended setup for Replit apps. It uses `ExpressReceiver` to share the Express server between your app and Slack event handling.
+Socket Mode is the default. No public URL or request URL configuration needed — Slack connects to your app over a WebSocket. Requires an App-Level Token (`xapp-...`).
+
+### Enable Socket Mode in Slack App Settings
+
+1. Go to https://api.slack.com/apps → your app → **Socket Mode** → toggle ON
+2. Create an **App-Level Token** with `connections:write` scope (Basic Information → App-Level Tokens)
+3. Store the token as `SLACK_APP_TOKEN`
 
 ```typescript
-import { App, ExpressReceiver } from '@slack/bolt';
-import express from 'express';
-
-const receiver = new ExpressReceiver({
-  signingSecret: process.env.SLACK_SIGNING_SECRET!,
-  endpoints: '/slack/events',
-});
+import { App } from '@slack/bolt';
 
 const app = new App({
   token: process.env.SLACK_BOT_TOKEN!,
-  receiver,
+  appToken: process.env.SLACK_APP_TOKEN!,
+  socketMode: true,
 });
 
 // Respond to @mentions
@@ -107,7 +108,48 @@ app.action('approve_button', async ({ ack, say, body }) => {
   await say(`<@${body.user.id}> approved the request.`);
 });
 
-// Add custom Express routes alongside Slack
+app.message('hello', async ({ message, say }) => {
+  await say(`Hey there <@${(message as any).user}>!`);
+});
+
+(async () => {
+  await app.start();
+  console.log('Slack bot running in Socket Mode');
+})();
+```
+
+## Quick Start — HTTP Mode (Alternative)
+
+Use HTTP mode when you need to share the Express server with other routes or integrate with external webhooks. Requires a public URL and request URL configuration in Slack.
+
+```typescript
+import { App, ExpressReceiver } from '@slack/bolt';
+
+const receiver = new ExpressReceiver({
+  signingSecret: process.env.SLACK_SIGNING_SECRET!,
+  endpoints: '/slack/events',
+});
+
+const app = new App({
+  token: process.env.SLACK_BOT_TOKEN!,
+  receiver,
+});
+
+app.event('app_mention', async ({ event, say }) => {
+  await say({
+    text: `Hey <@${event.user}>! How can I help?`,
+    thread_ts: event.ts,
+  });
+});
+
+app.command('/hello', async ({ command, ack, respond }) => {
+  await ack();
+  await respond({
+    response_type: 'ephemeral',
+    text: `Hello <@${command.user_id}>! You said: ${command.text}`,
+  });
+});
+
 receiver.router.get('/health', (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
@@ -119,7 +161,7 @@ receiver.router.get('/health', (_req, res) => {
 })();
 ```
 
-### Configure Slack App Settings
+### Configure Slack App for HTTP Mode
 
 After deploying on Replit, configure your Slack app:
 
@@ -128,29 +170,6 @@ After deploying on Replit, configure your Slack app:
 3. **Slash Commands** → Request URL for each command: `https://your-app.replit.app/slack/events`
 
 All three use the same endpoint because Bolt routes internally based on payload type.
-
-## Quick Start — Socket Mode (Development)
-
-Use Socket Mode when you need to develop locally or your app runs behind a firewall. No public URL required.
-
-```typescript
-import { App } from '@slack/bolt';
-
-const app = new App({
-  token: process.env.SLACK_BOT_TOKEN!,
-  appToken: process.env.SLACK_APP_TOKEN!,
-  socketMode: true,
-});
-
-app.message('hello', async ({ message, say }) => {
-  await say(`Hey there <@${message.user}>!`);
-});
-
-(async () => {
-  await app.start();
-  console.log('Slack bot running in Socket Mode');
-})();
-```
 
 ## Core Operations
 
