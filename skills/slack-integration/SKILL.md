@@ -18,10 +18,10 @@ Build Slack integrations for Replit applications using the official Bolt SDK for
 
 Before building a Slack integration, you need:
 
-1. **A Slack App** created at https://api.slack.com/apps
+1. **A Slack App** created at https://api.slack.com/apps with **Socket Mode enabled**
 2. **Bot Token** (`xoxb-...`) — from OAuth & Permissions after installing the app
-3. **Signing Secret** — from Basic Information → App Credentials
-4. **App-Level Token** (`xapp-...`) — only needed for Socket Mode (Basic Information → App-Level Tokens)
+3. **App-Level Token** (`xapp-...`) — from Basic Information → App-Level Tokens (required for Socket Mode; create with `connections:write` scope)
+4. **Signing Secret** — from Basic Information → App Credentials (only needed for HTTP mode)
 
 ### Required Environment Variables
 
