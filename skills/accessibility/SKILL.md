@@ -27,6 +27,8 @@ Build inclusive, WCAG 2.2 AA-compliant web interfaces. This skill covers standar
 8. **Target size** — Interactive elements: 24×24px minimum (WCAG 2.2); 44×44px recommended for touch
 9. **Live regions for dynamic content** — Keep `aria-live` elements permanently in DOM; update text content only
 10. **Focus management on route changes** — Move focus to `<h1>` or `<main>` after SPA navigation
+11. **Constellation-first forms** — ALWAYS use Constellation form components (`Input`, `Select`, `Radio`, `Checkbox`, `Switch`, `Textarea`) instead of native HTML elements. Constellation components include ARIA roles, keyboard navigation, error announcements, and focus management out of the box. Hand-building these with `Flex`/`Box` loses all built-in accessibility.
+12. **Interactive element spacing** — Maintain minimum 8px (spacing token `"200"`) gap between clickable/tappable elements. Tokens `"50"` and `"100"` are too tight for reliable target differentiation, especially on touch devices.
 
 ## Quick Reference: ARIA Roles for Common Patterns
 
@@ -50,12 +52,14 @@ Constellation components handle many ARIA patterns automatically. Key things to 
 |-----------|---------------------------|----------------------|
 | `Modal` | Focus trap, `role="dialog"`, `aria-modal` | `header` prop for `aria-labelledby` |
 | `Tabs` | `tablist`/`tab`/`tabpanel` roles, arrow key nav | `defaultSelected` prop |
-| `Select` / `ComboBox` | `combobox` role, `aria-expanded`, keyboard nav | `label` or `aria-label` |
 | `Accordion` | `aria-expanded`, keyboard Enter/Space | Meaningful trigger text |
 | `Button` | Native `<button>` semantics | Visible text or `aria-label` for icon-only |
 | `IconButton` | Native `<button>` semantics | `title` prop (required) |
-| `Input` | Native `<input>` semantics | `<label>` via `htmlFor` or `aria-label` |
-| `Checkbox` / `Radio` | Native semantics + group roles | Label text, `CheckboxGroup`/`RadioGroup` for grouping |
+| `Input` | `role`, focus ring, error association via `aria-describedby` | `label` prop, validation message text |
+| `Select` / `ComboBox` | Listbox role, arrow-key navigation, `aria-expanded` | `label` prop, option list |
+| `RadioGroup` / `Radio` | `role="radiogroup"`, arrow-key cycling, `aria-checked` | Group label, individual values |
+| `CheckboxGroup` / `Checkbox` | `role="checkbox"`, `aria-checked`, space-to-toggle | Group label, individual values |
+| `Switch` | `role="switch"`, `aria-checked`, keyboard toggle | `label` prop |
 | `Alert` / `Banner` | `role="alert"` or `role="status"` | Meaningful message text |
 
 ## WCAG 2.2 New Criteria (Quick Summary)
