@@ -7,7 +7,7 @@ description: Build Slack integrations with Replit apps using the Bolt SDK for No
 
 Build Slack integrations for Replit applications using the official Bolt SDK for Node.js. This skill covers the complete Slack platform — from sending simple messages to building interactive bots with slash commands, Block Kit UIs, modals, App Home dashboards, and Workflow Builder custom steps.
 
-**Recommended approach for Replit:** Use HTTP mode with `ExpressReceiver` since Replit provides a stable public URL for your deployment. Socket Mode is available for development but HTTP mode is preferred for production.
+**Recommended approach:** Use Socket Mode as the default. It requires no public URL, no request URL configuration, and works immediately in both development and production. HTTP mode is available when you need to share the Express server with other routes or integrate with external webhooks.
 
 📋 **API Reference**: [reference/api-reference.md](reference/api-reference.md)
 🧱 **Block Kit Guide**: [reference/block-kit.md](reference/block-kit.md)
