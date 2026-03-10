@@ -563,17 +563,17 @@ settings:
     is_enabled: true
     request_url: https://your-app.replit.app/slack/events
   org_deploy_enabled: false
-  socket_mode_enabled: false
+  socket_mode_enabled: true
 ```
 
 ### Deployment Steps
 
 1. Create your Slack app at https://api.slack.com/apps using the manifest above
-2. Replace `your-app.replit.app` with your actual Replit deployment URL
+2. Enable **Socket Mode** in app settings and create an App-Level Token with `connections:write` scope
 3. Install the app to your workspace and copy the Bot Token
-4. Add secrets to Replit: `SLACK_BOT_TOKEN`, `SLACK_SIGNING_SECRET`
+4. Add secrets to Replit: `SLACK_BOT_TOKEN`, `SLACK_APP_TOKEN`
 5. Deploy via Replit's publish feature (Reserved VM recommended for always-on bots)
-6. Update the Request URLs in Slack app settings to match your deployed URL
+6. No request URL configuration needed — Socket Mode connects automatically
 
 ### Important Replit Considerations
 
