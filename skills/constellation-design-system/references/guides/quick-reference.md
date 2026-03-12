@@ -102,13 +102,58 @@ For tables, dense cards, and sidebar content. **Tables default to `appearance="h
 
 Table `appearance` options: `horizontal` (default for professional), `grid` (bordered cells), `bare` (no lines), `zebra` (alternating rows).
 
-## Text Component Display Behavior
+## Layout Stacking Rules
+
+### Flex defaults to ROW — not column
+
+`<Flex>` from `@/styled-system/jsx` defaults to `flexDirection: "row"` (CSS default). If you want vertical stacking, you MUST specify `direction="column"`. Forgetting this is the #1 cause of content appearing side-by-side instead of stacked.
+
+**Use the right component for the job:**
+
+| Intent | Use | NOT |
+|--------|-----|-----|
+| Stack content vertically | `<Flex direction="column">` or `<VStack>` or `<Stack>` | `<Flex>` (defaults to row) |
+| Lay out content horizontally | `<Flex>` or `<HStack>` | `<Flex direction="row">` (works but verbose) |
+
+`VStack`, `HStack`, and `Stack` are available from `@/styled-system/jsx` and have safe defaults:
+- `VStack` → `flexDirection: "column"`, `gap: "8px"`, `alignItems: "center"`
+- `HStack` → `flexDirection: "row"`, `gap: "8px"`, `alignItems: "center"`
+- `Stack` → `flexDirection: "column"`, `gap: "8px"` (no alignItems default)
+
+### Text is inline by default
 
 Constellation's `Text` component renders as an inline `<span>` by default. When you place two `Text` elements as siblings, they will run together on the same line instead of stacking vertically.
 
-To stack `Text` elements vertically, either add `css={{ display: "block" }}` to each `Text`, or wrap them in a `Flex direction="column"` or `Box` container.
-
 `Heading` renders as a block-level element and does not have this issue.
+
+**WRONG — text runs together:**
+```tsx
+<Text>Google Drive Connected</Text>
+<Text>Folder ID: abc123</Text>
+{/* Renders: "Google Drive ConnectedFolder ID: abc123" */}
+```
+
+**CORRECT — use a vertical flex container:**
+```tsx
+<Flex direction="column" gap="200">
+  <Text>Google Drive Connected</Text>
+  <Text>Folder ID: abc123</Text>
+</Flex>
+```
+
+**Also correct — use VStack:**
+```tsx
+<VStack gap="200" align="flex-start">
+  <Text>Google Drive Connected</Text>
+  <Text>Folder ID: abc123</Text>
+</VStack>
+```
+
+**Also correct — make Text block-level:**
+```tsx
+<Text css={{ display: "block" }}>Google Drive Connected</Text>
+<Text css={{ display: "block" }}>Folder ID: abc123</Text>
+```
 
 ## Icon Rules
 

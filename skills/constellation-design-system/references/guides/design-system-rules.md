@@ -16,6 +16,11 @@
 11. Heroes → ONLY on homepages, marketing landing pages, and welcome/onboarding screens. Most pages do NOT need a hero.
 12. Color coverage → Max 25% bold color per viewport. NEVER stack colored sections back-to-back. Use illustrations to bring color into the experience.
 13. Colored backgrounds → ONLY teal or purple for colored card/section backgrounds. NEVER navy, light blue, or light/pastel tinted backgrounds.
+14. Native HTML → NEVER use raw <input>, <select>, <textarea>. ALWAYS use Constellation equivalents (Input, Select, Textarea, RadioGroup, etc.)
+15. Custom controls → NEVER hand-build radio/checkbox/toggle with Flex/Box. Constellation's RadioGroup, CheckboxGroup, Switch, ToggleButtonGroup include keyboard nav, ARIA, and focus management
+16. PandaCSS shorthand → ALWAYS use p, px, py, m, mx, mb (NOT padding, marginInline, marginBottom). Raw property names may not resolve spacing tokens
+17. Interactive spacing → NEVER use spacing tokens below "200" (8px) between clickable elements. Tokens "50"/"100" are for text-internal spacing only
+18. bg.canvas → NOT a valid page surface token. ALWAYS use bg.screen.neutral for page backgrounds
 ```
 
 ---
@@ -102,7 +107,7 @@ AFTER EVERY UI BUILD:
 | Page headline (1-2 max) | `Heading textStyle="heading-lg"` | Multiple `Heading` per screen |
 | Section/card titles | `Text textStyle="body-lg-bold"` or `body-bold` | `Heading` for every title |
 | Body text | `Text textStyle="body"` | `p` or `span` |
-| Layout stacking | `Flex direction="column"` | `Box` with margin |
+| Layout stacking | `Flex direction="column"` or `VStack` or `Stack` (from `@/styled-system/jsx`) | Bare `<Flex>` without direction (defaults to row); `Box` with margin |
 | Empty states (Professional) | `IconXxxDuotone` | `IconXxxFilled` |
 | Button with text + icon (sparingly) | `<Button icon={<IconX />} iconPosition="start">` | Flex wrapping icon + text inside Button |
 | Icon-only button | `<IconButton title="Label" tone="neutral" emphasis="bare" size="md" shape="square">` | `<Button icon={<IconX />}>` without text |
@@ -330,6 +335,7 @@ import { Box, Flex, Grid } from '@/styled-system/jsx';
 | ALWAYS | NEVER |
 |--------|-------|
 | `bg.screen.neutral` (white) as default background | Light blue or colored backgrounds |
+| `bg.screen.neutral` for page backgrounds | `bg.canvas` — not a standard surface token |
 | `Blue600` ONLY for buttons/links/actions | Blue headlines (blue = interactive) |
 | Bold colors under 25% of page | Large swaths of bold color |
 
@@ -341,18 +347,21 @@ import { Box, Flex, Grid } from '@/styled-system/jsx';
 | Size tokens: `sm`, `md`, `lg`, `xl` | Custom pixel sizes or inline styles |
 | `css={{ color: 'token.path' }}` for semantic colors | `color="token.path"` (color prop doesn't accept token paths) |
 
-**Icon Color Note:** The Icon `color` prop does NOT accept semantic token paths. Use the `css` prop instead:
+**Text & Icon Color Note:** The `color` prop on `Icon` and `Text` does NOT accept semantic token paths. Use the `css` prop instead:
 
 ```tsx
 // WRONG - color prop doesn't resolve token paths
 <Icon size="md" color="icon.neutral"><IconHeartFilled /></Icon>
+<Text color="text.subtle">Label</Text>
 
 // CORRECT - use css prop for semantic tokens (requires theme injection)
 <Icon size="md" css={{ color: 'icon.neutral' }}><IconHeartFilled /></Icon>
 <Icon size="md" css={{ color: 'text.subtle' }}><IconHeartFilled /></Icon>
+<Text css={{ color: 'text.subtle' }}>Label</Text>
 
 // FALLBACK - use style prop with CSS variables (when theme injection unavailable)
 <Icon size="md" style={{ color: 'var(--color-icon-subtle)' }}><IconHeartFilled /></Icon>
+<Text style={{ color: 'var(--color-text-subtle)' }}>Label</Text>
 ```
 
 ### Button Icons
@@ -449,6 +458,28 @@ header={<Heading level={1} textStyle="heading-lg">Edit listing</Heading>}
 | Solid backgrounds on sticky headers (`bg.screen.neutral`) | Transparent sticky header backgrounds |
 | `<Divider />` below headers | CSS `border` or `borderBottom` |
 | `fluid` prop on `Page.Root` for full-width layouts | Manual `maxWidth` overrides |
+
+### Sidebar Layouts
+
+In sidebar layouts, `Page.Root` wraps the **content pane only** — not the entire viewport. The sidebar sits outside `Page.Root` as a sibling.
+
+```tsx
+// CORRECT — Page.Root wraps only the content pane
+<Flex>
+  <Sidebar />
+  <Page.Root>
+    <Page.Content>...</Page.Content>
+  </Page.Root>
+</Flex>
+
+// WRONG — Page.Root wrapping the entire layout including sidebar
+<Page.Root>
+  <Flex>
+    <Sidebar />
+    <Page.Content>...</Page.Content>
+  </Flex>
+</Page.Root>
+```
 
 ### Logo Sizing (REQUIRED)
 | Context | Size |
@@ -707,6 +738,8 @@ import NotFoundIllustration from '@/assets/illustrations/Lightmode/search-homes.
 | `<IconButton>` without `title` prop | `<IconButton title="Search">` (required for accessibility) |
 | Icons on every button for decoration | Icons in buttons only when they genuinely aid comprehension |
 | `<Button icon={<IconX />}>` without text for icon-only actions | `<IconButton title="Label" tone="neutral" emphasis="bare">` |
+| Bare `<Flex>` for vertical stacking (defaults to row — content appears side-by-side) | `<Flex direction="column">` or `<VStack>` or `<Stack>` |
+| Adjacent `<Text>` siblings without a flex-column wrapper (text runs together inline) | Wrap in `<Flex direction="column">` or `<VStack>`, or add `css={{ display: "block" }}` to each `<Text>` |
 | Modal content as children | `body={<content />}` prop (REQUIRED for proper spacing) |
 | Action buttons inside Modal `body` | Use Modal `footer` with `ButtonGroup` |
 | Raw `Flex` or `Box` in Modal `footer` | `<ButtonGroup aria-label="modal actions">` with `Modal.Close` wrapper for cancel |
@@ -752,7 +785,7 @@ Tag text must always render on a single line. When placing Tags in a flex contai
 ```tsx
 // WRONG — Flex wrapping icon and text inside Button
 <Button>
-  <Flex align="center" gap="100">
+  <Flex align="center" gap="200">
     <Icon size="sm"><IconSortFilled /></Icon>
     <Text>Sort</Text>
   </Flex>
