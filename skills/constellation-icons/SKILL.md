@@ -242,37 +242,15 @@ Use this table to choose the right color token based on what the icon represents
 
 ## Common Patterns
 
-### Status Indicators
-```tsx
-<Icon size="md" css={{ color: 'text.action.success.hero.default' }}><IconCheckmarkCircleFilled /></Icon>
-<Icon size="md" css={{ color: 'text.action.critical.hero.default' }}><IconErrorFilled /></Icon>
-<Icon size="md" css={{ color: 'text.action.focus.hero.default' }}><IconWarningFilled /></Icon>
-<Icon size="md" css={{ color: 'icon.action.hero.default' }}><IconInfoFilled /></Icon>
-```
-
-### Metadata Row
-```tsx
-<Flex align="center" gap="100">
-  <Icon size="sm" css={{ color: 'icon.subtle' }}><IconClockFilled /></Icon>
-  <Text textStyle="body-sm" css={{ color: 'text.subtle' }}>3 days ago</Text>
-</Flex>
-```
-
-### Empty State (Professional)
-```tsx
-<Flex direction="column" align="center" gap="300">
-  <Icon size="xl" css={{ color: 'icon.muted' }}><IconInboxOutline /></Icon>
-  <Text textStyle="body" css={{ color: 'text.subtle' }}>No messages yet</Text>
-</Flex>
-```
-
-### Favorite Toggle
-```tsx
-// Saved
-<Icon size="md" css={{ color: 'text.action.critical.hero.default' }}><IconHeartFilled /></Icon>
-// Not saved
-<Icon size="md" css={{ color: 'icon.subtle' }}><IconHeartOutline /></Icon>
-```
+See [references/patterns-and-examples.md](references/patterns-and-examples.md) for complete code examples covering:
+- Status indicators, metadata rows, empty states, favorite toggles
+- Button icon integration (text + icon, icon-only)
+- Icons inside Tabs
+- Duotone icons for professional apps
+- Common mistakes to avoid
+- Variant selection guide
+- Naming conventions and verification
+- Finding icons by keyword
 
 ## Button Icon Integration
 
