@@ -1,14 +1,14 @@
 ---
 name: transition-to-constellation
-description: Migrate any React frontend to Zillow's Constellation Design System v10.13.0. Includes automated codebase analysis, component migration recipes, side-by-side coexistence strategy, validation scripts, and all v10.13.0 tarballs for offline installation.
+description: Migrate any React frontend to Zillow's Constellation Design System v10.14.0. Includes automated codebase analysis, component migration recipes, side-by-side coexistence strategy, validation scripts, and all v10.14.0 tarballs for offline installation. Use when migrating existing React components to Constellation, planning incremental adoption, or running component migration recipes.
 license: Proprietary
 compatibility: Requires a React 18+ project. Will install @zillow/constellation and @pandacss/dev.
 metadata:
   author: Zillow Group
-  version: "10.13.0"
+  version: "10.14.0"
 ---
 
-# Transition to Constellation (v10.13.0)
+# Transition to Constellation (v10.14.0)
 
 This skill handles **analyzing, migrating, and validating** a React frontend's transition to Zillow's Constellation Design System. It supports migration from Tailwind, shadcn/ui, Material UI, Chakra UI, Ant Design, vanilla CSS, or any combination.
 
@@ -118,18 +118,18 @@ Each recipe shows before/after code for migrating from shadcn, MUI, Chakra, and 
 | `tw2panda` | Convert Tailwind classes → PandaCSS (see [Conversion Guide](references/guides/converting-to-constellation.md)) |
 | `jscodeshift` | AST-based icon/component transforms (see [Conversion Guide](references/guides/converting-to-constellation.md)) |
 
-## Bundled Packages (v10.13.0)
+## Bundled Packages (v10.14.0)
 
 All tarballs are in `packages/` for offline or Replit installation:
 
 | Package | File |
 |---------|------|
-| `@zillow/constellation` | `packages/constellation-10.13.0.tgz` |
-| `@zillow/constellation-icons` | `packages/constellation-icons-10.13.0.tgz` |
-| `@zillow/constellation-tokens` | `packages/constellation-tokens-10.13.0.tgz` |
-| `@zillow/constellation-fonts` | `packages/constellation-fonts-10.13.0.tgz` |
-| `@zillow/constellation-config` | `packages/constellation-config-10.13.0.tgz` |
-| `@zillow/constellation-mcp` | `packages/constellation-mcp-10.13.0.tgz` |
+| `@zillow/constellation` | `packages/constellation-10.14.0.tgz` |
+| `@zillow/constellation-icons` | `packages/constellation-icons-10.14.0.tgz` |
+| `@zillow/constellation-tokens` | `packages/constellation-tokens-10.14.0.tgz` |
+| `@zillow/constellation-fonts` | `packages/constellation-fonts-10.14.0.tgz` |
+| `@zillow/constellation-config` | `packages/constellation-config-10.14.0.tgz` |
+| `@zillow/constellation-mcp` | `packages/constellation-mcp-10.14.0.tgz` |
 | `@zillow/yield-callback` | `packages/yield-callback-1.4.0.tgz` |
 
 ## Key Decisions
