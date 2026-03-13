@@ -79,18 +79,16 @@ const calendar = google.calendar({ version: "v3", auth });
 
 ## Core Workflow
 
-### 1. Create an Event
-
-```bash
-google-calendar-management --action="create-event" \
-  --summary="Team standup" \
-  --start="2025-03-15T10:00:00-08:00" \
-  --end="2025-03-15T10:30:00-08:00" \
-  --time_zone="America/Los_Angeles" \
-  --attendees='["alice@example.com", "bob@example.com"]' \
-  --add_google_meet=true \
-  --send_updates="all"
-```
+See [references/core-workflow.md](references/core-workflow.md) for complete code examples covering:
+- Creating events (with attendees, Google Meet, recurrence, reminders, colors)
+- Listing and searching events (date ranges, queries, pagination)
+- Updating events (full and partial updates)
+- Deleting events and managing cancellations
+- Recurring event management (RRULE patterns, exceptions)
+- Free/busy queries and availability checks
+- Calendar management (create, list, update, delete calendars)
+- Access control and calendar sharing
+- Special event types (out-of-office, focus time, working location)
 
 ```python
 def create_event(service, summary, start, end, time_zone="America/Los_Angeles",
