@@ -43,7 +43,7 @@ description: Complete reference for Zillow's Constellation icon library (621 ico
 
 | Stat | Value |
 |---|---|
-| Package | `@zillow/constellation-icons` v10.13.0 |
+| Package | `@zillow/constellation-icons` v10.14.0 |
 | Total icons | 621 |
 | Filled variants | 302 |
 | Outline variants | 302 |

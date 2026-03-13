@@ -1,6 +1,6 @@
 # Constellation Icon Catalog
 
-**Package:** `@zillow/constellation-icons` v10.13.0
+**Package:** `@zillow/constellation-icons` v10.14.0
 **Total Icons:** 621 (302 Filled + 302 Outline + 17 Special)
 
 ## Quick Import
