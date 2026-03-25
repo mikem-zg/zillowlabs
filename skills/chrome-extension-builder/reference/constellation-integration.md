@@ -476,7 +476,7 @@ Extension pages (popup, side panel, options) can use the full Constellation comp
 import {
   Button, Card, Text, Heading, Input, Tabs, Icon, IconButton,
   Divider, Select, Checkbox, Radio, Tag, Modal, Accordion,
-  ToggleButtonGroup, ToggleButton, SegmentedControl, ZillowLogo,
+  ToggleButtonGroup, ToggleButton, ZillowLogo,
 } from '@zillow/constellation';
 
 // Icons — ALWAYS use Filled variants
