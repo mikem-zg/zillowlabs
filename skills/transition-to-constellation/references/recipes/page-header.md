@@ -4,7 +4,7 @@
 
 ```tsx
 import { Page, ZillowLogo, Divider, Text, Button } from '@zillow/constellation';
-import { IconSearchFilled, IconNotificationFilled, IconPersonFilled, IconMenuFilled } from '@zillow/constellation-icons';
+import { IconSearchFilled, IconNotificationFilled, IconUserFilled, IconMenuFilled } from '@zillow/constellation-icons';
 import { Flex } from '@/styled-system/jsx';
 ```
 
@@ -125,7 +125,7 @@ import { HamburgerIcon, SearchIcon, BellIcon } from '@chakra-ui/icons';
 
 ```tsx
 import { Page, ZillowLogo, Divider, Text, Button, Icon, IconButton } from '@zillow/constellation';
-import { IconSearchFilled, IconNotificationFilled, IconPersonFilled } from '@zillow/constellation-icons';
+import { IconSearchFilled, IconNotificationFilled, IconUserFilled } from '@zillow/constellation-icons';
 import { Flex } from '@/styled-system/jsx';
 
 <Page.Root>
@@ -147,7 +147,7 @@ import { Flex } from '@/styled-system/jsx';
           <IconNotificationFilled />
         </IconButton>
         <IconButton tone="neutral" emphasis="secondary" size="md" aria-label="Account">
-          <IconPersonFilled />
+          <IconUserFilled />
         </IconButton>
       </Flex>
     </Flex>
@@ -224,7 +224,7 @@ import { Flex } from '@/styled-system/jsx';
           aria-label="Account"
           css={{ display: { base: 'none', md: 'inline-flex' } }}
         >
-          <IconPersonFilled />
+          <IconUserFilled />
         </IconButton>
         <IconButton
           tone="neutral"
@@ -326,7 +326,7 @@ import { Flex } from '@/styled-system/jsx';
       <Flex align="center" gap="300">
         <Button tone="brand" emphasis="filled" size="md">New listing</Button>
         <IconButton tone="neutral" emphasis="secondary" size="md" aria-label="Account">
-          <IconPersonFilled />
+          <IconUserFilled />
         </IconButton>
       </Flex>
     </Flex>
@@ -348,7 +348,7 @@ import { Flex } from '@/styled-system/jsx';
         <ZillowLogo css={{ height: '24px', width: 'auto' }} />
         <Flex align="center" gap="200">
           <IconButton tone="neutral" emphasis="secondary" size="md" aria-label="Account">
-            <IconPersonFilled />
+            <IconUserFilled />
           </IconButton>
         </Flex>
       </Flex>
@@ -399,7 +399,7 @@ import { Flex } from '@/styled-system/jsx';
         <Input placeholder="Search address, city, or ZIP" size="md" />
       </Flex>
       <IconButton tone="neutral" emphasis="secondary" size="md" aria-label="Account">
-        <IconPersonFilled />
+        <IconUserFilled />
       </IconButton>
     </Flex>
   </Page.Header>

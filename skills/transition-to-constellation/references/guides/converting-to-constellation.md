@@ -59,14 +59,14 @@ cp .agents/skills/transition-to-constellation/packages/*.tgz ./
 ```json
 {
   "dependencies": {
-    "@zillow/constellation": "file:constellation-10.13.0.tgz",
-    "@zillow/constellation-fonts": "file:constellation-fonts-10.13.0.tgz",
-    "@zillow/constellation-icons": "file:constellation-icons-10.13.0.tgz",
-    "@zillow/constellation-tokens": "file:constellation-tokens-10.13.0.tgz",
+    "@zillow/constellation": "file:constellation-10.14.0.tgz",
+    "@zillow/constellation-fonts": "file:constellation-fonts-10.14.0.tgz",
+    "@zillow/constellation-icons": "file:constellation-icons-10.14.0.tgz",
+    "@zillow/constellation-tokens": "file:constellation-tokens-10.14.0.tgz",
     "@zillow/yield-callback": "file:yield-callback-1.4.0.tgz"
   },
   "devDependencies": {
-    "@zillow/constellation-config": "file:constellation-config-10.13.0.tgz"
+    "@zillow/constellation-config": "file:constellation-config-10.14.0.tgz"
   }
 }
 ```
@@ -350,7 +350,7 @@ import { LabeledInput } from '@zillow/constellation';
 import { Heart, Search, Home } from 'lucide-react';
 
 // AFTER (always Filled by default)
-import { IconHeartFilled, IconSearchFilled, IconHomeFilled } from '@zillow/constellation-icons';
+import { IconHeartFilled, IconSearchFilled, IconHouseFilled } from '@zillow/constellation-icons';
 import { Icon } from '@zillow/constellation';
 <Icon size="md"><IconHeartFilled /></Icon>
 ```
@@ -514,9 +514,9 @@ export default function transformer(file, api) {
   const iconMap = {
     Heart: 'IconHeartFilled',
     Search: 'IconSearchFilled',
-    Home: 'IconHomeFilled',
+    Home: 'IconHouseFilled',
     Settings: 'IconSettingsFilled',
-    User: 'IconPersonFilled',
+    User: 'IconUserFilled',
     X: 'IconCloseFilled',
     Menu: 'IconMenuFilled',
     ArrowLeft: 'IconArrowLeftFilled',
@@ -656,10 +656,10 @@ When replacing icons from other libraries, find the Constellation equivalent:
 | Common Icon Name | Constellation (Filled) |
 |-----------------|----------------------|
 | Search | `IconSearchFilled` |
-| Home | `IconHomeFilled` |
+| Home | `IconHouseFilled` |
 | Heart / Favorite | `IconHeartFilled` |
 | Settings / Gear | `IconSettingsFilled` |
-| User / Person | `IconPersonFilled` |
+| User / Person | `IconUserFilled` |
 | Close / X | `IconCloseFilled` |
 | Menu / Hamburger | `IconMenuFilled` |
 | Arrow Left/Right | `IconArrowLeftFilled` / `IconArrowRightFilled` |

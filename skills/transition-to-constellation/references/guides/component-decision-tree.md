@@ -94,7 +94,7 @@ When you need a specific UI pattern, use this guide to find the right Constellat
 | Pattern | Component | Key Props | Notes |
 |---------|-----------|-----------|-------|
 | Single select (e.g., price, beds) | `ToggleButtonGroup` + `ToggleButton` | `value onChange` | For mutually exclusive button-style choices |
-| Segmented control | `SegmentedControl` | `value onChange` | For 2-5 segmented options (Buy/Rent/Sold) |
+| Segmented control | `ToggleButtonGroup` + `ToggleButton` | `value onChange` | For 2-5 segmented options (Buy/Rent/Sold). Note: `SegmentedControl` does NOT exist — use `ToggleButtonGroup`. |
 | Multi-select filterable | `Combobox` | | Preferred for multi-select with search |
 | Multi-select checkboxes | `CheckboxGroup` | | For visible multi-select options |
 | Filter chips | `ChipGroup` + `FilterChip` | | For toggleable filter tags |
@@ -235,7 +235,7 @@ When you need a specific UI pattern, use this guide to find the right Constellat
 → Is it the main page title (only 1-2 per screen)? **Heading**. Everything else: **Text** with a textStyle variant.
 
 **"Should I use Button or ToggleButtonGroup?"**
-→ Does clicking it perform an action (submit, navigate, open)? **Button**. Does it select a value from options? **ToggleButtonGroup** or **SegmentedControl**.
+→ Does clicking it perform an action (submit, navigate, open)? **Button**. Does it select a value from options? **ToggleButtonGroup**.
 
 **"Should I use Box or Flex?"**
 → Need to stack or align children? **Flex**. Just need a generic wrapper? **Box**. Need a grid? **Grid**.

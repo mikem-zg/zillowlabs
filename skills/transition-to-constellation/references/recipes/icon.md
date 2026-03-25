@@ -5,8 +5,8 @@
 ```tsx
 import { Icon } from '@zillow/constellation';
 import {
-  IconHeartFilled, IconSearchFilled, IconHomeFilled, IconSettingsFilled,
-  IconPersonFilled, IconCloseFilled, IconMenuFilled, IconCheckFilled,
+  IconHeartFilled, IconSearchFilled, IconHouseFilled, IconSettingsFilled,
+  IconUserFilled, IconCloseFilled, IconMenuFilled, IconCheckFilled,
   IconEditFilled, IconDeleteFilled, IconFilterFilled, IconShareFilled,
   IconInfoFilled, IconWarningFilled, IconNotificationFilled, IconCalendarFilled,
   IconClockFilled, IconLocationFilled, IconPhoneFilled, IconEmailFilled,
@@ -30,9 +30,9 @@ import {
 |-------------|---------------|
 | `Heart` | `IconHeartFilled` |
 | `Search` | `IconSearchFilled` |
-| `Home` | `IconHomeFilled` |
+| `Home` | `IconHouseFilled` |
 | `Settings` | `IconSettingsFilled` |
-| `User` | `IconPersonFilled` |
+| `User` | `IconUserFilled` |
 | `X` | `IconCloseFilled` |
 | `Menu` | `IconMenuFilled` |
 | `Check` | `IconCheckFilled` |
@@ -78,9 +78,9 @@ import {
 |-----------|---------------|
 | `HeartIcon` | `IconHeartFilled` |
 | `MagnifyingGlassIcon` | `IconSearchFilled` |
-| `HomeIcon` | `IconHomeFilled` |
+| `HomeIcon` | `IconHouseFilled` |
 | `Cog6ToothIcon` / `CogIcon` | `IconSettingsFilled` |
-| `UserIcon` | `IconPersonFilled` |
+| `UserIcon` | `IconUserFilled` |
 | `XMarkIcon` | `IconCloseFilled` |
 | `Bars3Icon` | `IconMenuFilled` |
 | `CheckIcon` | `IconCheckFilled` |
@@ -104,9 +104,9 @@ import {
 |----------|---------------|
 | `Favorite` / `FavoriteBorder` | `IconHeartFilled` |
 | `Search` | `IconSearchFilled` |
-| `Home` | `IconHomeFilled` |
+| `Home` | `IconHouseFilled` |
 | `Settings` | `IconSettingsFilled` |
-| `Person` / `AccountCircle` | `IconPersonFilled` |
+| `Person` / `AccountCircle` | `IconUserFilled` |
 | `Close` | `IconCloseFilled` |
 | `Menu` | `IconMenuFilled` |
 | `Check` / `Done` | `IconCheckFilled` |
@@ -144,9 +144,9 @@ import {
 |-------------|---------------|
 | `FaHeart` / `AiFillHeart` | `IconHeartFilled` |
 | `FaSearch` / `AiOutlineSearch` | `IconSearchFilled` |
-| `FaHome` / `AiFillHome` | `IconHomeFilled` |
+| `FaHome` / `AiFillHome` | `IconHouseFilled` |
 | `FaCog` / `AiFillSetting` | `IconSettingsFilled` |
-| `FaUser` / `AiOutlineUser` | `IconPersonFilled` |
+| `FaUser` / `AiOutlineUser` | `IconUserFilled` |
 | `FaTimes` / `AiOutlineClose` | `IconCloseFilled` |
 | `FaBars` / `AiOutlineMenu` | `IconMenuFilled` |
 | `FaCheck` / `AiOutlineCheck` | `IconCheckFilled` |
@@ -241,11 +241,11 @@ import { FaHeart, FaSearch, FaHome, FaMapMarkerAlt, FaStar, FaBell } from 'react
 
 ```tsx
 import { Icon } from '@zillow/constellation';
-import { IconHeartFilled, IconSearchFilled, IconHomeFilled } from '@zillow/constellation-icons';
+import { IconHeartFilled, IconSearchFilled, IconHouseFilled } from '@zillow/constellation-icons';
 
 <Icon size="md"><IconHeartFilled /></Icon>
 <Icon size="md"><IconSearchFilled /></Icon>
-<Icon size="md"><IconHomeFilled /></Icon>
+<Icon size="md"><IconHouseFilled /></Icon>
 ```
 
 ### Icon with color (use css prop, NOT color prop)
@@ -260,7 +260,7 @@ import { IconHeartFilled, IconSearchFilled, IconHomeFilled } from '@zillow/const
 </Icon>
 
 <Icon size="md" css={{ color: 'icon.neutral' }}>
-  <IconHomeFilled />
+  <IconHouseFilled />
 </Icon>
 
 <Icon size="sm" css={{ color: 'text.subtle' }}>
@@ -327,10 +327,10 @@ import { IconHeartFilled } from '@zillow/constellation-icons';
 
 ```tsx
 // WRONG — bare icon without Icon wrapper
-<IconHomeFilled />
+<IconHouseFilled />
 
 // CORRECT — always wrap in Icon with size
-<Icon size="md"><IconHomeFilled /></Icon>
+<Icon size="md"><IconHouseFilled /></Icon>
 ```
 
 ```tsx
@@ -365,7 +365,7 @@ import { IconHeartFilled } from '@zillow/constellation-icons';
 
 ```tsx
 {/* Default (inherits text color) */}
-<Icon size="md"><IconHomeFilled /></Icon>
+<Icon size="md"><IconHouseFilled /></Icon>
 
 {/* Subtle/muted */}
 <Icon size="md" css={{ color: 'text.subtle' }}><IconInfoFilled /></Icon>

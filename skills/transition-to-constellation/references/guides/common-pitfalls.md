@@ -320,14 +320,14 @@ import { IconSearchFilled } from '@zillow/constellation-icons';
 
 ```tsx
 // WRONG — custom pixel sizes
-<Icon style={{ width: '18px', height: '18px' }}><IconHomeFilled /></Icon>
-<Icon style={{ fontSize: '32px' }}><IconHomeFilled /></Icon>
+<Icon style={{ width: '18px', height: '18px' }}><IconHouseFilled /></Icon>
+<Icon style={{ fontSize: '32px' }}><IconHouseFilled /></Icon>
 
 // CORRECT — use size tokens
-<Icon size="sm"><IconHomeFilled /></Icon>   {/* small */}
-<Icon size="md"><IconHomeFilled /></Icon>   {/* 24px default */}
-<Icon size="lg"><IconHomeFilled /></Icon>   {/* large */}
-<Icon size="xl"><IconHomeFilled /></Icon>   {/* extra large */}
+<Icon size="sm"><IconHouseFilled /></Icon>   {/* small */}
+<Icon size="md"><IconHouseFilled /></Icon>   {/* 24px default */}
+<Icon size="lg"><IconHouseFilled /></Icon>   {/* large */}
+<Icon size="xl"><IconHouseFilled /></Icon>   {/* extra large */}
 ```
 
 **Why:** Custom pixel sizes break visual consistency. The size tokens ensure icons match the spacing and typography scale throughout the app.
@@ -601,7 +601,7 @@ import { Divider } from '@zillow/constellation';
 
 ### 25. Button: using Button for toggle/selection UI
 
-**Rule:** Use ToggleButtonGroup, SegmentedControl, or CheckboxGroup for selection UI — never regular Buttons.
+**Rule:** Use ToggleButtonGroup + ToggleButton or CheckboxGroup for selection UI — never regular Buttons. Note: `SegmentedControl` does NOT exist in Constellation — use `ToggleButtonGroup` instead.
 
 ```tsx
 // WRONG — Buttons for selection
@@ -614,20 +614,14 @@ import { Divider } from '@zillow/constellation';
   </Button>
 </Flex>
 
-// CORRECT — ToggleButtonGroup for single selection
+// CORRECT — ToggleButtonGroup for single selection (including segmented choices)
 <ToggleButtonGroup value={selected} onChange={setSelected}>
   <ToggleButton value="buy">Buy</ToggleButton>
   <ToggleButton value="rent">Rent</ToggleButton>
 </ToggleButtonGroup>
-
-// CORRECT — SegmentedControl for segmented choices
-<SegmentedControl value={selected} onChange={setSelected}>
-  <SegmentedControl.Option value="buy">Buy</SegmentedControl.Option>
-  <SegmentedControl.Option value="rent">Rent</SegmentedControl.Option>
-</SegmentedControl>
 ```
 
-**Why:** Buttons are for actions (submit, navigate). Selection UI needs proper ARIA roles, keyboard navigation, and visual state management that ToggleButtonGroup and SegmentedControl provide out of the box.
+**Why:** Buttons are for actions (submit, navigate). Selection UI needs proper ARIA roles, keyboard navigation, and visual state management that ToggleButtonGroup provides out of the box.
 
 ---
 
