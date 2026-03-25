@@ -1,6 +1,6 @@
 ---
 name: email-parser-development
-description: Email parser development from sample emails to tested parser implementation with production monitoring for FUB lead source integration
+description: Email parser development from sample emails to tested parser implementation with production monitoring for FUB lead source integration Use when building email parsers, processing lead source emails, creating parser implementations from sample emails, or setting up email-based integrations.
 ---
 
 ## Overview
