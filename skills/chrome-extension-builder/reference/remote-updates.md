@@ -296,14 +296,17 @@ chrome.runtime.onStartup.addListener(connectWebSocket);
 chrome.runtime.onInstalled.addListener(connectWebSocket);
 ```
 
-**Service Worker Limitation:** WebSocket connections close when the service worker terminates (~30s idle). Use `chrome.alarms` to periodically wake the worker and reconnect:
+**Service Worker Limitation:** MV3 service workers terminate after ~30 seconds of idle time. WebSocket connections will close when the worker terminates. You **cannot** keep a service worker alive indefinitely — this is by design.
+
+Use `chrome.alarms` to periodically reconnect (minimum interval is 1 minute):
 
 ```typescript
-// Keep-alive strategy
-chrome.alarms.create('ws-keepalive', { periodInMinutes: 0.5 }); // every 30 seconds
+// Periodic reconnect strategy (NOT keep-alive — the worker WILL terminate between alarms)
+chrome.alarms.create('ws-reconnect', { periodInMinutes: 1 }); // minimum allowed interval
 
 chrome.alarms.onAlarm.addListener((alarm) => {
-  if (alarm.name === 'ws-keepalive') {
+  if (alarm.name === 'ws-reconnect') {
+    // Worker just woke up — reconnect if needed
     if (!ws || ws.readyState !== WebSocket.OPEN) {
       connectWebSocket();
     }

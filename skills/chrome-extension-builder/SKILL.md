@@ -1,6 +1,6 @@
 ---
 name: chrome-extension-builder
-description: Build production-ready Chrome extensions with Manifest V3, React, TypeScript, Vite, and Zillow's Constellation design system. Covers complete architecture (service workers, content scripts, popup, side panel, options, DevTools), all major Chrome APIs, Shadow DOM style isolation, Constellation font/token/component integration, testing, Chrome Web Store publishing, and cross-browser compatibility.
+description: Build production-ready Chrome extensions with Manifest V3, React, TypeScript, Vite, and Zillow's Constellation design system. Covers complete architecture (service workers, content scripts, popup, side panel, options, DevTools), all major Chrome APIs, Shadow DOM style isolation, Constellation font/token/component integration, testing, Chrome Web Store publishing, and cross-browser compatibility. Use when building a Chrome extension, creating browser plugins, setting up Manifest V3 projects, or integrating Constellation into extension UI.
 license: MIT
 compatibility: Chrome 114+, Manifest V3, React 18+, TypeScript, Vite
 metadata:
@@ -288,7 +288,7 @@ Extensions can serve UI from remote servers or receive real-time data pushes wit
 
 | Pattern | When to Use |
 |---------|-------------|
-| **Side Panel remote URL** | Your extension is a companion to a web app — load the web app directly in the side panel |
+| **Side Panel with iframe** | Your extension is a companion to a web app — embed it in a local side panel page via iframe |
 | **Iframe embedding** | Embed auto-updating remote content inside a local popup/options page that retains Chrome API access |
 | **WebSocket/SSE push** | Real-time data updates to locally-rendered UI (dashboards, notifications, live feeds) |
 | **Polling with cache** | Periodic data refresh with offline fallback — simplest reliable pattern |

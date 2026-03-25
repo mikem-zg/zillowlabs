@@ -1,6 +1,6 @@
 # Constellation Design System Integration for Chrome Extensions
 
-This guide covers how to use Zillow's Constellation design system (v10.13.0) inside Chrome extensions — including fonts, design tokens, PandaCSS styling, Shadow DOM isolation, and component usage.
+This guide covers how to use Zillow's Constellation design system (v10.14.0) inside Chrome extensions — including fonts, design tokens, PandaCSS styling, Shadow DOM isolation, and component usage.
 
 ---
 
@@ -466,7 +466,7 @@ Extension pages (popup, side panel, options) can use the full Constellation comp
 | `Modal` | Confirmation dialogs |
 | `Accordion` | Expandable sections |
 | `ToggleButtonGroup` | Single-select options |
-| `SegmentedControl` | View switching |
+| `ToggleButtonGroup` | View switching (segmented choices) |
 | `ZillowLogo` | Branding (24px desktop) |
 
 ### Component Imports
@@ -482,7 +482,7 @@ import {
 // Icons — ALWAYS use Filled variants
 import {
   IconSearchFilled, IconSettingsFilled, IconCloseFilled,
-  IconHomeFilled, IconHeartFilled, IconFilterFilled,
+  IconHouseFilled, IconHeartFilled, IconFilterFilled,
 } from '@zillow/constellation-icons';
 
 // PandaCSS
@@ -495,7 +495,7 @@ import { Box, Flex } from '../styled-system/jsx';
 ```tsx
 import { useState, useEffect } from 'react';
 import { Button, Card, Text, Heading, Icon, IconButton, Divider, Tag, ZillowLogo } from '@zillow/constellation';
-import { IconSettingsFilled, IconCloseFilled, IconHomeFilled } from '@zillow/constellation-icons';
+import { IconSettingsFilled, IconCloseFilled, IconHouseFilled } from '@zillow/constellation-icons';
 import { Flex } from '../styled-system/jsx';
 
 function PopupApp() {
@@ -535,7 +535,7 @@ function PopupApp() {
       <Flex direction="column" gap="300" css={{ p: '400' }}>
         {listings.length === 0 ? (
           <Flex direction="column" gap="200" css={{ alignItems: 'center', py: '600' }}>
-            <Icon size="xl" css={{ color: 'icon.subtle' }}><IconHomeFilled /></Icon>
+            <Icon size="xl" css={{ color: 'icon.subtle' }}><IconHouseFilled /></Icon>
             <Text textStyle="body" css={{ color: 'text.subtle', textAlign: 'center' }}>
               No saved listings yet. Browse Zillow to save properties.
             </Text>
