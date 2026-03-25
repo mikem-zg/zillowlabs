@@ -26,7 +26,7 @@ Map detected UI patterns to the correct Constellation component. Use this when a
 |-----------|------------------------|----------------|--------------|
 | Tab interface | `Tabs.Root` + `Tabs.List` + `Tabs.Tab` + `Tabs.Panel` | `defaultSelected` | Missing `defaultSelected` |
 | Single-select options (price, beds) | `ToggleButtonGroup` + `ToggleButton` | — | `Button` for selection |
-| Segmented choices | `SegmentedControl` | — | `Button` group |
+| Segmented choices | `ToggleButtonGroup` + `ToggleButton` | — | `Button` group |
 | Multi-select | `ComboBox` or `CheckboxGroup` | — | Custom checkboxes |
 | Filter pills | `FilterChip` | — | Custom `Box` with styles |
 
