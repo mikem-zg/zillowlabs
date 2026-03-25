@@ -5,7 +5,7 @@ license: Proprietary
 compatibility: Requires a React project with illustration SVGs in client/src/assets/illustrations/
 metadata:
   author: Zillow Group
-  version: "10.13.0"
+  version: "10.14.0"
 ---
 
 # Constellation Illustrations Library
