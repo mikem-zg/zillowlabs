@@ -14,14 +14,14 @@ One-page cheat sheet for the most critical rules, component selection, and token
 | Content separator | `<Divider />` | CSS `border` |
 | Header edge line | `borderBottom: "default"` + `borderColor: "border.muted"` on the header `Box` | `<Divider />` as child |
 | Single select (price, beds) | `ToggleButtonGroup` + `ToggleButton` | `Button` |
-| Segmented choices | `SegmentedControl` | `Button` group |
+| Segmented choices | `ToggleButtonGroup` + `ToggleButton` | `Button` group |
 | Multi-select | `ComboBox` or `CheckboxGroup` | `Button` |
 | Page headline (1-2 max) | `<Heading textStyle="heading-lg">` (consumer) or `<Heading textStyle="heading-md">` (professional) | Multiple `Heading` |
 | Section title | `<Text textStyle="body-lg-bold">` | `Heading` |
 | Card title | `<Text textStyle="body-bold">` | `Heading` |
 | Body text | `<Text textStyle="body">` | `<p>` / `<span>` |
 | Description/hint | `<Text textStyle="body-sm">` + `color="text.subtle"` | raw text |
-| Labels/badges | `<Tag>` | custom `Box` |
+| Labels/badges | `<Tag>` — sentence case only, never line-wrap | custom `Box` |
 | Icon-only button | `<IconButton title="..." tone="neutral" emphasis="bare">` | `<Button icon={...}>` |
 | Dialog | `<Modal header={} body={} footer={} dividers />` | custom overlay |
 
@@ -169,7 +169,7 @@ Use this table to find the correct icon name for common UI concepts. Many intuit
 
 | Concept | Correct Icon Name | Wrong Guesses (do NOT exist) |
 |---|---|---|
-| Home | `IconHomesFilled` | ~~IconHomeFilled~~ |
+| Home | `IconHomesFilled` | ~~IconHouseFilled~~ |
 | Search | `IconSearchFilled` | — |
 | Heart / Favorite / Save | `IconHeartFilled` | ~~IconFavoriteFilled~~, ~~IconSaveFilled~~ |
 | Close / Dismiss | `IconCloseFilled` | ~~IconXFilled~~, ~~IconCrossFilled~~ |
@@ -208,7 +208,7 @@ Use this table to find the correct icon name for common UI concepts. Many intuit
 | Video | `IconVideoCameraFilled` | ~~IconVideoFilled~~ |
 | Camera | `IconCameraFilled` | — |
 | Microphone | `IconMicrophoneFilled` | ~~IconMicFilled~~ |
-| Document / File | `IconFileFilled` | ~~IconDocumentFilled~~ |
+| Document / File | `IconFileFilled` | ~~IconFileFilled~~ |
 | Folder | `IconFolderFilled` | — |
 | Print | `IconPrintFilled` | — |
 | Lock (closed) | `IconLockClosedFilled` | ~~IconLockFilled~~ |

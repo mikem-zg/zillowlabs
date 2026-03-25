@@ -25,7 +25,7 @@ Q1: What level of the app are you navigating?
 │   │   ├── YES, but content is long/vertical → Accordion
 │   │   └── NO, one section is a child of another → These are separate pages; use Page.Header or VerticalNav for page nav + Page.Breadcrumb for hierarchy trail
 │   └── Q5: Is the user switching a view mode (not navigating content)?
-│       └── YES → SegmentedControl or ToggleButtonGroup (not navigation)
+│       └── YES → ToggleButtonGroup (not navigation)
 │
 ├── Within content (inline links)
 │   └── Anchor for inline text links, TextButton for standalone actions
@@ -134,7 +134,7 @@ import { Box, Flex } from '@/styled-system/jsx';
 - When users need to see **multiple sections simultaneously** (use Accordion or just stack them)
 - For **linear workflows** where order matters (use ProgressStepper instead)
 - When sections are **not related** to each other (they belong as separate pages)
-- For **view mode switching** (use SegmentedControl — see section 9)
+- For **view mode switching** (use ToggleButtonGroup — see section 9)
 
 **Constellation components:**
 - `Tabs.Root` — container (ALWAYS set `defaultSelected`)
@@ -248,14 +248,14 @@ import { Anchor, VerticalNav } from '@zillow/constellation';
 **Code pattern — grouped sidebar with icons:**
 ```tsx
 import { Anchor, Icon, UnstyledButton, VerticalNav } from '@zillow/constellation';
-import { IconHomeFilled, IconPeopleFilled, IconSettingsFilled } from '@zillow/constellation-icons';
+import { IconHouseFilled, IconPeopleFilled, IconSettingsFilled } from '@zillow/constellation-icons';
 
 <VerticalNav.Root background outlined elevated={false} tone="neutral">
   <VerticalNav.Heading level={5} id="main-heading">Main</VerticalNav.Heading>
   <VerticalNav.List aria-labelledby="main-heading">
     <VerticalNav.Item current>
       <Anchor href="/dashboard">
-        <Icon size="md"><IconHomeFilled /></Icon> Dashboard
+        <Icon size="md"><IconHouseFilled /></Icon> Dashboard
       </Anchor>
     </VerticalNav.Item>
     <VerticalNav.Item>
@@ -510,23 +510,22 @@ import { Accordion, Heading, Paragraph } from '@zillow/constellation';
 
 ---
 
-### 9. SegmentedControl & ToggleButtonGroup — View Mode Switching
+### 9. ToggleButtonGroup — View Mode Switching & Segmented Choices
 
 **What it is:** A set of mutually exclusive options that change the **presentation or mode** of content, not the content itself. These are NOT navigation components, but they are frequently confused with Tabs.
 
-**When to use SegmentedControl:**
-- Switching between **view modes** of the same data (e.g., list view vs grid view, map vs satellite)
-- Choosing a **data format** (e.g., monthly vs yearly pricing)
-- The options are **2-4 choices** that change how content is displayed
+**Note:** `SegmentedControl` does NOT exist in Constellation. Use `ToggleButtonGroup` + `ToggleButton` for all segmented choice patterns.
 
 **When to use ToggleButtonGroup:**
+- Switching between **view modes** of the same data (e.g., list view vs grid view, map vs satellite)
+- Choosing a **data format** (e.g., monthly vs yearly pricing)
+- **2-4 segmented choices** that change how content is displayed
 - **Single-select filters** (e.g., price range: $100k / $200k / $300k+)
 - **Category selection** where the choice is binary/exclusive
-- More than 4 options (SegmentedControl is limited)
 
 **Key distinction from Tabs:**
 
-| | Tabs | SegmentedControl / ToggleButtonGroup |
+| | Tabs | ToggleButtonGroup |
 |---|---|---|
 | **Purpose** | Navigate between different content sections | Change how the same content is displayed |
 | **Content change** | Entirely different content per tab | Same content, different presentation |
@@ -534,9 +533,7 @@ import { Accordion, Heading, Paragraph } from '@zillow/constellation';
 | **Example** | Property detail: Overview / Photos / Map | Search results: List view / Grid view |
 
 **NEVER use:**
-- Regular `Button` components for selection or toggle UI — always use `ToggleButtonGroup`, `SegmentedControl`, or `CheckboxGroup`
-
-**Note on SegmentedControl:** `SegmentedControl` is referenced in Constellation design rules as the preferred component for segmented choices, but it does not have a separate component documentation file in this skill. If `SegmentedControl` is not available in your version of `@zillow/constellation`, use `ToggleButtonGroup` as a functionally equivalent alternative.
+- Regular `Button` components for selection or toggle UI — always use `ToggleButtonGroup` + `ToggleButton`, or `CheckboxGroup`
 
 **References:** See `custom_instruction/instructions.md` for component selection rules. [ToggleButtonGroup component](../components/ToggleButtonGroup.md)
 
@@ -693,10 +690,10 @@ Each navigation pattern has different responsive behavior:
 |-------|----------------|
 | Use `Box`/`Flex` for page headers | `Page.Header` inside `Page.Root` |
 | `<Divider />` below headers | `borderBottom: "default"` + `borderColor: "border.muted"` on the header `Box` |
-| Regular `Button` for toggle/selection | `ToggleButtonGroup` or `SegmentedControl` |
+| Regular `Button` for toggle/selection | `ToggleButtonGroup` + `ToggleButton` |
 | Tabs for entire app navigation (replacing header) | `Page.Header` or `VerticalNav` |
-| Tabs for view mode switching (list/grid) | `SegmentedControl` |
+| Tabs for view mode switching (list/grid) | `ToggleButtonGroup` |
 | VerticalNav for 3-4 items in a simple consumer app | `Page.Header` with text links |
 | Custom sidebar with `Box` and styled links | `VerticalNav` component |
 | Transparent backgrounds on sticky headers | `bg.screen.neutral` (solid) |
-| Outline icons in navigation | Filled icons (e.g., `IconHomeFilled`) |
+| Outline icons in navigation | Filled icons (e.g., `IconHouseFilled`) |

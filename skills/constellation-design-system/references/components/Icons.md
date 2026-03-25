@@ -18,7 +18,7 @@ import { Icon } from '@zillow/constellation';
 
 // Size tokens: sm (16px), md (24px), lg (32px), xl (44px)
 <Icon size="sm"><IconSearchFilled /></Icon>
-<Icon size="lg"><IconHomeFilled /></Icon>
+<Icon size="lg"><IconHouseFilled /></Icon>
 ```
 
 ## Important Rules

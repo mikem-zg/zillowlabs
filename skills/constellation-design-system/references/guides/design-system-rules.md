@@ -100,7 +100,7 @@ AFTER EVERY UI BUILD:
 | Generic container | `Card tone="neutral"` (add `elevated` or `outlined` as needed) | custom `Box` without Card semantics |
 | Modals/Dialogs | `Modal` with `header`/`footer` props | Custom overlays or `Dialog` |
 | Single-select (price, beds) | `ToggleButtonGroup` + `ToggleButton` | `Button` |
-| Segmented choices | `SegmentedControl` | `Button` group |
+| Segmented choices | `ToggleButtonGroup` + `ToggleButton` | `Button` group |
 | Multi-select options | `ComboBox` (preferred) or `CheckboxGroup` | `Button` or custom checkboxes |
 | Visual separator | `<Divider />` | CSS `border` |
 | Form inputs | `Select`, `ComboBox`, `Checkbox`, `Radio`, `Input` | styled divs |
@@ -316,11 +316,11 @@ import { IconChevronLeftFilled } from '@zillow/constellation-icons';
 import { 
   Button, Card, Text, Heading, Input, Tabs, PropertyCard, ZillowLogo,
   Icon, Divider, Select, Checkbox, Radio, ToggleButtonGroup, ToggleButton,
-  SegmentedControl, CheckboxGroup, Page, Paragraph, TextButton, ButtonGroup
+  CheckboxGroup, Page, Paragraph, TextButton, ButtonGroup
 } from '@zillow/constellation';
 
 // Icons - Always use Filled variants by default
-import { IconHeartFilled, IconSearchFilled, IconHomeFilled } from '@zillow/constellation-icons';
+import { IconHeartFilled, IconSearchFilled, IconHouseFilled } from '@zillow/constellation-icons';
 
 // Styling
 import { css } from '@/styled-system/css';
@@ -717,7 +717,7 @@ import NotFoundIllustration from '@/assets/illustrations/Lightmode/search-homes.
 | NEVER | ALWAYS Instead |
 |-------|----------------|
 | `Box`/`Flex` for page structure (without `Page.Root`) | `Page.Root` > `Page.Content` for structure; `Flex` in sticky `Box` for headers (see header-navigation skill) |
-| `Button` for selection/toggle UI | `ToggleButtonGroup`, `SegmentedControl`, or `CheckboxGroup` |
+| `Button` for selection/toggle UI | `ToggleButtonGroup` + `ToggleButton`, or `CheckboxGroup` |
 | CSS `border` for dividers or container outlines | `<Divider />` for separators; `<Card outlined elevated={false}>` for bordered containers |
 | Custom save buttons on PropertyCard | `PropertyCard.SaveButton` |
 | Light blue backgrounds or custom hex colors | `bg.screen.neutral` (white) or `bg.soft` (light gray) — always use design tokens |
@@ -773,11 +773,27 @@ Tag text must always render on a single line. When placing Tags in a flex contai
   <Tag size="sm" tone="blue">In development</Tag>
 </Flex>
 
-// CORRECT — whiteSpace: 'nowrap' prevents internal text wrapping
+// CORRECT — whiteSpace: 'nowrap' prevents internal text wrapping, sentence case labels
 <Flex align="center" gap="200" css={{ flexWrap: 'wrap' }}>
-  <Tag size="sm" tone="green" css={{ whiteSpace: 'nowrap' }}>Developer Tools</Tag>
+  <Tag size="sm" tone="green" css={{ whiteSpace: 'nowrap' }}>Developer tools</Tag>
   <Tag size="sm" tone="blue" css={{ whiteSpace: 'nowrap' }}>In development</Tag>
 </Flex>
+```
+
+### Tags Must Use Sentence Case
+
+Tag labels must always use sentence case (capitalize only the first word). NEVER use ALL CAPS or Title Case in Tag text.
+
+```tsx
+// WRONG — all caps
+<Tag size="sm" tone="green">DEVELOPER TOOLS</Tag>
+
+// WRONG — title case
+<Tag size="sm" tone="blue">In Development</Tag>
+
+// CORRECT — sentence case
+<Tag size="sm" tone="green">Developer tools</Tag>
+<Tag size="sm" tone="blue">In development</Tag>
 ```
 
 ### Icons in Buttons — Use Built-in Props
