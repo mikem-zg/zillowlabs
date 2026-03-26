@@ -89,6 +89,88 @@ The proxy is publicly accessible but protected by:
 
 ---
 
+## Content Browser SDK (Visual Asset Browser)
+
+The OrangeLogic Content Browser SDK provides a full visual UI for browsing, searching, filtering, and selecting DAM assets — embedded directly in the page. This is the interactive counterpart to the programmatic smart-search API.
+
+### Where it lives
+
+The Content Browser is available at `/dam-browser` on the host proxy:
+
+```
+https://dam-explorer.replit.app/dam-browser
+```
+
+### When to use
+
+| Need | Use |
+|------|-----|
+| **Interactive/visual browsing by humans** — searching, filtering, previewing, and selecting assets in a UI | Content Browser SDK |
+| **Programmatic/agent use** — fetching images by query, populating components, automated workflows | Smart Search API (`POST /api/dam/smart-search`) |
+
+### SDK token endpoint
+
+The proxy exposes an authentication endpoint for the SDK:
+
+```
+GET {DAM_BASE}/api/dam/sdk-token
+```
+
+Returns:
+
+```json
+{
+  "token": "...",
+  "siteUrl": "https://digitallibrary.zillowgroup.com"
+}
+```
+
+Use the `token` in the SDK's `onRequestToken` callback and `siteUrl` as the `baseUrl`.
+
+### How to embed in other apps
+
+Load the SDK assets from OrangeLogic's CDN and configure with the proxy's token endpoint:
+
+```html
+<!-- SDK assets — file names are OrangeDAMContentBrowserSDK (NOT OrangeDAMContentBrowser) -->
+<link rel="stylesheet" href="https://downloads.orangelogic.com/ContentBrowserSDK/v2.2.0/OrangeDAMContentBrowserSDK.min.css" />
+<script src="https://downloads.orangelogic.com/ContentBrowserSDK/v2.2.0/OrangeDAMContentBrowserSDK.min.js"></script>
+```
+
+```tsx
+const DAM_BASE = "https://dam-explorer.replit.app";
+
+const browser = new OrangeDAMContentBrowser({
+  containerId: "dam-browser-container",
+  baseUrl: "https://digitallibrary.zillowgroup.com",
+  onAssetSelected: (asset) => {
+    console.log("Selected asset:", asset);
+  },
+  onRequestToken: async () => {
+    const res = await fetch(`${DAM_BASE}/api/dam/sdk-token`);
+    const data = await res.json();
+    return data.token;
+  },
+});
+```
+
+**Important:** The SDK file names are `OrangeDAMContentBrowserSDK.min.js` and `OrangeDAMContentBrowserSDK.min.css` — do NOT use `OrangeDAMContentBrowser.js` (that file does not exist).
+
+### SDK configuration reference
+
+| Option | Type | Description |
+|--------|------|-------------|
+| `containerId` | string | ID of the DOM element to render the browser into |
+| `baseUrl` | string | DAM instance URL (`https://digitallibrary.zillowgroup.com`) |
+| `onAssetSelected` | function | Callback when user selects an asset |
+| `onRequestToken` | async function | Returns a fresh auth token from the proxy |
+| `persistMode` | boolean | Persist search/filter state across sessions |
+| `displayInfo` | boolean | Show asset info panel |
+| `availableDocTypes` | string[] | Limit visible document types (e.g., `["Image", "Video"]`) |
+| `extraFields` | string[] | Additional metadata fields to include in results |
+
+---
+
 ## RECOMMENDED: Smart Search (use this first)
 
 ### Endpoint: `POST {DAM_BASE}/api/dam/smart-search`
