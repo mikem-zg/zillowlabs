@@ -553,5 +553,6 @@ https://delivery.digitallibrary.zillowgroup.com/public/SZ_Rentals_Lease_Hero_465
 ## Implementation Files
 
 - `server/orangelogic.ts` — API client + proxy routes (on host Replit only)
+- `client/src/pages/dam-browser.tsx` — Content Browser SDK integration page
 - `.agents/skills/orangelogic-dam/SKILL.md` — this file
 - `.agents/skills/orangelogic-dam/references/api-reference.md` — detailed API docs
