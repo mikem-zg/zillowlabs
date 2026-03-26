@@ -12,4 +12,4 @@ Skills are located in the `skills/` directory. Use `skill-registry.json` at the 
 
 Auto-synced from the Skill Explorer app.
 
-Last updated: 2026-03-26T17:55:44.875Z
+Last updated: 2026-03-26T18:01:40.139Z
