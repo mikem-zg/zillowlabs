@@ -1,6 +1,6 @@
 ---
 name: xml-management
-description: Comprehensive XML validation, processing, and transformation workflows for FUB development environments using xmllint, xmlstarlet, and XML processing tools
+description: Comprehensive XML validation, processing, and transformation workflows for FUB development environments using xmllint, xmlstarlet, and XML processing tools Use when validating XML files, transforming XML data, processing XML documents, or working with xmllint and xmlstarlet.
 ---
 
 # XML Management Skill

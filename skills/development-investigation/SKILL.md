@@ -1,6 +1,6 @@
 ---
 name: development-investigation
-description: Systematic development investigation and architecture analysis workflow with evidence-based documentation, code pattern analysis, and structured implementation planning for FUB's Lithium framework development environment
+description: Systematic development investigation and architecture analysis workflow with evidence-based documentation, code pattern analysis, and structured implementation planning for FUB's Lithium framework development environment Use when investigating codebase architecture, analyzing code patterns, planning implementations, or documenting technical findings.
 ---
 
 ## Overview

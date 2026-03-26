@@ -1,6 +1,6 @@
 ---
 name: databricks-analytics
-description: Comprehensive data analytics and SQL operations on FUB's Databricks platform with catalog navigation, query execution, and business intelligence across production, staging, and sandbox environments with 84+ schemas and 534M+ records
+description: Comprehensive data analytics and SQL operations on FUB's Databricks platform with catalog navigation, query execution, and business intelligence across production, staging, and sandbox environments with 84+ schemas and 534M+ records Use when querying Databricks, running SQL analytics, navigating data catalogs, or building business intelligence reports.
 ---
 
 ## Overview

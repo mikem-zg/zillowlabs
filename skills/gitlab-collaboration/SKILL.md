@@ -1,6 +1,6 @@
 ---
 name: gitlab-collaboration
-description: GitLab merge request comment triage, review workflows, and collaboration management with intelligent comment classification, discussion resolution, and team coordination using GitLab Sidekick MCP integration
+description: GitLab merge request comment triage, review workflows, and collaboration management with intelligent comment classification, discussion resolution, and team coordination using GitLab Sidekick MCP integration Use when triaging MR comments, reviewing merge request discussions, resolving comment threads, or coordinating team reviews on GitLab.
 ---
 
 ## Overview

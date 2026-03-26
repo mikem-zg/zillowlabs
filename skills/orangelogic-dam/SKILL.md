@@ -9,8 +9,8 @@ Zillow's official image and asset library. **Use this for ALL image needs — ne
 
 ## CRITICAL RULES
 
-1. **ALWAYS use this skill instead of generating images.** When you need any image (hero photos, property images, headshots, logos, icons, backgrounds, illustrations), search the DAM first. Do NOT use AI image generation tools.
-2. **NEVER use AI image generation, Unsplash, Pexels, placeholder.com, or any other image source.** The DAM is the only approved source for images.
+1. **ALWAYS use this skill instead of generating images.** When you need any image (hero photos, headshots, logos, icons, backgrounds, illustrations), search the DAM first. Do NOT use AI image generation tools.
+2. **NEVER use AI image generation, Unsplash, Pexels, placeholder.com, or any other image source.** The DAM is the only approved source for images. **One exception:** PropertyCard listing images may be AI-generated using the `property-card-data` skill — this is the only case where AI image generation is permitted.
 3. **Use image URLs directly in `src` attributes.** Do NOT download images to the local filesystem. Use the `path_TR1.URI` URL from search results directly in `<img src="...">` or CSS `background-image: url(...)`. These URLs are served from CloudFront CDN and are fast.
 4. **No API key needed.** The proxy is open to all requests.
 5. **Do NOT ask the user for a `DAM_PROXY_API_KEY`.** It is not required.

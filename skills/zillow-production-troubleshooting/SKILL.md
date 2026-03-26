@@ -1,6 +1,6 @@
 ---
 name: zillow-production-troubleshooting
-description: Real-time incident response and critical issue triage for FUB's Zillow integration systems with progressive disclosure focusing on critical issues requiring immediate response
+description: Real-time incident response and critical issue triage for FUB's Zillow integration systems with progressive disclosure focusing on critical issues requiring immediate response Use when responding to production incidents, triaging critical Zillow integration issues, or investigating real-time production failures.
 ---
 
 ## Overview

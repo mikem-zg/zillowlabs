@@ -1,6 +1,6 @@
 ---
 name: support-investigation
-description: Systematic support investigation with scientific methodology, MCP integration, and evidence-based root cause analysis for FUB production, QA, and development environments. Includes comprehensive documentation, cross-skill workflow integration, and quality assurance protocols.
+description: Systematic support investigation with scientific methodology, MCP integration, and evidence-based root cause analysis for FUB production, QA, and development environments. Includes comprehensive documentation, cross-skill workflow integration, and quality assurance protocols. Use when investigating support tickets, performing root cause analysis, triaging production issues, or documenting investigation findings.
 argument-hint: --issue <issue_description> --account_id <fub_account_id> [--environment <dev|qa|prod>] [--scientific_mode <true|advanced>] [--evidence_threshold <strict|standard|preliminary>]
 allowed-tools: Bash, Read, Write, Edit, Glob, Grep, TaskCreate, TaskUpdate, TaskList, TaskGet, ToolSearch, Skill
 ---

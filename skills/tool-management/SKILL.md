@@ -1,6 +1,6 @@
 ---
 name: tool-management
-description: Comprehensive tool validation, availability checking, and fallback orchestration for all tool categories (MCP servers, CLI tools, Skills, Built-in tools) with intelligent alternative suggestions and seamless integration patterns for other Claude Code skills
+description: Comprehensive tool validation, availability checking, and fallback orchestration for all tool categories (MCP servers, CLI tools, Skills, Built-in tools) with intelligent alternative suggestions and seamless integration patterns for other Claude Code skills Use when checking tool availability, validating MCP connections, finding fallback tools, or orchestrating tool selection across different environments.
 ---
 
 ## Examples

@@ -1,6 +1,6 @@
 ---
 name: code-development
-description: Comprehensive coding workflow with safe development practices, quality standards, and verification protocols for feature implementation, bug fixes, and refactoring in FUB's Lithium framework backend and TypeScript frontend development environments
+description: Comprehensive coding workflow with safe development practices, quality standards, and verification protocols for feature implementation, bug fixes, and refactoring in FUB's Lithium framework backend and TypeScript frontend development environments Use when implementing features, fixing bugs, refactoring code, or following safe development practices in FUB codebases.
 ---
 
 ## Overview

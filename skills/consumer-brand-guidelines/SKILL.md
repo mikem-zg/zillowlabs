@@ -200,5 +200,5 @@ Each reference file is split into **Marketing** and **Product** sections where t
 - **Constellation Dark Mode** → `.agents/skills/constellation-dark-mode/` for theme injection, `_dark`/`_light` conditions, dark mode token inversions
 - **OrangeLogic DAM** → `.agents/skills/orangelogic-dam/` for sourcing photography, logos, and brand assets. NEVER use AI generation, stock APIs, or placeholder images — always search the DAM first.
 - **Property Card Data** → `.agents/skills/property-card-data/` for generating realistic listing data with AI-generated home photos (the one exception to the no-AI-images rule)
-- **UX Writing Guide** → `custom_instruction/ux-writing-guide.md` for product copy standards
+- **Constellation Content** → `.agents/skills/constellation-content/` for UX writing guidelines, voice & tone, microcopy patterns, audience-specific content rules, and copy validation checklist
 - **Instructions** → `custom_instruction/instructions.md` for implementation rules and validation workflow

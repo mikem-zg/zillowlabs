@@ -104,6 +104,8 @@ Zillow's March 2025 Brand Guidelines for the **professional audience** (Real Est
 | COMP_P03 | Product | Components | Max heading size: `heading-md`; never use `heading-lg` | None |
 | COMP_P05 | Product | Components | Cards use tighter spacing: `p="300"` (12px) internal padding, `gap="200"` (8px) between card elements. Grid gaps between cards: `gap="300"` (12px). | Consumer cards use `p="400"` (16px) |
 | COMP_P06 | Product | Components | Tabs must always appear on a neutral (`bg.screen.neutral`) background — never on gray or colored surfaces | None |
+| COMP_P07 | Product | Components | Card rules (`tone="neutral"`, one of elevated/outlined) apply to ALL pages including error, 404, empty states, and loading screens. Do not relax Card constraints on utility pages. | None |
+| COMP_P08 | Product | Components | Buttons default to text-only. Do NOT add icons to text buttons unless the icon is essential for comprehension (search, download, external link). NEVER conditionally inject an icon — causes layout shift. Use `IconButton` for icon-only actions. | Marketing hero CTAs may use icons more freely |
 | COMP_P02 | Product | Components | Use `PropertyCard` with `saveButton` and `elevated` for listings | None |
 | PLAT_P01 | Both | Platform | Lifecycle emails = more expressive; operational emails = minimalist | None |
 | PLAT_P02 | Product | Platform | Empty states: spot illustration + clear path forward, consistent across web and native | None |
@@ -146,6 +148,15 @@ Is this a functional UI element (nav, input, CTA)?
     └── No → Is this a pre-interaction state?
         ├── Yes → Outline icon
         └── No → Filled icon (default)
+```
+
+### Button Icon Decision (Professional Product)
+```
+Does the button have text?
+├── YES → Is the icon essential for comprehension (search, filter, download, external link)?
+│   ├── YES → Use Button with icon prop and iconPosition
+│   └── NO → Use text-only Button (no icon)
+└── NO → Use IconButton with title prop for accessibility
 ```
 
 ### Logo Colorway Selection (Professional)

@@ -1,6 +1,6 @@
 ---
 name: responsive-design
-description: "Build responsive, mobile-first interfaces using PandaCSS breakpoint tokens, Constellation component sizing, container queries, fluid typography, and modern CSS techniques. Covers mobile-first strategy, dynamic viewport units, CSS Grid/Flexbox fluid layouts, responsive images, touch targets, Core Web Vitals optimization, WCAG 2.2 mobile accessibility, and React responsive hooks."
+description: "Build responsive, mobile-first interfaces using PandaCSS breakpoint tokens, Constellation component sizing, container queries, fluid typography, and modern CSS techniques. Covers mobile-first strategy, dynamic viewport units, CSS Grid/Flexbox fluid layouts, responsive images, touch targets, Core Web Vitals optimization, WCAG 2.2 mobile accessibility, and React responsive hooks. Use when building responsive layouts, implementing mobile-first designs, setting up breakpoints, or optimizing for different screen sizes with Constellation."
 ---
 
 # Responsive Design
@@ -206,6 +206,10 @@ Minimum 44x44px for all interactive elements (WCAG 2.2 requires 24x24px minimum)
 </Button>
 ```
 
+### Interactive Element Spacing
+
+Beyond the 44×44px minimum target size, maintain at least 8px (token `"200"`) of gap between adjacent interactive elements. This prevents mis-taps on touch devices and ensures clear visual separation. Tokens `"50"` (2px) and `"100"` (4px) should only be used for spacing within a single element (e.g., between icon and label inside a button), never between separate tappable targets.
+
 ## Constellation Component Sizing
 
 | Audience | Button/Input Size | Why |
@@ -248,3 +252,5 @@ Minimum 44x44px for all interactive elements (WCAG 2.2 requires 24x24px minimum)
 | Center long paragraphs | Left-align body text, center only short headlines |
 | Device-specific breakpoints | Content-based breakpoints |
 | Nest many container queries | Strategic placement, prefer `inline-size` |
+| Raw CSS property names (`padding`, `marginBottom`, `marginInline`) in PandaCSS props | Panda shorthands (`p`, `mb`, `mx`) — raw names may not resolve spacing tokens |
+| Spacing tokens below `"200"` between interactive elements | `gap="200"` minimum between buttons, nav items, list rows. `"50"`/`"100"` are for text-internal spacing only |

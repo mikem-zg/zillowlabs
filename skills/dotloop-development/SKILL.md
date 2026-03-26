@@ -1,6 +1,6 @@
 ---
 name: dotloop-development
-description: "Build production-ready dotloop applications for real estate transaction management. Covers the complete dotloop Public API v2 — OAuth 2.0 authorization, Loops (transactions), Loop-It facade, Participants, Documents, Contacts, Templates, Webhooks, and batch pagination. Includes copy-paste project templates for TypeScript and Python with OAuth flows, webhook handling, and Loop-It integration."
+description: "Build production-ready dotloop applications for real estate transaction management. Covers the complete dotloop Public API v2 — OAuth 2.0 authorization, Loops (transactions), Loop-It facade, Participants, Documents, Contacts, Templates, Webhooks, and batch pagination. Includes copy-paste project templates for TypeScript and Python with OAuth flows, webhook handling, and Loop-It integration. Use when building dotloop integrations, working with real estate transaction APIs, setting up Loop-It, or handling dotloop OAuth and webhooks."
 ---
 
 # Dotloop App Development Guide

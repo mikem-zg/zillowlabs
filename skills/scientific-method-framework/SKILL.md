@@ -1,6 +1,6 @@
 ---
 name: scientific-method-framework
-description: A reusable framework that enhances investigation skills with systematic scientific methodology including hypothesis management, evidence evaluation, statistical validation, and controlled experimentation
+description: A reusable framework that enhances investigation skills with systematic scientific methodology including hypothesis management, evidence evaluation, statistical validation, and controlled experimentation Use when conducting systematic investigations, managing hypotheses, evaluating evidence, or applying experimental methodology to debugging.
 ---
 
 ## Overview

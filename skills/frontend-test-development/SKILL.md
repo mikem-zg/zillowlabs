@@ -1,6 +1,6 @@
 ---
 name: frontend-test-development
-description: Develop comprehensive React frontend tests for FUB's SPA application with Jest and React Testing Library
+description: Develop comprehensive React frontend tests for FUB's SPA application with Jest and React Testing Library Use when writing React component tests, creating Jest test suites, setting up React Testing Library, or testing frontend UI behavior.
 ---
 
 ## Overview

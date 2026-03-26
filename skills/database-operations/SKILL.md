@@ -1,6 +1,6 @@
 ---
 name: database-operations
-description: Execute safe database changes and connections for FUB's MySQL/MariaDB infrastructure with transaction management, connection management, testing, performance validation, and mandatory approval processes
+description: Execute safe database changes and connections for FUB's MySQL/MariaDB infrastructure with transaction management, connection management, testing, performance validation, and mandatory approval processes Use when running database queries, managing connections, executing migrations, performing schema changes, or validating database performance.
 ---
 
 ## Overview

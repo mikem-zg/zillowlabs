@@ -1,6 +1,6 @@
 ---
 name: backend-static-analysis
-description: Comprehensive static analysis health assessment for PHP codebases using Psalm, focusing on type safety, error patterns, and code quality metrics in FUB development environment
+description: Comprehensive static analysis health assessment for PHP codebases using Psalm, focusing on type safety, error patterns, and code quality metrics in FUB development environment Use when running static analysis, checking type safety, assessing code quality, or performing Psalm checks on PHP code.
 argument-hint: [target-directory] [--baseline] [--ci-check]
 allowed-tools: Read, Glob, Grep, Bash
 ---

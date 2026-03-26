@@ -1,6 +1,6 @@
 ---
 name: session-management
-description: Comprehensive session efficiency and context management for Claude Code with automatic complexity tracking, proactive guidance, and workflow optimization across all skills and operations
+description: Comprehensive session efficiency and context management for Claude Code with automatic complexity tracking, proactive guidance, and workflow optimization across all skills and operations Use when optimizing session efficiency, tracking task complexity, managing context windows, or improving workflow across long sessions.
 ---
 
 ## Overview

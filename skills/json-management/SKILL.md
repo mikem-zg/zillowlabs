@@ -1,6 +1,6 @@
 ---
 name: json-management
-description: Comprehensive JSON file validation, processing, and manipulation using jq, jsonlint, and JSON Schema tools
+description: Comprehensive JSON file validation, processing, and manipulation using jq, jsonlint, and JSON Schema tools Use when validating JSON files, processing JSON data, transforming JSON structures, or working with JSON Schema.
 ---
 
 ## Overview

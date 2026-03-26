@@ -1,6 +1,6 @@
 ---
 name: gitlab-mr-search
-description: GitLab merge request search, discovery, and retrieval operations with GitLab Sidekick MCP integration and intelligent project detection
+description: GitLab merge request search, discovery, and retrieval operations with GitLab Sidekick MCP integration and intelligent project detection Use when searching for merge requests, finding MRs by author or label, discovering recent MRs, or retrieving MR details from GitLab.
 ---
 
 ## Overview

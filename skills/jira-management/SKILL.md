@@ -1,6 +1,6 @@
 ---
 name: jira-management
-description: Comprehensive Jira issue management including search, retrieval, creation, and updates with Atlassian MCP integration and acli CLI fallback
+description: Comprehensive Jira issue management including search, retrieval, creation, and updates with Atlassian MCP integration and acli CLI fallback Use when searching Jira issues, creating tickets, updating issue status, or managing Jira workflows.
 ---
 
 ## Overview

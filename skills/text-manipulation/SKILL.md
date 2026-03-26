@@ -1,6 +1,6 @@
 ---
 name: text-manipulation
-description: Comprehensive text manipulation and processing skill for pattern matching, string operations, log analysis, and format conversion. Bridges structured data tools and plain text operations with advanced regex, normalization, and batch processing capabilities.
+description: Comprehensive text manipulation and processing skill for pattern matching, string operations, log analysis, and format conversion. Bridges structured data tools and plain text operations with advanced regex, normalization, and batch processing capabilities. Use when processing text files, performing regex operations, analyzing logs, converting text formats, or doing batch string operations.
 argument-hint: [operation] [input] [options]
 allowed-tools: Read, Write, Edit, Bash, Grep, Glob
 ---

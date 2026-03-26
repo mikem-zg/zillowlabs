@@ -1,6 +1,6 @@
 ---
 name: google-slides-generator
-description: Generate professional Google Slides presentations using the Zillow slide deck template. Copy the template, populate slides with content, add new slides, insert images, and follow Zillow branding guidelines via the Google Slides and Drive APIs.
+description: Generate professional Google Slides presentations using the Zillow slide deck template. Copy the template, populate slides with content, add new slides, insert images, and follow Zillow branding guidelines via the Google Slides and Drive APIs. Use when creating presentations, generating slide decks, building Google Slides from content, or following Zillow branding in slides.
 ---
 
 ## Overview

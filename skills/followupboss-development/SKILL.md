@@ -1,6 +1,6 @@
 ---
 name: followupboss-development
-description: "Build production-ready Follow Up Boss applications. Covers the complete FUB REST API (v1), OAuth 2.0 authorization, webhooks, embedded apps, and the Python SDK. Includes copy-paste project templates for TypeScript and Python with authentication, lead submission via Events, People CRUD, webhook handling, and deployment patterns."
+description: "Build production-ready Follow Up Boss applications. Covers the complete FUB REST API (v1), OAuth 2.0 authorization, webhooks, embedded apps, and the Python SDK. Includes copy-paste project templates for TypeScript and Python with authentication, lead submission via Events, People CRUD, webhook handling, and deployment patterns. Use when building Follow Up Boss integrations, working with the FUB API, submitting leads via Events, or setting up FUB OAuth and webhooks."
 ---
 
 # Follow Up Boss App Development Guide

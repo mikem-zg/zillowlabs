@@ -200,7 +200,7 @@ import { SearchIcon, AddIcon, DeleteIcon } from '@chakra-ui/icons';
 - Use `emphasis="secondary"` for secondary actions — NEVER use filled for everything
 - Use `tone="critical"` for destructive actions
 - ALWAYS use Filled icon variants (`IconSearchFilled`, NOT `IconSearchOutline`)
-- NEVER use `Button` for selection/toggle UI — use `ToggleButtonGroup`, `SegmentedControl`, or `CheckboxGroup` instead
+- NEVER use `Button` for selection/toggle UI — use `ToggleButtonGroup` + `ToggleButton`, or `CheckboxGroup` instead. Note: `SegmentedControl` does NOT exist — use `ToggleButtonGroup`.
 
 ---
 

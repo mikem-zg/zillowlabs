@@ -57,14 +57,14 @@ description: Complete reference for Zillow's Constellation icon library (621 ico
 4. **NEVER** use custom pixel sizes or inline styles for sizing
 5. **NEVER** use Outline variants as default (use only for inactive/secondary states)
 6. Professional apps: use Outline icons for empty states and upsells only
-7. **NEVER guess icon names** — ALWAYS verify against the catalog (`reference/icon-catalog.md`) before importing. Many intuitive names do not exist (e.g., `IconHomeFilled` does not exist — use `IconHomesFilled`). If unsure, run the verification command below.
+7. **NEVER guess icon names** — ALWAYS verify against the catalog (`reference/icon-catalog.md`) before importing. Many intuitive names do not exist (e.g., `IconHouseFilled` does not exist — use `IconHomesFilled`). If unsure, run the verification command below.
 
 ## Verify Icon Exists
 
 Before importing any icon, run this to confirm it exists in the package:
 
 ```bash
-node --input-type=module -e "import * as m from '@zillow/constellation-icons'; console.log(m['IconHomeFilled'] ? 'EXISTS' : 'NOT FOUND')"
+node --input-type=module -e "import * as m from '@zillow/constellation-icons'; console.log(m['IconHouseFilled'] ? 'EXISTS' : 'NOT FOUND')"
 ```
 
 Search for valid icon names matching a keyword:
@@ -79,7 +79,7 @@ These icon names look right but **do NOT exist**. Use the correct name instead:
 
 | Wrong Guess (does NOT exist) | Correct Name | Why |
 |---|---|---|
-| `IconHomeFilled` | `IconHomesFilled` | Plural — "Homes" not "Home" |
+| `IconHouseFilled` | `IconHomesFilled` | Plural — "Homes" not "Home" |
 | `IconChatFilled` | `IconMessageFilled` | Named "Message" not "Chat" |
 | `IconTrashFilled` | `IconDeleteFilled` | Named "Delete" not "Trash" |
 | `IconSettingFilled` | `IconSettingsFilled` | Plural — "Settings" not "Setting" |

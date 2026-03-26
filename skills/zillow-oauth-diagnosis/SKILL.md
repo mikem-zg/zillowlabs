@@ -1,6 +1,6 @@
 ---
 name: zillow-oauth-diagnosis
-description: Specialized troubleshooting for Zillow OAuth authentication failures, token validation, and connection status issues in FUB's integration with detailed analysis of FUB-specific OAuth patterns, ZillowTokenService validation, and production incident resolution
+description: Specialized troubleshooting for Zillow OAuth authentication failures, token validation, and connection status issues in FUB's integration with detailed analysis of FUB-specific OAuth patterns, ZillowTokenService validation, and production incident resolution Use when debugging OAuth failures, troubleshooting token validation errors, diagnosing Zillow connection issues, or resolving ZillowTokenService problems.
 ---
 
 ## Overview

@@ -1,6 +1,6 @@
 ---
 name: pdf-processing
-description: Extract, analyze, and process text content from PDF documents using pdftotext. Integrates with text-manipulation for comprehensive document processing workflows.
+description: Extract, analyze, and process text content from PDF documents using pdftotext. Integrates with text-manipulation for comprehensive document processing workflows. Use when extracting text from PDFs, converting PDF files, processing PDF documents, or manipulating PDF content.
 argument-hint: [operation] [pdf-file] [options]
 allowed-tools: Read, Write, Edit, Bash, Grep, Glob
 ---

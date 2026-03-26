@@ -1,6 +1,6 @@
 ---
 name: gitlab-mr-management
-description: GitLab merge request creation, updates, and lifecycle management with automated templates, approval workflows, and merge operations using GitLab Sidekick MCP and glab CLI integration
+description: GitLab merge request creation, updates, and lifecycle management with automated templates, approval workflows, and merge operations using GitLab Sidekick MCP and glab CLI integration Use when creating merge requests, updating MR details, managing approvals, or performing merge operations on GitLab.
 ---
 
 ## Examples

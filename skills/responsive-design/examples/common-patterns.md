@@ -120,7 +120,7 @@ import { useState } from 'react';
 import { css } from '@/styled-system/css';
 import { Box, Flex } from '@/styled-system/jsx';
 import { Button, Page, ZillowLogo, Text, Divider, Icon } from '@zillow/constellation';
-import { IconMenuFilled, IconCloseFilled, IconSearchFilled, IconHomeFilled } from '@zillow/constellation-icons';
+import { IconMenuFilled, IconCloseFilled, IconSearchFilled, IconHouseFilled } from '@zillow/constellation-icons';
 
 interface NavItem {
   label: string;
@@ -785,7 +785,7 @@ import { useState } from 'react';
 import { css } from '@/styled-system/css';
 import { Box, Flex } from '@/styled-system/jsx';
 import { Button, Text, Divider, Icon } from '@zillow/constellation';
-import { IconMenuFilled, IconCloseFilled, IconHomeFilled, IconHeartFilled, IconSearchFilled } from '@zillow/constellation-icons';
+import { IconMenuFilled, IconCloseFilled, IconHouseFilled, IconHeartFilled, IconSearchFilled } from '@zillow/constellation-icons';
 
 interface SidebarItem {
   label: string;
@@ -797,7 +797,7 @@ function ResponsiveSidebarLayout({ children }: { children: React.ReactNode }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const sidebarItems: SidebarItem[] = [
-    { label: 'Home', icon: <IconHomeFilled />, onClick: () => {} },
+    { label: 'Home', icon: <IconHouseFilled />, onClick: () => {} },
     { label: 'Saved', icon: <IconHeartFilled />, onClick: () => {} },
     { label: 'Search', icon: <IconSearchFilled />, onClick: () => {} },
   ];

@@ -1,6 +1,6 @@
 ---
 name: planning-workflow
-description: Comprehensive project planning and task management workflow with proactive scope control, dependency mapping, and accountability tracking for FUB development operations
+description: Comprehensive project planning and task management workflow with proactive scope control, dependency mapping, and accountability tracking for FUB development operations Use when creating project plans, managing task dependencies, tracking deliverables, or coordinating development sprints.
 ---
 
 ## Overview

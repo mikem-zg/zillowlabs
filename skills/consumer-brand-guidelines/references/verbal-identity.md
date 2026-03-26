@@ -72,4 +72,4 @@ Tone changes to reflect the situation, the audience, how they're feeling, and wh
 
 ## Cross-Reference
 
-For product-specific UX writing standards (sentence case, contractions, number formatting, microcopy patterns), see `custom_instruction/ux-writing-guide.md`.
+For product-specific UX writing standards (sentence case, contractions, number formatting, microcopy patterns), see `.agents/skills/constellation-content/SKILL.md`.

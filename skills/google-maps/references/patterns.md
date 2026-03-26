@@ -569,7 +569,7 @@ Constellation CSS variable tokens for colors and spacing, matching the productio
 ```tsx
 import { AdvancedMarker } from '@vis.gl/react-google-maps';
 import { Icon, Tag } from '@zillow/constellation';
-import { IconHomeFilled, IconSparksFilled } from '@zillow/constellation-icons';
+import { IconHouseFilled, IconSparksFilled } from '@zillow/constellation-icons';
 
 type MarkerBadge = 'new' | '3d-tour' | 'showcase';
 
@@ -644,7 +644,7 @@ function PriceMarker({
         }}
       >
         {isMultiUnit && (
-          <Icon size="sm" style={{ color: 'var(--color-white)', flexShrink: 0 }}><IconHomeFilled /></Icon>
+          <Icon size="sm" style={{ color: 'var(--color-white)', flexShrink: 0 }}><IconHouseFilled /></Icon>
         )}
         {isNewConstruction && (
           <Icon size="sm" style={{ color: 'var(--color-white)', flexShrink: 0 }}><IconSparksFilled /></Icon>
@@ -725,7 +725,7 @@ Uses the `PriceMarker` component from the [Zillow Price Marker](#zillow-price-ma
 import { useState } from 'react';
 import { APIProvider, Map, AdvancedMarker, InfoWindow } from '@vis.gl/react-google-maps';
 import { PropertyCard, Tag, Text } from '@zillow/constellation';
-import { IconHomeFilled, IconSparksFilled } from '@zillow/constellation-icons';
+import { IconHouseFilled, IconSparksFilled } from '@zillow/constellation-icons';
 import { Box, Flex } from '@/styled-system/jsx';
 
 type Listing = {

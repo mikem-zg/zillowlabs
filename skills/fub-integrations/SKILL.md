@@ -1,6 +1,6 @@
 ---
 name: fub-integrations
-description: Comprehensive codebase knowledge for Zynaptic Overlords/FUB+ Integrations team including database schema, controllers, services, models, frontend components, and integration patterns for Zillow, ZHL, and external systems
+description: Comprehensive codebase knowledge for Zynaptic Overlords/FUB+ Integrations team including database schema, controllers, services, models, frontend components, and integration patterns for Zillow, ZHL, and external systems Use when working with FUB codebase internals, understanding integration patterns, navigating database schema, or building Zillow/ZHL integration features.
 user-invocable: false
 ---
 

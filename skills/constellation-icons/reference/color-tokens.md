@@ -91,7 +91,7 @@ Icons inherit color from their parent element.
 ### Navigation Icons
 ```tsx
 // Active navigation item
-<Icon size="md" css={{ color: 'icon.action.hero.default' }}><IconHomeFilled /></Icon>
+<Icon size="md" css={{ color: 'icon.action.hero.default' }}><IconHouseFilled /></Icon>
 
 // Inactive navigation item
 <Icon size="md" css={{ color: 'icon.subtle' }}><IconSearchFilled /></Icon>
@@ -173,7 +173,7 @@ Icons inherit color from their parent element.
 ```tsx
 <Icon size="sm"><IconCheckmarkFilled /></Icon>   // 16px
 <Icon size="md"><IconSearchFilled /></Icon>       // 24px - default
-<Icon size="lg"><IconHomeFilled /></Icon>         // 32px
+<Icon size="lg"><IconHouseFilled /></Icon>         // 32px
 <Icon size="xl"><IconInboxFilled /></Icon>        // 44px
 ```
 

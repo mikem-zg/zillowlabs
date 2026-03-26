@@ -5,7 +5,7 @@ description: Build Zillow Search Results Pages (SRP) and any map-based property 
 
 # Zillow Search Results Page (SRP) & Map+Listings Layout
 
-Consumer-facing property search and map-based property discovery pages with sticky navigation, interactive filter dropdowns, Google Maps with custom price markers, and a responsive property listing grid. This skill provides reusable layout patterns for any page that combines a map view with PropertyCards. Built with Constellation v10.11.0 + PandaCSS.
+Consumer-facing property search and map-based property discovery pages with sticky navigation, interactive filter dropdowns, Google Maps with custom price markers, and a responsive property listing grid. This skill provides reusable layout patterns for any page that combines a map view with PropertyCards. Built with Constellation v10.14.0 + PandaCSS.
 
 ## When to Use This Skill
 

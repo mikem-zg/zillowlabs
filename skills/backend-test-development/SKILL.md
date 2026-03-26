@@ -1,6 +1,6 @@
 ---
 name: backend-test-development
-description: Develop comprehensive PHP backend tests for FUB's application infrastructure with coverage analysis using remote execution
+description: Develop comprehensive PHP backend tests for FUB's application infrastructure with coverage analysis using remote execution Use when writing PHP tests, creating unit tests for backend code, setting up test coverage, or building integration tests for FUB services.
 ---
 
 ## Overview

@@ -1,6 +1,6 @@
 ---
 name: mcp-server-management
-description: Comprehensive MCP server management for Claude Code including connection monitoring, automatic restart capabilities, health checks, and fallback mechanisms for handling MCP server failures in FUB development environment
+description: Comprehensive MCP server management for Claude Code including connection monitoring, automatic restart capabilities, health checks, and fallback mechanisms for handling MCP server failures in FUB development environment Use when checking MCP server status, restarting MCP connections, troubleshooting MCP failures, or monitoring MCP server health.
 ---
 
 # MCP Server Management Skill

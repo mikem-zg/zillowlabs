@@ -1,6 +1,6 @@
 ---
 name: development-workflow
-description: Comprehensive development workflow integration providing visibility into planning, delivery, communication, and validation process coordination for optimal development effectiveness
+description: Comprehensive development workflow integration providing visibility into planning, delivery, communication, and validation process coordination for optimal development effectiveness Use when coordinating development processes, tracking delivery status, managing planning workflows, or integrating communication tools.
 ---
 
 ## Overview

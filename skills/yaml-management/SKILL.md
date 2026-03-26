@@ -1,6 +1,6 @@
 ---
 name: yaml-management
-description: Comprehensive YAML file validation, processing, and manipulation using yamllint, yq, and dyff tools
+description: Comprehensive YAML file validation, processing, and manipulation using yamllint, yq, and dyff tools Use when validating YAML files, processing YAML configurations, comparing YAML diffs, or working with yamllint and yq.
 ---
 
 ## Overview

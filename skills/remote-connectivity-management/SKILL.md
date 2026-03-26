@@ -1,6 +1,6 @@
 ---
 name: remote-connectivity-management
-description: Centralized SSH key management and VPN connectivity troubleshooting with intelligent error detection and recovery for FUB development environment
+description: Centralized SSH key management and VPN connectivity troubleshooting with intelligent error detection and recovery for FUB development environment Use when managing SSH keys, troubleshooting VPN connections, resolving connectivity issues, or configuring remote access.
 ---
 
 ## Overview

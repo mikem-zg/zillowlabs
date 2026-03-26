@@ -1,6 +1,6 @@
 ---
 name: serena-mcp
-description: Semantic code navigation and editing using Serena MCP for efficient IDE-like codebase operations with symbol-level precision
+description: Semantic code navigation and editing using Serena MCP for efficient IDE-like codebase operations with symbol-level precision Use when navigating code by symbols, performing semantic code edits, jumping to definitions, or doing precise codebase operations via Serena.
 ---
 
 ## Overview

@@ -1,6 +1,6 @@
 ---
 name: documentation-retrieval
-description: Research library and internal documentation using Context7 MCP (external libraries), Glean MCP (internal documentation), and web searches to provide developers with up-to-date API references, code examples, and conceptual guides across both internal FUB services and external libraries
+description: Research library and internal documentation using Context7 MCP (external libraries), Glean MCP (internal documentation), and web searches to provide developers with up-to-date API references, code examples, and conceptual guides across both internal FUB services and external libraries Use when looking up library documentation, searching internal docs, finding API references, or retrieving code examples from external or internal sources.
 ---
 
 ## Overview

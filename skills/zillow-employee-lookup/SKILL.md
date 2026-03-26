@@ -480,3 +480,7 @@ If both Glean MCP tools and Slack API are unavailable:
 | Use default-size `Tag` when including an icon | Use `size="sm"` with the `icon` prop |
 | Wrap `Tag` in `Flex` with `alignSelf: "flex-start"` in column layouts | Let `Tag` stretch to full width |
 | Use `AssistChip` with `AssistChip.Avatar` for employee actions | Put `Avatar` inside regular `Button` |
+| Cache Slack workspace directory on startup for fast lookups | Call `users.list` on every request |
+| Use `image_192` as default Slack profile photo size | Use `image_24` or `image_512` without reason |
+| Fall back to Slack directory cache when Glean MCP is unavailable | Fail silently with no profile data |
+| Use `/team/{MEMBER_ID}` for Slack profile links from `users.list` | Guess DM channel IDs |

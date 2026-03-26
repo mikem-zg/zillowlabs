@@ -1,6 +1,6 @@
 ---
 name: gitlab-pipeline-monitoring
-description: GitLab CI/CD pipeline monitoring, debugging, and status tracking with comprehensive job analysis, failure investigation, and performance optimization using GitLab Sidekick MCP integration
+description: GitLab CI/CD pipeline monitoring, debugging, and status tracking with comprehensive job analysis, failure investigation, and performance optimization using GitLab Sidekick MCP integration Use when checking pipeline status, debugging CI/CD failures, investigating job logs, or monitoring build performance on GitLab.
 ---
 
 ## Examples

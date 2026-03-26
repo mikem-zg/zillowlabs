@@ -49,7 +49,7 @@ Before running the review, load context from these skills if the project uses th
 - **constellation-design-system** — Load design system rules to check component compliance
 - **accessibility** — Reference WCAG 2.2 AA checklist for accessibility gaps
 - **responsive-design** — Check responsive behavior and mobile patterns
-- **ux-writing-guide** — Reference `custom_instruction/ux-writing-guide.md` for copy standards
+- **constellation-content** — Reference `.agents/skills/constellation-content/SKILL.md` for UX writing, voice & tone, and copy validation rules
 
 ## Core Workflow
 

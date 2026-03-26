@@ -1,6 +1,6 @@
 ---
 name: mutagen-management
-description: Manage Mutagen file synchronization sessions with status monitoring, troubleshooting, and integration with FUB development workflows
+description: Manage Mutagen file synchronization sessions with status monitoring, troubleshooting, and integration with FUB development workflows Use when managing file sync sessions, checking Mutagen status, troubleshooting sync issues, or configuring file synchronization.
 ---
 
 ## Overview

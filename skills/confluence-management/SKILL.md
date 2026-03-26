@@ -1,6 +1,6 @@
 ---
 name: confluence-management
-description: Comprehensive Confluence page management including search, retrieval, creation, updates, and space management with Atlassian MCP integration and browser fallback
+description: Comprehensive Confluence page management including search, retrieval, creation, updates, and space management with Atlassian MCP integration and browser fallback Use when searching Confluence pages, creating or updating wiki content, managing spaces, or retrieving documentation from Confluence.
 ---
 
 ## Overview

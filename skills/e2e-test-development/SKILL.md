@@ -1,6 +1,6 @@
 ---
 name: e2e-test-development
-description: Develop comprehensive end-to-end tests for FUB's web application using Playwright with cross-browser testing and user journey validation
+description: Develop comprehensive end-to-end tests for FUB's web application using Playwright with cross-browser testing and user journey validation Use when writing Playwright tests, creating end-to-end test suites, setting up cross-browser testing, or validating user journeys.
 ---
 
 ## Examples

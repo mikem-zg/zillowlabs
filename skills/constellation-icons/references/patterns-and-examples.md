@@ -91,7 +91,7 @@ When adding icons to tab labels, place the Icon and label text inside a Flex con
   <Tabs.List>
     <Tabs.Tab value="overview">
       <Flex align="center" gap="100">
-        <Icon size="sm"><IconHomeFilled /></Icon>
+        <Icon size="sm"><IconHouseFilled /></Icon>
         Overview
       </Flex>
     </Tabs.Tab>
@@ -225,14 +225,14 @@ The inner icon MUST be wrapped in `<Icon>`. `DuoColorIcon` does NOT have a `size
 
 | Context | Use | Example |
 |---|---|---|
-| Default UI | Filled | `IconHomeFilled` |
+| Default UI | Filled | `IconHouseFilled` |
 | Active/selected state | Filled | `IconHeartFilled` |
 | Inactive/unselected | Outline | `IconHeartOutline` |
 | Empty states (Consumer) | Filled + muted color | `IconInboxFilled` with `icon.muted` |
 | Empty states (Pro) | DuoColorIcon | `<DuoColorIcon tone="trust"><Icon><IconInboxFilled /></Icon></DuoColorIcon>` |
 | Upsells (Pro) | DuoColorIcon | `<DuoColorIcon tone="inspire"><Icon><IconSparkFilled /></Icon></DuoColorIcon>` |
-| Navigation active | Filled | `IconHomeFilled` |
-| Navigation inactive | Filled (subtle color) | `IconHomeFilled` with `icon.subtle` |
+| Navigation active | Filled | `IconHouseFilled` |
+| Navigation inactive | Filled (subtle color) | `IconHouseFilled` with `icon.subtle` |
 | Buttons with text | Filled (no wrapper) | `<Button icon={<IconSearchFilled />}>` |
 | Icon-only buttons | Filled (in IconButton) | `<IconButton title="..."><Icon><IconSearchFilled /></Icon></IconButton>` |
 | Tab labels | Filled (sm size) | `<Icon size="sm"><IconNoteFilled /></Icon>` |

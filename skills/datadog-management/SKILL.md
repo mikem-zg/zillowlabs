@@ -1,6 +1,6 @@
 ---
 name: datadog-management
-description: Comprehensive Datadog observability and monitoring management for FUB environments, including log analysis, metrics monitoring, dashboard creation, and incident investigation using MCP tools
+description: Comprehensive Datadog observability and monitoring management for FUB environments, including log analysis, metrics monitoring, dashboard creation, and incident investigation using MCP tools Use when checking logs in Datadog, monitoring metrics, creating dashboards, investigating incidents, or setting up alerts.
 ---
 
 ## Overview

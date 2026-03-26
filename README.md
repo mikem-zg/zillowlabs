@@ -1,6 +1,6 @@
 # Zillow Labs - Agent Skills
 
-This repository contains 63 Replit Agent skills for Zillow development.
+This repository contains 80 Replit Agent skills for Zillow development.
 
 Skills are located in the `skills/` directory. Use `skill-registry.json` at the root to detect changes.
 
@@ -12,4 +12,4 @@ Skills are located in the `skills/` directory. Use `skill-registry.json` at the 
 
 Auto-synced from the Skill Explorer app.
 
-Last updated: 2026-02-13T22:09:19.446Z
+Last updated: 2026-03-26T17:55:44.875Z

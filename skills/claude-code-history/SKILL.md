@@ -1,6 +1,6 @@
 ---
 name: claude-code-history
-description: Analyze Claude Code session history and usage patterns for optimization, troubleshooting, and performance insights using ~/.claude/ files
+description: Analyze Claude Code session history and usage patterns for optimization, troubleshooting, and performance insights using ~/.claude/ files Use when analyzing session history, reviewing past conversations, checking token usage patterns, or troubleshooting Claude Code performance.
 ---
 
 ## Overview
