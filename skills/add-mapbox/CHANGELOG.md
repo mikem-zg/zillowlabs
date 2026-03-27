@@ -11,3 +11,6 @@
 
 ## 2026-03-27 (v4) | Mike Messenger
 - Fixed remaining any type in SKILL.md Window declaration to use typeof import('mapbox-gl').
+
+## 2026-03-27 (v5) | Mike Messenger
+- Republished with latest content — no functional changes.
