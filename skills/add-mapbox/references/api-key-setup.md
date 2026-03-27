@@ -2,18 +2,27 @@
 
 Step-by-step guide to obtaining a Mapbox access token and configuring it for use in a Replit + Vite project.
 
-## 1. Request an API Key
+## 1. Obtain an API Key
 
-To get a Mapbox access token, reach out to **Mike Messenger** and send him the **app edit URL** (your Replit project URL). He will add the API key directly to your app as a Replit secret.
+**Preferred**: Reach out to **Mike Messenger** and send him your **app edit URL** (your Replit project URL). He will add the Mapbox API key directly to your app as a Replit secret.
+
+**Self-service alternative**: If you need to set up your own token:
+
+1. Go to [mapbox.com](https://www.mapbox.com/) and sign up (free tier includes 50,000 map loads/month)
+2. Copy your access token from [account.mapbox.com](https://account.mapbox.com/) → **Access tokens**
+3. Use the environment-secrets skill to store it:
+   ```
+   requestEnvVar('MAPBOX_ACCESS_TOKEN', 'Your Mapbox public access token from account.mapbox.com')
+   ```
 
 ## 2. Verify the Token Is Available
 
-Once Mike has added the key, confirm it is set as a Replit secret named `MAPBOX_ACCESS_TOKEN`:
+Confirm the secret named `MAPBOX_ACCESS_TOKEN` is set:
 
 ```ts
 const token = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
 if (!token) {
-  console.error('MAPBOX_ACCESS_TOKEN is not configured — reach out to Mike Messenger');
+  console.error('MAPBOX_ACCESS_TOKEN is not configured');
 }
 ```
 
