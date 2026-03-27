@@ -9,7 +9,7 @@ Publish any agent skill to the [Zillow Skill & MCP Library](https://zillowlabs-c
 
 ## How it works
 
-1. You call `POST https://zillowlabs-core.replit.app/api/publish-skill` with the skill content
+1. You call `POST https://zillowlabs-core.replit.app/publish-skill` with the skill content
 2. The library saves it to the database (or updates the existing entry if the name matches)
 3. The skill is automatically pushed to GitHub under `skills/{slug}/`
 4. Downstream consumers (Claude Code marketplace, Replit auto-sync) are notified
@@ -19,7 +19,7 @@ Publish any agent skill to the [Zillow Skill & MCP Library](https://zillowlabs-c
 ## Endpoint
 
 ```
-POST https://zillowlabs-core.replit.app/api/publish-skill
+POST https://zillowlabs-core.replit.app/publish-skill
 Content-Type: application/json
 ```
 
@@ -31,8 +31,13 @@ Content-Type: application/json
 | `description` | string | Yes | Short description of the skill (min 10 chars, max 1000). |
 | `skillMdContent` | string | Yes | Full content of the SKILL.md file (min 20 chars, max 50,000). Include frontmatter if desired. |
 | `tags` | string[] | Yes | Array of 1–5 tags (e.g., `["development", "testing"]`). |
-| `authorName` | string | Yes | Display name of the author (min 2 chars). |
+| `authorName` | string | No | Display name of the author. Falls back to `replOwner` if not provided. |
+| `replOwner` | string | No | Replit username (`REPL_OWNER` env var). Auto-populated on Replit — used as author fallback and for attribution. |
+| `replId` | string | No | Replit project ID (`REPL_ID` env var). Auto-populated on Replit — tracks which project published the skill. |
+| `replSlug` | string | No | Replit project name (`REPL_SLUG` env var). Auto-populated on Replit — shown in GitHub commit messages. |
 | `additionalFiles` | object[] | No | Extra files to include alongside SKILL.md (max 20 files, 2MB total). Each object: `{ name, path, content }`. |
+
+**On Replit, `replOwner`, `replId`, and `replSlug` are set automatically** via environment variables. Agents should read these and include them in the request so skills are properly attributed without asking the user for their name.
 
 ## Response
 
@@ -43,15 +48,14 @@ Content-Type: application/json
   "success": true,
   "action": "created",
   "skill": {
-    "id": "community-42",
+    "id": "abc123-...",
     "name": "my-skill",
+    "slug": "my-skill",
     "description": "...",
-    "category": "community",
     "tags": ["development"],
-    "mainContent": "...",
-    "files": [{ "name": "SKILL.md", "path": "SKILL.md", "content": "..." }],
-    "referenceFiles": [],
-    "authorDisplayName": "Jane Doe",
+    "authorName": "Jane Doe",
+    "version": 1,
+    "files": [{ "name": "SKILL.md", "path": "SKILL.md" }],
     "createdAt": "2026-03-27T05:00:00.000Z",
     "updatedAt": "2026-03-27T05:00:00.000Z"
   }
@@ -76,7 +80,7 @@ Read the local SKILL.md, then POST it to the library:
 SKILL_DIR=".agents/skills/my-skill"
 SKILL_CONTENT=$(cat "$SKILL_DIR/SKILL.md")
 
-curl -s -X POST "https://zillowlabs-core.replit.app/api/publish-skill" \
+curl -s -X POST "https://zillowlabs-core.replit.app/publish-skill" \
   -H "Content-Type: application/json" \
   -d "$(jq -n \
     --arg name "my-skill" \
@@ -98,7 +102,7 @@ curl -s -X POST "https://zillowlabs-core.replit.app/api/publish-skill" \
 If your skill has reference files (e.g., `references/api-guide.md`, `scripts/validate.sh`):
 
 ```bash
-curl -s -X POST "https://zillowlabs-core.replit.app/api/publish-skill" \
+curl -s -X POST "https://zillowlabs-core.replit.app/publish-skill" \
   -H "Content-Type: application/json" \
   -d '{
     "name": "my-skill",
@@ -127,7 +131,7 @@ curl -s -X POST "https://zillowlabs-core.replit.app/api/publish-skill" \
 const SKILL_DIR = ".agents/skills/my-skill";
 const skillContent = fs.readFileSync(path.join(SKILL_DIR, "SKILL.md"), "utf-8");
 
-const res = await fetch("https://zillowlabs-core.replit.app/api/publish-skill", {
+const res = await fetch("https://zillowlabs-core.replit.app/publish-skill", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({
@@ -158,10 +162,10 @@ This makes it safe to re-publish after every change — the library always refle
 
 Once published, your skill is:
 
-1. **Browsable** at `https://zillowlabs-core.replit.app` in the skill catalog
+1. **In the registry** at `https://zillowlabs-core.replit.app` — an admin can enable it for distribution
 2. **On GitHub** at `https://github.com/mikem-zg/zillowlabs/tree/main/skills/{slug}/`
-3. **Installable** via the Claude Code marketplace (`/plugin install {name}@mikep-marketplace`)
-4. **Auto-synced** to any Replit project using the ZillowLabs Core sync client
+3. **Auto-synced** to all connected apps that have the skill enabled (on their next bootstrap)
+4. **Accessible** via the public files API at `https://zillowlabs-core.replit.app/files/skills/{slug}/SKILL.md`
 
 ## Limits
 
