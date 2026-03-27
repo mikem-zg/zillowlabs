@@ -14,7 +14,7 @@ Add interactive Mapbox maps to React applications using vanilla Mapbox GL JS v2.
 
 ## Prerequisites
 
-1. **Mapbox access token** — reach out to **Mike Messenger** with your app edit URL to get one added to your app
+1. **Mapbox access token** — reach out to **Mike Messenger** with your app edit URL, or use `requestEnvVar('MAPBOX_ACCESS_TOKEN')` via the environment-secrets skill
 2. **React 18+** with TypeScript
 3. **Vite** build tool (for `import.meta.env` access)
 4. **`@types/mapbox-gl`** — install as a dev dependency (`npm install --save-dev @types/mapbox-gl`) for TypeScript types since Mapbox GL JS is loaded via script tag
@@ -25,7 +25,11 @@ See [references/api-key-setup.md](references/api-key-setup.md) for step-by-step 
 
 ### 1. Request API key
 
-To get a Mapbox access token, reach out to **Mike Messenger** and send him the **app edit URL** (your Replit project URL). He will add the API key directly to your app as a Replit secret named `MAPBOX_ACCESS_TOKEN`. Then expose it to the client:
+**Preferred**: Reach out to **Mike Messenger** and send him your **app edit URL**. He will add the API key directly to your app as a Replit secret.
+
+**Self-service alternative**: Use the environment-secrets skill to request `MAPBOX_ACCESS_TOKEN` from the user via `requestEnvVar('MAPBOX_ACCESS_TOKEN', '...')`.
+
+Then expose it to the client:
 
 ```ts
 // In your Vite config or .env
