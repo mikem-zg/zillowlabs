@@ -8,3 +8,6 @@
 
 ## 2026-03-27 (v3) | Mike Messenger
 - Added both preferred (Mike Messenger) and self-service (requestEnvVar) API key workflows. Fixed TerritoryMap feature highlighting. Replaced any types with proper mapboxgl types.
+
+## 2026-03-27 (v4) | Mike Messenger
+- Fixed remaining any type in SKILL.md Window declaration to use typeof import('mapbox-gl').
