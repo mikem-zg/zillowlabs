@@ -118,6 +118,8 @@ Content-Type: application/json
 | `tags` | string[] | Yes | Array of 1-5 tags (e.g., `["development", "testing"]`). |
 | `authorName` | string | Yes | Display name of the person publishing (min 2 chars). Must be collected from the user. |
 | `changelogEntry` | string | No | Short description of what changed (max 500 chars). If omitted, defaults to "Skill first published" or "Skill updated". |
+| `enableScope` | string | No | `"all"` to enable for all users globally, `"user"` to enable only for the publisher's apps. Omit to leave unchanged (new skills default to disabled). |
+| `replOwner` | string | No | Replit username (`REPL_OWNER` env var). Required when `enableScope` is `"user"`. |
 | `additionalFiles` | object[] | No | Extra files to include alongside SKILL.md (max 20 files, 2MB total). Each object: `{ name, path, content }`. |
 
 #### Response
@@ -127,6 +129,7 @@ Content-Type: application/json
   "success": true,
   "action": "created",
   "isNewContributor": false,
+  "enabledFor": "all users",
   "skill": {
     "id": "abc123",
     "name": "my-skill",
@@ -136,6 +139,7 @@ Content-Type: application/json
     "authorName": "Alice Smith",
     "contributors": ["Alice Smith"],
     "version": 1,
+    "enabled": true,
     "files": [{ "name": "SKILL.md", "path": "SKILL.md" }, { "name": "CHANGELOG.md", "path": "CHANGELOG.md" }],
     "createdAt": "2026-03-27T05:00:00.000Z",
     "updatedAt": "2026-03-27T05:00:00.000Z"
@@ -145,6 +149,7 @@ Content-Type: application/json
 
 - `action` is `"created"` for new skills or `"updated"` for overwrites
 - `isNewContributor` is `true` when the publisher is being added to the contributors list for the first time
+- `enabledFor` indicates the resulting visibility: `"all users"`, `"{username}'s apps"`, or `"not changed"`
 - A `CHANGELOG.md` is automatically created/appended with the date, version, author, and changelog entry
 
 ### POST /skill-used
