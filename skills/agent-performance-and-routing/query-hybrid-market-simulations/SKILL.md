@@ -1,6 +1,7 @@
 ---
 name: query-hybrid-market-simulations
 description: "`premier_agent.agent_gold.hybrid_market_simulations`"
+author: "Mike Messenger"
 ---
 
 # Query: hybrid_market_simulations

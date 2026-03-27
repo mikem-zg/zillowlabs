@@ -1,6 +1,7 @@
 ---
 name: query-flex-zip-connections-fcst
 description: "`sandbox_pa.revenue_optimization.flex_zip_connections_fcst`"
+author: "Mike Messenger"
 ---
 
 # Query: flex_zip_connections_fcst

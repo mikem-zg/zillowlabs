@@ -1,6 +1,7 @@
 ---
 name: query-partner-metrics-monthly
 description: "`premier_agent.agent_gold.partner_metrics_monthly`"
+author: "Mike Messenger"
 ---
 
 # Query: partner_metrics_monthly

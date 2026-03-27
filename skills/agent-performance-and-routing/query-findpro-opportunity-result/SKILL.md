@@ -3,6 +3,7 @@ name: query-findpro-opportunity-result
 description: Reference for querying connections_platform.findpro.findpro_opportunity_result_v1 — records of which agents were called for each lead (FindPro call-down list execution). Use when analyzing agent call-down results, comparing ranked vs called agents, or debugging connection delivery.
 evolving: true
 last_reviewed: 2026-03-22
+author: "Mike Messenger"
 ---
 
 # Data Table: `connections_platform.findpro.findpro_opportunity_result_v1`

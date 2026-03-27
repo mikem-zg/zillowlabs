@@ -1,6 +1,7 @@
 ---
 name: query-manager-overrides
 description: "`manager_overrides` (local PostgreSQL, accessed via `pg.Pool` with `DATABASE_URL`)"
+author: "Mike Messenger"
 ---
 
 # Query: manager_overrides

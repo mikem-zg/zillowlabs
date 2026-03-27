@@ -3,6 +3,7 @@ name: query-agent-score
 description: Reference for querying premier_agent.agent_silver.agent_score — daily composite agent score used in routing decisions. Use when looking up agent scores, analyzing score distributions, or joining scores with connection data for performance analysis.
 evolving: true
 last_reviewed: 2026-03-22
+author: "Mike Messenger"
 ---
 
 # Data Table: `premier_agent.agent_silver.agent_score`

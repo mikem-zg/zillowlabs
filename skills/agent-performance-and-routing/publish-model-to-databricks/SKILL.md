@@ -1,6 +1,7 @@
 ---
 name: publish-model-to-databricks
 description: "Step-by-step workflow for publishing the LightGBM Hurdle model training pipeline to Databricks as a runnable notebook."
+author: "Mike Messenger"
 ---
 
 # Publish Model to Databricks

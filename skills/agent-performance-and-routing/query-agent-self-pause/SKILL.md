@@ -3,6 +3,7 @@ name: query-agent-self-pause
 description: Reference for querying touring.agentavailability_bronze.agentselfpauseaudit and agentselfpause — agent self-pause event data including pause windows, reasons, and duration calculations. Use when analyzing agent pause behavior, calculating pause percentages, or debugging agent availability.
 evolving: true
 last_reviewed: 2026-03-22
+author: "Mike Messenger"
 ---
 
 # Data Tables: Agent Self-Pause Events

@@ -14,6 +14,7 @@ description: >
   Databricks is the authoritative training environment; local training is for sanity checks only.
 evolving: true
 last_reviewed: 2026-03-24
+author: "Mike Messenger"
 ---
 
 # Training Modes

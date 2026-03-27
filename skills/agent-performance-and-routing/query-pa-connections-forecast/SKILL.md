@@ -1,6 +1,7 @@
 ---
 name: query-pa-connections-forecast
 description: "`hive_metastore.econ.pa_connections_forecast`"
+author: "Mike Messenger"
 ---
 
 # Query: pa_connections_forecast

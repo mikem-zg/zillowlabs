@@ -1,6 +1,7 @@
 ---
 name: query-dim-flex-agents
 description: "`premier_agent.agent_gold.dim_flex_agents`"
+author: "Mike Messenger"
 ---
 
 # Query: dim_flex_agents

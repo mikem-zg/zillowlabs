@@ -4,6 +4,7 @@ description: Reference for the legacy sandbox_pa.agent_ops.agent_zip_predicted_c
 evolving: true
 last_reviewed: 2026-03-21
 status: DEPRECATED
+author: "Mike Messenger"
 ---
 
 # Data Table: `sandbox_pa.agent_ops.agent_zip_predicted_cxns` (DEPRECATED)

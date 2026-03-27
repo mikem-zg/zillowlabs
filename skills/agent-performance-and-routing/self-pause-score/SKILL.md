@@ -3,6 +3,7 @@ name: self-pause-score
 description: Self-pause score methodology, formula, data sources, and bucket tiering for agent pause analysis. Use when building, explaining, or extending the self-pause score component of the Pause Score model.
 evolving: true
 last_reviewed: 2026-03-21
+author: "Mike Messenger"
 ---
 
 # Self-Pause Score Methodology

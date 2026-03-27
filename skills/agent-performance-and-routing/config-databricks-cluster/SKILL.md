@@ -6,6 +6,7 @@ description: >
   creating or modifying cluster configurations for jobs, workflows, or ad-hoc runs.
 evolving: true
 last_reviewed: 2026-03-23
+author: "Mike Messenger"
 ---
 
 # Configuring Databricks Clusters at Zillow

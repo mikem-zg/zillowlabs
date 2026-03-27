@@ -3,6 +3,7 @@ name: query-find-alan-call-summary
 description: Reference for querying premier_agent.connections_gold.find_alan_call_summary — call-level summary for agent connections including live connection status and business line. Use when analyzing FACS connection counts, call outcomes, or agent connection activity.
 evolving: true
 last_reviewed: 2026-03-22
+author: "Mike Messenger"
 ---
 
 # Data Table: `premier_agent.connections_gold.find_alan_call_summary`

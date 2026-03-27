@@ -3,6 +3,7 @@ name: query-agent-performance-ranking
 description: Reference for querying premier_agent.agent_gold.agent_performance_ranking — daily agent performance tier snapshots. Use when looking up agent tiers, team leads, activity status, or historical tier transitions.
 evolving: true
 last_reviewed: 2026-03-21
+author: "Mike Messenger"
 ---
 
 # Data Table: `premier_agent.agent_gold.agent_performance_ranking`

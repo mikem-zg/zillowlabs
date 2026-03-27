@@ -7,6 +7,7 @@ description: >-
   architecture, or code structure of the connection-pacing FastAPI service.
 evolving: true
 source: https://gitlab.zgtools.net/zillow/conductors/services/connection-pacing/-/blob/main/CLAUDE.md
+author: "Mike Messenger"
 ---
 
 # Connection-Pacing Routing Service

@@ -1,6 +1,7 @@
 ---
 name: query-hybrid-market-allocations
 description: "`premier_agent.agent_gold.hybrid_market_allocations_approved`"
+author: "Mike Messenger"
 ---
 
 # Query: hybrid_market_allocations_approved

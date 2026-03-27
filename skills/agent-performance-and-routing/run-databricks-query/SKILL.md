@@ -3,6 +3,7 @@ name: run-databricks-query
 description: Execute ad-hoc Databricks SQL queries directly from the Replit environment. Use when the user asks to "test table access", "run a query", "check if we can access", "query this table", "explore this data", "what does this table look like", "show me a sample", "can we read from", "describe this table", "count rows", "check schema", "pull some data", "test this SQL", "run this against Databricks", or any variation of running/testing/exploring Databricks SQL.
 evolving: true
 last_reviewed: 2026-03-23
+author: "Mike Messenger"
 ---
 
 # Running Ad-Hoc Databricks SQL Queries

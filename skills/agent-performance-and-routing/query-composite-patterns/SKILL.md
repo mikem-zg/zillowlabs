@@ -1,6 +1,7 @@
 ---
 name: query-composite-patterns
 description: "Documents how multiple Databricks/PostgreSQL tables are combined to produce key application outputs. These are the actual query patterns and server..."
+author: "Mike Messenger"
 ---
 
 # Query Composite Patterns

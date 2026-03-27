@@ -3,6 +3,7 @@ name: query-routing-cxn-share
 description: Reference for querying premier_agent.metrics_gold.routing_cxn_share_new_buckets — actual connection share by agent with performance bucket classification. Use when analyzing agent connection counts, delivery rates, or joining with performance data for distribution analysis.
 evolving: true
 last_reviewed: 2026-03-22
+author: "Mike Messenger"
 ---
 
 # Data Table: `premier_agent.metrics_gold.routing_cxn_share_new_buckets`

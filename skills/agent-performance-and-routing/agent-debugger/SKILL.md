@@ -8,6 +8,7 @@ description: >-
   or analyzing agent performance factors.
 evolving: true
 source: https://zg-pa-lab.cloud.databricks.com/editor/notebooks/2186037508178725?o=1721967766797624
+author: ["Mike Messenger", "Brett Tracy"]
 ---
 
 # Agent Debugger

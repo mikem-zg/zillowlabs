@@ -3,6 +3,7 @@ name: system-overview
 description: End-to-end overview of how the Premier Agent connection delivery system works — from ZIP-level forecasts through team targets (BUA), agent targets, day-to-day routing (LPA team ranking per-ZIP → PaceCar v3 agent ranking within-team), and the constraints that cause delivery gaps. Use when needing context on how connections flow, why agents miss targets, or how our prediction model fits into the broader system.
 evolving: true
 last_reviewed: 2026-03-22
+author: "Mike Messenger"
 ---
 
 # How the Connection Delivery System Works

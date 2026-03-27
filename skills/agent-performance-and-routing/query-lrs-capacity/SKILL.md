@@ -3,6 +3,7 @@ name: query-lrs-capacity
 description: Reference for querying agent capacity (PaceCar target) tables. Covers both legacy premier_agent.crm_bronze.lrs_Capacity and the new touring.leadroutingservice_bronze.capacity. Use when looking up agent connection targets or capacity settings.
 evolving: true
 last_reviewed: 2026-03-21
+author: "Mike Messenger"
 ---
 
 # Data Table: Agent Capacity (PaceCar Target)

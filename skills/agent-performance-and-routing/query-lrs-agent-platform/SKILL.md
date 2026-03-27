@@ -3,6 +3,7 @@ name: query-lrs-agent-platform
 description: Reference for querying agent program enrollment tables. Covers both the legacy premier_agent.crm_bronze.lrs_AgentPlatform and the new touring.leadroutingservice_bronze.agentplatform. Use when looking up agent enrollment, program membership, or team composition.
 evolving: true
 last_reviewed: 2026-03-21
+author: "Mike Messenger"
 ---
 
 # Data Table: Agent Program Enrollment (AgentPlatform)

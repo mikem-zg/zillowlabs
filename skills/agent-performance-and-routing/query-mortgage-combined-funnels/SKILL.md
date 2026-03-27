@@ -3,6 +3,7 @@ name: query-mortgage-combined-funnels
 description: Reference for querying mortgage.cross_domain_gold.combined_funnels_pa_zhl — a 534-column lead-level table joining Premier Agent (PA) and Zillow Home Loans (ZHL) funnels. Use when writing SQL against this table, analyzing PA/ZHL conversion funnels, building dashboards on lead data, or needing column meanings, join keys, data quality filters, or known gotchas.
 evolving: true
 last_reviewed: 2026-03-21
+author: "Mike Messenger"
 ---
 
 # Querying `mortgage.cross_domain_gold.combined_funnels_pa_zhl`

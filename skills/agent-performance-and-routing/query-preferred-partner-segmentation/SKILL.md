@@ -1,6 +1,7 @@
 ---
 name: query-preferred-partner-segmentation
 description: "`sandbox_pa.revenue_optimization.preferred_partner_segmentation_v4`"
+author: "Mike Messenger"
 ---
 
 # Query: preferred_partner_segmentation_v4

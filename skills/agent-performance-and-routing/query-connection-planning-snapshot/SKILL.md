@@ -1,6 +1,7 @@
 ---
 name: query-connection-planning-snapshot
 description: "`sandbox_pa.revenue_optimization.preferred_connection_planning_snapshot`"
+author: "Mike Messenger"
 ---
 
 # Query: preferred_connection_planning_snapshot

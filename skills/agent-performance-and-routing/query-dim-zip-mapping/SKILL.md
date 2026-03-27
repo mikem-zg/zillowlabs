@@ -1,6 +1,7 @@
 ---
 name: query-dim-zip-mapping
 description: "`enterprise.conformed_dimension.dim_zip_mapping`"
+author: "Mike Messenger"
 ---
 
 # Query: dim_zip_mapping

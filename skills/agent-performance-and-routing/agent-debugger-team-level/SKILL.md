@@ -8,6 +8,7 @@ description: >-
   a team, or debugging why a team's agents are under/over-served.
 evolving: true
 source: https://zg-pa-lab.cloud.databricks.com/editor/notebooks/2600793814939785?o=1721967766797624
+author: ["Mike Messenger", "Brett Tracy"]
 ---
 
 # Agent Debugger - Team Level

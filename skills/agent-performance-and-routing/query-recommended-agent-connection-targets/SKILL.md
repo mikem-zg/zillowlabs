@@ -3,6 +3,7 @@ name: query-recommended-agent-connection-targets
 description: Reference for querying premier_agent.agent_gold.recommended_agent_connection_targets — daily recommended connection targets per agent. Use when looking up ideal connections, capacity targets, recommendation reasons, or team-level capacity calculations.
 evolving: true
 last_reviewed: 2026-03-22
+author: "Mike Messenger"
 ---
 
 # Data Table: `premier_agent.agent_gold.recommended_agent_connection_targets`

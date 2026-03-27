@@ -3,6 +3,7 @@ name: query-candidate-agent-ranking-history
 description: Reference for querying touring.connectionpacing_bronze.candidateagentrankinghistory — agent ranking positions, scoring factors, and ranking method per lead. Use when debugging agent routing decisions, analyzing ranking distributions, or understanding why an agent was or wasn't selected for a lead.
 evolving: true
 last_reviewed: 2026-03-22
+author: "Mike Messenger"
 ---
 
 # Data Table: `touring.connectionpacing_bronze.candidateagentrankinghistory`

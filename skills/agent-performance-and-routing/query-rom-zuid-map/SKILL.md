@@ -1,6 +1,7 @@
 ---
 name: query-rom-zuid-map
 description: "`sandbox_pa.revenue_optimization.rom_zuid_map`"
+author: "Mike Messenger"
 ---
 
 # Query: rom_zuid_map

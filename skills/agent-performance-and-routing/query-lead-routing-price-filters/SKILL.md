@@ -3,6 +3,7 @@ name: query-lead-routing-price-filters
 description: Reference for querying touring.leadroutingservice_bronze.price — agent price filter rules that define min/max price ranges for lead routing. Use when analyzing agent price preferences, understanding lead eligibility filters, or reconstructing point-in-time price ranges.
 evolving: true
 last_reviewed: 2026-03-22
+author: "Mike Messenger"
 ---
 
 # Data Table: `touring.leadroutingservice_bronze.price`

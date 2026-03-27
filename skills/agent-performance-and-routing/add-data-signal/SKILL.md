@@ -7,6 +7,7 @@ description: >
   Also covers the pruning lifecycle — how features are tested, evaluated, and removed when they don't contribute.
 evolving: true
 last_reviewed: 2026-03-24
+author: "Mike Messenger"
 ---
 
 # Add Data Signal

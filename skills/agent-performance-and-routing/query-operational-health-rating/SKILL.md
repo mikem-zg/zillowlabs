@@ -1,6 +1,7 @@
 ---
 name: query-operational-health-rating
 description: "`sandbox_pa.revenue_optimization.preferred_operational_health_rating_new`"
+author: "Mike Messenger"
 ---
 
 # Query: preferred_operational_health_rating_new
