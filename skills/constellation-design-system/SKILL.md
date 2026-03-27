@@ -6,6 +6,7 @@ compatibility: Requires a React 18+ project with @zillow/constellation and @pand
 metadata:
   author: Zillow Group
   version: "10.14.0"
+author: "Mike Payne"
 ---
 
 # Zillow Constellation Design System (v10.14.0)
