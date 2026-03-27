@@ -18,7 +18,7 @@ import { createContext, useContext, ReactNode } from "react";
 import { useMapbox } from "@/hooks/use-mapbox";
 
 interface MapContextType {
-  map: any;
+  map: mapboxgl.Map | null;
   styleLoaded: boolean;
   selectedFeatureId: string | null;
   isLoading: boolean;
@@ -26,8 +26,8 @@ interface MapContextType {
   initializeMap: (container: HTMLDivElement) => void;
   disposeMap: () => void;
   selectFeature: (id: string | null, layer: string, prop?: string) => void;
-  setupClickHandler: (layer: string, prop: string, cb: (id: string, props: Record<string, any>, lngLat: { lng: number; lat: number }) => void) => void;
-  setupHoverPopup: (layer: string, prop: string, fmt: (props: Record<string, any>) => string) => void;
+  setupClickHandler: (layer: string, prop: string, cb: (id: string, props: Record<string, unknown>, lngLat: { lng: number; lat: number }) => void) => void;
+  setupHoverPopup: (layer: string, prop: string, fmt: (props: Record<string, unknown>) => string) => void;
   fitToBounds: (bounds: { minLng: number; minLat: number; maxLng: number; maxLat: number }, padding?: number) => void;
   searchLocation: (query: string) => Promise<{ success: boolean; message?: string }>;
 }
@@ -130,7 +130,7 @@ A small, self-contained map for embedding in cards or panels. Highlights a set o
 import { useEffect, useRef, useState } from "react";
 
 declare global {
-  interface Window { mapboxgl: any; }
+  interface Window { mapboxgl: typeof import('mapbox-gl'); }
 }
 
 interface TerritoryMapProps {
@@ -156,7 +156,8 @@ export function TerritoryMap({
   height = '12rem',
 }: TerritoryMapProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const mapRef = useRef<any>(null);
+  const mapRef = useRef<mapboxgl.Map | null>(null);
+  const styleLoadedRef = useRef(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -165,7 +166,7 @@ export function TerritoryMap({
 
     const token = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
     if (!token) {
-      setError("Map token not configured");
+      setError("Map token not configured — reach out to Mike Messenger");
       setIsLoading(false);
       return;
     }
@@ -173,10 +174,10 @@ export function TerritoryMap({
     const initMap = () => {
       try {
         window.mapboxgl.accessToken = token;
-        const padding = 0.05;
+        const pad = 0.05;
         const bounds: [[number, number], [number, number]] = [
-          [boundingBox.minLng - padding, boundingBox.minLat - padding],
-          [boundingBox.maxLng + padding, boundingBox.maxLat + padding],
+          [boundingBox.minLng - pad, boundingBox.minLat - pad],
+          [boundingBox.maxLng + pad, boundingBox.maxLat + pad],
         ];
 
         const map = new window.mapboxgl.Map({
@@ -190,36 +191,69 @@ export function TerritoryMap({
         mapRef.current = map;
 
         map.on('style.load', () => {
-          map.addSource('highlight-source', {
-            type: 'geojson',
-            data: { type: 'FeatureCollection', features: [] },
-          });
-          map.addLayer({
-            id: 'highlight-fill',
-            type: 'fill',
-            source: 'highlight-source',
-            paint: {
-              'fill-color': highlightColor,
-              'fill-opacity': 0.4,
-            },
-          });
-          map.addLayer({
-            id: 'highlight-border',
-            type: 'line',
-            source: 'highlight-source',
-            paint: {
-              'line-color': highlightColor,
-              'line-width': 2,
-            },
-          });
+          styleLoadedRef.current = true;
+
+          if (map.getSource(sourceLayer)) {
+            map.addLayer({
+              id: 'highlight-fill',
+              type: 'fill',
+              source: sourceLayer,
+              'source-layer': sourceLayer,
+              filter: ['in', ['get', propertyName], ['literal', featureIds]],
+              paint: {
+                'fill-color': highlightColor,
+                'fill-opacity': 0.4,
+              },
+            });
+            map.addLayer({
+              id: 'highlight-border',
+              type: 'line',
+              source: sourceLayer,
+              'source-layer': sourceLayer,
+              filter: ['in', ['get', propertyName], ['literal', featureIds]],
+              paint: {
+                'line-color': highlightColor,
+                'line-width': 2,
+              },
+            });
+          } else {
+            map.addSource('territory-source', {
+              type: 'vector',
+              url: `mapbox://${sourceLayer}`,
+            });
+            map.addLayer({
+              id: 'highlight-fill',
+              type: 'fill',
+              source: 'territory-source',
+              'source-layer': sourceLayer,
+              filter: ['in', ['get', propertyName], ['literal', featureIds]],
+              paint: {
+                'fill-color': highlightColor,
+                'fill-opacity': 0.4,
+              },
+            });
+            map.addLayer({
+              id: 'highlight-border',
+              type: 'line',
+              source: 'territory-source',
+              'source-layer': sourceLayer,
+              filter: ['in', ['get', propertyName], ['literal', featureIds]],
+              paint: {
+                'line-color': highlightColor,
+                'line-width': 2,
+              },
+            });
+          }
           setIsLoading(false);
         });
 
-        map.on('error', () => {
+        map.on('error', (e: mapboxgl.ErrorEvent) => {
+          console.error('TerritoryMap error:', e.error);
           setError("Failed to load map");
           setIsLoading(false);
         });
-      } catch {
+      } catch (err) {
+        console.error('TerritoryMap init failed:', err);
         setError("Failed to initialize map");
         setIsLoading(false);
       }
@@ -249,6 +283,17 @@ export function TerritoryMap({
       }
     };
   }, []);
+
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !styleLoadedRef.current) return;
+
+    const filter: mapboxgl.FilterSpecification = [
+      'in', ['get', propertyName], ['literal', featureIds],
+    ];
+    if (map.getLayer('highlight-fill')) map.setFilter('highlight-fill', filter);
+    if (map.getLayer('highlight-border')) map.setFilter('highlight-border', filter);
+  }, [featureIds, propertyName]);
 
   useEffect(() => {
     const map = mapRef.current;
