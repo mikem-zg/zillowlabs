@@ -404,26 +404,220 @@ const caption = results.APIResponse.Items[0].CaptionShort;
 
 ---
 
+## Asset Format Codes (TR1–TRX)
+
+When you upload assets, OrangeLogic generates multiple proxy formats at different resolutions. These are identified by format codes used throughout the API — in search result fields (`path_TR1`, `path_TR4`), in the `getlink` API's `Format` parameter, and in CDN URLs.
+
+| Code | Type | Description |
+|------|------|-------------|
+| `TR1` | Image | Medium resolution — typically ~1200×1200px |
+| `TR4` | Image | Small thumbnail — ~352px fixed height |
+| `TR7` | Image | Large thumbnail — ~192px fixed height |
+| `TRX` | Image/Proxy | Original or largest available proxy (source file) |
+| `WebHigh` | Video | Video proxy format |
+
+**Important:** Format specs are instance-specific — Zillow's OrangeLogic instance may use different proxy sizes than the defaults above. The search API returns `path_TR1` by default, which is the medium-resolution proxy suitable for most UI use cases. Request `path_TR4` or `path_TRX` via the `fields` parameter when you need a different size.
+
+```bash
+curl -X POST {DAM_BASE}/api/dam/smart-search \
+  -H "Content-Type: application/json" \
+  -d '{"text":"zillow logo","type":"image","pageSize":1,"fields":"SystemIdentifier,Title,path_TR1,path_TR4,path_TRX"}'
+```
+
+---
+
+## Get Public Link API (Embed & Download Links)
+
+The OrangeLogic `getlink` API generates public CDN-distributed links to individual assets. These links can be configured with specific dimensions, file formats, and expiration dates. **This is the proper way to generate stable, embeddable URLs for production use.**
+
+### Single Asset Link
+
+```
+GET https://{OrangeLogicURL}/webapi/objectmanagement/share/getlink_4HZ_v1
+```
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `Identifier` | string | Yes | The asset's `SystemIdentifier` (e.g., `CTL531031`) |
+| `Format` | string | Yes | Asset format code: `TR1`, `TR4`, `TR7`, `TRX`, `WebHigh` |
+| `MaxWidth` | integer | No | Maximum pixel width of the delivered asset |
+| `MaxHeight` | integer | No | Maximum pixel height of the delivered asset |
+| `FileExtension` | string | No | Output format: `.png`, `.jpg`, `.webp` |
+| `ExpirationDate` | ISO 8601 | No | Link expiry date (e.g., `2026-12-31T23:59:59`) |
+| `CreateDownloadLink` | boolean | No | `true` = download link; `false` = embed/view-only link |
+| `StickToCurrentVersion` | boolean | No | Pin link to the current asset version (`true`/`false`) |
+| `LogViews` | boolean | No | Record a view event when the link is accessed |
+
+```bash
+curl "https://digitallibrary.zillowgroup.com/webapi/objectmanagement/share/getlink_4HZ_v1\
+?Identifier=CTL531031\
+&Format=TR1\
+&MaxWidth=1200\
+&FileExtension=.png\
+&CreateDownloadLink=false\
+&ExpirationDate=2026-12-31T23:59:59" \
+  -H "Authorization: Bearer {token}"
+```
+
+**Via the proxy** (no auth needed):
+
+```bash
+curl "{DAM_BASE}/api/dam/asset/CTL531031/links?format=png&maxWidth=1200"
+```
+
+### When to use `getlink` vs `path_TR1.URI`
+
+| Scenario | Use |
+|----------|-----|
+| Prototyping, quick dev | `path_TR1.URI` from search results (expires in ~24h) |
+| Production embeds | `getlink` API with a far-future `ExpirationDate` |
+| Download buttons | `getlink` with `CreateDownloadLink=true` |
+| Specific dimensions | `getlink` with `MaxWidth`/`MaxHeight` |
+| Format conversion | `getlink` with `FileExtension` (e.g., `.webp`) |
+
+### Batch Public Links (Multiple Assets)
+
+For multiple assets, **always use the batch endpoint** — it is less costly than calling `getlink` repeatedly.
+
+```
+POST https://{OrangeLogicURL}/webapi/objectmanagement/share/getlinks_45W_v1
+```
+
+Request body:
+
+```json
+{
+  "assets": [
+    {
+      "Identifier": "CTL531031",
+      "Format": "TR1",
+      "MaxWidth": 800,
+      "FileExtension": ".jpg",
+      "CreateDownloadLink": false,
+      "ExpirationDate": "2026-12-31T23:59:59"
+    },
+    {
+      "Identifier": "CTL531032",
+      "Format": "TR1",
+      "MaxWidth": 800,
+      "FileExtension": ".jpg",
+      "CreateDownloadLink": false,
+      "ExpirationDate": "2026-12-31T23:59:59"
+    }
+  ]
+}
+```
+
+**Via the proxy** (no auth needed):
+
+```bash
+curl -X POST {DAM_BASE}/api/dam/batch-links \
+  -H "Content-Type: application/json" \
+  -d '{"identifiers":["CTL531031","CTL531032"],"format":"jpg","maxWidth":800}'
+```
+
+---
+
+## Image Transformations
+
+The `getlink` API supports image transformations — resize, crop, and format conversion — delivered through the CDN. Use these when you need responsive image variants, thumbnails, or format-optimized assets.
+
+### Resizing
+
+Set `MaxWidth` and/or `MaxHeight` to constrain the output. The image maintains its aspect ratio by default.
+
+```bash
+curl "{DAM_BASE}/api/dam/asset/CTL531031/links?maxWidth=600&maxHeight=400"
+```
+
+### Format Conversion
+
+Use `FileExtension` to convert between formats:
+
+| Extension | Use For |
+|-----------|---------|
+| `.png` | Logos, icons, transparent backgrounds |
+| `.jpg` | Photos, hero images (smaller file size) |
+| `.webp` | Modern browsers (best compression) |
+
+```bash
+curl "{DAM_BASE}/api/dam/asset/CTL531031/links?format=webp&maxWidth=1200"
+```
+
+### Responsive Images Pattern
+
+Generate multiple sizes for `srcset`:
+
+```tsx
+<img
+  src="/api/dam/asset/CTL531031/links?format=jpg&maxWidth=800"
+  srcSet={`
+    /api/dam/asset/CTL531031/links?format=jpg&maxWidth=400 400w,
+    /api/dam/asset/CTL531031/links?format=jpg&maxWidth=800 800w,
+    /api/dam/asset/CTL531031/links?format=jpg&maxWidth=1200 1200w
+  `}
+  sizes="(max-width: 600px) 400px, (max-width: 1024px) 800px, 1200px"
+  alt="Property exterior"
+/>
+```
+
+---
+
 ## Raw Search (advanced)
 
 ### Endpoint: `GET/POST {DAM_BASE}/api/dam/search`
 
-For power users who need direct OrangeLogic query syntax.
+For power users who need direct OrangeLogic Search API v4 query syntax. **Most agents should use Smart Search instead** — it handles query building automatically.
 
 | Parameter | Description |
 |-----------|-------------|
-| `query` | OrangeLogic query string |
+| `query` | OrangeLogic query string (see syntax below) |
 | `fields` | Comma-separated fields to return |
 | `pagesize` | Results per page |
 | `pagenumber` | Page number |
 | `sort` | Sort field (e.g., `CreateDate desc`) |
 
-### Example
+### Query Syntax
+
+Queries use `criterion:search_term` format. Combine criteria with operators.
+
+| Syntax | Example |
+|--------|---------|
+| Single criterion | `Title:London` |
+| AND (both must match) | `DocType:Image AND Title:London` |
+| OR (either matches) | `Title:London OR Title:Paris` |
+| NOT (exclude) | `DocType:Image AND NOT zil.Brand:Trulia` |
+| Exact phrase | `Title:"Zillow logo primary"` |
+| Multiple criteria | `MediaType:Image AND zil.Brand:Zillow AND zil.Asset-Type:Photography` |
+
+**Rules:**
+- You **must** use operators (`AND`, `OR`, `NOT`) to combine multiple criteria
+- You **cannot** use the `query` parameter multiple times in the same request (wrong: `query=X&query=Y`)
+- Operators must be UPPERCASE
+- Wrap multi-word values in double quotes
+
+### Common Search Criteria
+
+| Criterion | Description | Example |
+|-----------|-------------|---------|
+| `Title` | Asset filename/title | `Title:zillow` |
+| `DocType` / `MediaType` | Asset type | `MediaType:Image` |
+| `keyword` | DAM keyword tags | `keyword:rentals` |
+| `zil.Brand` | Brand filter | `zil.Brand:Zillow` |
+| `zil.Asset-Type` | Content category | `zil.Asset-Type:Photography` |
+| `FileExtension` | File type | `FileExtension:png` |
+| `ParentFolderTitle` | Folder name | `ParentFolderTitle:Logos` |
+
+### Examples
 
 ```bash
 curl -X POST {DAM_BASE}/api/dam/search \
   -H "Content-Type: application/json" \
   -d '{"query":"MediaType:Image AND zil.Brand:Zillow","fields":"SystemIdentifier,Title,path_TR1","pagesize":10}'
+
+curl -X POST {DAM_BASE}/api/dam/search \
+  -H "Content-Type: application/json" \
+  -d '{"query":"MediaType:Image AND zil.Asset-Type:Logos AND zil.Brand:Zillow","fields":"SystemIdentifier,Title,path_TR1,path_TRX","pagesize":20,"sort":"CreateDate desc"}'
 ```
 
 ---
@@ -440,35 +634,33 @@ curl {DAM_BASE}/api/dam/asset/abc123
 
 ---
 
-## Asset Links / Download URLs
+## Upload API
 
-### Endpoint: `GET {DAM_BASE}/api/dam/asset/:identifier/links`
+OrangeLogic provides several upload methods depending on file size and source location.
 
-Get download/delivery URLs for a specific asset in various formats and sizes.
+### Upload Methods
 
-| Query Parameter | Description | Example |
-|----------------|-------------|---------|
-| `format` | Output format | `jpg`, `png`, `webp` |
-| `maxWidth` | Maximum width in pixels | `1200` |
-| `maxHeight` | Maximum height in pixels | `800` |
+| Use Case | Method | Endpoint |
+|----------|--------|----------|
+| File < 1.5 GB (local) | Simple upload | `POST /webapi/mediafile/import/upload/uploadmedia_4az_v1` |
+| File > 1.5 GB (local) | Multi-part upload | Multi-Part Upload API |
+| From cloud storage (S3, GCS) | Cloud ingest | Cloud Ingest API |
+| URL-based import | URL import | Upload Media with URL |
 
-```bash
-curl "{DAM_BASE}/api/dam/asset/abc123/links?format=jpg&maxWidth=1200"
-```
-
----
-
-## Batch Links
-
-### Endpoint: `POST {DAM_BASE}/api/dam/batch-links`
-
-Get download/delivery URLs for multiple assets at once.
+### Simple Upload (via proxy)
 
 ```bash
-curl -X POST {DAM_BASE}/api/dam/batch-links \
-  -H "Content-Type: application/json" \
-  -d '{"identifiers":["abc123","def456"],"format":"jpg","maxWidth":800}'
+curl -X POST {DAM_BASE}/api/dam/upload \
+  -F "file=@/path/to/image.png" \
+  -F "folder=Marketing Assets" \
+  -F "title=My Asset Title"
 ```
+
+**Notes:**
+- Users must have the "Can upload files" permission in OrangeLogic
+- Allowed file types: images (jpg, png, gif, webp, svg, avif), videos (mp4, mov, webm), PDFs, archives (zip)
+- The proxy validates file types and rejects disallowed MIME types
+- The response includes the new asset's `SystemIdentifier` for subsequent API calls
 
 ---
 
