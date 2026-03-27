@@ -50,6 +50,42 @@ author: "Mike Payne"
 | Outline variants | 302 |
 | Special icons | 17 (social, brand, ratings) |
 
+## Common Mistakes
+
+Not all icons follow the `Icon[Name]Filled` pattern. **NEVER guess icon names** — many intuitive names do not exist. Verify before importing.
+
+| Expected name | Actual name | Notes |
+|---|---|---|
+| `IconStarFilled` | `IconStar100Percent` | Star uses percentage variants (Special category, not Filled) |
+| `IconHomeFilled` | `IconHomesFilled` | Plural "Homes", not singular "Home" |
+| `IconCheckFilled` | `IconCheckmarkFilled` | Full word "Checkmark", not "Check" |
+| `IconChatFilled` | `IconMessageFilled` | Named "Message" not "Chat" |
+| `IconTrashFilled` | `IconDeleteFilled` | Named "Delete" not "Trash" |
+| `IconSettingFilled` | `IconSettingsFilled` | Plural "Settings" not singular |
+| `IconBellFilled` | `IconNotificationFilled` | Named "Notification" not "Bell" |
+| `IconPencilFilled` | `IconEditFilled` | Named "Edit" not "Pencil" |
+| `IconRefreshFilled` | `IconReloadFilled` | Named "Reload" not "Refresh" |
+| `IconShareFilled` | `IconShareWebFilled` | Full name "ShareWeb" not "Share" |
+| `IconImageFilled` / `IconPhotoFilled` | `IconPhotosFilled` | Plural "Photos" |
+| `IconVideoFilled` | `IconVideoCameraFilled` | Full name "VideoCamera" |
+| `IconPersonFilled` | `IconUserFilled` | Named "User" not "Person" |
+| `IconDocumentFilled` | `IconFileFilled` | Named "File" not "Document" |
+| `IconPinFilled` | `IconLocationFilled` | Named "Location" not "Pin" |
+| `IconEmailFilled` | `IconMailFilled` | Named "Mail" not "Email" |
+| `IconListFilled` | `IconListBulletedFilled` | Suffixed "ListBulleted" |
+| `IconAddFilled` | `IconPlusCircleFilled` | Named "PlusCircle" not "Add" |
+| `IconBookmarkFilled` | `IconHeartFilled` or `IconFlagFilled` | No bookmark icon exists |
+
+When unsure, verify with:
+```bash
+node_modules/@zillow/constellation-icons/dist/react/filled/
+```
+
+Or search programmatically:
+```bash
+node --input-type=module -e "import * as m from '@zillow/constellation-icons'; Object.keys(m).filter(k=>k.toLowerCase().includes('star')).forEach(k=>console.log(k))"
+```
+
 ## Critical Rules
 
 1. **ALWAYS** use Filled variants by default (`IconHeartFilled`, not `IconHeartOutline`)
