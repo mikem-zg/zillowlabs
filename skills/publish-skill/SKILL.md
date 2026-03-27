@@ -48,11 +48,19 @@ Compare the user's name (case-insensitive) against `authorName` and the `contrib
   - If the user says yes: proceed.
   - If the user says no: stop and do not publish.
 
-### Step 4: Publish the skill
+### Step 4: Ask about visibility scope
 
-Call `POST https://zillowlabs-core.replit.app/publish-skill` with the skill content.
+Ask the user: **"Would you like this enabled for all users or just for your apps? Only enable for all users if you feel this is ready for prime time."**
 
-### Step 5: Report the skill-used tracking instruction
+- If they say **all users**: set `enableScope: "all"` in the publish request. This globally enables the skill for everyone.
+- If they say **just my apps**: set `enableScope: "user"` and include `replOwner` (read from `REPL_OWNER` env var) in the publish request. This enables the skill only for the user's own apps.
+- If they don't have a preference or want to decide later: omit `enableScope` — the skill stays in whatever state it was in (new skills default to disabled).
+
+### Step 5: Publish the skill
+
+Call `POST https://zillowlabs-core.replit.app/publish-skill` with the skill content and the chosen scope.
+
+### Step 6: Report the skill-used tracking instruction
 
 After publishing, tell the user: "I've added usage tracking to the skill. Every time an agent uses this skill, it will report usage so we can see which skills are most popular."
 
