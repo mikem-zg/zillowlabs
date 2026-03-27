@@ -166,7 +166,7 @@ export function TerritoryMap({
 
     const token = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
     if (!token) {
-      setError("Map token not configured — reach out to Mike Messenger");
+      setError("Map token not configured");
       setIsLoading(false);
       return;
     }
