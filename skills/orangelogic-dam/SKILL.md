@@ -727,10 +727,14 @@ https://delivery.digitallibrary.zillowgroup.com/public/SZ_Rentals_Lease_Hero_465
 
 | URL Type | Source | Expiry | Best For |
 |----------|--------|--------|----------|
-| `path_TR1.URI` | Search results | Hours | Prototyping, dev, previews — use directly in `<img src>` |
-| CDN URL | Constructed from Title | Never | Production apps needing permanent URLs |
+| `path_TR1.URI` | Search results | ~24 hours | Prototyping, dev, previews — use directly in `<img src>` |
+| `getlink` API | On-demand via API | Configurable (you set the date) | Production embeds, download buttons, specific dimensions/formats |
+| CDN URL | Constructed from Title | Never | Production apps — but only works for `SZ_` assets with clean titles |
 
-**For most development work, `path_TR1.URI` is fine.** Use it directly in `src` attributes. Only construct CDN URLs when you need permanent links for production deployments.
+**Decision guide:**
+- **Prototyping?** Use `path_TR1.URI` directly — fast and simple, expires in ~24h.
+- **Production app?** Use the `getlink` API via the proxy (`/api/dam/asset/:id/links`) — set a far-future expiration, specify exact dimensions and format. Or use the server-side proxy pattern below for automatic refresh.
+- **Permanent link to a known Zillow asset?** Try the CDN URL — but only if the title starts with `SZ_` and has no spaces.
 
 ---
 
