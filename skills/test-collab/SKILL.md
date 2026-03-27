@@ -4,4 +4,4 @@ A test skill for collaboration features.
 
 ## Usage
 
-Just a test.
+Updated by Bob.
