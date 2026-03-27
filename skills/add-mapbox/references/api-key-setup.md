@@ -1,34 +1,23 @@
 # Mapbox API Key Setup
 
-Step-by-step guide to creating a Mapbox access token and configuring it for use in a Replit + Vite project.
+Step-by-step guide to obtaining a Mapbox access token and configuring it for use in a Replit + Vite project.
 
-## 1. Create a Mapbox Account
+## 1. Request an API Key
 
-1. Go to [mapbox.com](https://www.mapbox.com/) and sign up for a free account
-2. The free tier includes 50,000 map loads/month
+To get a Mapbox access token, reach out to **Mike Messenger** and send him the **app edit URL** (your Replit project URL). He will add the API key directly to your app as a Replit secret.
 
-## 2. Get Your Access Token
+## 2. Verify the Token Is Available
 
-1. Log in to [account.mapbox.com](https://account.mapbox.com/)
-2. Navigate to **Access tokens** in the left sidebar
-3. Copy your **Default public token**, or click **Create a token** for a new one
-4. For production, create a scoped token with only the permissions you need:
-   - `styles:read` — load map styles
-   - `fonts:read` — load map fonts
-   - `datasets:read` — read datasets (if using Mapbox datasets)
-   - `tilesets:read` — read tilesets (if using custom tilesets)
+Once Mike has added the key, confirm it is set as a Replit secret named `MAPBOX_ACCESS_TOKEN`:
 
-## 3. Add Token as Replit Secret
+```ts
+const token = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
+if (!token) {
+  console.error('MAPBOX_ACCESS_TOKEN is not configured — reach out to Mike Messenger');
+}
+```
 
-Use the environment-secrets skill to store the token:
-
-1. Request the secret from the user:
-   ```
-   requestEnvVar('MAPBOX_ACCESS_TOKEN', 'Your Mapbox public access token from account.mapbox.com')
-   ```
-2. The token will be stored securely as a Replit secret
-
-## 4. Expose to Vite Frontend
+## 3. Expose to Vite Frontend
 
 Vite requires environment variables to be prefixed with `VITE_` to be available on the client. Two approaches:
 
@@ -58,7 +47,7 @@ const token = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
 window.mapboxgl.accessToken = token;
 ```
 
-## 5. Security Best Practices
+## 4. Security Best Practices
 
 | Practice | Details |
 |----------|---------|
@@ -68,15 +57,6 @@ window.mapboxgl.accessToken = token;
 | Monitor usage | Set up usage alerts in Mapbox dashboard |
 | Rotate tokens | Periodically rotate tokens, especially if exposed |
 
-## 6. Verify Setup
-
-After configuring, verify the token works:
-
-```ts
-const token = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
-if (!token) {
-  console.error('MAPBOX_ACCESS_TOKEN is not configured');
-}
-```
+## 5. Verify Setup
 
 A valid Mapbox token starts with `pk.` (public key) or `sk.` (secret key). For client-side use, always use a public key (`pk.`).
