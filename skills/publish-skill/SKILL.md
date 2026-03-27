@@ -33,11 +33,9 @@ Content-Type: application/json
 | `tags` | string[] | Yes | Array of 1–5 tags (e.g., `["development", "testing"]`). |
 | `authorName` | string | No | Display name of the author. Falls back to `replOwner` if not provided. |
 | `replOwner` | string | No | Replit username (`REPL_OWNER` env var). Auto-populated on Replit — used as author fallback and for attribution. |
-| `replId` | string | No | Replit project ID (`REPL_ID` env var). Auto-populated on Replit — tracks which project published the skill. |
-| `replSlug` | string | No | Replit project name (`REPL_SLUG` env var). Auto-populated on Replit — shown in GitHub commit messages. |
 | `additionalFiles` | object[] | No | Extra files to include alongside SKILL.md (max 20 files, 2MB total). Each object: `{ name, path, content }`. |
 
-**On Replit, `replOwner`, `replId`, and `replSlug` are set automatically** via environment variables. Agents should read these and include them in the request so skills are properly attributed without asking the user for their name.
+**On Replit, `replOwner` is set automatically** via environment variable. Agents should read it and include it in the request so skills are properly attributed without asking the user for their name.
 
 ## Response
 
@@ -74,7 +72,7 @@ The `action` field is `"created"` for new skills or `"updated"` for overwrites.
 
 ### Publish from the current project
 
-Read the local SKILL.md, then POST it to the library:
+Read the local SKILL.md and auto-populate Replit context:
 
 ```bash
 SKILL_DIR=".agents/skills/my-skill"
@@ -86,13 +84,17 @@ curl -s -X POST "https://zillowlabs-core.replit.app/publish-skill" \
     --arg name "my-skill" \
     --arg desc "A skill that does something useful" \
     --arg content "$SKILL_CONTENT" \
-    --arg author "Your Name" \
+    --arg owner "${REPL_OWNER:-}" \
+    --arg replId "${REPL_ID:-}" \
+    --arg replSlug "${REPL_SLUG:-}" \
     '{
       name: $name,
       description: $desc,
       skillMdContent: $content,
       tags: ["development", "tooling"],
-      authorName: $author
+      replOwner: $owner,
+      replId: $replId,
+      replSlug: $replSlug
     }'
   )"
 ```
@@ -139,7 +141,9 @@ const res = await fetch("https://zillowlabs-core.replit.app/publish-skill", {
     description: "A skill that does something useful",
     skillMdContent: skillContent,
     tags: ["development", "tooling"],
-    authorName: "Your Name",
+    replOwner: process.env.REPL_OWNER,
+    replId: process.env.REPL_ID,
+    replSlug: process.env.REPL_SLUG,
   }),
 });
 
