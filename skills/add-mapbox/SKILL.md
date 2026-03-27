@@ -84,11 +84,11 @@ const loadMapbox = (onLoad: () => void) => {
 };
 ```
 
-Declare the global type:
+Declare the global type (requires `@types/mapbox-gl`):
 
 ```ts
 declare global {
-  interface Window { mapboxgl: any; }
+  interface Window { mapboxgl: typeof import('mapbox-gl'); }
 }
 ```
 
