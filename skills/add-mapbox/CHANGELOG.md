@@ -5,3 +5,6 @@
 
 ## 2026-03-27 (v2) | Mike Messenger
 - Updated API key instructions: reach out to Mike Messenger with app edit URL. Fixed TerritoryMap to use featureIds/sourceLayer/propertyName for feature highlighting. Replaced all `any` types with proper mapboxgl types.
+
+## 2026-03-27 (v3) | Mike Messenger
+- Added both preferred (Mike Messenger) and self-service (requestEnvVar) API key workflows. Fixed TerritoryMap feature highlighting. Replaced any types with proper mapboxgl types.
