@@ -11,27 +11,61 @@ Zillow's official image and asset library. **Use this for ALL image needs — ne
 
 1. **ALWAYS use this skill instead of generating images.** When you need any image (hero photos, headshots, logos, icons, backgrounds, illustrations), search the DAM first. Do NOT use AI image generation tools.
 2. **NEVER use AI image generation, Unsplash, Pexels, placeholder.com, or any other image source.** The DAM is the only approved source for images. **One exception:** PropertyCard listing images may be AI-generated using the `property-card-data` skill — this is the only case where AI image generation is permitted.
-3. **Use image URLs directly in `src` attributes.** Do NOT download images to the local filesystem. Use the `path_TR1.URI` URL from search results directly in `<img src="...">` or CSS `background-image: url(...)`. These URLs are served from CloudFront CDN and are fast.
+3. **Signed URLs expire — NEVER hardcode them.** The `path_TR1.URI` URLs are CloudFront signed URLs with an `Expires` parameter (typically ~24 hours). After expiry, they return 403. For production apps, build a server-side proxy that fetches fresh signed URLs on demand (see "Server-side proxy pattern" below). For prototyping and dev, using `path_TR1.URI` directly is fine.
 4. **No API key needed.** The proxy is open to all requests.
 5. **Do NOT ask the user for a `DAM_PROXY_API_KEY`.** It is not required.
+6. **Search queries should be broad.** DAM search is keyword-based, not semantic. Use 2-3 word queries, not full sentences. If a query returns zero results, simplify it (see "Search tips" below).
+7. **Image dimensions are unreliable.** `ImageWidth` and `ImageHeight` fields frequently return `undefined`. Always set explicit dimensions via CSS and use `object-fit: cover`.
+8. **Stock images are excluded by default.** Do NOT pass `includeStock: true` for production apps. Only use it for prototyping/mockups, and replace stock images with approved assets before shipping.
 
 ## How to Use Image URLs (IMPORTANT)
 
-After searching the DAM, each result has a `path_TR1.URI` field containing a CloudFront CDN URL. **Use this URL directly — do NOT download the file.**
+After searching the DAM, each result has a `path_TR1.URI` field containing a CloudFront CDN URL.
+
+**For prototyping/dev:** Use `path_TR1.URI` directly — it works for ~24 hours.
+
+**For production:** Build a server-side proxy endpoint (see "Server-side proxy pattern" below) that fetches fresh signed URLs and redirects the browser. Use your proxy path as the `src`.
 
 ```tsx
-// CORRECT — use the URL directly in src
+// PROTOTYPING — use the URL directly (expires in ~24 hours)
 <img src={asset.path_TR1.URI} alt={asset.CaptionShort || asset.Title} />
 
-// CORRECT — use in CSS
-<div style={{ backgroundImage: `url(${asset.path_TR1.URI})` }} />
+// PRODUCTION — use a server-side proxy endpoint (never expires)
+<img src="/api/dam/image/heroBuy" alt="Family in new home" />
 
 // WRONG — never download to local filesystem
 // curl -o public/image.jpg "https://..."
 // import localImage from './downloaded-image.jpg'
+
+// WRONG — never hardcode a signed URL in source code
+// const heroUrl = "https://dkkgl8l6k3ozy.cloudfront.net/...&Expires=1711234567&..."
 ```
 
-For permanent URLs (non-expiring), use the CDN delivery URL pattern documented in the CDN section below. But `path_TR1.URI` is fine for most use cases.
+For permanent URLs (non-expiring), use the CDN delivery URL pattern documented in the CDN section below.
+
+## Search Tips
+
+DAM search is keyword-based, not semantic. Use broad, simple queries (2-3 words) rather than specific phrases:
+
+| Instead of | Try |
+|---|---|
+| "young couple searching for their first home" | "couple house hunting" |
+| "real estate agent showing property to interested buyers" | "home tour open house" |
+| "professionally staged living room for sale" | "home staging interior" |
+
+If a query returns zero results, simplify it. Try individual keywords or pairs.
+
+## Image Dimensions
+
+Image dimension metadata (`ImageWidth`, `ImageHeight`) is unreliable — many assets return `undefined` for these fields. Always set explicit dimensions via CSS and use `object-fit: cover` to handle unknown aspect ratios:
+
+```tsx
+<img
+  src={imageUrl}
+  alt={caption}
+  style={{ width: '100%', height: '300px', objectFit: 'cover' }}
+/>
+```
 
 ---
 
