@@ -575,6 +575,78 @@ https://delivery.digitallibrary.zillowgroup.com/public/SZ_Rentals_Lease_Hero_465
 
 ---
 
+## Server-Side Proxy Pattern (Production)
+
+For production apps, build a server-side proxy that fetches fresh signed URLs from the DAM API and redirects the browser. Cache signed URLs until near-expiry.
+
+```typescript
+// Server-side: DAM image proxy with caching
+const DAM_CACHE: Record<string, { query: string; cached?: { url: string; expires: number } }> = {
+  heroBuy: { query: "family new home happy" },
+  heroSell: { query: "home sale sold sign" },
+  // add entries for each image your app needs
+};
+
+async function getDAMImageUrl(imageId: string): Promise<string | null> {
+  const entry = DAM_CACHE[imageId];
+  if (!entry) return null;
+  // Return cached URL if still valid (60s buffer before expiry)
+  if (entry.cached && entry.cached.expires > Date.now() + 60000) {
+    return entry.cached.url;
+  }
+  const res = await fetch("https://dam-explorer.replit.app/api/dam/smart-search", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ text: entry.query, type: "image", pageSize: 1 }),
+  });
+  const data = await res.json();
+  const url = data?.APIResponse?.Items?.[0]?.path_TR1?.URI;
+  if (url) {
+    const exp = url.match(/Expires=(\d+)/);
+    entry.cached = {
+      url,
+      expires: exp ? parseInt(exp[1]) * 1000 : Date.now() + 3600000,
+    };
+    return url;
+  }
+  return entry.cached?.url || null;
+}
+
+// Route: GET /api/dam/image/:id → 302 redirect to signed URL
+app.get("/api/dam/image/:id", async (req, res) => {
+  const url = await getDAMImageUrl(req.params.id);
+  if (!url) return res.status(404).json({ error: "Image not found" });
+  res.redirect(url);
+});
+```
+
+In your frontend, use the proxy path as `src` — the browser follows the redirect transparently:
+
+```tsx
+<img src="/api/dam/image/heroBuy" alt="Family in new home" />
+```
+
+### Batch endpoint for preloading
+
+For pages with many DAM images, a batch endpoint returns all URLs at once — more efficient than individual requests:
+
+```typescript
+// Route: GET /api/dam/images → all cached image URLs
+app.get("/api/dam/images", async (_req, res) => {
+  const urls: Record<string, string | null> = {};
+  for (const [id] of Object.entries(DAM_CACHE)) {
+    urls[id] = await getDAMImageUrl(id);
+  }
+  res.json(urls);
+});
+```
+
+Response: `{ "heroBuy": "https://...", "heroSell": "https://...", ... }`
+
+This lets the frontend preload or prefetch all images in one round trip.
+
+---
+
 ## Error Handling
 
 | Status | Meaning | Action |
