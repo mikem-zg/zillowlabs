@@ -1,8 +1,8 @@
 ---
 name: test-publish-endpoint
-description: "Test skill for publish endpoint verification"
+description: "Updated test skill"
 ---
 
-# Test Publish Endpoint
+# Test Publish Endpoint (Updated)
 
-This is a test skill created to verify the publish API works.
+This content was updated via the publish API.
