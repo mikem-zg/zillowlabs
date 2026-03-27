@@ -8,14 +8,8 @@ A generic React hook for managing Mapbox GL JS map instances with dynamic script
 import { useState, useCallback, useRef } from "react";
 
 declare global {
-  interface Window { mapboxgl: any; }
+  interface Window { mapboxgl: typeof import('mapbox-gl'); }
 }
-
-type MapMouseEvent = {
-  point: { x: number; y: number };
-  lngLat: { lng: number; lat: number };
-  originalEvent: MouseEvent;
-};
 
 interface UseMapboxOptions {
   style?: string;
@@ -34,15 +28,15 @@ const DEFAULT_OPTIONS: Required<UseMapboxOptions> = {
 export function useMapbox(options: UseMapboxOptions = {}) {
   const config = { ...DEFAULT_OPTIONS, ...options };
 
-  const [map, setMap] = useState<any>(null);
-  const mapRef = useRef<any>(null);
+  const [map, setMap] = useState<mapboxgl.Map | null>(null);
+  const mapRef = useRef<mapboxgl.Map | null>(null);
   const isInitializedRef = useRef(false);
   const [selectedFeatureId, setSelectedFeatureId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isInitialized, setIsInitialized] = useState(false);
   const [mapError, setMapError] = useState<string | null>(null);
   const [styleLoaded, setStyleLoaded] = useState(false);
-  const hoverPopupRef = useRef<any>(null);
+  const hoverPopupRef = useRef<mapboxgl.Popup | null>(null);
 
   const disposeMap = useCallback(() => {
     const currentMap = mapRef.current;
@@ -85,7 +79,7 @@ export function useMapbox(options: UseMapboxOptions = {}) {
 
         mapInstance.on('load', () => setIsLoading(false));
         mapInstance.on('style.load', () => setStyleLoaded(true));
-        mapInstance.on('error', (e: Error) => {
+        mapInstance.on('error', (e: mapboxgl.ErrorEvent) => {
           console.error('Mapbox error:', e);
           setMapError('Map failed to load. Ensure your browser supports WebGL.');
           setIsLoading(false);
@@ -134,16 +128,16 @@ export function useMapbox(options: UseMapboxOptions = {}) {
   const setupClickHandler = useCallback((
     sourceLayer: string,
     propertyName: string,
-    onFeatureClick: (featureId: string, properties: Record<string, any>, lngLat: { lng: number; lat: number }) => void,
+    onFeatureClick: (featureId: string, properties: Record<string, unknown>, lngLat: { lng: number; lat: number }) => void,
   ) => {
     if (!mapRef.current) return;
     const m = mapRef.current;
 
-    m.on('click', sourceLayer, (e: MapMouseEvent & { features?: any[] }) => {
+    m.on('click', sourceLayer, (e: mapboxgl.MapMouseEvent & { features?: mapboxgl.MapboxGeoJSONFeature[] }) => {
       if (!e.features?.length) return;
       const feature = e.features[0];
-      const id = feature.properties[propertyName];
-      if (id) onFeatureClick(String(id), feature.properties, e.lngLat);
+      const id = feature.properties?.[propertyName];
+      if (id) onFeatureClick(String(id), (feature.properties ?? {}) as Record<string, unknown>, e.lngLat);
     });
 
     m.on('mouseenter', sourceLayer, () => { m.getCanvas().style.cursor = 'pointer'; });
@@ -153,12 +147,12 @@ export function useMapbox(options: UseMapboxOptions = {}) {
   const setupHoverPopup = useCallback((
     sourceLayer: string,
     propertyName: string,
-    formatContent: (properties: Record<string, any>) => string,
+    formatContent: (properties: Record<string, unknown>) => string,
   ) => {
     if (!mapRef.current) return;
     const m = mapRef.current;
 
-    m.on('mousemove', sourceLayer, (e: MapMouseEvent & { features?: any[] }) => {
+    m.on('mousemove', sourceLayer, (e: mapboxgl.MapMouseEvent & { features?: mapboxgl.MapboxGeoJSONFeature[] }) => {
       if (!e.features?.length) return;
       const props = e.features[0].properties;
 
