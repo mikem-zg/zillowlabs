@@ -7,6 +7,21 @@ description: Build Constellation header and navigation patterns for Zillow apps.
 
 Provides tested header patterns using Constellation components. Each pattern handles responsive behavior, accessibility, and graceful collapse of navigation links behind a Menu component.
 
+## Box imports — two different Box components exist
+
+This skill uses `Box` from `@zillow/constellation`, **not** from `@/styled-system/jsx`. They are different components with different capabilities.
+
+| Import source | Has `asChild`? | Use for |
+|---|---|---|
+| `@/styled-system/jsx` | NO | General layout (`Flex`, `Grid`, `Box`) |
+| `@zillow/constellation` | YES | When you need `asChild` (e.g., `<Box asChild><nav>`) |
+
+This skill uses Constellation's `Box` exclusively because header patterns need `asChild` to render semantic HTML elements (`<header>`, `<nav>`) while inheriting Constellation's style props.
+
+For general page layout outside of headers, use PandaCSS's `Box`/`Flex`/`Grid` from `@/styled-system/jsx`.
+
+**Do NOT use `asChild` on PandaCSS's Box** — it passes through to the DOM as an unknown attribute and causes React warnings.
+
 ## Prerequisites
 
 - `@zillow/constellation` installed (provides `Box`, `ZillowLogo`, `ZillowHomeLogo`, `Button`, `TextButton`, `IconButton`, `Menu`, `AdornedInput`, `Avatar`)
