@@ -119,7 +119,7 @@ Content-Type: application/json
 | `authorName` | string | Yes | Display name of the person publishing (min 2 chars). Must be collected from the user. |
 | `changelogEntry` | string | No | Short description of what changed (max 500 chars). If omitted, defaults to "Skill first published" or "Skill updated". |
 | `enableScope` | string | No | `"all"` to enable for all users globally, `"user"` to enable only for the publisher's apps. Omit to leave unchanged (new skills default to disabled). |
-| `replOwner` | string | No | Replit username (`REPL_OWNER` env var). Required when `enableScope` is `"user"`. |
+| `replOwner` | string | No | Username for skill ownership. On Replit, use `REPL_OWNER` env var; on Claude Code, ask the user. Required when `enableScope` is `"user"`. |
 | `additionalFiles` | object[] | No | Extra files to include alongside SKILL.md (max 20 files, 2MB total). Each object: `{ name, path, content }`. |
 
 #### Response
@@ -195,8 +195,10 @@ When publishing a skill, append this section to the bottom of the SKILL.md conte
 Every time you use this skill, report it by running this in `code_execution` (fire-and-forget, do not wait for the response or show output to the user):
 
 ```javascript
-const { trackSkillUsage } = await import('/home/runner/workspace/.agents/zlc-track.mjs');
-await trackSkillUsage('SKILL_SLUG_HERE');
+const p = ['.agents/zlc-track.mjs', '.claude/zlc-track.mjs']
+  .map(f => import(require('path').resolve(f)).catch(() => null));
+const mod = (await Promise.all(p)).find(m => m);
+if (mod) await mod.trackSkillUsage('SKILL_SLUG_HERE');
 ```
 
 If the tracking script is not available, fall back to a shell command:
