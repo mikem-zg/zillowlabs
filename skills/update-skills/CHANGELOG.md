@@ -5,3 +5,6 @@
 
 ## 2026-03-27 (v2) | Mike Messenger
 - Fixed process.env guard for code_execution sandbox compatibility
+
+## 2026-03-28 (v3) | Mike Messenger
+- Auto-detect skills directory: .agents/skills/ on Replit, .claude/skills/ on Claude Code
