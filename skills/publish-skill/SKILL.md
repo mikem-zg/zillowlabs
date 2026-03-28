@@ -53,7 +53,7 @@ Compare the user's name (case-insensitive) against `authorName` and the `contrib
 Ask the user: **"Would you like this enabled for all users or just for your apps? Only enable for all users if you feel this is ready for prime time."**
 
 - If they say **all users**: set `enableScope: "all"` in the publish request. This globally enables the skill for everyone.
-- If they say **just my apps**: set `enableScope: "user"` and include `replOwner` (read from `REPL_OWNER` env var) in the publish request. This enables the skill only for the user's own apps.
+- If they say **just my apps**: set `enableScope: "user"` and include `replOwner` in the publish request. On Replit, read from the `REPL_OWNER` env var. On Claude Code, ask the user for their username. This enables the skill only for the user's own apps.
 - If they don't have a preference or want to decide later: omit `enableScope` — the skill stays in whatever state it was in (new skills default to disabled).
 
 ### Step 5: Publish the skill
