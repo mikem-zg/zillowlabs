@@ -5,7 +5,7 @@ description: "Download and update all skills from the Zillow Skill & MCP Library
 
 # Update Skills
 
-Download and update all agent skills from the [Zillow Skill & MCP Library](https://zillowlabs-core.replit.app). This pulls the latest versions of every enabled skill into your local `.agents/skills/` directory.
+Download and update all agent skills from the [Zillow Skill & MCP Library](https://zillowlabs-core.replit.app). This pulls the latest versions of every enabled skill into your local skills directory (`.agents/skills/` on Replit, `.claude/skills/` on Claude Code).
 
 Use this when you need to manually refresh skills — for example after someone publishes an update, or in environments (like Claude Code) where the automatic bootstrap isn't running.
 
