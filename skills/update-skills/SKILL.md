@@ -29,10 +29,13 @@ const path = await import('path');
 const crypto = await import('crypto');
 
 const SERVICE = 'https://zillowlabs-core.replit.app';
-const SKILLS_DIR = path.resolve('.agents/skills');
 
-const replId = process.env.REPL_ID || '';
-const owner = process.env.REPL_OWNER || '';
+const env = typeof process !== 'undefined' && process.env ? process.env : {};
+const isReplit = !!env.REPL_ID;
+const SKILLS_DIR = path.resolve(isReplit ? '.agents/skills' : '.claude/skills');
+
+const replId = env.REPL_ID || '';
+const owner = env.REPL_OWNER || '';
 const params = new URLSearchParams();
 if (replId) params.set('replId', replId);
 if (owner) params.set('owner', owner);
@@ -99,7 +102,10 @@ const path = await import('path');
 
 const SERVICE = 'https://zillowlabs-core.replit.app';
 const SKILL_SLUG = 'SLUG_HERE';
-const SKILLS_DIR = path.resolve('.agents/skills');
+
+const env = typeof process !== 'undefined' && process.env ? process.env : {};
+const isReplit = !!env.REPL_ID;
+const SKILLS_DIR = path.resolve(isReplit ? '.agents/skills' : '.claude/skills');
 
 const manifestRes = await fetch(`${SERVICE}/manifests/skills.json`);
 const manifest = await manifestRes.json();
