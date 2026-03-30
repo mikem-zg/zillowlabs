@@ -761,15 +761,16 @@ https://delivery.digitallibrary.zillowgroup.com/public/SZ_Rentals_Lease_Hero_465
 
 ## Image URLs: When to Use What
 
-| URL Type | Source | Expiry | Best For |
-|----------|--------|--------|----------|
-| `path_TR1.URI` | Search results | ~24 hours | Prototyping, dev, previews — use directly in `<img src>` |
-| `getlink` API | On-demand via API | Configurable (you set the date) | Production embeds, download buttons, specific dimensions/formats |
-| CDN URL | Constructed from Title | Never | Production apps — but only works for `SZ_` assets with clean titles |
+| URL Type | Source | Format | Expiry | Best For |
+|----------|--------|--------|--------|----------|
+| `path_TR4.URI` | Search results | PNG | ~24 hours | **Prototyping** — logos, icons (transparency) |
+| `path_TR1.URI` | Search results | JPG | ~24 hours | **Prototyping** — photos, hero images |
+| `getlink` API | On-demand | Configurable | You set it | **Production** — embed links with controlled expiration |
+| CDN URL | Constructed from Title | varies | Never | **Production** — only `SZ_` assets with clean titles |
 
 **Decision guide:**
-- **Prototyping?** Use `path_TR1.URI` directly — fast and simple, expires in ~24h.
-- **Production app?** Use the `getlink` API via the proxy (`/api/dam/asset/:id/links`) — set a far-future expiration, specify exact dimensions and format. Or use the server-side proxy pattern below for automatic refresh.
+- **Prototyping?** Use `path_TR4.URI` (logos/icons) or `path_TR1.URI` (photos) directly from search results.
+- **Production app?** Use the `getlink` API via the proxy to generate proper embed links with a far-future expiration and specific dimensions. Or use the server-side proxy pattern below for automatic refresh.
 - **Permanent link to a known Zillow asset?** Try the CDN URL — but only if the title starts with `SZ_` and has no spaces.
 
 ---
