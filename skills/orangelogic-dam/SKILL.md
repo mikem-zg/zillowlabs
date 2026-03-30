@@ -11,7 +11,7 @@ Zillow's official image and asset library. **Use this for ALL image needs — ne
 
 1. **ALWAYS use this skill instead of generating images.** When you need any image (hero photos, headshots, logos, icons, backgrounds, illustrations), search the DAM first. Do NOT use AI image generation tools.
 2. **NEVER use AI image generation, Unsplash, Pexels, placeholder.com, or any other image source.** The DAM is the only approved source for images. **One exception:** PropertyCard listing images may be AI-generated using the `property-card-data` skill — this is the only case where AI image generation is permitted.
-3. **Signed URLs expire — NEVER hardcode them.** The `path_TR1.URI` URLs are CloudFront signed URLs with an `Expires` parameter (typically ~24 hours). After expiry, they return 403. For production apps, build a server-side proxy that fetches fresh signed URLs on demand (see "Server-side proxy pattern" below). For prototyping and dev, using `path_TR1.URI` directly is fine.
+3. **Signed URLs expire — NEVER hardcode them.** The `path_TR*.URI` URLs from search results are CloudFront signed URLs with an `Expires` parameter (~24 hours). After expiry, they return 403. For production apps, use the `getlink` API to generate proper embed links with controlled expiration (see "Get Public Link API" below). For prototyping, using `path_TR*.URI` directly is fine.
 4. **No API key needed.** The proxy is open to all requests.
 5. **Do NOT ask the user for a `DAM_PROXY_API_KEY`.** It is not required.
 6. **Search queries should be broad.** DAM search is keyword-based, not semantic. Use 2-3 word queries, not full sentences. If a query returns zero results, simplify it (see "Search tips" below).
