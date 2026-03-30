@@ -436,20 +436,28 @@ const photoUrl = item.path_TR1.URI;
 
 When you upload assets, OrangeLogic generates multiple proxy formats at different resolutions. These are identified by format codes used throughout the API — in search result fields (`path_TR1`, `path_TR4`), in the `getlink` API's `Format` parameter, and in CDN URLs.
 
-| Code | Type | Description |
-|------|------|-------------|
-| `TR1` | Image | Medium resolution — typically ~1200×1200px |
-| `TR4` | Image | Small thumbnail — ~352px fixed height |
-| `TR7` | Image | Large thumbnail — ~192px fixed height |
-| `TRX` | Image/Proxy | Original or largest available proxy (source file) |
-| `WebHigh` | Video | Video proxy format |
+### Zillow Instance Format Codes
 
-**Important:** Format specs are instance-specific — Zillow's OrangeLogic instance may use different proxy sizes than the defaults above. The search API returns `path_TR1` by default, which is the medium-resolution proxy suitable for most UI use cases. Request `path_TR4` or `path_TRX` via the `fields` parameter when you need a different size.
+| Code | Extension | Observed Dimensions | Use For |
+|------|-----------|-------------------|---------|
+| **`TR4`** | `.png` | Same as original (preserves full size) | **Logos, icons, illustrations** — preserves transparency |
+| **`TR1`** | `.jpg` | Same as original (medium-res proxy) | **Photos, hero images** — smaller file size |
+| **`TR7`** | `.jpg` | 192px fixed height | **Thumbnails only** — too small for most UI |
+| **`TRX`** | varies | Original source dimensions | **Downloads** — largest file, original quality |
+| **`WebHigh`** | video | Video proxy | **Video embeds** |
+
+**Which format to pick:**
+- **Logos, icons, design assets →** `TR4` (PNG preserves transparency)
+- **Photography, hero images →** `TR1` (JPG, smaller file)
+- **Tiny previews, grid thumbnails →** `TR7` (192px height)
+- **Full-quality download →** `TRX` (original source)
+
+**Note:** The search API returns `path_TR1` by default. To get `path_TR4` (PNG), add it to the `fields` parameter:
 
 ```bash
 curl -X POST {DAM_BASE}/api/dam/smart-search \
   -H "Content-Type: application/json" \
-  -d '{"text":"zillow logo","type":"image","pageSize":1,"fields":"SystemIdentifier,Title,path_TR1,path_TR4,path_TRX"}'
+  -d '{"text":"zillow logo","type":"image","assetType":"Logos","pageSize":1,"fields":"SystemIdentifier,Title,path_TR1,path_TR4"}'
 ```
 
 ---
