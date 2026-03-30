@@ -781,20 +781,21 @@ https://delivery.digitallibrary.zillowgroup.com/public/SZ_Rentals_Lease_Hero_465
 
 1. Search: `POST /api/dam/smart-search` with `{"text":"home exterior","type":"image","minWidth":1200,"sortBySize":true,"pageSize":80}`
 2. Pick the best result
-3. Use `path_TR1.URI` directly: `<img src={result.path_TR1.URI} alt={result.CaptionShort} />`
+3. Use `path_TR1.URI` (JPG — best for photos): `<img src={result.path_TR1.URI} alt={result.CaptionShort} />`
 4. Do NOT download the image file
 
 ### Find a logo
 
 1. **ALWAYS** use the `assetType: "Logos"` filter — this is required when searching for logos
-2. Use a preset: `POST /api/dam/smart-search` with `{"preset":"zillow-logos"}`
-3. Or be specific: `{"text":"primary logo","type":"image","assetType":"Logos","brand":"Zillow","fileType":"png","sort":"newest"}`
-4. Use `path_TR1.URI` directly in `<img src>`
+2. **ALWAYS** request `path_TR4` in `fields` — PNG format preserves transparency
+3. Use a preset: `POST /api/dam/smart-search` with `{"preset":"zillow-logos","fields":"SystemIdentifier,Title,path_TR1,path_TR4"}`
+4. Or be specific: `{"text":"primary logo","type":"image","assetType":"Logos","brand":"Zillow","fields":"SystemIdentifier,Title,path_TR1,path_TR4","sort":"newest"}`
+5. Use `path_TR4.URI` (PNG) in `<img src>` — TR4 preserves transparency for logos
 
 ### Find a headshot or portrait
 
 1. Search: `{"text":"headshot","type":"image","sort":"newest"}`
-2. Use `path_TR1.URI` directly
+2. Use `path_TR1.URI` (JPG — best for photography)
 
 ### Browse by category
 
