@@ -20,28 +20,51 @@ Zillow's official image and asset library. **Use this for ALL image needs — ne
 
 ## How to Use Image URLs (IMPORTANT)
 
-After searching the DAM, each result has a `path_TR1.URI` field containing a CloudFront CDN URL.
+### Pick the Right Format
 
-**For prototyping/dev:** Use `path_TR1.URI` directly — it works for ~24 hours.
+Search results return multiple `path_TR*` fields. Each is a different proxy format:
 
-**For production:** Build a server-side proxy endpoint (see "Server-side proxy pattern" below) that fetches fresh signed URLs and redirects the browser. Use your proxy path as the `src`.
+| Format | Extension | Best For | Why |
+|--------|-----------|----------|-----|
+| **`path_TR4`** | `.png` | Logos, icons, illustrations | Preserves transparency |
+| **`path_TR1`** | `.jpg` | Photos, hero images, property images | Smaller file size |
+| **`path_TRX`** | varies | Source file download | Original quality, largest file |
+| **`path_TR7`** | `.jpg` | Thumbnails only | 192px height — too small for most UI |
+
+**Default rule:** Use `path_TR4` (PNG) for anything that might have transparency (logos, icons, design assets). Use `path_TR1` (JPG) for photography.
+
+To get multiple formats in one search, add them to the `fields` parameter:
+```bash
+curl -X POST {DAM_BASE}/api/dam/smart-search \
+  -H "Content-Type: application/json" \
+  -d '{"text":"zillow logo","type":"image","assetType":"Logos","pageSize":1,"fields":"SystemIdentifier,Title,path_TR1,path_TR4"}'
+```
+
+### Prototyping vs Production
+
+**For prototyping/dev:** Use `path_TR4.URI` (logos) or `path_TR1.URI` (photos) directly — they work for ~24 hours.
+
+**For production:** Use the `getlink` API to generate proper embed links with controlled expiration (see "Get Public Link API" section below). Or use the server-side proxy pattern.
 
 ```tsx
-// PROTOTYPING — use the URL directly (expires in ~24 hours)
+// PROTOTYPING — logo (use TR4 for PNG/transparency)
+<img src={asset.path_TR4.URI} alt={asset.Title} />
+
+// PROTOTYPING — photo (use TR1 for JPG)
 <img src={asset.path_TR1.URI} alt={asset.CaptionShort || asset.Title} />
 
-// PRODUCTION — use a server-side proxy endpoint (never expires)
+// PRODUCTION — use the getlink API via proxy for stable embed links
+<img src={`${DAM_BASE}/api/dam/embed-link/${asset.SystemIdentifier}?format=TR4`} alt={asset.Title} />
+
+// PRODUCTION — or use a server-side proxy endpoint
 <img src="/api/dam/image/heroBuy" alt="Family in new home" />
 
 // WRONG — never download to local filesystem
 // curl -o public/image.jpg "https://..."
-// import localImage from './downloaded-image.jpg'
 
 // WRONG — never hardcode a signed URL in source code
 // const heroUrl = "https://dkkgl8l6k3ozy.cloudfront.net/...&Expires=1711234567&..."
 ```
-
-For permanent URLs (non-expiring), use the CDN delivery URL pattern documented in the CDN section below.
 
 ## Search Tips
 
