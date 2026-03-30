@@ -384,25 +384,30 @@ curl -X POST {DAM_BASE}/api/dam/smart-search \
 ### Using Results in Code
 
 ```tsx
-// After getting search results, use the image URL directly:
-const imageUrl = results.APIResponse.Items[0].path_TR1.URI;
-const caption = results.APIResponse.Items[0].CaptionShort;
+const item = results.APIResponse.Items[0];
+const caption = item.CaptionShort || item.Title;
 
-// In JSX — use the URL directly, never download
-<img src={imageUrl} alt={caption} />
+// LOGO / ICON — use path_TR4 (PNG, preserves transparency)
+const logoUrl = item.path_TR4?.URI || item.path_TR1.URI;
+<img src={logoUrl} alt={caption} />
 
-// In a PropertyCard
+// PHOTO — use path_TR1 (JPG, smaller file)
+const photoUrl = item.path_TR1.URI;
+<img src={photoUrl} alt={caption} />
+
+// In a PropertyCard (photos → TR1)
 <PropertyCard
-  photoBody={<PropertyCard.Photo src={imageUrl} alt={caption} />}
+  photoBody={<PropertyCard.Photo src={item.path_TR1.URI} alt={caption} />}
   saveButton={<PropertyCard.SaveButton />}
-  // ...
 />
 
-// As a background image
-<Box css={{ backgroundImage: `url(${imageUrl})`, backgroundSize: 'cover' }}>
+// As a background image (photos → TR1)
+<Box css={{ backgroundImage: `url(${item.path_TR1.URI})`, backgroundSize: 'cover' }}>
   <Heading>Hero Section</Heading>
 </Box>
 ```
+
+**Remember:** `path_TR4` (PNG) for logos/icons/illustrations. `path_TR1` (JPG) for photography. Request both via the `fields` parameter if you need both formats from one search.
 
 ### Default Fields Returned
 
