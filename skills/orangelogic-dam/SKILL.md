@@ -710,7 +710,10 @@ curl -X POST {DAM_BASE}/api/dam/upload \
 | `Caption` | Full description | Yes | Yes |
 | `MediaType` | Image, Video, etc. | Yes | Yes |
 | `DocSubType` | Standard Image, Vector, etc. | Yes | Yes |
-| `path_TR1` | Thumbnail/preview URL with dimensions | No | Yes |
+| `path_TR1` | Medium-res JPG proxy URL with dimensions (default field) | No | Yes |
+| `path_TR4` | PNG proxy URL — preserves transparency (request via `fields`) | No | On request |
+| `path_TR7` | 192px thumbnail JPG (request via `fields`) | No | On request |
+| `path_TRX` | Original source file URL (request via `fields`) | No | On request |
 | `Width` | Image width (top-level, often empty) | Yes | Yes |
 | `Height` | Image height (top-level, often empty) | Yes | Yes |
 | `FileSize` | File size | Yes | Yes |
