@@ -289,7 +289,7 @@ The smart search endpoint accepts friendly, natural parameters and automatically
 - **Stock and ads excluded by default:** The proxy automatically filters out Getty stock images and ad/product shot creatives. This is the correct default for production apps — only use imagery Zillow owns or has licensed. Do NOT pass `includeStock: true` unless you are explicitly building a prototype, mockup, or internal tool where stock imagery is acceptable. For prototyping only, `includeStock: true` can help find placeholder images, but these must be replaced with approved assets before shipping. If default results are insufficient, flag it as a content gap rather than enabling stock images.
 - **Sort by newest:** Default to `sort: "newest"` to prioritize recently edited/uploaded assets. Older assets may be outdated or superseded.
 - **Increase pageSize when filtering:** When using `minWidth`, `minHeight`, or other post-query filters, set `pageSize: 80` or higher to ensure enough results survive filtering.
-- **Use URLs directly:** Use `path_TR1.URI` from results directly in `<img src>` — do NOT download files.
+- **Pick the right format:** Use `path_TR4.URI` (PNG) for logos/icons/illustrations (preserves transparency). Use `path_TR1.URI` (JPG) for photography. Request both via `fields` if needed. Do NOT download files.
 
 ### Sort Options
 
