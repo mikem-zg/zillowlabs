@@ -1,0 +1,11 @@
+{
+  "last_tuned": null,
+  "last_tuned_experiment": null,
+  "feature_count_at_tune": null,
+  "best_mae": null,
+  "baseline_mae": null,
+  "improvement_pct": null,
+  "best_tree_count": null,
+  "tree_ceiling": 1500,
+  "notes": "Updated automatically after each tuning run. Check this before adding signals to determine if re-tuning is needed. If best_tree_count is close to tree_ceiling, consider raising the ceiling and re-running."
+}
