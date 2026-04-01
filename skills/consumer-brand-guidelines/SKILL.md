@@ -1,6 +1,7 @@
 ---
 name: consumer-brand-guidelines
 description: Zillow's April 2024 Brand Guidelines for the consumer audience (homebuyers, renters, sellers). Covers visual identity, verbal identity, color, typography, logo, shape, illustration, iconography, and photography. Use when building consumer-facing UI, marketing assets, or reviewing brand compliance for buyer/renter/seller experiences.
+author: "Mike Payne"
 ---
 
 # Consumer Brand Guidelines
