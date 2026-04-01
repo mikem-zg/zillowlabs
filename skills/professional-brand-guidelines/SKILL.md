@@ -48,7 +48,7 @@ Zillow's March 2025 Brand Guidelines for the **professional audience** (Real Est
 |---------|-----------|----------|------------|-----------|
 | CLR_P01 | Both | Color | Restricted palette: Marble, `Blue600`, `Gray950`, `Aqua300` (Pool), `Blue800` (Waterfront), Light Gray (`#F7F7F7`) | Full secondary palette allowed in illustrations and events only |
 | CLR_P02 | Both | Color | PROHIBITED: Purple, Orange, Teal for UI elements | Illustrations may use full palette |
-| CLR_P03 | Both | Color | White (`bg.screen.neutral`) as default background | Light Gray for section differentiation |
+| CLR_P03 | Both | Color | White (`bg.screen.neutral`) as default background. Light Gray (`bg.screen.softest`) for section differentiation. ⚠️ `bg.screen.muted` does NOT exist in PandaCSS — use `bg.screen.softest`. | None |
 | CLR_P04 | Both | Color | No light/pastel colored backgrounds | None — leadership directive |
 | CLR_P05 | Both | Color | No stacking colored sections back-to-back | None |
 | CLR_P06 | Product | Color | `Blue600` = interactive/action ONLY | None |
