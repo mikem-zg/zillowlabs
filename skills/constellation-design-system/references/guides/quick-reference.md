@@ -25,82 +25,20 @@ One-page cheat sheet for the most critical rules, component selection, and token
 | Icon-only button | `<IconButton title="..." tone="neutral" emphasis="bare">` | `<Button icon={...}>` |
 | Dialog | `<Modal header={} body={} footer={} dividers />` | custom overlay |
 
-## Spacing Tokens
+## Spacing & Typography
 
-### Consumer
+For complete audience-specific spacing tokens, typography hierarchy, and table patterns, load:
+- **consumer-brand-guidelines** skill — for consumer apps
+- **professional-brand-guidelines** skill — for professional apps (standard + compact + dense modes)
 
-| Context | Token | Value |
+Key differences at a glance:
+
+| Context | Consumer | Professional |
 |---|---|---|
-| Page padding (sides) | `400` | 16px |
-| Page padding (top/bottom) | `600` | 24px |
-| Section gaps | `800` | 32px |
-| Card internal padding | `400` | 16px |
-| Grid gaps | `400` | 16px |
-| Tight list spacing | `200` | 8px |
-| Comfortable list spacing | `300` | 12px |
-
-### Professional (standard)
-
-| Context | Token | Value | Consumer comparison |
-|---|---|---|---|
-| Page padding (sides) | `400` | 16px | same |
-| Page padding (top/bottom) | `600` | 24px | same |
-| Section gaps | `800` | 32px | same |
-| Card internal padding | `300` | 12px | consumer uses `400` (16px) |
-| Internal card element gaps | `200` | 8px | consumer uses `300` (12px) |
-| Grid gaps between cards | `300` | 12px | consumer uses `400` (16px) |
-| Tight list spacing | `200` | 8px | same |
-
-### Professional (dense)
-
-Use in data-heavy dashboards, tables, and compact card grids:
-
-| Context | Token | Value |
-|---|---|---|
-| Section gaps | `400` | 16px |
-| Card internal padding | `300` | 12px |
-| Grid gaps | `200` | 8px |
-| Tab panel padding | `300` | 12px |
-
-## Typography Hierarchy
-
-### Consumer
-
-| Content | Component | Color |
-|---|---|---|
-| Page headline | `<Heading textStyle="heading-lg">` | default |
-| Section title | `<Text textStyle="body-lg-bold">` | default |
-| Card title | `<Text textStyle="body-bold">` | default |
-| Description | `<Text textStyle="body">` | `text.subtle` |
-| Fine print | `<Text textStyle="body-sm">` | `text.subtle` |
-
-### Professional
-
-| Content | Component | Color |
-|---|---|---|
-| Page headline | `<Heading textStyle="heading-md">` | default |
-| Stat/metric value | `<Text textStyle="heading-xs">` | default |
-| Section title | `<Text textStyle="body-lg-bold">` | default |
-| Card title | `<Text textStyle="body-bold">` | default |
-| Description | `<Text textStyle="body">` | `text.subtle` |
-| Fine print | `<Text textStyle="body-sm">` | `text.subtle` |
-
-### Professional Compact Contexts
-
-For tables, dense cards, and sidebar content. **Tables default to `appearance="horizontal"` and `size="sm"`. All elements inside tables inherit `sm` sizing — do NOT override individual elements back to `md`.**
-
-| Content | Component | Notes |
-|---|---|---|
-| Table root | `<Table.Root appearance="horizontal" size="sm">` | Horizontal lines, compact rows |
-| Table cell label | `<Text textStyle="body-sm" css={{ fontWeight: 600 }}>` | Bold small text for headers/labels |
-| Table cell value | `<Text textStyle="body-sm">` | Regular weight |
-| Table cell icon | `<Icon size="sm">` | 16px icons inside table rows |
-| Table cell badge | `<Tag size="sm">` | Small tags for status/category |
-| Table cell button | `<Button size="sm">` | Small buttons for row actions |
-| Table cell icon button | `<IconButton size="sm">` | Small icon-only actions |
-| Dense card label | `<Text textStyle="body-sm" css={{ fontWeight: 600 }}>` | Bold small text |
-
-Table `appearance` options: `horizontal` (default for professional), `grid` (bordered cells), `bare` (no lines), `zebra` (alternating rows).
+| Page headline | `<Heading textStyle="heading-lg">` | `<Heading textStyle="heading-md">` |
+| Card padding | `400` (16px) | `300` (12px) |
+| Grid gaps | `400` (16px) | `300` (12px) |
+| Component sizing | `size="md"` (default) | `size="sm"` (always) |
 
 ## Layout Stacking Rules
 
@@ -163,71 +101,20 @@ Constellation's `Text` component renders as an inline `<span>` by default. When 
 - NEVER use `color` prop with token paths
 - NEVER guess icon names — verify with the lookup table or search command below
 
-## Icon Lookup by Concept
+## Icon Lookup
 
-Use this table to find the correct icon name for common UI concepts. Many intuitive names do NOT exist.
+For the full icon lookup table (50+ concepts with correct names and wrong guesses), load the **constellation-icons** skill. Quick essentials:
 
-| Concept | Correct Icon Name | Wrong Guesses (do NOT exist) |
-|---|---|---|
-| Home | `IconHomesFilled` | ~~IconHouseFilled~~ |
-| Search | `IconSearchFilled` | — |
-| Heart / Favorite / Save | `IconHeartFilled` | ~~IconFavoriteFilled~~, ~~IconSaveFilled~~ |
-| Close / Dismiss | `IconCloseFilled` | ~~IconXFilled~~, ~~IconCrossFilled~~ |
-| Check / Done | `IconCheckmarkFilled` | ~~IconCheckFilled~~, ~~IconDoneFilled~~ |
-| Check (in circle) | `IconCheckmarkCircleFilled` | — |
-| Plus / Add | `IconPlusFilled` | ~~IconAddFilled~~ |
-| Plus (in circle) | `IconPlusCircleFilled` | — |
-| Minus | `IconMinusFilled` | ~~IconRemoveFilled~~ |
-| Menu / Hamburger | `IconMenuFilled` | — |
-| Settings | `IconSettingsFilled` | ~~IconSettingFilled~~, ~~IconGearFilled~~ |
-| Edit / Pencil | `IconEditFilled` | ~~IconPencilFilled~~ |
-| Delete / Trash | `IconDeleteFilled` | ~~IconTrashFilled~~ |
-| Chat / Message | `IconMessageFilled` | ~~IconChatFilled~~ |
-| Email / Mail | `IconMailFilled` | ~~IconEmailFilled~~ |
-| Phone / Call | `IconPhoneFilled` | — |
-| Notification / Bell | `IconNotificationFilled` | ~~IconBellFilled~~, ~~IconAlertFilled~~ |
-| Star / Rating | `IconStar100Percent` (Special) | ~~IconStarFilled~~ |
-| Share | `IconShareWebFilled` | ~~IconShareFilled~~ |
-| Download | `IconDownloadFilled` | — |
-| Upload | `IconUploadFilled` | — |
-| Copy | `IconCopyFilled` | — |
-| Send | `IconSendFilled` | — |
-| Link | `IconLinkFilled` | — |
-| Refresh / Reload | `IconReloadFilled` | ~~IconRefreshFilled~~ |
-| Location / Pin | `IconLocationFilled` | ~~IconPinFilled~~ |
-| Map | `IconMapFilled` | — |
-| Calendar / Date | `IconCalendarFilled` | — |
-| Clock / Time | `IconClockFilled` | ~~IconTimeFilled~~ |
-| User / Profile | `IconUserFilled` or `IconProfileFilled` | ~~IconAccountFilled~~ |
-| User Group / Team | `IconUserGroupFilled` | — |
-| Filter | `IconFilterFilled` | — |
-| Sort | `IconSortFilled` | — |
-| List | `IconListBulletedFilled` | ~~IconListFilled~~ |
-| Grid | `IconGridFilled` | — |
-| Photo / Image | `IconPhotosFilled` | ~~IconImageFilled~~, ~~IconPhotoFilled~~ |
-| Video | `IconVideoCameraFilled` | ~~IconVideoFilled~~ |
-| Camera | `IconCameraFilled` | — |
-| Microphone | `IconMicrophoneFilled` | ~~IconMicFilled~~ |
-| Document / File | `IconFileFilled` | ~~IconFileFilled~~ |
-| Folder | `IconFolderFilled` | — |
-| Print | `IconPrintFilled` | — |
-| Lock (closed) | `IconLockClosedFilled` | ~~IconLockFilled~~ |
-| Lock (open) | `IconLockOpenFilled` | ~~IconUnlockFilled~~ |
-| Info | `IconInfoFilled` | — |
-| Warning | `IconWarningFilled` | — |
-| Error | `IconErrorFilled` | — |
-| Flag / Bookmark | `IconFlagFilled` | ~~IconBookmarkFilled~~ |
-| Tag / Label | `IconTagFilled` | ~~IconLabelFilled~~ |
-| Expand | `IconExpandFilled` | — |
-| Fullscreen | `IconFullScreenFilled` | ~~IconFullscreenFilled~~ (capital S) |
-| Trending / Chart | `IconTrendingFilled` | ~~IconChartFilled~~, ~~IconGraphFilled~~ |
-| AI / Magic / Sparkle | `IconAIMagicFilled` or `IconSparkleFilled` | — |
-| Visibility / Eye | `IconStreetViewFilled` | ~~IconEyeFilled~~, ~~IconViewFilled~~ |
-| Arrow (directional) | `IconArrowUpFilled`, `IconArrowDownFilled`, `IconArrowLeftFilled`, `IconArrowRightFilled` | — |
-| Chevron | `IconChevronDownFilled`, `IconChevronUpFilled`, `IconChevronLeftFilled`, `IconChevronRightFilled` | — |
-| Divider | `<Divider />` component (not an icon) | — |
+| Concept | Correct Name |
+|---|---|
+| Home | `IconHomesFilled` (NOT ~~IconHouseFilled~~) |
+| Close | `IconCloseFilled` (NOT ~~IconXFilled~~) |
+| Check | `IconCheckmarkFilled` (NOT ~~IconCheckFilled~~) |
+| Add | `IconPlusFilled` (NOT ~~IconAddFilled~~) |
+| Star | `IconStar100Percent` (NOT ~~IconStarFilled~~) |
+| Share | `IconShareWebFilled` (NOT ~~IconShareFilled~~) |
 
-**Quick icon search command:**
+**Quick icon search:**
 ```bash
 node --input-type=module -e "import * as m from '@zillow/constellation-icons'; Object.keys(m).filter(k=>k.toLowerCase().includes('KEYWORD')).forEach(k=>console.log(k))"
 ```
