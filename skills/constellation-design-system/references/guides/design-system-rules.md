@@ -4,23 +4,28 @@
 
 ```
 1. PropertyCard → ALWAYS add saveButton={<PropertyCard.SaveButton />}
-2. Card → Choose ONE of: elevated, outlined, or neither (NEVER both); ALWAYS set tone="neutral"
-3. Headers → Use Flex inside sticky Box (see header-navigation skill). Avoid Page.Header in sticky contexts due to margin-block gaps.
-4. Dividers → NEVER use CSS borders, ALWAYS use <Divider />
-5. Icons → ALWAYS use Filled variants, ALWAYS use size tokens (sm/md/lg/xl)
+2. Card → Choose ONE of: elevated or outlined (NEVER both); elevated = interactive; ALWAYS tone="neutral"
+   ⚠️ This applies to ALL pages including error/404 pages — don't relax Card rules on utility pages.
+3. Headers → Use Flex inside sticky Box (not Page.Header) — see header-navigation skill
+4. Dividers → Use borderBottom on header/nav containers (borderBottom: "default", borderColor: "border.muted"); use <Divider /> for content separators (between sections, lists, cards)
+   ⚠️ Always pair borderBottom with borderColor — omitting borderColor causes a black border fallback.
+5. Icons → ALWAYS Filled variants (e.g., IconWarningFilled, NOT IconWarningOutline), ALWAYS size tokens (sm/md/lg/xl). No exceptions — error/warning icons included.
 6. Tabs → ALWAYS include defaultSelected prop
-7. Heading → ONLY 1-2 per screen; use Text textStyle variants for hierarchy
-8. Backgrounds → ALWAYS use bg.screen.neutral (white), NEVER light blue
-9. Alignment → Left-align by default; center OK for short content (loading, empty states, heroes)
-10. Professional apps → ALWAYS use size="md" for buttons/inputs
-11. Heroes → ONLY on homepages, marketing landing pages, and welcome/onboarding screens. Most pages do NOT need a hero.
-12. Color coverage → Max 25% bold color per viewport. NEVER stack colored sections back-to-back. Use illustrations to bring color into the experience.
-13. Colored backgrounds → ONLY teal or purple for colored card/section backgrounds. NEVER navy, light blue, or light/pastel tinted backgrounds.
-14. Native HTML → NEVER use raw <input>, <select>, <textarea>. ALWAYS use Constellation equivalents (Input, Select, Textarea, RadioGroup, etc.)
-15. Custom controls → NEVER hand-build radio/checkbox/toggle with Flex/Box. Constellation's RadioGroup, CheckboxGroup, Switch, ToggleButtonGroup include keyboard nav, ARIA, and focus management
-16. PandaCSS shorthand → ALWAYS use p, px, py, m, mx, mb (NOT padding, marginInline, marginBottom). Raw property names may not resolve spacing tokens
-17. Interactive spacing → NEVER use spacing tokens below "200" (8px) between clickable elements. Tokens "50"/"100" are for text-internal spacing only
-18. bg.canvas → NOT a valid page surface token. ALWAYS use bg.screen.neutral for page backgrounds
+7. Heading → ONLY 1-2 per screen; use Text textStyle variants for section/card titles
+8. Backgrounds → ALWAYS bg.screen.neutral for page backgrounds. NEVER use bg.canvas — it is not a standard page surface token.
+9. Text/Icon color → Use css prop (NOT color prop) for semantic tokens on BOTH Icon and Text: css={{ color: "text.subtle" }}. The color prop may not resolve semantic token paths.
+10. On-hero text → Use style prop with CSS variables (NOT css prop): style={{ color: "var(--color-text-on-hero-neutral)" }}
+11. Logo sizing → Use style prop (NOT css prop) for pixel values on logos
+12. Modal → ALWAYS use body prop for content (NEVER children); default size="md"
+13. PropertyCard images → ALWAYS generate via property-card-data skill; NEVER external URLs
+14. Page structure → ALWAYS wrap pages in Page.Root > Page.Content; NEVER use manual Box wrappers with maxWidth/mx as a substitute. In sidebar layouts, Page.Root goes inside the content pane (not around the sidebar).
+15. Heading level → ALWAYS include level prop (level={1} for page headline, level={2} for section/modal headers)
+16. PropertyCard.Badge tone → ONLY "notify" | "neutral" | "buyAbility" | "zillow"; other tone values fail silently
+17. Native HTML elements → NEVER use raw HTML form elements (<input>, <select>, <textarea>). ALWAYS use Constellation equivalents (Input, Select, Textarea, RadioGroup, Radio, etc.).
+18. Custom form controls → NEVER hand-build radio buttons, checkboxes, toggles, or selectors using Flex/Box when Constellation provides RadioGroup, Radio, CheckboxGroup, Checkbox, Switch, ToggleButtonGroup.
+19. PandaCSS shorthand → ALWAYS use Panda utility shorthands (p, px, py, m, mx, mb, etc.) instead of raw CSS property names (padding, marginInline, marginBottom). Raw property names may not resolve spacing tokens correctly.
+20. Minimum interactive gap → NEVER use spacing tokens below "200" (8px) for gaps between clickable/tappable elements (nav items, buttons, list rows). Tokens "50" and "100" are for text-internal spacing only.
+21. Professional buttons → Default to text-only. Do NOT add icons to text buttons unless the icon is essential for comprehension (search, download, external link). NEVER conditionally inject an icon (causes layout shift). For icon-only actions, use IconButton.
 ```
 
 ---
