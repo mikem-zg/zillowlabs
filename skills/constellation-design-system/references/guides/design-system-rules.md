@@ -33,9 +33,70 @@
 ## AI Workflow (REQUIRED)
 
 AFTER EVERY UI BUILD:
-1. Request architect review against this file
-2. Fix all violations
-3. Re-verify before delivery
+1. Run validation: `bash .agents/skills/constellation-design-system/scripts/validate-constellation.sh client/src`
+2. Run icon check: `bash .agents/skills/constellation-icons/scripts/validate-icon-imports.sh client/src`
+3. Fix all violations found by scripts
+4. Request architect review against this file
+5. Re-verify before delivery
+
+---
+
+## New Page Checklist
+
+Before writing any new page or route, verify:
+
+```
+[ ] Page wrapped in <Page.Root> <Page.Content> ... </Page.Content> </Page.Root>
+[ ] Page background is bg.screen.neutral (via Page.Root default, not manual)
+[ ] Only 1 Heading component on the page (level={1}, textStyle per audience)
+[ ] All form inputs use Constellation components (Input, Select, Radio, Textarea, etc.)
+[ ] No raw HTML elements (<input>, <select>, <div> as button, etc.)
+[ ] All Icons use Filled variants and css={{ color: "..." }} for color
+[ ] All Cards use tone="neutral" and EITHER elevated OR outlined (not both)
+[ ] All Text/Icon color uses css prop, not color prop
+[ ] Logo uses style prop for pixel dimensions, not css prop
+[ ] Buttons are text-only by default (professional) — icon only when essential
+[ ] No spacing tokens below "200" between clickable elements
+```
+
+---
+
+## Token Resolution Rules
+
+Some design tokens resolve through PandaCSS's `css` prop; others require the `style` prop with raw CSS variables. Using the wrong method causes silent failures.
+
+| Token category | Works in `css` prop? | How to use |
+|---|---|---|
+| `bg.screen.*` | YES | `css={{ bg: "bg.screen.neutral" }}` |
+| `bg.softest`, `bg.softer` | YES | `css={{ bg: "bg.softest" }}` |
+| `text.subtle`, `text.muted` | YES | `css={{ color: "text.subtle" }}` |
+| `border.muted` | YES | `css={{ borderColor: "border.muted" }}` |
+| Spacing (`200`, `400`, etc.) | YES | `css={{ p: "400" }}` |
+| `bg.surface.brand.*` | NO | `style={{ backgroundColor: "var(--color-bg-surface-brand-teal-soft)" }}` |
+| `icon.brand.*` | NO | `style={{ color: "var(--color-icon-accent-teal-strong)" }}` |
+| `text.on-hero.*` | NO | `style={{ color: "var(--color-text-on-hero-neutral)" }}` |
+| Any accent/expressive color | NO | Use `--color-*` CSS variables in `style` prop |
+
+> **CSS variable prefix note:** Constellation CSS variables use `--color-` (singular), NOT `--colors-` (plural). For example: `var(--color-text-on-hero-neutral)`, `var(--color-icon-subtle)`. Using `--colors-` will silently fail with no value resolved.
+
+### Expressive Color CSS Variables
+
+PandaCSS does NOT resolve brand surface tokens. Use the `style` prop with these CSS variables:
+
+| Family | Soft | Hero | Impact |
+|--------|------|------|--------|
+| **Teal** | `var(--color-bg-surface-brand-teal-soft)` | `var(--color-bg-surface-brand-teal-hero)` | `var(--color-bg-surface-brand-teal-impact)` |
+| **Purple** | `var(--color-bg-surface-brand-purple-soft)` | `var(--color-bg-surface-brand-purple-hero)` | `var(--color-bg-surface-brand-purple-impact)` |
+| **Orange** | `var(--color-bg-surface-brand-orange-soft)` | `var(--color-bg-surface-brand-orange-hero)` | `var(--color-bg-surface-brand-orange-impact)` |
+
+Matching icon/text variables for on-hero content:
+
+| Token type | CSS variable |
+|------------|-------------|
+| Text (neutral) | `var(--color-text-on-hero-neutral)` |
+| Text (subtle) | `var(--color-text-on-hero-subtle)` |
+| Icon (neutral) | `var(--color-icon-on-hero-neutral)` |
+| Icon (subtle) | `var(--color-icon-on-hero-subtle)` |
 
 ---
 
