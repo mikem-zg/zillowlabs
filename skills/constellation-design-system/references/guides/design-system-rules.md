@@ -151,7 +151,7 @@ Matching icon/text variables for on-hero content:
 | Duotone icons for upsells and empty states | Duotone icons everywhere |
 | Shadows only on interactive/clickable elements | Shadows on static elements |
 | Spot illustrations for metaphors | Scene illustrations (except onboarding) |
-| `size="md"` for buttons, inputs, selects | Inconsistent component sizes |
+| `size="sm"` for buttons, inputs, selects, tables | `size="md"` except for hero CTAs |
 
 ---
 
@@ -174,9 +174,13 @@ Matching icon/text variables for on-hero content:
 | Section/card titles | `Text textStyle="body-lg-bold"` or `body-bold` | `Heading` for every title |
 | Body text | `Text textStyle="body"` | `p` or `span` |
 | Layout stacking | `Flex direction="column"` or `VStack` or `Stack` (from `@/styled-system/jsx`) | Bare `<Flex>` without direction (defaults to row); `Box` with margin |
-| Empty states (Professional) | `IconXxxDuotone` | `IconXxxFilled` |
-| Button with text + icon (sparingly) | `<Button icon={<IconX />} iconPosition="start">` | Flex wrapping icon + text inside Button |
+| Labels/badges/tags (display-only) | `<Tag size="sm" tone="blue" css={{ whiteSpace: 'nowrap' }}>` | custom Box with bg/borderRadius |
+| Toggleable filter/selection | `FilterChip` | `Tag` with onClick (Tag is display-only) |
+| Empty states / upsells | `<DuoColorIcon tone="trust" onBackground="default"><Icon><IconXxxFilled /></Icon></DuoColorIcon>` | `IconXxxDuotone` (doesn't exist) |
+| Button with text + icon (sparingly) | `<Button icon={<IconX />} iconPosition="start">` — only when icon aids comprehension | Flex wrapping icon + text inside Button; icons on every text button |
 | Icon-only button | `<IconButton title="Label" tone="neutral" emphasis="bare" size="md" shape="square">` | `<Button icon={<IconX />}>` without text |
+| Data table | `<Table size="sm">` inside `Card outlined` — do NOT override child sizes | Vertical table; custom div grids |
+| Secondary actions | Outlined or subtle button variants | Filled buttons for everything |
 
 ### Card Styling Options
 
