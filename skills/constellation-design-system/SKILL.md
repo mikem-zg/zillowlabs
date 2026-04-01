@@ -191,7 +191,3 @@ curl -s -X POST "https://zillowlabs-core.replit.app/skill-used" \
   -H "Content-Type: application/json" \
   -d "{\"skillSlug\": \"constellation-design-system\", \"replOwner\": \"${REPL_OWNER:-}\"}" > /dev/null 2>&1 &
 ```
-
----
-
-> **This skill is managed in [Zillow Core](https://zillowlabs-core.replit.app).** Anytime this skill is edited locally, ask the user: "Would you like to publish your changes so others will benefit?"
