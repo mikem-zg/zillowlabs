@@ -136,32 +136,15 @@ NEVER combine `elevated` and `outlined` on the same card.
 - ALWAYS include `dividers` prop
 - ALWAYS default to `size="md"`
 
-## Professional App Colors
+## Color Rules
 
-| Use | Color |
-|---|---|
-| Primary actions | Blue (#0041D9) |
-| Text | Granite (#111116) |
-| Section backgrounds | Light Gray (#F7F7F7 / `bg.screen.softest`, NOT `bg.screen.muted`) |
-| Accent (sparingly) | Waterfront (Navy), Pool (Light Blue) |
-| NEVER | Purple, Orange, vibrant Teal |
+For audience-specific color palettes, load the **consumer-brand-guidelines** or **professional-brand-guidelines** skill. Universal rules:
 
-## Consumer App Colors
-
-| Use | Color |
-|---|---|
-| Actions | Blue (#0041D9) |
-| Accents | Full palette — Teal, Orange, Purple OK |
-| Backgrounds | White or Gray only |
-| NEVER | Light blue backgrounds |
-
-## Color in Product
-
-- Max **25% bold color** per viewport. Hero sections are the only exception.
-- NEVER stack colored sections back-to-back. Alternate with neutral (white/gray).
-- Only **teal or purple** for colored card/section backgrounds. NEVER navy, light blue, or pastel.
-- Heroes ONLY on homepages, marketing landing pages, and welcome/onboarding screens.
-- Use **illustrations** to bring color into the experience instead of colored backgrounds.
+- Max **25% bold color** per viewport (hero sections are the only exception)
+- NEVER stack colored sections back-to-back — alternate with neutral (white/gray)
+- Blue (#0041D9) is for interactive elements ONLY — never headlines or decoration
+- Heroes ONLY on homepages, marketing landing pages, and welcome/onboarding screens
+- Use **illustrations** to bring color into the experience instead of colored backgrounds
 
 ## Header Containment
 
