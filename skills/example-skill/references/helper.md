@@ -1,3 +1,0 @@
-# Helper Reference
-
-Additional documentation.
