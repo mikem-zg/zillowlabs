@@ -1,6 +1,7 @@
 ---
 name: header-navigation
 description: Build Constellation header and navigation patterns for Zillow apps. Covers 10 header variations (basic, sticky, search, mobile-responsive, professional, tabs, sidebar, breadcrumb, centered logo, no-divider) with correct component defaults, responsive logo swap, Menu component for mobile nav, AdornedInput for search, and Box-based layouts with semantic spacing tokens. Use when building headers, navigation bars, app shells, or top-level page layouts.
+author: "Mike Payne"
 ---
 
 # Header Navigation
