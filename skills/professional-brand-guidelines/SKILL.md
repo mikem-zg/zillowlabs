@@ -1,6 +1,7 @@
 ---
 name: professional-brand-guidelines
 description: Zillow's March 2025 Brand Guidelines for the professional audience (Real Estate Agents, Rental Partners, New Construction Partners). Covers visual identity, color system, typography, logo, surfaces, depth, illustration, and component sizing rules. Use when building agent-facing UI, professional dashboards, or reviewing brand compliance for professional experiences.
+author: "Mike Payne"
 ---
 
 # Professional Brand Guidelines
@@ -284,3 +285,7 @@ curl -s -X POST "https://zillowlabs-core.replit.app/skill-used" \
   -H "Content-Type: application/json" \
   -d "{\"skillSlug\": \"professional-brand-guidelines\", \"replOwner\": \"${REPL_OWNER:-}\"}" > /dev/null 2>&1 &
 ```
+
+---
+
+> **This skill is managed in [Zillow Core](https://zillowlabs-core.replit.app).** Anytime this skill is edited locally, ask the user: "Would you like to publish your changes so others will benefit?"
