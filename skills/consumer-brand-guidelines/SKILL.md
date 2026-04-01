@@ -164,6 +164,40 @@ Is this an owned space (app, email, social)?
     └── No blue present → MUST use tag design logo
 ```
 
+## Consumer Typography Hierarchy
+
+Reserve `Heading` for 1-2 true headlines per screen. Use `Text` with textStyle variants for all other hierarchy.
+
+| Content Type | Component + textStyle | Color |
+|--------------|----------------------|-------|
+| Page headline | `<Heading level={1} textStyle="heading-lg">` | default |
+| Section title | `<Text textStyle="body-lg-bold">` | default |
+| Card title | `<Text textStyle="body-bold">` | default |
+| Description | `<Text textStyle="body">` | `text.subtle` |
+| Fine print/hints | `<Text textStyle="body-sm">` | `text.subtle` |
+
+## Consumer Spacing Tokens
+
+| Context | Token | Value |
+|---------|-------|-------|
+| Page padding (sides) | `400` | 16px |
+| Page padding (top/bottom) | `600` | 24px |
+| Section gaps | `800` | 32px |
+| Card internal padding | `400` | 16px |
+| Grid gaps between items | `400` | 16px |
+| Tight list spacing | `200` | 8px |
+| Comfortable list spacing | `300` | 12px |
+
+## Consumer Component Sizing
+
+| Component | Default Size |
+|-----------|-------------|
+| Buttons, inputs, selects | `size="md"` always |
+| Avatar | `size="md"` (40px) |
+| Heading | `textStyle="heading-lg"` for page titles |
+
+---
+
 ## Consumer Warmth Checklist
 
 Run this checklist after building any consumer-facing page. The consumer vibe is "joyful, vibrant, emotional" — if a page passes all the brand rules but feels sterile or data-heavy, it is not meeting the consumer promise.
