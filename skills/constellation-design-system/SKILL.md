@@ -50,11 +50,14 @@ The `references/` directory contains detailed documentation organized as follows
 ### Quick Start
 - [Quick Reference](references/guides/quick-reference.md): **One-page cheat sheet** — component selection table, spacing tokens, typography hierarchy, icon rules, card rules, modal rules, color tokens, and common imports. Load this for fast lookups without reading all 99 component docs.
 
-### Validation Script
-Run to check TSX/JSX files for common design system violations (wrong icon variants, missing Card tone, CSS borders instead of Divider, raw HTML elements, etc.):
+### Validation Scripts
+Run after every UI build to catch design system violations:
 ```bash
 bash .agents/skills/constellation-design-system/scripts/validate-constellation.sh ./client/src
+bash .agents/skills/constellation-design-system/scripts/validate-tokens.sh ./client/src
 ```
+- **validate-constellation.sh**: Checks component usage — wrong icon variants, missing Card tone, missing saveButton, raw HTML elements, bg.canvas, Modal children, missing Heading level, etc.
+- **validate-tokens.sh**: Catches hardcoded CSS values — hex colors, px spacing, raw fontSize/fontWeight, hardcoded borderRadius, --colors- prefix, and suggests the correct design tokens.
 
 ### Guides
 
