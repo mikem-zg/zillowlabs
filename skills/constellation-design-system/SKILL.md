@@ -58,7 +58,7 @@ bash .agents/skills/constellation-design-system/scripts/validate-constellation.s
 
 ### Guides
 - [Installation and Setup](references/guides/installation-and-setup.md): Complete setup guide for installing Constellation packages, configuring PandaCSS, setting themes, configuring aliases for styled-system, and framework-specific configs (Next.js, Vite, Storybook, Jest).
-- [Design System Rules](references/guides/design-system-rules.md): Critical rules for component selection, colors, icons, typography, layouts, and audience-specific guidelines (Consumer vs Professional apps).
+- [Design System Rules](references/guides/design-system-rules.md): 21 critical rules, new page checklist, token resolution rules (PandaCSS gotchas), expressive color CSS variables, component selection, colors, icons, typography, layouts, and audience-specific guidelines.
 - [Navigation Patterns](references/guides/navigation-patterns.md): Decision framework for choosing the right navigation component (Page.Header, Tabs, VerticalNav, Breadcrumb, Menu, Pagination, Accordion, ToggleButtonGroup). Covers when to use each, hybrid patterns, mobile/responsive behavior, and Consumer vs Professional guidance.
 - [UX Writing Guide](references/guides/ux-writing.md): Voice, tone, sentence case, microcopy patterns, error/success messages, and copy review checklist. **Note:** For the full standalone content skill with audience-specific rules, validation checklist, and expanded copy patterns, see [constellation-content](../constellation-content/SKILL.md).
 - [Development Tech Stack](references/guides/development-tech-stack.md): Monorepo toolchain (Turbo, pnpm), build tools (Rslib, Rsbuild), testing (Vitest, Cypress), code quality (oxlint, Prettier), and daily development workflows.
