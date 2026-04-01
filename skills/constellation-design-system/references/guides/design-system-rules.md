@@ -136,7 +136,7 @@ Matching icon/text variables for on-hero content:
 | **Accents** | Waterfront (Navy) and Pool (Light Blue) sparingly |
 | **PROHIBITED** | NO Purple, Orange, or vibrant Teals for UI elements |
 | **Icons** | Filled icons (Gray950) for standard UI, Duotone icons for upsells/empty states |
-| **Component sizing** | Default to `size="md"` for buttons, inputs, and other components |
+| **Component sizing** | Default to `size="sm"` for buttons, inputs, selects, tables. `size="md"` only for hero CTAs. See `professional-brand-guidelines` skill for full sizing table. |
 | **Logo** | Use `ZillowLogo` component (same as Consumer: 24px desktop, 16px mobile) |
 | **Illustrations** | Spot illustrations ONLY - no complex Scene illustrations |
 | **Shadows** | Heavier, larger shadows on interactive elements only (not static elements) |
