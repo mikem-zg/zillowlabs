@@ -693,22 +693,22 @@ Each color family provides three intensity levels for hero backgrounds:
 // WRONG — PandaCSS does not resolve onHero tokens in the css prop
 <Text css={{ color: "text.onHero.neutral" }}>Hero text</Text>
 
-// CORRECT — use style prop with CSS variable
-<Text style={{ color: "var(--colors-text-on-hero-neutral)" }}>Hero text</Text>
+// CORRECT — use style prop with CSS variable (--color- singular, NOT --colors-)
+<Text style={{ color: "var(--color-text-on-hero-neutral)" }}>Hero text</Text>
 ```
 
 | Token (PandaCSS path) | CSS Variable | Purpose |
 |-------|-------------|---------|
-| `text.onHero.neutral` | `var(--colors-text-on-hero-neutral)` | Body text on hero backgrounds |
-| `text.onHero.neutral-fixed` | `var(--colors-text-on-hero-neutral-fixed)` | Body text that stays fixed across themes |
-| `text.onHero.action.neutral.default` | `var(--colors-text-on-hero-action-neutral-default)` | Interactive text on hero (default state) |
-| `text.onHero.action.neutral.hover` | `var(--colors-text-on-hero-action-neutral-hover)` | Interactive text on hero (hover state) |
-| `text.onHero.link.default` | `var(--colors-text-on-hero-link-default)` | Link text on hero (default state) |
-| `text.onHero.link.hover` | `var(--colors-text-on-hero-link-hover)` | Link text on hero (hover state) |
-| `text.onHero.express.trust.hero` | `var(--colors-text-on-hero-express-trust-hero)` | Trust/finance accent text (Teal family) |
-| `text.onHero.express.inspire.hero` | `var(--colors-text-on-hero-express-inspire-hero)` | Inspiration accent text (Purple family) |
-| `text.onHero.express.empower.hero` | `var(--colors-text-on-hero-express-empower-hero)` | Empowerment accent text (Orange family) |
-| `text.onHero.express.insight.hero` | `var(--colors-text-on-hero-express-insight-hero)` | Insight accent text (Blue family) |
+| `text.onHero.neutral` | `var(--color-text-on-hero-neutral)` | Body text on hero backgrounds |
+| `text.onHero.neutral-fixed` | `var(--color-text-on-hero-neutral-fixed)` | Body text that stays fixed across themes |
+| `text.onHero.action.neutral.default` | `var(--color-text-on-hero-action-neutral-default)` | Interactive text on hero (default state) |
+| `text.onHero.action.neutral.hover` | `var(--color-text-on-hero-action-neutral-hover)` | Interactive text on hero (hover state) |
+| `text.onHero.link.default` | `var(--color-text-on-hero-link-default)` | Link text on hero (default state) |
+| `text.onHero.link.hover` | `var(--color-text-on-hero-link-hover)` | Link text on hero (hover state) |
+| `text.onHero.express.trust.hero` | `var(--color-text-on-hero-express-trust-hero)` | Trust/finance accent text (Teal family) |
+| `text.onHero.express.inspire.hero` | `var(--color-text-on-hero-express-inspire-hero)` | Inspiration accent text (Purple family) |
+| `text.onHero.express.empower.hero` | `var(--color-text-on-hero-express-empower-hero)` | Empowerment accent text (Orange family) |
+| `text.onHero.express.insight.hero` | `var(--color-text-on-hero-express-insight-hero)` | Insight accent text (Blue family) |
 
 ---
 
