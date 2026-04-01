@@ -169,9 +169,9 @@ import { css } from '@/styled-system/css';
 import { Box, Flex, Grid } from '@/styled-system/jsx';
 ```
 
-## Validation Script
+## Validation Scripts
 
-Run to check for common violations:
 ```bash
 bash .agents/skills/constellation-design-system/scripts/validate-constellation.sh ./client/src
+bash .agents/skills/constellation-design-system/scripts/validate-tokens.sh ./client/src
 ```
