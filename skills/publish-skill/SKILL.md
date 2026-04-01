@@ -243,7 +243,7 @@ Example changelog:
 | SKILL.md content | 20-50,000 characters |
 | Description | 10-1,000 characters |
 | Tags | 1-5 tags |
-| Additional files | Max 20 files |
+| Additional files | No limit |
 | Total file size | Max 2MB (all files combined) |
 | File paths | No `..` traversal, no absolute paths |
 | Changelog entry | Max 500 characters |
