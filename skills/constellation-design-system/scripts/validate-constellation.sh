@@ -151,8 +151,8 @@ check "ALL CAPS text in UI (use sentence case)" '>[[:space:]]*[A-Z]{4,}[[:space:
 # Bare Flex without direction (defaults to row, likely a bug for stacking)
 check "Adjacent Text siblings without flex-column wrapper (text runs inline)" '<Text[^>]*/>[[:space:]]*<Text'
 
-# Icon wrapper inside Button icon prop (should be raw icon)
-check "<Icon> wrapper inside Button icon prop (pass raw icon)" 'icon=\{<Icon'
+# Icon wrapper inside Button icon prop (should be raw icon, not <Icon><IconXFilled /></Icon>)
+check "<Icon> wrapper inside Button icon prop (pass raw icon)" 'icon=\{<Icon[ >]'
 
 # IconButton without title prop
 check "IconButton without title prop (required for accessibility)" '<IconButton[^>]*(?!title)[^>]*>'
