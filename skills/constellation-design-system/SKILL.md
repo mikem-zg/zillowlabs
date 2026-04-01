@@ -57,9 +57,15 @@ bash .agents/skills/constellation-design-system/scripts/validate-constellation.s
 ```
 
 ### Guides
+
+**Tiered design rules** (load only what you need — critical rules are ~110 lines instead of 900+):
+- [Design System Rules](references/guides/design-system-rules.md): **ALWAYS LOAD** — 21 critical rules, new page checklist, AI workflow, standard imports. The slim core every session needs.
+- [Component Patterns](references/guides/component-patterns.md): **Load when building UI** — component selection table, Card/Modal/Table/Tag/Button patterns, Page structure, sidebar layouts, error page template.
+- [Token Reference](references/guides/token-reference.md): **Load when styling** — token resolution rules (PandaCSS gotchas), expressive color CSS variables, hero backgrounds, on-hero text, color semantics, shape & elevation.
+
+**Other guides:**
 - [Build Kickoff Guide](references/guides/build-kickoff-guide.md): Step-by-step workflow for starting any new app or feature. Pre-build checklist, audience identification, skill loading decision tree, project setup, brand rule application, and delivery checklist.
 - [Installation and Setup](references/guides/installation-and-setup.md): Complete setup guide for installing Constellation packages, configuring PandaCSS, setting themes, configuring aliases for styled-system, and framework-specific configs (Next.js, Vite, Storybook, Jest).
-- [Design System Rules](references/guides/design-system-rules.md): 21 critical rules, new page checklist, token resolution rules (PandaCSS gotchas), expressive color CSS variables, component selection, colors, icons, typography, layouts, and audience-specific guidelines.
 - [Navigation Patterns](references/guides/navigation-patterns.md): Decision framework for choosing the right navigation component (Page.Header, Tabs, VerticalNav, Breadcrumb, Menu, Pagination, Accordion, ToggleButtonGroup). Covers when to use each, hybrid patterns, mobile/responsive behavior, and Consumer vs Professional guidance.
 - [UX Writing Guide](references/guides/ux-writing.md): Voice, tone, sentence case, microcopy patterns, error/success messages, and copy review checklist. **Note:** For the full standalone content skill with audience-specific rules, validation checklist, and expanded copy patterns, see [constellation-content](../constellation-content/SKILL.md).
 - [Development Tech Stack](references/guides/development-tech-stack.md): Monorepo toolchain (Turbo, pnpm), build tools (Rslib, Rsbuild), testing (Vitest, Cypress), code quality (oxlint, Prettier), and daily development workflows.
