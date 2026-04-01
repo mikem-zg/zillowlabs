@@ -33,11 +33,12 @@
 ## AI Workflow (REQUIRED)
 
 AFTER EVERY UI BUILD:
-1. Run validation: `bash .agents/skills/constellation-design-system/scripts/validate-constellation.sh client/src`
-2. Run icon check: `bash .agents/skills/constellation-icons/scripts/validate-icon-imports.sh client/src`
-3. Fix all violations found by scripts
-4. Request architect review against this file
-5. Re-verify before delivery
+1. Run component validation: `bash .agents/skills/constellation-design-system/scripts/validate-constellation.sh client/src`
+2. Run token audit: `bash .agents/skills/constellation-design-system/scripts/validate-tokens.sh client/src`
+3. Run icon check: `bash .agents/skills/constellation-icons/scripts/validate-icon-imports.sh client/src`
+4. Fix all violations found by scripts
+5. Request architect review against this file
+6. Re-verify before delivery
 
 ---
 
