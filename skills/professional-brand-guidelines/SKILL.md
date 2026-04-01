@@ -110,6 +110,89 @@ Zillow's March 2025 Brand Guidelines for the **professional audience** (Real Est
 | PLAT_P01 | Both | Platform | Lifecycle emails = more expressive; operational emails = minimalist | None |
 | PLAT_P02 | Product | Platform | Empty states: spot illustration + clear path forward, consistent across web and native | None |
 
+## Professional Typography Hierarchy
+
+Reserve `Heading` for 1-2 true headlines per screen. Max `heading-md` — never use `heading-lg` in professional apps.
+
+**Standard layout:**
+
+| Content Type | Component + textStyle | Color |
+|--------------|----------------------|-------|
+| Page headline | `<Heading level={1} textStyle="heading-md">` | default |
+| Stat/metric value | `<Text textStyle="heading-xs">` | default |
+| Metric card label | `<Text textStyle="body-sm">` | `text.subtle` |
+| Section title | `<Text textStyle="body-lg-bold">` | default |
+| Card title | `<Text textStyle="body-bold">` | default |
+| Description | `<Text textStyle="body">` | `text.subtle` |
+| Fine print/hints | `<Text textStyle="body-sm">` | `text.subtle` |
+
+**Compact contexts** (tables, metric cards, compact nav):
+
+| Context | Primary text | Secondary text |
+|---------|-------------|---------------|
+| Standard layout | `body` | `body-sm` with `text.subtle` |
+| Compact / table / card | `body-sm` (bold via `fontWeight: 600` for emphasis) | `body-sm` with `text.subtle` |
+| Metric card value | `heading-xs` | — |
+| Metric card label | `body-sm` with `text.subtle` | — |
+
+## Professional Spacing Tokens
+
+**Standard** (settings pages, onboarding, landing pages):
+
+| Context | Token | Value |
+|---------|-------|-------|
+| Page padding (sides) | `400` | 16px |
+| Page padding (top/bottom) | `600` | 24px |
+| Section gaps | `600` | 24px |
+| Card internal padding | `400` | 16px |
+| Grid gaps between items | `300` | 12px |
+
+**Dense** (dashboards, data tables, admin tools, CRM):
+
+| Context | Token | Value |
+|---------|-------|-------|
+| Page padding (sides) | `400` | 16px |
+| Page padding (top/bottom) | `400` | 16px |
+| Section gaps | `400` | 16px |
+| Card internal padding | `300` | 12px |
+| Grid gaps between items | `200` | 8px |
+| Tab panel top padding | `300` | 12px |
+| Sidebar logo area padding | `py="300"` | 12px |
+| Sidebar footer padding | `py="200"` | 8px |
+
+**When to use dense vs standard:**
+- **Dense** (default for professional product UI): Dashboards, data tables, admin tools, CRM-style interfaces, or any layout where the primary content is tabular or metric-driven.
+- **Standard**: Landing pages, onboarding flows, settings pages, or any layout where readability and visual breathing room matter more than density.
+
+## Professional Table Pattern
+
+Tables default to horizontal layout with sm sizing. Wrap in a Card for visual grouping.
+
+```tsx
+<Card outlined elevated={false} tone="neutral">
+  <Table size="sm">
+    <Table.Header>
+      <Table.Row>
+        <Table.HeaderCell>Name</Table.HeaderCell>
+        <Table.HeaderCell>Status</Table.HeaderCell>
+        <Table.HeaderCell>Actions</Table.HeaderCell>
+      </Table.Row>
+    </Table.Header>
+    <Table.Body>
+      <Table.Row>
+        <Table.Cell><Text textStyle="body-sm" css={{ fontWeight: 600 }}>Jane Doe</Text></Table.Cell>
+        <Table.Cell><Tag size="sm" tone="notify">Active</Tag></Table.Cell>
+        <Table.Cell><IconButton size="sm" title="Edit" tone="neutral" emphasis="bare"><Icon size="sm"><IconEditFilled /></Icon></IconButton></Table.Cell>
+      </Table.Row>
+    </Table.Body>
+  </Table>
+</Card>
+```
+
+Elements inside a `size="sm"` table inherit the sm scale — do NOT override child font sizes, Icon sizes, Tag sizes, or Button sizes back to md.
+
+---
+
 ## Decision Trees
 
 ### Choosing a Background Color (Professional)
