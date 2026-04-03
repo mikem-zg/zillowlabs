@@ -19,21 +19,6 @@ Authorization: Bearer YOUR_API_KEY
 
 API keys are managed in the platform's API Keys page.
 
-### Option 2: Google OAuth2 (Recommended)
-
-Automatically provision an API key by redirecting users through Google sign-in. Only users with email addresses on allowed domains can authenticate.
-
-1. Redirect the user to: `https://<BASE_URL>/oauth/google/authorize?redirect_uri=https://yourapp.com/callback`
-2. The user signs in with Google and their domain is verified
-3. The platform redirects back to your `redirect_uri` with `?api_key=sk_...&user_email=user@domain.com`
-4. Store the API key and use it for all subsequent requests
-
-If no `redirect_uri` is provided, the API key is returned as JSON.
-
-Requires `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, and `GOOGLE_ALLOWED_DOMAINS` environment variables on the platform.
-
-See [references/api-reference.md](references/api-reference.md) for full OAuth endpoint details.
-
 ## Base URL
 
 Use the platform's deployed URL as the base. All endpoints are prefixed with `/api/external/`.
