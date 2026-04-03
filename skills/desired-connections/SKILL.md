@@ -217,12 +217,30 @@ curl -s -X POST \
 }
 ```
 
+### GET /api/v1/capacity-url/:zuid
+
+Get an agent's capacity submission URL (XOR-encrypted ZUID link).
+
+```bash
+curl -s -H "X-API-Key: YOUR_API_KEY" \
+  https://ap.zillowlabs.com/api/v1/capacity-url/12345678
+```
+
+**Response:**
+```json
+{
+  "zuid": "12345678",
+  "capacityUrl": "https://ap.zillowlabs.com/ab1c2d3e4f5g/capacity"
+}
+```
+
 ### Error responses
 
 | Status | Meaning |
 |--------|---------|
 | 400 | Invalid ZUID (must be numeric) or invalid `desiredConnections` value |
 | 401 | Missing or invalid `X-API-Key` header |
+| 500 | Failed to generate capacity URL (ZUID_SECRET not configured) |
 | 503 | API key not configured on the server |
 
 ### Bulk example (bash)
