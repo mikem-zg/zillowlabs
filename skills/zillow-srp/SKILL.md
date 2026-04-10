@@ -139,11 +139,63 @@ app.get('/api/maps-config', (_req, res) => {
 
 ```ts
 interface Property {
+  zpid: string;
   image: string; address: string; price: string; priceShort: string;
   beds: string; baths: string; sqft: string; type: string;
   badge: string | null; badgeTone: 'notify' | 'zillow';
   alt: string; broker: string; lat: number; lng: number;
+  homeDetailsPageUrl: string;
 }
+```
+
+**Always include `zpid`** — the Zillow Property ID is needed for constructing listing URLs and fetching Tier 1 listing photos.
+
+**Always use `homeDetailsPageUrl`** from the search response as the card's link — this is the only URL format guaranteed to resolve to the correct listing page.
+
+## Zillow URL Patterns & Fallback Strategy
+
+When `homeDetailsPageUrl` is not available (e.g., the MCP tool is unavailable or you're constructing links manually), use these URL formats:
+
+| Format | Works? | Notes |
+|--------|--------|-------|
+| `/homedetails/{address-slug}/{zpid}_zpid/` | Yes | Canonical format. Requires a ZPID. |
+| `/homes/{address-slug}_rb/` | Yes | Search redirect. Zillow will resolve it to the correct listing, but adds a redirect hop. |
+| `/homedetails/{address-slug}/` | **No** | Without the ZPID suffix, this redirects to the Zillow homepage. Never use this. |
+
+**Prefer the first format whenever you have a ZPID.** Fall back to the `/homes/` redirect format only when no ZPID is available.
+
+### Address Slug Formatting
+
+Zillow URLs use a specific slug format for addresses. Mismatches cause 404s or homepage redirects.
+
+| Rule | Example |
+|------|---------|
+| Spaces become hyphens | `742 Oakridge Dr` → `742-Oakridge-Dr` |
+| Commas are removed | `Raleigh, NC 27601` → `Raleigh-NC-27601` |
+| Unit numbers with `#` are dropped | `1200 Maple Ave #4B` → `1200-Maple-Ave` (unit omitted) |
+| Directional abbreviations kept | `123 N Main St` → `123-N-Main-St` |
+| Periods removed | `St.` → `St` |
+
+**Full example:**
+- Address: `742 Oakridge Dr, Raleigh, NC 27601`
+- Slug: `742-Oakridge-Dr-Raleigh-NC-27601`
+- URL: `https://www.zillow.com/homedetails/742-Oakridge-Dr-Raleigh-NC-27601/6828345_zpid/`
+
+**For units with `#` or `Apt`:** Zillow drops these from the URL slug entirely. The ZPID is the only reliable disambiguator for multi-unit buildings.
+
+### Constructing a Link on a PropertyCard
+
+```tsx
+const listingUrl = property.homeDetailsPageUrl
+  ?? `https://www.zillow.com/homedetails/${toSlug(property.address)}/${property.zpid}_zpid/`;
+
+<PropertyCard
+  photoBody={<PropertyCard.Photo src={p.image} alt={p.alt} />}
+  saveButton={<PropertyCard.SaveButton />}
+  data={{ dataArea1: p.price, dataArea3: p.address }}
+  elevated interactive
+  onClick={() => window.open(listingUrl, '_blank')}
+/>
 ```
 
 ## Consumer App Rules (applies to SRP)
