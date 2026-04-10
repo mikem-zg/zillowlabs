@@ -100,7 +100,36 @@ This is where the skill earns its keep. Here's how to map live Zillow data into 
 
 #### PropertyCard (Listings)
 
-The property search returns data that maps directly onto PropertyCard props. Photos are NOT included in the MCP search response. Use the property address with Google Street View to get a real exterior photo, or fall back to AI-generated images. See the **Photo Handling** section for the tiered strategy.
+The property search returns data that maps directly onto PropertyCard props. When building your property data model, always extract and store the **ZPID** from the search response — you'll need it for photo lookups (Tier 1) and URL construction. Photos are NOT included in the MCP search response — see the **Photo Handling** section for the tiered strategy.
+
+**Extracting the ZPID:** The search response includes `homeDetailsPageUrl` for each property (e.g., `https://www.zillow.com/homedetails/4600-Slickrock-Cv-Austin-TX-78747/29515090_zpid`). Parse the ZPID from this URL:
+
+```tsx
+// Extract ZPID from homeDetailsPageUrl
+const extractZpid = (url) => {
+  const match = url.match(/\/(\d+)_zpid/);
+  return match ? match[1] : null;
+};
+```
+
+**Recommended property data model:**
+```tsx
+const property = {
+  zpid: extractZpid(result.homeDetailsPageUrl),     // e.g., "29515090" — needed for photos & URLs
+  detailUrl: result.homeDetailsPageUrl,              // Canonical link — always use this
+  address: result.formattedAddress.line1,            // e.g., "4600 Slickrock Cv"
+  fullAddress: `${result.formattedAddress.line1}, ${result.formattedAddress.line2}`,
+  city: result.formattedAddress.city,
+  state: result.formattedAddress.stateOrProvince,
+  beds: result.bedroomCount,
+  baths: result.bathroomCount,
+  sqft: result.livingAreaSquareFeet,
+  homeType: result.homeType,
+  photoSrc: null,  // Populated via Photo Handling tiers
+};
+```
+
+**Component mapping:**
 
 ```tsx
 import { PropertyCard } from '@zillow/constellation';
@@ -109,7 +138,7 @@ import { PropertyCard } from '@zillow/constellation';
 <PropertyCard
   photoBody={
     <PropertyCard.Photo
-      src={property.photoSrc}          // Street View image or AI-generated (see Photo Handling)
+      src={property.photoSrc}          // See Photo Handling for tiered strategy
       alt={`Home at ${property.address}`}
     />
   }
@@ -132,18 +161,21 @@ import { PropertyCard } from '@zillow/constellation';
         ]}
       />
     ),
-    dataArea3: property.fullAddress,   // e.g., "742 Oakridge Dr, Austin, TX 78701"
+    dataArea3: property.fullAddress,   // e.g., "4600 Slickrock Cv, Austin, TX 78747"
     dataArea4: property.homeType,      // e.g., "House for sale"
   }}
   elevated
   interactive
   tabIndex={0}
+  onClick={() => window.open(property.detailUrl)}  // Always use homeDetailsPageUrl
 />
 ```
 
 **Key rules:**
 - Always include `saveButton={<PropertyCard.SaveButton />}` — it's required
-- For photos: use address with Google Street View, or AI-generate with `property-card-data` skill (see **Photo Handling**)
+- Always use `homeDetailsPageUrl` from the search response as the card's link — this is the only URL format guaranteed to resolve to the correct listing page
+- Always extract and store the ZPID — it's needed for Tier 1 photo lookups and URL fallback construction
+- For photos: try Tier 1 (Federated Photos), then Tier 2 (Street View), then Tier 3 (AI-generated) — see **Photo Handling**
 - Format prices with commas and dollar signs: `$425,000` for sale, `$2,100/mo` for rent
 - Format square footage with commas: `1,450`
 
@@ -356,6 +388,59 @@ Daytime, clear weather, front-facing street view.
 | Have photo keys (VPN + photo-album-service, or property-data-api) | Tier 1 — real listing photos via `photos.zillowstatic.com` URL |
 | Have Google Maps API key | Tier 2 — Street View URL (real exterior photo) |
 | No API keys or sandbox restrictions | Tier 3 — AI-generated photos matched to real data |
+
+## Zillow URL Construction
+
+### Canonical URL
+
+Always use `homeDetailsPageUrl` from the MCP search response as the click-through link. This is the only URL format guaranteed to resolve to the correct listing page. It contains the full address slug and ZPID:
+
+```
+https://www.zillow.com/homedetails/4600-Slickrock-Cv-Austin-TX-78747/29515090_zpid/
+```
+
+### URL Fallback Strategy
+
+When the MCP tool isn't available or you need to construct URLs manually, here's what works and what doesn't:
+
+| URL Format | Works? | Notes |
+|---|---|---|
+| `/homedetails/{address-slug}/{zpid}_zpid/` | Yes | Canonical format. Requires ZPID. |
+| `/homes/{address-slug}_rb/` | Yes | Search redirect — finds the property but slower, may land on SRP |
+| `/homedetails/{address-slug}/` | No | Redirects to homepage without the ZPID. Never use this. |
+
+If you have the ZPID (which you should — always extract it from search results), use the `/homedetails/` format. If you only have an address and no ZPID, the `/homes/` redirect format will still find the property.
+
+### Address Slug Format
+
+Zillow URL slugs follow specific formatting rules. Getting these wrong will break the URL:
+
+- **Spaces** become hyphens: `4600 Slickrock Cv` → `4600-Slickrock-Cv`
+- **Commas** are removed: `Austin, TX 78747` → `Austin-TX-78747`
+- **`#` symbols** (unit numbers) are dropped: `APT #210` → `APT-210` or sometimes just the number
+- **Periods** are removed: `St.` → `St`
+- **Full format**: `{street}-{city}-{state}-{zip}` all joined with hyphens
+
+```tsx
+// Convert a full address to a Zillow URL slug
+const toZillowSlug = (address) => {
+  return address
+    .replace(/[#.,]/g, '')       // Remove #, commas, periods
+    .replace(/\s+/g, '-')        // Spaces to hyphens
+    .replace(/-+/g, '-');        // Collapse multiple hyphens
+};
+
+// Example:
+// "4600 Slickrock Cv, Austin, TX 78747" → "4600-Slickrock-Cv-Austin-TX-78747"
+// "806 W 24th St APT #210, Austin, TX 78705" → "806-W-24th-St-APT-210-Austin-TX-78705"
+```
+
+Constructing a URL manually:
+```tsx
+const listingUrl = `https://www.zillow.com/homedetails/${toZillowSlug(property.fullAddress)}/${property.zpid}_zpid/`;
+```
+
+But again — prefer `homeDetailsPageUrl` from the search response whenever it's available. Only construct URLs manually as a last resort.
 
 ## Handling Other Data Quirks
 
