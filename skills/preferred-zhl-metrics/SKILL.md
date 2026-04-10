@@ -1,20 +1,23 @@
 ---
 name: metric-library
 description: >-
-  Canonical metric definitions, calculations, and business context for the
-  Audrey Insights partner analytics platform. Use when anyone asks about
-  metrics, KPIs, thresholds, ratings, funnel stages, data sources, or how
-  partner/agent performance is measured. Also use when writing or reviewing
-  SQL queries against Databricks Unity Catalog tables for this domain.
+  Canonical metric definitions, calculations, and business context for
+  Preferred (Buyer and Seller) and ZHL (Zillow Home Loans) program metrics.
+  Use when anyone asks about metrics, KPIs, thresholds, ratings, funnel
+  stages, data sources, or how partner/agent performance is measured. Also
+  use when writing or reviewing SQL queries against Databricks Unity Catalog
+  tables for this domain.
 ---
 
-# Audrey Insights — Metric Library
+# Preferred & ZHL — Metric Library
 
 ## Purpose
 
-This skill ensures **consistent, accurate answers** about every metric in the
-Audrey Insights dashboard. It is the single source of truth for definitions,
-formulas, thresholds, and business context.
+This skill ensures **consistent, accurate answers** about every metric in
+the Preferred program (Buyer and Seller) and ZHL (Zillow Home Loans)
+ecosystem. It is the single source of truth for definitions, formulas,
+thresholds, and business context — applicable across any dashboard, report,
+or query that uses these metrics.
 
 **Primary audience**: Partner Managers and Sales Reps who use these metrics for
 performance reviews, connection allocation, program eligibility, and operational
@@ -41,17 +44,18 @@ compliance.
 | **Next Snapshot** | Last 2 completed months + current month | ZHL next-snapshot rate |
 | **L90D** | Last 90 days (rolling) | Agent Performance Report |
 
-**Critical**: KPI summary cards are **never** filtered by the user's date-range
-selection. Only charts and tables respect the date-range filter.
+**Critical**: In dashboard contexts, KPI summary cards are **never** filtered
+by the user's date-range selection. Only charts and tables respect date-range
+filters.
 
 ### Rating Systems
 
-**Buyer team (L6M & current month):**
+**Preferred Buyer (L6M & current month):**
 - **Strong**: Achievement >= 100%
 - **Fair**: Achievement >= 75%
 - **Poor**: Achievement < 75%
 
-**Seller team (L6M, current month, Showcase L3M):**
+**Preferred Seller (L6M, current month, Showcase L3M):**
 - **Strong**: Rate >= 1.0 (100%)
 - **Fair**: Rate >= 0.75 (75%)
 - **Poor**: Rate < 0.75 (75%)
@@ -124,7 +128,7 @@ Display colors: **Platinum** (purple), **Gold** (amber), **Silver** (gray),
 
 ### Buyer Connections
 
-Buyer connection metrics track how well a partner converts Zillow-provided
+Preferred Buyer metrics track how well a partner converts Zillow-provided
 buyer leads into closed transactions. These directly drive **connection
 allocation** — partners who hit targets get more leads.
 
@@ -156,9 +160,9 @@ allocation** — partners who hit targets get more leads.
 - Column: `current_active_team_members` (fallback `active_members`)
 - Context for per-agent productivity and capacity discussions.
 
-### Conversion Funnel — Buyer Team
+### Preferred Buyer Funnel — Team Level
 
-The buyer funnel tracks lead progression from connection to close.
+The Preferred Buyer funnel tracks lead progression from connection to close.
 
 | Order | Stage | Column | What It Represents |
 |-------|-------|--------|--------------------|
@@ -172,7 +176,7 @@ The buyer funnel tracks lead progression from connection to close.
 **Business use**: If Met-to-Showing is low → coaching on buyer engagement.
 If Offer-to-Close is low → look at market conditions or pricing strategy.
 
-### Conversion Funnel — Buyer Agent
+### Preferred Buyer Funnel — Agent Level
 
 Same stages at individual agent granularity. Uses `flex_*` columns from
 `agent_metrics_monthly`.
@@ -203,10 +207,10 @@ Same stages at individual agent granularity. Uses `flex_*` columns from
 **Predicted CVR** = `flex_predicted_cvr` (average). Model-predicted buy-side
 conversion rate. Stored as decimal; multiply by 100 if value < 1.
 
-### Seller Connections
+### Preferred Seller Connections
 
-Seller metrics track listing performance — how well a partner converts
-seller leads into listed and sold properties.
+Preferred Seller metrics track listing performance — how well a partner
+converts seller leads into listed and sold properties.
 
 **Seller Trx by Close Date**
 - Column: `seller_trx_by_close_date_monthly`
@@ -229,7 +233,7 @@ seller leads into listed and sold properties.
 - Showcase Rate: `showcase_listings / listed_properties × 100`
 - Showcase Rating: Same Strong/Fair/Poor scale (1.0 / 0.75 thresholds)
 
-### Seller Funnel — Team
+### Preferred Seller Funnel — Team
 
 | Order | Stage | Column |
 |-------|-------|--------|
@@ -243,7 +247,7 @@ seller leads into listed and sold properties.
 | 8 | Home Under Contract | `seller_home_under_contract_count_monthly` |
 | 9 | Closed Transaction | `seller_closed_transaction_count_monthly` |
 
-### Seller Agent Metrics
+### Preferred Seller Agent Metrics
 
 All rates use `seller_connection_count_monthly` as denominator:
 - Attempted Contact Rate, Spoke with Rate, Appointment Set Rate,
@@ -401,8 +405,8 @@ consolidated view with computed insights, split into two tracks:
 
 ## Data Sources
 
-All tables live in **Databricks Unity Catalog**. Canonical definitions are in
-`rbi_audrey_insights/tables.yaml`.
+All tables live in **Databricks Unity Catalog**. Table configurations are
+documented in `rbi_audrey_insights/tables.yaml`.
 
 ### Table Overview
 
@@ -549,9 +553,9 @@ Only: "Met with customer", "Submitting offers", "Under contract",
 
 | Category | What It Covers | Key Decisions |
 |----------|---------------|---------------|
-| **Buyer Connections** | Logged transactions, targets, achievement, L6M rolling | Performance reviews, connection allocation |
-| **Conversion Funnel** | Live Cxns → Appts → Met → Showing → Offer → Closed | Agent coaching, pipeline health |
-| **Seller Connections** | Seller trx, targets, showcase listings, seller funnel | Listing performance, win rates |
+| **Preferred Buyer** | Logged transactions, targets, achievement, L6M rolling | Performance reviews, connection allocation |
+| **Preferred Buyer Funnel** | Live Cxns → Appts → Met → Showing → Offer → Closed | Agent coaching, pipeline health |
+| **Preferred Seller** | Seller trx, targets, showcase listings, seller funnel | Listing performance, win rates |
 | **ZHL Pre-Approval** | Transfer rates, pre-approvals, funnel, loan status | ZHL program compliance |
 | **Agent Performance** | Pickup rate, CVR, CSAT, rates, tiers | Tier placement, coaching |
 | **Ops Health** | FUB compliance, pay-on-time, doc submission | Compliance enforcement |
@@ -568,9 +572,9 @@ Only: "Met with customer", "Submitting offers", "Under contract",
 3. **Always clarify time windows.** When a user asks "what's the transaction
    achievement?" — clarify whether they mean current month, L6M, or a
    custom range.
-4. **Distinguish card metrics from table metrics.** Summary cards use fixed
-   time windows (not date-filtered). Tables and charts respect the user's
-   date selection.
+4. **Distinguish summary metrics from detail metrics.** Summary/card-level
+   metrics use fixed time windows (not date-filtered). Detail tables and
+   charts may respect custom date ranges.
 5. **Cite the source.** When explaining a metric, reference the specific
    entry in `metrics.yaml` or the builder file where the logic lives.
 6. **Handle division by zero.** Many rates have zero-denominators for
