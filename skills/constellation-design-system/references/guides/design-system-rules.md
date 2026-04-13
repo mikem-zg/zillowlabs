@@ -6,7 +6,7 @@
 1. PropertyCard → ALWAYS add saveButton={<PropertyCard.SaveButton />}
 2. Card → Choose ONE of: elevated or outlined (NEVER both); elevated = interactive; ALWAYS tone="neutral"
    ⚠️ This applies to ALL pages including error/404 pages — don't relax Card rules on utility pages.
-3. Headers → Use Flex inside sticky Box (not Page.Header) — see header-navigation skill
+3. Headers → ALWAYS load the header-navigation skill before building any header. It has 11 tested patterns. Do NOT hand-build headers — pick the closest pattern and adapt it. Use Flex inside sticky Box (not Page.Header).
 4. Dividers → Use borderBottom on header/nav containers (borderBottom: "default", borderColor: "border.muted"); use <Divider /> for content separators (between sections, lists, cards)
    ⚠️ Always pair borderBottom with borderColor — omitting borderColor causes a black border fallback.
 5. Icons → ALWAYS Filled variants (e.g., IconWarningFilled, NOT IconWarningOutline), ALWAYS size tokens (sm/md/lg/xl). No exceptions — error/warning icons included.
