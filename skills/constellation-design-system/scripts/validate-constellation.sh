@@ -109,6 +109,13 @@ check "Raw <button> tag (use <Button> instead)" '<button[[:space:]>]'
 check "Raw <h[1-6]> tag (use <Heading> instead)" '<h[1-6][[:space:]>]'
 check "Raw <p> tag (use <Text> instead)" '<p[[:space:]>]'
 
+# Rule 22: fontWeight: 'bold' (should use textStyle bold variants)
+check "fontWeight in css/style prop (use textStyle='body-bold' etc.)" "fontWeight.*['\"]bold['\"]"
+check "fontWeight token in css prop (use textStyle bold variant)" "fontWeight:[[:space:]]*['\"][0-9]"
+
+# Rule 23: Raw <input type="range"> (should use Slider or Range)
+check "Raw <input type=\"range\"> (use <Slider> or <Range>)" '<input[^>]*type=["\x27]range["\x27]'
+
 # Rule 19: Raw CSS property names instead of PandaCSS shorthands
 check "Raw 'padding' in css prop (use p/px/py/pt/pb/pl/pr)" "css=.*padding[^A-Z]"
 check "Raw 'marginBottom' in css prop (use mb)" "css=.*marginBottom"
