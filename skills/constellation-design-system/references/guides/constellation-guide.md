@@ -262,6 +262,18 @@ Load the brand guideline skill for your audience (identified in Step 1). **Befor
 - **Consumer icon color:** For decorative/storytelling icons (hero, value props, step indicators), use `text.accent.blue.hero` or a chosen color family accent (teal, purple, orange). For content-support icons within body text, use `icon.subtle`. Reserve `icon.action.hero.default` for icons that are interactive (buttons, links, CTAs).
 - **Every consumer app should include at least one spot illustration** from the `constellation-illustrations` skill. Plan which section gets it during the design phase, not after building.
 
+**Consumer Typography Hierarchy:**
+
+Use `Heading` for 1-2 true headlines per screen. Use `Text` with textStyle variants for all other hierarchy — this prevents Heading overuse and avoids `fontWeight: 'bold'` hacks.
+
+| Content Type | Component + textStyle | Color |
+|--------------|----------------------|-------|
+| Page headline | `<Heading level={1} textStyle="heading-lg">` | default |
+| Section title | `<Text textStyle="body-lg-bold">` | default |
+| Card title | `<Text textStyle="body-bold">` | default |
+| Description | `<Text textStyle="body">` | `text.subtle` |
+| Fine print/hints | `<Text textStyle="body-sm">` | `text.subtle` |
+
 **Tone & Layout:**
 - Empathetic, hopeful, action-oriented — voice of an advocate.
 - Can be more expressive: large color heroes and illustration-forward layouts OK, but white background + dark text for dense content.
