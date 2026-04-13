@@ -347,6 +347,8 @@ These are the rules that cause the most build errors. They're documented in deta
 19. PandaCSS shorthand → ALWAYS use Panda utility shorthands (p, px, py, m, mx, mb, etc.) instead of raw CSS property names (padding, marginInline, marginBottom). Raw property names may not resolve spacing tokens correctly.
 20. Minimum interactive gap → NEVER use spacing tokens below "200" (8px) for gaps between clickable/tappable elements (nav items, buttons, list rows). Tokens "50" and "100" are for text-internal spacing only — not between interactive targets.
 21. Professional buttons → Default to text-only. Do NOT add icons to text buttons unless the icon is essential for comprehension (search, download, external link). NEVER conditionally inject an icon (causes layout shift). For icon-only actions, use IconButton.
+22. Bold text → NEVER use css={{ fontWeight: 'bold' }} or fontWeight in the css/style prop. ALWAYS use textStyle bold variants: textStyle="body-bold", textStyle="body-lg-bold", textStyle="body-sm-bold". The fontWeight property bypasses the design system's type scale and produces inconsistent weight rendering across platforms.
+23. Range/slider inputs → For range or slider inputs, use <Slider> or <Range> from Constellation. These provide accessible keyboard navigation and ARIA roles that raw <input type="range"> lacks. If Slider/Range does not support your use case, wrap the raw input in a styled Box and document the gap explicitly.
 ```
 
 ### New Page Checklist
@@ -365,6 +367,8 @@ Before writing any new page or route, verify these are in place:
 [ ] Logo uses style prop for pixel dimensions, not css prop
 [ ] Buttons are text-only by default (professional) — icon only when essential
 [ ] No spacing tokens below "200" between clickable elements
+[ ] No fontWeight: 'bold' — use textStyle bold variants (body-bold, body-lg-bold, body-sm-bold)
+[ ] No raw <input type="range"> — use <Slider> or <Range>
 ```
 
 ---
