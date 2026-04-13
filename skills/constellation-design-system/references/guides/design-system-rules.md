@@ -60,6 +60,8 @@ Before writing any new page or route, verify:
 [ ] Logo uses style prop for pixel dimensions, not css prop
 [ ] Buttons are text-only by default (professional) — icon only when essential
 [ ] No spacing tokens below "200" between clickable elements
+[ ] No fontWeight: 'bold' — use textStyle bold variants (body-bold, body-lg-bold, body-sm-bold)
+[ ] No raw <input type="range"> — use <Slider> or <Range>
 ```
 
 ---
