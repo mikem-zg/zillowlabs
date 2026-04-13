@@ -259,10 +259,13 @@ Load the brand guideline skill for your audience (identified in Step 1). **Befor
 - Filled icons by default. DuoColorIcon allowed for upsells, empty states, hero content.
 - Scene illustrations for major storytelling (hero, education). Spot illustrations for supporting content (value props, upsells, empty states).
 - House motifs (Frame, Window, Solid House) are allowed in consumer experiences.
+- **Consumer icon color:** For decorative/storytelling icons (hero, value props, step indicators), use `text.accent.blue.hero` or a chosen color family accent (teal, purple, orange). For content-support icons within body text, use `icon.subtle`. Reserve `icon.action.hero.default` for icons that are interactive (buttons, links, CTAs).
+- **Every consumer app should include at least one spot illustration** from the `constellation-illustrations` skill. Plan which section gets it during the design phase, not after building.
 
 **Tone & Layout:**
 - Empathetic, hopeful, action-oriented — voice of an advocate.
 - Can be more expressive: large color heroes and illustration-forward layouts OK, but white background + dark text for dense content.
+- **For consumer apps, consult the Consumer Warmth Checklist** in the `consumer-brand-guidelines` skill BEFORE building — plan illustration and color family placement upfront, not as a post-build afterthought.
 
 ### Professional Brand Rules (Quick Reference)
 
