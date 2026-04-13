@@ -4,7 +4,7 @@
 import { Collapsible } from '@zillow/constellation';
 ```
 
-**Version:** 10.14.0 | **Since:** 4.1.0
+**Version:** 10.15.0 | **Since:** 4.1.0
 
 ## Usage
 

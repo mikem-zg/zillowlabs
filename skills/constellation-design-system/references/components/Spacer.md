@@ -4,7 +4,7 @@
 import { Spacer } from '@zillow/constellation';
 ```
 
-**Version:** 10.14.0
+**Version:** 10.15.0
 
 > **Deprecated:** since v10.0 and we suggest you transition to using the `Box` component instead. This will be removed in the future.
 

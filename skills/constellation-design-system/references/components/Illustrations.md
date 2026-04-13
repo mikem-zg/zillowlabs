@@ -4,11 +4,11 @@
 
 ## Installation
 
-Illustrations are bundled in the skill at `packages/illustrations-v10.14.0.tar.gz`. Extract into your project's assets directory:
+Illustrations are bundled in the skill at `packages/illustrations-v10.15.0.tar.gz`. Extract into your project's assets directory:
 
 ```bash
 mkdir -p client/src/assets/illustrations
-tar xzf .agents/skills/constellation/packages/illustrations-v10.14.0.tar.gz -C client/src/assets/illustrations/
+tar xzf .agents/skills/constellation-design-system/packages/illustrations-v10.15.0.tar.gz -C client/src/assets/illustrations/
 ```
 
 This creates `client/src/assets/illustrations/Lightmode/` and `client/src/assets/illustrations/Darkmode/` with 99 SVGs each.

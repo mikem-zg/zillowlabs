@@ -4,7 +4,7 @@
 import { AssistChip } from '@zillow/constellation';
 ```
 
-**Version:** 10.14.0 | **Since:** 8.97.0
+**Version:** 10.15.0 | **Since:** 8.97.0
 
 ## Usage
 

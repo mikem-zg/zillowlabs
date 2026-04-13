@@ -4,7 +4,7 @@
 import { Label } from '@zillow/constellation';
 ```
 
-**Version:** 10.14.0
+**Version:** 10.15.0
 
 ## Usage
 

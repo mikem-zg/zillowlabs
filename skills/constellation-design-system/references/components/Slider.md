@@ -4,7 +4,7 @@
 import { Slider } from '@zillow/constellation';
 ```
 
-**Version:** 10.14.0 | **Since:** 6.12.0
+**Version:** 10.15.0 | **Since:** 6.12.0
 
 ## Usage
 

@@ -4,7 +4,7 @@
 import { Page } from '@zillow/constellation';
 ```
 
-**Version:** 10.14.0 | **Since:** 8.15.0
+**Version:** 10.15.0 | **Since:** 8.15.0
 
 The `Page` component provides a structured page layout system with built-in responsive max-width, breadcrumbs, headers, and content sections. **ALWAYS use `Page.Root` as the top-level wrapper for pages instead of custom `Box`/`Flex` layouts.**
 

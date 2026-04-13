@@ -4,7 +4,7 @@
 import { Menu } from '@zillow/constellation';
 ```
 
-**Version:** 10.14.0 | **Since:** 7.28.0
+**Version:** 10.15.0 | **Since:** 7.28.0
 
 ## Usage
 
