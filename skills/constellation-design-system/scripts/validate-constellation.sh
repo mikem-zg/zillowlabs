@@ -42,7 +42,7 @@ TOTAL_FILES=$(find "$DIR" -name "*.tsx" -o -name "*.jsx" | grep -v node_modules 
 echo "Found $TOTAL_FILES TSX/JSX files"
 echo ""
 
-echo -e "${BOLD}=== Critical Rules (21) ===${NC}"
+echo -e "${BOLD}=== Critical Rules (23) ===${NC}"
 echo ""
 
 # Rule 1: PropertyCard must have saveButton
