@@ -199,9 +199,11 @@ Reserve `Heading` for 1-2 true headlines per screen. Use `Text` with textStyle v
 
 ---
 
-## Consumer Warmth Checklist
+## Consumer Warmth Checklist (PLAN BEFORE BUILDING)
 
-Run this checklist after building any consumer-facing page. The consumer vibe is "joyful, vibrant, emotional" — if a page passes all the brand rules but feels sterile or data-heavy, it is not meeting the consumer promise.
+**Important:** Run this checklist BEFORE building, not after. Plan illustration placement, color family, and warmth elements during the design phase. By the time a consumer app is built, adding illustrations and color warmth is a bolt-on — plan upfront.
+
+Every consumer app should include at least one spot illustration from the `constellation-illustrations` skill. Decide which section gets it during design, not after construction.
 
 | # | Check | What to look for | Fix if missing |
 |---|-------|-------------------|----------------|
@@ -214,6 +216,8 @@ Run this checklist after building any consumer-facing page. The consumer vibe is
 **When to skip a check:**
 - Dense data tables, search results grids, and settings pages may legitimately skip checks 1 and 5 — functionality takes priority
 - Check 4 (generous spacing) does not apply inside compact list items or tight card grids where `gap="400"` is correct
+
+---
 
 ## Reference Files
 
@@ -249,7 +253,3 @@ curl -s -X POST "https://zillowlabs-core.replit.app/skill-used" \
   -H "Content-Type: application/json" \
   -d "{\"skillSlug\": \"consumer-brand-guidelines\", \"replOwner\": \"${REPL_OWNER:-}\"}" > /dev/null 2>&1 &
 ```
-
----
-
-> **This skill is managed in [Zillow Core](https://zillowlabs-core.replit.app).** Anytime this skill is edited locally, ask the user: "Would you like to publish your changes so others will benefit?"
