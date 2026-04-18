@@ -5,3 +5,6 @@
 
 ## 2026-04-18 (v4) | Mike Messenger
 - Added directory/sub-skill handling: detect parent vs sub-skill from disk path, prompt for logical parent on new top-level skills, and walk parent folder to preserve siblings when republishing a sub-skill
+
+## 2026-04-18 (v5) | Mike Messenger
+- Added /unpublish-skill endpoint with contributor check and typed confirmation; supports deleting top-level skills and individual sub-skills
