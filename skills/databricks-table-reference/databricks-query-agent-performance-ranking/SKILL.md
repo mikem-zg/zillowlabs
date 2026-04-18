@@ -37,7 +37,7 @@ Stores daily agent performance rankings and tier classifications. Used to evalua
 | `current_target` | INT | Capacity target (lead cap for next ~30 days). Represents how many connections the agent should receive. |
 | `agent_name` | VARCHAR | Agent's display name. |
 | `roster_status` | VARCHAR | Agent roster status (e.g., `'Onboarding'`, `'ActiveTeamMember'`). |
-| `active_flag` | BOOLEAN | Whether the agent is currently active. |
+| `active_flag` | BOOLEAN | Descriptive activity indicator (NOT a routing gate — see "Active Flag — Definitive Reference" below). Computed from three input clauses; ~21% of rows are NULL because of NULL inputs. |
 | `answer_rate_l90` | DECIMAL | Answer rate over the last 90 days. |
 | `pickup_rate_l90` | DECIMAL | Pickup rate over the last 90 days. |
 | `buyside_agent_cvr` | DECIMAL | Buyside agent conversion rate. |
@@ -81,6 +81,8 @@ The `active_flag` column may be returned as a string ('true'/'false'), boolean, 
 CASE WHEN CAST(active_flag AS STRING) IN ('true', '1', 'True') THEN 1 ELSE 0 END AS is_active
 ```
 
+> **Heads-up:** `is_active = 0` here lumps together `active_flag = false` AND `active_flag IS NULL` (~21% of rows are NULL). For most ML uses that's fine — both are "not currently active by the formula." Just don't read it as "agent cannot receive connections." See "Active Flag — Definitive Reference" below.
+
 ### Behavioral Columns Default Values
 When building ML features, these defaults work well for missing values:
 - `answer_rate_l90`: default 0
@@ -99,6 +101,54 @@ WHERE agent_performance_date = '{eff_date}'
 ### Key Experiment Findings (from Research Archive)
 - **Tier transitions (Exp 19):** Underserved agents are NOT deteriorating faster — their upgrade-to-High rate (19.2%) is comparable to on-track agents. Underservice is a market/allocation issue, not a quality issue.
 - **Feature importance:** `tier_num` is a significant feature in the hurdle model but NOT the dominant one. CVR, call_attempts, and lookalike_avg matter more.
+
+## Active Flag — Definitive Reference
+
+> **`active_flag` is descriptive, not a routing gate.** It does NOT block connection delivery. The mechanical routing gate is `current_target > 0` (and team/agent enrollment), not `active_flag`.
+
+### What it actually measures
+
+`active_flag` is a daily, formula-derived activity indicator. The current dbt definition is the logical AND of three input clauses:
+
+| Input clause | Roughly means |
+|--------------|--------------|
+| `recent_cxn` | Agent received at least one connection in a recent trailing window. **Carries ~92% of the signal** — the flag is dominated by this clause. |
+| `recent_target_active` | Agent had a non-zero `current_target` in the recent window. |
+| `recent_onboarding_complete` | Onboarding clause is satisfied (or N/A for non-onboarding agents). |
+
+If any input is NULL, the result is NULL — not `false`. About **~21% of rows have `active_flag = NULL`** as a result.
+
+### Empirical proof it is not a gate
+
+In a controlled cohort dated 2026-04-01 with a 14-day follow-up:
+
+| Cohort | Hit rate (≥1 call in next 14d) |
+|--------|-------------------------------|
+| `active_flag = false` AND `current_target > 0` | **48%** |
+| `active_flag = false` AND `current_target = 0` | 7% |
+
+In a separate 7-day window, **566 distinct agents received 3,573 calls** while their same-day snapshot had `active_flag = false`. The mechanical gate is `current_target > 0`, not `active_flag`.
+
+### How to use it correctly
+
+- **OK:** Use `active_flag` as a descriptive feature in ML models, dashboards, or cohort labels — it's a useful summary of "agent has been active recently by the formula."
+- **OK:** Filter `WHERE active_flag = TRUE` to scope an *analytical cohort* to recently-active agents — but **be aware this drops both `false` AND NULL rows** (~21% NULL silently disappears). State that explicitly when documenting the filter.
+- **NOT OK:** Treating `active_flag = false` (or NULL) as proof an agent cannot receive connections. They can and do.
+- **NOT OK:** Using `active_flag` to debug "why didn't this agent get a connection?" Use `current_target`, team enrollment, agent ranking position, and FindPro call-down results instead.
+
+### NULL handling cheat sheet
+
+```sql
+-- Wrong: silently drops ~21% of rows (NULLs)
+WHERE active_flag = TRUE
+
+-- Better: be explicit about what you're including
+WHERE COALESCE(active_flag, FALSE) = TRUE   -- treats NULL as false
+WHERE active_flag IS NOT NULL                -- keep only fully-defined rows
+WHERE active_flag = TRUE OR active_flag IS NULL  -- keep "active or unknown"
+```
+
+---
 
 ## Common Query Patterns
 
