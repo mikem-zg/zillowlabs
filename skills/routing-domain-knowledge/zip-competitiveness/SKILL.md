@@ -18,7 +18,7 @@ This skill documents how competitive dynamics at the ZIP code level are measured
 | Table | Description |
 |---|---|
 | `mortgage.cross_domain_gold.combined_funnels_pa_zhl` | Lead-level funnel data. Key columns: `consolidated_agent_zuid`, `zip`, `contact_creation_date`, `pa_lead_type`, `connection_msa_market_ops_flag`. |
-| `premier_agent.agent_gold.agent_performance_ranking` | Daily agent performance snapshot. Key columns: `agent_zuid`, `agent_performance_date`, `performance_tier_current` (High/Fair/Low), `buyside_agent_cvr`, `answer_rate_l90`, `pickup_rate_l90`, `active_flag`, `team_lead_zuid`. |
+| `premier_agent.agent_gold.agent_performance_ranking` | Daily agent performance snapshot. Key columns: `agent_zuid`, `agent_performance_date`, `performance_tier_current` (High/Fair/Low), `buyside_agent_cvr`, `answer_rate_l90`, `pickup_rate_l90`, `active_flag`, `team_lead_zuid`. **Note on `active_flag`:** descriptive only — not a routing gate. If you filter `WHERE active_flag = TRUE` for analytical cohort scoping, be aware it silently drops both `false` AND `NULL` rows (~21% are NULL) and does not reflect connection eligibility. See `databricks-query-agent-performance-ranking` for the canonical definition. |
 
 ---
 
