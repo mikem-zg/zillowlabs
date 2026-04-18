@@ -17,9 +17,36 @@ Before doing anything else, ask the user: **"What name should I use to attribute
 
 Do not guess, do not use environment variables, do not skip this step.
 
-### Step 2: Check if the skill already exists
+### Step 2: Determine where the skill lives on disk
 
-Call `GET https://zillowlabs-core.replit.app/skill-info/{slug}` where `{slug}` is the skill name lowercased with non-alphanumeric characters replaced by hyphens.
+Locate the skill's `SKILL.md` file inside `.agents/skills/`. There are two possible layouts:
+
+| Layout | Path | Publishes as |
+|--------|------|--------------|
+| **Top-level skill** | `.agents/skills/<slug>/SKILL.md` | a standalone library skill named `<slug>` |
+| **Sub-skill** (nested inside another) | `.agents/skills/<parent>/<sub-slug>/SKILL.md` | a child file of the parent skill `<parent>` |
+
+If the skill lives inside another skill folder, the **parent** is what gets published — your sub-skill files go in `additionalFiles` with the relative path `<sub-slug>/...`. Skip Step 3 (logical parent check) entirely in this case and jump to Step 4 with the parent's slug.
+
+### Step 3: For new top-level skills only — check for a logical parent
+
+If the skill is brand new (the user just created `.agents/skills/<slug>/`) **and** is not already nested inside a parent, scan `.agents/skills/` for an existing parent that this new skill might logically belong inside. Look for parents that already contain multiple sub-skills sharing a clear theme or naming prefix.
+
+Examples of strong signals:
+- A new skill named `databricks-query-something` and `.agents/skills/databricks-table-reference/` exists with many `databricks-query-*` sub-skills → suggest making it a sub-skill there
+- A new skill named `query-some-routing-table` and `.agents/skills/routing-domain-knowledge/` already has routing query sub-skills → suggest there
+- A new ML training/feature skill and `.agents/skills/ml-and-model-toolkit/` already has training/feature sub-skills → suggest there
+
+**Only prompt if a logical parent clearly exists.** If nothing fits, just publish as a top-level skill silently — do not invent parents.
+
+When a parent fits, ask the user: **"It looks like '<new-slug>' might belong as a sub-skill inside '<parent-slug>'. Does that feel appropriate?"**
+
+- If yes: move the folder on disk to `.agents/skills/<parent>/<new-slug>/` and treat it as a sub-skill (publish flow below).
+- If no: continue as a top-level skill.
+
+### Step 4: Check if the skill already exists
+
+Call `GET https://zillowlabs-core.replit.app/skill-info/{slug}` where `{slug}` is the **target slug** (the parent slug for sub-skills, or the skill's own slug for top-level skills).
 
 The response tells you:
 
@@ -120,7 +147,7 @@ Content-Type: application/json
 | `changelogEntry` | string | No | Short description of what changed (max 500 chars). If omitted, defaults to "Skill first published" or "Skill updated". |
 | `enableScope` | string | No | `"all"` to enable for all users globally, `"user"` to enable only for the publisher's apps. Omit to leave unchanged (new skills default to disabled). |
 | `replOwner` | string | No | Username for skill ownership. On Replit, use `REPL_OWNER` env var; on Claude Code, ask the user. Required when `enableScope` is `"user"`. |
-| `additionalFiles` | object[] | No | Extra files to include alongside SKILL.md (max 20 files, 2MB total). Each object: `{ name, path, content }`. |
+| `additionalFiles` | object[] | No | Extra files to include alongside SKILL.md (2MB total). Each object: `{ name, path, content }`. |
 
 #### Response
 
