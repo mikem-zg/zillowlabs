@@ -188,8 +188,8 @@ GROUP BY 1
 ## Key Experiment Findings from This Table
 
 ### Exp 1: What Causes Zero Connections
-- **Target=0 forces 0 connections**: Agents with `current_target = 0` receive exactly 0 connections. This is a mechanical constraint, not a market outcome.
-- **Inactive = guaranteed 0**: Agents with `active_flag = false` never receive connections.
+- **`current_target = 0` is the mechanical gate**: Agents with `current_target = 0` receive (essentially) 0 connections. This is the actual routing-side constraint, not a market outcome.
+- **`active_flag` is NOT a routing gate** (correction to earlier wording in this doc): Agents with `active_flag = false` *do* receive connections — empirically, ~566 distinct agents received 3,573 calls in a 7-day window while flagged inactive, and `active_flag = false` AND `current_target > 0` agents had a 48% 14-day hit rate vs only 7% for `active_flag = false` AND `current_target = 0`. `active_flag` is a descriptive activity formula, not a delivery block. See the `databricks-query-agent-performance-ranking` skill for the canonical definition.
 
 ### Exp 2: ZIP Competition & Market Saturation
 - High agent density per ZIP crowds out individual agent connections. ZIPs with >200 agents have significantly lower per-agent connections.
@@ -677,7 +677,7 @@ AND COALESCE(zhl_preapproval_target_eligible_cxn_flag, 0) = 1
 ```sql
 consolidated_agent_zuid = agent_Zuid
 ```
-Filter agent performance table with `active_flag = true` and latest `agent_performance_date`.
+Always join on the latest `agent_performance_date`. The `active_flag = TRUE` filter is **optional and analytical** — it scopes the cohort to agents the formula labels recently active, but it silently drops both `active_flag = false` AND `active_flag IS NULL` rows (~21% are NULL), and it does **not** reflect routing eligibility. Agents with `active_flag = false` or NULL still receive connections. Apply the filter only when you specifically want a "recently active by formula" cohort, and document that you did. See `databricks-query-agent-performance-ranking` for the canonical definition.
 
 **ISA (Inside Sales Agent) Identification** — Primary method uses the explicit ISA flag from team lead assignments in the PA app:
 ```sql
