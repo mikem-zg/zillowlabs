@@ -196,6 +196,47 @@ Content-Type: application/json
 - `enabledFor` indicates the resulting visibility: `"all users"`, `"{username}'s apps"`, or `"not changed"`
 - A `CHANGELOG.md` is automatically created/appended with the date, version, author, and changelog entry
 
+### POST /unpublish-skill
+
+Delete a skill or a single sub-skill. No auth required, but the request must come from an existing contributor and include a typed confirmation.
+
+```
+POST https://zillowlabs-core.replit.app/unpublish-skill
+Content-Type: application/json
+```
+
+#### Request body
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `name` | string | Yes | Parent skill slug (the top-level skill name). |
+| `subSkillName` | string | No | If set, only this sub-skill is removed; the parent stays. Omit to delete the entire skill. |
+| `authorName` | string | Yes | Must match the skill's `authorName` or appear in `contributors` (case-insensitive). |
+| `confirm` | string | Yes | Typed confirmation. Must equal the parent slug for a full delete, or `<parentSlug>/<subSlug>` for a sub-skill delete. |
+
+#### Required workflow before calling this endpoint
+
+1. **Identify what is being deleted** — top-level skill or sub-skill (same path rules as Step 2 above).
+2. **Always confirm with the user before calling.** Ask: **"Are you sure you want to permanently unpublish '<slug>'? This removes it from the library, the local folder, and GitHub. Type the slug to confirm."** Do not call the endpoint until the user has explicitly confirmed.
+3. **Contributor check is enforced server-side**, but you should also tell the user who the listed contributors are (from `/skill-info`) so they know whose work they are deleting.
+
+#### Effects
+
+- **Top-level delete**: removes the DB record, the local `.agents/skills/<slug>/` folder, and the entire `skills/<slug>/` tree on GitHub.
+- **Sub-skill delete**: removes the local `.agents/skills/<parent>/<sub>/` folder and the GitHub `skills/<parent>/<sub>/` tree, bumps the parent's version, and appends a "Removed sub-skill: <sub>" entry to the parent's CHANGELOG. The parent skill itself stays.
+
+#### Response
+
+```json
+{ "success": true, "action": "skill-deleted", "slug": "my-skill" }
+```
+
+or
+
+```json
+{ "success": true, "action": "sub-skill-deleted", "parent": "databricks-table-reference", "subSkill": "databricks-query-foo", "newVersion": 5 }
+```
+
 ### POST /skill-used
 
 Record that a skill was used. No auth required. Fire-and-forget — agents should call this without waiting for the response.
