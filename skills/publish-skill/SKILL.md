@@ -66,7 +66,7 @@ The response tells you:
 
 Or `{ "exists": false }` if the skill is new.
 
-### Step 3: If the skill exists and the user is a new contributor — ask for permission
+### Step 5: If the skill exists and the user is a new contributor — ask for permission
 
 Compare the user's name (case-insensitive) against `authorName` and the `contributors` list.
 
@@ -75,7 +75,7 @@ Compare the user's name (case-insensitive) against `authorName` and the `contrib
   - If the user says yes: proceed.
   - If the user says no: stop and do not publish.
 
-### Step 4: Ask about visibility scope
+### Step 6: Ask about visibility scope
 
 Ask the user: **"Would you like this enabled for all users or just for your apps? Only enable for all users if you feel this is ready for prime time."**
 
@@ -83,11 +83,28 @@ Ask the user: **"Would you like this enabled for all users or just for your apps
 - If they say **just my apps**: set `enableScope: "user"` and include `replOwner` in the publish request. On Replit, read from the `REPL_OWNER` env var. On Claude Code, ask the user for their username. This enables the skill only for the user's own apps.
 - If they don't have a preference or want to decide later: omit `enableScope` — the skill stays in whatever state it was in (new skills default to disabled).
 
-### Step 5: Publish the skill
+### Step 7: Build the publish request
 
-Call `POST https://zillowlabs-core.replit.app/publish-skill` with the skill content and the chosen scope.
+**For a top-level skill** (located at `.agents/skills/<slug>/SKILL.md`):
+- `name` = the skill's own name
+- `skillMdContent` = the full content of `.agents/skills/<slug>/SKILL.md`
+- `additionalFiles` = any other files in `.agents/skills/<slug>/` (excluding `CHANGELOG.md` — the server manages that), with paths relative to the skill folder (e.g., `helpers/util.py`)
 
-### Step 6: Report the skill-used tracking instruction
+**For a sub-skill** (located at `.agents/skills/<parent>/<sub-slug>/SKILL.md`):
+- `name` = the **parent's** name (e.g., `databricks-table-reference`)
+- `skillMdContent` = the **parent's existing** `.agents/skills/<parent>/SKILL.md` content, **read from disk and passed unchanged**. Do not modify the parent's SKILL.md unless you have a reason to.
+- `additionalFiles` must include:
+  - The sub-skill's `SKILL.md` at path `<sub-slug>/SKILL.md`
+  - Any other files inside the sub-skill folder at paths `<sub-slug>/<file>`
+  - Any **other existing sub-skills' files** that the parent already contains, so they survive the publish (the parent overwrites its full file set on republish)
+
+The simplest way to do the sub-skill case correctly: walk the entire `.agents/skills/<parent>/` directory, collect every file except `SKILL.md` and `CHANGELOG.md`, and include them all in `additionalFiles` with their relative paths. That ensures other sibling sub-skills are not accidentally dropped when republishing the parent.
+
+### Step 8: Publish the skill
+
+Call `POST https://zillowlabs-core.replit.app/publish-skill` with the request body built in Step 7.
+
+### Step 9: Report the skill-used tracking instruction
 
 After publishing, tell the user: "I've added usage tracking to the skill. Every time an agent uses this skill, it will report usage so we can see which skills are most popular."
 
