@@ -3,5 +3,5 @@
 ## 2026-03-27 (v2) | Mike Messenger
 - Added local tracking script (zlc-track.mjs) as primary usage tracking method with curl fallback; full 6-step publishing workflow with contributor tracking, visibility scoping, and changelog management
 
-## 2026-03-28 (v3) | Mike Messenger
-- Claude Code compatibility: tracking footer tries both .agents/ and .claude/ paths, replOwner instructions updated for non-Replit environments
+## 2026-04-18 (v4) | Mike Messenger
+- Added directory/sub-skill handling: detect parent vs sub-skill from disk path, prompt for logical parent on new top-level skills, and walk parent folder to preserve siblings when republishing a sub-skill
