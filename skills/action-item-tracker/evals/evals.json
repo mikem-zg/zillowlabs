@@ -1,0 +1,23 @@
+{
+  "skill_name": "action-item-tracker",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I've been getting a lot of notifications and feel like I'm missing important stuff. Can you check what action items are waiting for me?",
+      "expected_output": "Structured summary with urgent items first, showing Jira assignments, GitLab mentions, calendar responses needed, and other actionable emails from recent inbox",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "check my pending items from the last few days - I think there were some Jira tickets assigned to me and maybe a merge request to review",
+      "expected_output": "Categorized list focusing on Jira assignments and GitLab notifications, with clear action items and priorities",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "what needs my attention today? I saw some notifications but haven't had time to go through them",
+      "expected_output": "Today-focused summary of urgent and important items requiring immediate attention, with clear next steps",
+      "files": []
+    }
+  ]
+}
