@@ -45,7 +45,8 @@ Use these references when you need to:
 | `zip-competitiveness` | ZIP-level competitiveness SQL queries and derived features — agent-ZIP share, leave-one-out metrics, competition deltas |
 | `query-composite-patterns` | Multi-table join patterns and server-side merge strategies for the allocation planning app |
 | `query-manager-overrides` | Local PostgreSQL manager_overrides table — manual capacity overrides layered on top of Databricks data |
-| `missing-connections-diagnostic` | Canonical ordered playbook for "why isn't this agent receiving connections?" — checks listed in priority order with the right table/column for each, plus common red herrings (`active_flag`, `roster_status`) called out explicitly |
+| `recommended-connection-targets` | How the Applied Science recommended-targets algorithm sets every agent's monthly ideal connections — the IDEAL_CXNS_CONFIG matrix, hard rules, team-allocation reconciliation, schema rename, and the broader capacity lifecycle |
+| `system-overview` | End-to-end overview of how the PA connection delivery system works — forecasts, team targets, agent ranking, routing constraints |
 
 ---
 
