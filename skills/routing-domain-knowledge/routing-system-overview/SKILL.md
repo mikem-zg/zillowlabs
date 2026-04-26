@@ -2,7 +2,7 @@
 name: system-overview
 description: End-to-end overview of how the Premier Agent connection delivery system works — from ZIP-level forecasts through team targets (BUA), agent targets, day-to-day routing (LPA team ranking per-ZIP → PaceCar v3 agent ranking within-team), and the constraints that cause delivery gaps. Use when needing context on how connections flow, why agents miss targets, or how our prediction model fits into the broader system.
 evolving: true
-last_reviewed: 2026-03-28
+last_reviewed: 2026-04-07
 ---
 
 # How the Connection Delivery System Works
@@ -178,6 +178,77 @@ WHERE h.hma_predicted > 0  -- This line excludes 63% of actual connections
 
 ---
 
+## Stage 3b: Per-Lead Routing Pipeline — How a Single Connection Flows
+
+**What happens:** When a consumer submits a lead, it passes through a multi-service pipeline before reaching an agent. Understanding this pipeline is essential for diagnosing where and why routing outcomes diverge from expectations.
+
+> **Deep dive:** See `dbx-investigate` skill (`.agents/skills/databricks-operations/dbx-investigate/`) for structured investigation methodology, SQL templates, and step-by-step operational troubleshooting of this pipeline.
+
+### End-to-End Flow
+
+```
+Consumer (Beth) → Leads API (L2/L3) → Lead Program Evaluation
+    → Pearl (Orchestrator) → FindPro (Transaction Coordinator)
+        → Connection Pacing (Agent Ranking) → FindPro contacts agents
+            → Connection established → Agent (Alan)
+```
+
+### Key Services
+
+| Service | Role | Key Output |
+|---------|------|------------|
+| **Leads API (L2/L3)** | Creates Lead ID (UUID), evaluates lead program eligibility | `lead_id`, `program_id` |
+| **Lead Programs** | Determines if lead qualifies for special routing (e.g., Finance First, Instant Book Tour) | `program_id` + routing behaviors |
+| **Pearl** | Orchestrator that decides which flow to invoke for the lead | Flow selection |
+| **FindPro** | Transaction coordinator — creates connection attempt, calls agents per contact strategy | `findpro_transaction_id` (= `ConnectionAttemptID`), call outcomes |
+| **Connection Pacing** | Ranks agents using LPA (team-level) + PaceCar v3 (agent-level), returns cohorts | Ranked agent list with contact strategy |
+
+### Lead Programs
+
+A lead program is a set of instructions that modifies standard routing for specific lead types. A lead belongs to at most ONE program.
+
+| Program ID | Name | Routing Impact |
+|-----------|------|----------------|
+| `direct_connect_v2` | Buyer (Direct Connect) | Standard PaceCar v3 |
+| `miso` | Seller (MiSO = "Make it SO") | Typically Shuffle/broadcast to all eligible agents |
+| `instant_book_tour` | Tour Bookings | Specialized routing |
+| `finance_first` | Finance First (ZHL pre-approved) | Agent-level routing with Agent Score or AZA model |
+| `agent_transfer` | Agent Transfer | Transfer-specific routing |
+
+### Contact Strategies
+
+FindPro contacts agents using one of two strategies:
+- **Broadcast**: Call multiple agents simultaneously; first to answer wins
+- **Daisy-chain**: Call agents sequentially, one at a time, in rank order
+
+### Retry Logic and Fallback
+
+- **Up to 3 attempts** per lead — each retry creates a new FindPro Transaction ID with fresh agent rankings
+- **Directed Lead Fallback**: After 3 failed attempts, lead is delivered directly to the top-ranked agent's inbox (no phone dial)
+
+### Allocation Types
+
+| AllocationTypeID | Type | Routing Algorithm | Notes |
+|-----------------|------|-------------------|-------|
+| 1 | MBP (Market-Based Pricing) | Shuffle/broadcast | No PaceCar v3 |
+| 2 | Remnant-MBP | Shuffle | No PaceCar v3 |
+| 3 | Flex (now "Preferred") | PaceCar v3 | Company transitioning from "Flex" to "Preferred" terminology; code/tables still use "Flex" |
+| 3 + CohortType='remnant' | Flex Remnant | PaceCar v3 | Same AllocationTypeID, distinguished by CohortType |
+
+### Cross-System Identifiers
+
+| ID | Also Called | Format | Scope |
+|----|-----------|--------|-------|
+| Lead ID | — | UUID | Unique per lead submission |
+| FindPro Transaction ID | Connection Attempt ID, `ConnectionAttemptID` | UUID | Unique per routing attempt (1 lead = up to 3 attempts) |
+| Opportunity ID | — | UUID | Unique per agent contact opportunity |
+| Team Lead ZUID | Team ZUID, `team_id` | Integer | Identifies team |
+| Agent ZUID | `user_id`, `team_member_zuid` | Integer | Identifies individual agent |
+
+> **Note:** The `touring` catalog uses PascalCase columns and stores UUIDs in UPPERCASE. The `connections_platform` catalog uses snake_case and lowercase UUIDs. Cross-catalog joins require `LOWER()` on touring UUIDs and type casting (`CAST(ZUID AS STRING) = user_id`).
+
+---
+
 ## Stage 4: Day-to-Day Routing — BUA/ALR Cross-Team Ranking with Guardrails
 
 **What happens:** As connections come in throughout the month, the routing pipeline decides which agent gets each connection. The system uses **BUA (Best Unassigned Agent) / ALR (Agent Level Routing)** to rank agents **across all teams** for each lead, with team-level guardrails that push delivery toward team pacing targets.
@@ -185,15 +256,42 @@ WHERE h.hma_predicted > 0  -- This line excludes 63% of actual connections
 **Critical architectural insight (March 2026 investigation):** The routing is NOT strictly "pick a team, then pick an agent within the team." BUA/ALR ranks all eligible agents across teams simultaneously, but applies team-level pacing penalties that act as soft constraints to keep teams on track. The team structure is a **soft constraint**, not a hard boundary.
 
 > **Deep dive:** See `connection-pacing-routing` skill for the full service architecture, handler priority chain, PaceCar V3 scoring factors, API clients, and code structure.
+> **Operational investigation:** See `dbx-investigate` skill for step-by-step investigation methodology, SQL templates for diagnosing routing issues, and cross-catalog join patterns.
+
+### Handler Selection Order
+
+The Connection Pacing service selects a routing handler based on lead program and market configuration. The handler determines which algorithm variant and performance model is used:
+
+| Priority | Handler | Trigger | Performance Model |
+|----------|---------|---------|-------------------|
+| 1 | ZHLFinanceFirstAgentsHandler | Finance First V1 | AZA propensity |
+| 2 | AgentPerformanceRoutingHandler | All teams Flex + APR enabled | APM_PCVR V2_BARS |
+| 3 | BestAgentsTeamAgentsHandler | Hybrid market + BAT enabled | Agent Score V0 |
+| 4 | APRPreferFlexHandler | Finance First V2 | Agent Score V0 |
+| 5 | DefaultAgentsHandler | Fallback | APM_PCVR V2_BARS |
+
+### Distribution Behaviors
+
+Before agent ranking, the system applies team-level distribution behaviors from the Lead Programs service:
+
+| Behavior | Effect |
+|----------|--------|
+| `exclusive_agents` | Filter to only teams with specified agents |
+| `ineligible_agents` | Exclude specified agents from all teams |
+| `agent_prioritization` | Boost agents to top of their teams |
+| `prefer_flex` | Reorder Flex teams before MBP |
+| `prefer_boz` | Prioritize BOZ (Business Owner of ZIP) agents |
+| `deprioritize_over_capacity` | Move over-capacity teams lower |
 
 ### How BUA/ALR Actually Works
 
 For each incoming lead in a ZIP:
 
 1. **All eligible agents across all teams** are gathered as candidates
-2. **PaceCar v3** scores each agent using a multiplicative formula incorporating performance, capacity, team pace, and other factors
-3. **Team-level guardrails** (SOV Adjustment Factor, pacing distance) penalize agents on over-served teams and boost agents on under-served teams — but don't outright block them
-4. **The highest-scoring agent wins** regardless of which team they're on
+2. **Distribution behaviors** filter, reorder, and constrain the candidate set
+3. **PaceCar v3** scores each agent using a multiplicative formula incorporating performance, capacity, team pace, and other factors
+4. **Team-level guardrails** (SOV Adjustment Factor, pacing distance) penalize agents on over-served teams and boost agents on under-served teams — but don't outright block them
+5. **The highest-scoring agent wins** regardless of which team they're on
 
 **SOV Adjustment Factor thresholds** (applied per team based on team-level pace):
 
@@ -205,14 +303,19 @@ For each incoming lead in a ZIP:
 
 ### PaceCar v3 — Agent Scoring Algorithm
 
-PaceCar v3 ranks agents using a multiplicative scoring system. The same algorithm is used whether the agent has individual HMA allocation in a ZIP or is a teammate without allocation — both are scored identically:
+PaceCar v3 ranks agents using a multiplicative scoring system (`pacing_score = performance_score × factor1 × factor2 × ...`). The same algorithm is used whether the agent has individual HMA allocation in a ZIP or is a teammate without allocation — both are scored identically:
 
-1. **Over Capacity Penalty** — logistic (S-curve) penalty as agents exceed their target, with tier-differentiated parameters (HIGH performers get gentler curves, LOW performers get aggressive throttling)
-2. **SOV Adjustment** — boosts agents based on market share targets
-3. **Assignment Cooldown** — linear penalty per excess connection (25% per excess, capped at 75%)
-4. **Performance Scoring** — conversion rates, call success, closing performance
-5. **Geographic Preferences** — coverage area and location preferences
-6. **Lead Channeling** — considers lead flow patterns
+| Factor | When Applied | Effect |
+|--------|-------------|--------|
+| **OverCapacityPenalty** | Always | Logistic (S-curve) penalty as agents exceed target; tier-differentiated (HIGH = gentler, LOW = aggressive) |
+| **AssignmentCooldownPenalty** | Always | Linear penalty per excess connection (25% per excess, capped at 75%) |
+| **CallCooldownPenalty** | Only when `performance_score_type == AGENT_SCORE` | Penalizes missed calls |
+| **SOVAdjustmentFactor** | Only when APR enabled | Boosts/penalizes based on team SOV pacing |
+| **ProgramAgentsAttemptedPenalty** | RTT fallback + `lead_program_id` available | Deprioritizes previously attempted agents across retries |
+| **LeadChannelingAdjustmentFactor** | ZIP configured + buyer intent available | Channels high-intent leads to high performers |
+| **GeoPreferencesAdjustmentFactor** | Team has geo preferences | Coverage area and location preference adjustment |
+
+Factor values: `< 1.0` = penalty, `= 1.0` = no adjustment, `> 1.0` = boost. Factors **multiply** — compounding penalties can be severe (e.g., 0.5 × 0.5 = 0.25× normal ranking).
 
 **Key empirical finding (March 2026):** PaceCar scoring factors are nearly identical for agents with vs without individual allocation in a ZIP:
 
@@ -395,6 +498,8 @@ ZIP-level demand fluctuates:
 | `mortgage.cross_domain_gold.combined_funnels_pa_zhl` | Actual connections (534 columns) | Daily | `databricks-query-mortgage-combined-funnels` |
 | `touring.agentavailability_bronze.agentselfpause` | Self-pause state per agent | Real-time | `self-pause` |
 | `touring.connectionpacing_bronze.candidateagentrankinghistory` | Routing ranking events & scoring | Real-time | `databricks-query-candidate-agent-ranking-history` |
+| `touring.connectionpacing_bronze.leadassignment` | Records which agent received each lead | Real-time | `dbx-investigate` (sql/02-outcomes.md) |
+| `connections_platform.findpro.findpro_opportunity_result_v1` | Call outcomes (ACCEPTED, MISSED, REJECTED) | Real-time | `databricks-query-findpro-opportunity-result` |
 | `sandbox_pa.agent_ops.agent_zip_predicted_cxns` | **DEPRECATED** — old HMA predictions | Legacy | `databricks-query-agent-zip-predicted-cxns` |
 
 ---
