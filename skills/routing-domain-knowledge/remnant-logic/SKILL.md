@@ -10,7 +10,7 @@ description: >-
   "enable-preferred-remnants", or any variation about remnant logic, classification,
   routing, or volume analysis.
 evolving: true
-last_reviewed: 2026-03-28
+last_reviewed: 2026-04-07
 ---
 
 # Remnant Logic
@@ -75,7 +75,7 @@ An agent qualifies as a Preferred Remnant when ALL of the following are true:
 | **Capacity treatment** | **Capacity exempt** — do NOT count against agent connection targets |
 | **Action type** | `actionTypeCode = "pac-email-broadcast"` |
 | **Routed by** | `routedBy = "lead-routing-service"` |
-| **Allocation type** | `AllocationTypeID = 3` (remnant) in `leadassignment` |
+| **Allocation type** | `AllocationTypeID = 3` (Flex) in `leadassignment` — uses Flex allocation because these are Flex agents. In `candidateagentrankinghistory`, also identifiable via `CohortType = 'remnant'` |
 
 ### Routing Priority Order
 
@@ -129,8 +129,8 @@ The primary audit trail for routing decisions. Contains the `IsPreferredRemnant`
 | Column | Type | Description |
 |--------|------|-------------|
 | `IsPreferredRemnant` | BOOLEAN | `true` if the agent was ranked as a Preferred Remnant for this lead |
-| `AllocationTypeID` | INT | Allocation type: `1` = Preferred/Flex, `2` = MBP, `3` = Remnant |
-| `CohortType` | STRING | Cohort classification for the ranking event |
+| `AllocationTypeID` | INT | Allocation type: `1` = MBP, `2` = Remnant-MBP, `3` = Flex (includes Flex Remnant) |
+| `CohortType` | STRING | Cohort classification: `"team"` (standard), `"remnant"` (remnant routing), `"contact-strategy"` (special routing rules). **To identify Flex Remnant**: `AllocationTypeID = 3 AND CohortType = 'remnant'` |
 | `AgentZuid` | INT | Agent ZUID |
 | `LeadID` | INT | Lead identifier |
 | `AgentAbsPos` | INT | Agent's ranking position (1 = top) |
@@ -147,7 +147,8 @@ Records actual lead assignments to agents.
 
 | Column | Type | Description |
 |--------|------|-------------|
-| `AllocationTypeID` | INT | `3` = remnant assignment (both legacy and preferred) |
+| `AllocationTypeID` | INT | `1` = MBP, `2` = Remnant-MBP, `3` = Flex. Preferred Remnant assignments use `AllocationTypeID = 3` (Flex) because the agents are Flex agents. Legacy remnants use `AllocationTypeID = 2` (Remnant-MBP). |
+| `IsSOVExempt` | BOOLEAN | SOV-exempt flag. **Always filter `IsSOVExempt IS FALSE`** when analyzing volume — SOV-exempt leads aren't included in forecasting and should not count toward pacing analysis. |
 | `LeadID` | INT | Lead identifier |
 | `AgentZuid` | INT | Assigned agent ZUID |
 | `AssignedAt` | TIMESTAMP | When the assignment was made |
@@ -188,8 +189,11 @@ ORDER BY rh.RequestedAt DESC;
 ```sql
 SELECT
   CASE
-    WHEN AllocationTypeID = 3 THEN 'Remnant'
-    ELSE 'Non-Remnant'
+    WHEN AllocationTypeID = 2 THEN 'Remnant-MBP'
+    WHEN AllocationTypeID = 3 AND CohortType = 'remnant' THEN 'Flex-Remnant'
+    WHEN AllocationTypeID = 1 THEN 'MBP'
+    WHEN AllocationTypeID = 3 THEN 'Flex'
+    ELSE 'Unknown'
   END AS allocation_type,
   COUNT(DISTINCT LeadID) AS lead_count,
   COUNT(DISTINCT AgentZuid) AS agent_count,
@@ -199,8 +203,11 @@ WHERE RequestedAt >= '{start_date}'
   AND RequestedAt < '{end_date}'
 GROUP BY
   CASE
-    WHEN AllocationTypeID = 3 THEN 'Remnant'
-    ELSE 'Non-Remnant'
+    WHEN AllocationTypeID = 2 THEN 'Remnant-MBP'
+    WHEN AllocationTypeID = 3 AND CohortType = 'remnant' THEN 'Flex-Remnant'
+    WHEN AllocationTypeID = 1 THEN 'MBP'
+    WHEN AllocationTypeID = 3 THEN 'Flex'
+    ELSE 'Unknown'
   END
 ORDER BY 1;
 ```
@@ -212,7 +219,8 @@ WITH team_totals AS (
   SELECT
     TeamZuid,
     COUNT(DISTINCT LeadID) AS total_leads,
-    COUNT(DISTINCT CASE WHEN AllocationTypeID = 3 THEN LeadID END) AS remnant_leads,
+    COUNT(DISTINCT CASE WHEN AllocationTypeID = 2 THEN LeadID END) AS legacy_remnant_leads,
+    COUNT(DISTINCT CASE WHEN AllocationTypeID = 3 AND CohortType = 'remnant' THEN LeadID END) AS flex_remnant_leads,
     COUNT(DISTINCT CASE WHEN IsPreferredRemnant = true THEN LeadID END) AS preferred_remnant_leads
   FROM touring.connectionpacing_bronze.candidateagentrankinghistory
   WHERE RequestedAt >= DATE_SUB(CURRENT_DATE(), 30)
@@ -221,13 +229,15 @@ WITH team_totals AS (
 SELECT
   TeamZuid,
   total_leads,
-  remnant_leads,
+  legacy_remnant_leads,
+  flex_remnant_leads,
   preferred_remnant_leads,
-  ROUND(100.0 * remnant_leads / NULLIF(total_leads, 0), 1) AS remnant_pct,
+  legacy_remnant_leads + flex_remnant_leads AS all_remnant_leads,
+  ROUND(100.0 * (legacy_remnant_leads + flex_remnant_leads) / NULLIF(total_leads, 0), 1) AS remnant_pct,
   ROUND(100.0 * preferred_remnant_leads / NULLIF(total_leads, 0), 1) AS preferred_remnant_pct
 FROM team_totals
-WHERE remnant_leads > 0
-ORDER BY remnant_leads DESC;
+WHERE legacy_remnant_leads + flex_remnant_leads > 0
+ORDER BY (legacy_remnant_leads + flex_remnant_leads) DESC;
 ```
 
 ### 4. Compare Legacy vs Preferred Remnant Volume
@@ -235,8 +245,9 @@ ORDER BY remnant_leads DESC;
 ```sql
 SELECT
   CASE
-    WHEN IsPreferredRemnant = true THEN 'Preferred Remnant'
-    WHEN AllocationTypeID = 3 AND (IsPreferredRemnant IS NULL OR IsPreferredRemnant = false) THEN 'Legacy Remnant'
+    WHEN IsPreferredRemnant = true THEN 'Preferred Remnant (Flex)'
+    WHEN AllocationTypeID = 3 AND CohortType = 'remnant' AND (IsPreferredRemnant IS NULL OR IsPreferredRemnant = false) THEN 'Flex Remnant (non-Preferred)'
+    WHEN AllocationTypeID = 2 THEN 'Legacy Remnant (MBP)'
     ELSE 'Non-Remnant'
   END AS remnant_type,
   COUNT(DISTINCT LeadID) AS lead_count,
@@ -248,8 +259,9 @@ WHERE RequestedAt >= '{start_date}'
   AND RequestedAt < '{end_date}'
 GROUP BY
   CASE
-    WHEN IsPreferredRemnant = true THEN 'Preferred Remnant'
-    WHEN AllocationTypeID = 3 AND (IsPreferredRemnant IS NULL OR IsPreferredRemnant = false) THEN 'Legacy Remnant'
+    WHEN IsPreferredRemnant = true THEN 'Preferred Remnant (Flex)'
+    WHEN AllocationTypeID = 3 AND CohortType = 'remnant' AND (IsPreferredRemnant IS NULL OR IsPreferredRemnant = false) THEN 'Flex Remnant (non-Preferred)'
+    WHEN AllocationTypeID = 2 THEN 'Legacy Remnant (MBP)'
     ELSE 'Non-Remnant'
   END
 ORDER BY 1;
@@ -258,6 +270,20 @@ ORDER BY 1;
 ---
 
 ## Routing Architecture
+
+### AllocationTypeID Reference
+
+| ID | Type | Routing Algorithm | PaceCar v3? | Description |
+|----|------|-------------------|-------------|-------------|
+| 1 | MBP | Shuffle/broadcast | No | Market-Based Pricing (standard MBP allocation) |
+| 2 | Remnant-MBP | Shuffle | No | Legacy remnant allocation with MBP pricing |
+| 3 | Flex | PaceCar v3 | Yes | Flexible allocation (includes both SOV Flex and Flex Remnant) |
+| 3 + `CohortType='remnant'` | Flex Remnant | PaceCar v3 | Yes | Flex agent routed as Preferred Remnant |
+
+**Identifying remnant type in queries:**
+- **Legacy Remnant (MBP)**: `AllocationTypeID = 2`
+- **Preferred Remnant (Flex)**: `AllocationTypeID = 3 AND CohortType = 'remnant'` — or use `IsPreferredRemnant = true` in `candidateagentrankinghistory`
+- **`is_remnant`** (boolean) in `AgentRankingFactors` JSON: indicates the team has no active SOV — extract via `AgentRankingFactors:is_remnant` or `get_json_object(AgentRankingFactors, '$.is_remnant')`
 
 ### Two-Tier System
 
@@ -346,6 +372,12 @@ Preferred Remnant connections do not count against agent targets. This has impor
 
 ### Legacy remnants still used as fallback (CN-3075)
 Even in markets with Preferred Remnants enabled, legacy remnants are retained as a final fallback. If no Preferred Remnant agents are available (e.g., no Preferred agents assigned to the ZIP), the system falls back to legacy DAPI-sourced remnant routing. This means both systems coexist.
+
+### IsSOVExempt filter for volume analysis
+When querying `leadassignment` for remnant volume investigations, **always add `AND IsSOVExempt IS FALSE`**. SOV-exempt leads aren't included in forecasting and shouldn't count toward pacing analysis. Omitting this filter inflates remnant volume counts.
+
+### AllocationTypeID = 2 exists (Remnant-MBP)
+`AllocationTypeID = 2` is Remnant-MBP — legacy remnant with MBP pricing. This is separate from Flex Remnant (`AllocationTypeID = 3 + CohortType = 'remnant'`). When analyzing remnant volume, query for BOTH: `AllocationTypeID = 2` (legacy MBP remnant) and `AllocationTypeID = 3 AND CohortType = 'remnant'` (Flex remnant). Using only `AllocationTypeID = 3` will miss legacy remnants; using only `AllocationTypeID = 2` will miss Preferred Remnants.
 
 ### The 10-agent cap was NOT increased
 The agent-level routing cap of 10 agents per lead was **not** changed for Preferred Remnants. Only the team-level cap was removed. This means a lead can still only be routed to a maximum of 10 individual agents, even when Preferred Remnant teams are included in the routing pool.
