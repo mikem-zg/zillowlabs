@@ -12,7 +12,7 @@ source: https://gitlab.zgtools.net/zillow/conductors/services/connection-pacing/
 # Connection-Pacing Routing Service
 
 > **Source:** connection-pacing repo `CLAUDE.md`
-> **Last refreshed:** 2026-03-22
+> **Last refreshed:** 2026-04-07
 > **Refresh command:** `bash .agents/skills/connection-pacing-routing/refresh.sh`
 
 This skill provides implementation-level context about the connection-pacing FastAPI service
@@ -299,10 +299,60 @@ And many others (see connection_pacing/config.py for complete configuration)
 
 ---
 
-## Throttle & Capacity Penalty Reference
+## PaceCar V3 Complete Factor Reference
 
-This section documents the exact penalty formulas used by PaceCar V3 to deprioritize agents,
-and how they map to prediction model features in `model/features.py:add_throttle_features`.
+This section documents all PaceCar V3 scoring factors, their formulas, conditional application
+rules, diagnostic thresholds, and how they map to prediction model features.
+
+> **For operational investigation of PaceCar factors** (querying agent rankings, diagnosing
+> routing issues, step-by-step investigation methodology), see the `dbx-investigate` skill —
+> especially `sql/04-ranking-factors.md` for factor queries and
+> `reference/services/connection-pacing.md` for handler/flow details.
+
+### Factor Application Rules
+
+Not all factors are applied to every ranking. Factors are conditionally included
+in `pacecar_v3_ranker.py:_get_pace_car_v3_factors_for_lead()`:
+
+| Factor | When Applied | Effect Direction |
+|--------|--------------|-----------------|
+| AssignmentCooldownPenalty | Always | < 1.0 = penalty |
+| OverCapacityPenalty | Always | < 1.0 = penalty |
+| CallCooldownPenalty | performance_score_type == AGENT_SCORE | < 1.0 = penalty |
+| SOVAdjustmentFactor | APR enabled (supports_agent_performance_routing) | < 1.0 penalty, > 1.0 boost |
+| ProgramAgentsAttemptedPenalty | RTT fallback + lead_program_id available | < 1.0 = penalty |
+| LeadChannelingAdjustmentFactor | ZIP configured + buyer intent available | < 1.0 or > 1.0 |
+| GeoPreferencesAdjustmentFactor | Team has geo preferences (team-level factor) | < 1.0 or > 1.0 |
+
+**Combined effect:** PaceCar V3 **multiplies** all applicable factors:
+`pacing_score = performance_score × capacity × cooldown × sov × ...`
+When multiple factors are below 1.0, compound impact is severe
+(e.g., 0.571 × 0.718 = 0.41x normal ranking).
+
+### Diagnostic Red Flag Thresholds
+
+Use these thresholds when analyzing `candidateagentrankinghistory` PaceCar V3 factor values:
+
+| Factor | Red Flag | Meaning |
+|--------|----------|---------|
+| avg_capacity_penalty < 0.5 | 5+ leads over capacity | Agent overloaded |
+| avg_call_cooldown < 0.5 | 4+ missed calls | Agent missing calls |
+| avg_call_cooldown < 0.9 | Minor cooldown | Occasional missed calls |
+| avg_assignment_cooldown < 0.75 | 2+ excess assignments | Recent assignment spike |
+| avg_sov_adjustment = 0.5 | Max deprioritization | Team over-paced (>110% SOV) — affects ALL team members |
+| avg_sov_adjustment between 0.5–1.0 | Partial deprioritization | Team somewhat over-paced |
+| avg_sov_adjustment > 1.0 | Boosted | Team under-paced or high performer (max 2.0) |
+| avg_performance_score < 0.3 | Low upstream score | Compare to teammates — don't explain why (black box) |
+| geo_preferences_category = TOO_FAR_AWAY | Geographic mismatch | Agent too far from lead location |
+| All factors ~1.0, still ranked low | Performance is the gap | Run head-to-head comparison against teammates |
+
+**SOV caveat:** Overpaced can be detected two ways: `avg_sov_adjustment == 0.5` (max penalty)
+OR `sov_adjustment_type = 'NONE'`. Values between 0.5–1.0 indicate partial deprioritization.
+The `sov_adjustment_type` field values are: `SOV` (normal), `HIGH_PERFORMER` (boosted), `NONE` (over-paced).
+
+**Daisy-chain note:** Agents are called in rank order. If the #1-ranked agent answers,
+no opportunity reaches agents ranked #2+. When an agent's factors are fine but a teammate
+has a higher performance score, this is expected behavior — not a system bug.
 
 ### OverCapacityPenalty (Logistic)
 
@@ -336,6 +386,48 @@ A simpler linear penalty applied per excess connection above target.
 - At 3+ excess connections, the agent is at minimum priority
 
 **Model feature:** `thr_cooldown_penalty`
+
+### CallCooldownPenalty
+
+Applied only when `performance_score_type == AGENT_SCORE`. Penalizes agents who miss calls.
+
+**Diagnostic thresholds:**
+- < 0.9 → occasional missed calls (minor cooldown)
+- < 0.5 → 4+ missed calls recently (significant penalty)
+
+**Model feature:** `thr_call_cooldown` (if available in feature pipeline)
+
+### SOVAdjustmentFactor
+
+Applied only when APR is enabled (`supports_agent_performance_routing()`).
+Adjusts ranking based on team's Share of Voice pacing status.
+
+**Value ranges:**
+- 0.5 = max deprioritization (team over-paced >110% SOV)
+- 0.5–1.0 = partial deprioritization
+- 1.0 = neutral
+- 1.0–2.0 = boost (team under-paced or high performer)
+- 2.0 = max boost
+
+**sov_adjustment_type values:** `SOV` (normal pacing), `HIGH_PERFORMER` (boosted), `NONE` (over-paced, max penalty)
+
+### GeoPreferencesAdjustmentFactor
+
+Applied at the team level when a team has geo preferences configured.
+Added via `_get_pace_car_v3_factors_for_team()` (not the lead-level method).
+
+**Categories:** `PREFERRED`, `WILLING`, `TOO_FAR_AWAY`
+- `TOO_FAR_AWAY` → geographic mismatch, significant penalty
+
+### ProgramAgentsAttemptedPenalty
+
+Applied during RTT (Real Time Tours) fallback when `lead_program_id` is available.
+Deprioritizes agents who were already attempted for this lead program.
+
+### LeadChannelingAdjustmentFactor
+
+Applied when the ZIP is configured for lead channeling and buyer intent data is available.
+Channels high-intent leads to high-performing agents.
 
 ### Team-Level Deprioritization (Pacing Distance)
 
