@@ -8,3 +8,6 @@
 
 ## 2026-04-18 (v3) | Mike Messenger
 - Corrected active_flag misinformation: clarified that active_flag = TRUE in agent_performance_summary and the agent_performance_report pitfalls section is an analytical cohort filter only — not a routing-eligibility check — and that it silently drops false + NULL rows (~21% NULL).
+
+## 2026-05-13 (v4) | Dereck Steele
+- Added prominent "Work in Progress — May Not Be Accurate" disclaimer at the top of the skill, instructing users to verify metrics against canonical sources before using in production decisions
