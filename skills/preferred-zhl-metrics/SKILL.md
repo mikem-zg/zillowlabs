@@ -28,6 +28,21 @@ description: >-
 
 # Preferred & ZHL — Metric Library
 
+> ## ⚠️ WORK IN PROGRESS — MAY NOT BE ACCURATE
+>
+> **This skill is actively being developed and the contents have not yet been
+> fully validated.** Metric definitions, formulas, thresholds, table mappings,
+> and business rules in this document may be incomplete, out of date, or
+> incorrect.
+>
+> **Do not treat this as the source of truth for production decisions.** Always
+> verify any metric, threshold, or calculation against the canonical source
+> (`metrics.yaml`, `tables.yaml`, the Databricks tables themselves, or the
+> owning team) before using it in a report, dashboard, or business decision.
+>
+> If you find an error, please flag it so it can be corrected in the next
+> version.
+
 ## Purpose
 
 This skill ensures **consistent, accurate answers** about every metric in
@@ -489,14 +504,6 @@ in `pa_connection`.
 splits into TK (v2 tiers/ranks) and Core (v1 tiers/ranks) tracks, computes
 insights, unions both, filters to `active_flag = TRUE`.
 
-> **Note on `active_flag = TRUE`:** This is an **analytical cohort filter**,
-> not a routing-eligibility check. It scopes the report to agents the formula
-> labels recently active and silently drops both `active_flag = false` AND
-> `active_flag IS NULL` rows (~21% of `agent_performance_ranking` rows are
-> NULL). Agents with `active_flag = false` or NULL still receive connections —
-> see `databricks-query-agent-performance-ranking` for the canonical definition
-> and the actual mechanical gate (`current_target > 0`).
-
 ### Catalogs and Schemas
 
 | Catalog | Schema | Contains |
@@ -570,7 +577,7 @@ Only: "Met with customer", "Submitting offers", "Under contract",
 3. L3M columns are pre-rolled — don't sum 3 months of rows manually.
 4. Month grain vs transaction grain — don't mix without aggregation.
 5. Flex column names — use actual `flex_*` names in SQL.
-6. Active filter — `agent_performance_report` queries commonly apply `active_flag = TRUE`. Treat this as an **analytical cohort filter only**: it drops both `false` AND NULL rows (~21% NULL) and does NOT reflect routing eligibility. Agents with `active_flag = false` or NULL still receive connections; see `databricks-query-agent-performance-ranking` for the canonical definition.
+6. Active filter — `agent_performance_report` needs `active_flag = TRUE`.
 
 ---
 
